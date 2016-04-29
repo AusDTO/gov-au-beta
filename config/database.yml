@@ -1,0 +1,34 @@
+# Initially copied from spikes repo
+
+common: &common
+  host:     <%= ENV['DB_HOST'] || '127.0.0.1' %>
+  username: <%= ENV['DB_USER_NAME'] %>
+  password: <%= ENV['DB_PWD'] || '' %>
+  template: template1
+  adapter:  postgresql
+  encoding: unicode
+  pool:     <%= ENV['DB_CONCURRENCY'] || 10 %>
+  timeout:  5000
+
+development:
+  <<: *common
+  database: <%= ENV['DB_NAME'] || 'govau_beta_development' %>
+
+# https://circleci.com/docs/environment#databases
+# Both postgresql and mysql are set up to use the ubuntu user, have a database called circle_test available, and don't require any password.
+test:
+  <<: *common
+  database: <%= ENV['DB_NAME_TEST'] || 'govau_beta' %><%= ENV['TEST_ENV_NUMBER'] %>
+  pool: 5
+
+staging:
+  <<: *common
+  database: <%= ENV['DB_NAME'] || 'govau_beta' %>
+
+production:
+  database: <%= ENV['DB_NAME'] || 'govau_beta' %>
+  url: <%= ENV['DATABASE_URL'] %>
+  adapter:  postgresql
+  encoding: unicode
+  pool:     <%= ENV['DB_CONCURRENCY'] || 10 %>
+  timeout:  5000
