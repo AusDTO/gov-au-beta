@@ -26,6 +26,8 @@ gem 'devise'
 gem 'cf-app-utils' # cloudfoundry utils 
 gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rails-4
 gem 'rails_12factor'
+gem 'refile', require: ['refile/rails', 'refile/image_processing']
+gem 'mini_magick'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -34,7 +36,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :test do 
+group :test, :development do 
   gem 'rspec-rails', '>= 3.5.0.beta3'
   gem 'spinach', '~> 0.8.10'
+  gem 'factory_girl', '~> 4.7.0'
+end
+
+group :test do 
+  gem 'shoulda-matchers', '~> 3.1'
 end
