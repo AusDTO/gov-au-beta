@@ -23,6 +23,9 @@ gem 'reform'
 gem 'reform-rails'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
+gem 'cf-app-utils' # cloudfoundry utils 
+gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rails-4
+gem 'rails_12factor'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -35,5 +38,3 @@ group :test do
   gem 'rspec-rails', '>= 3.5.0.beta3'
   gem 'spinach', '~> 0.8.10'
 end
-
-  

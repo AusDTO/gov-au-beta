@@ -1,0 +1,10 @@
+---
+applications:
+- name: gov-au-beta
+  buildpack: ruby_buildpack
+  memory: 256M
+  instances: 1
+  path: .
+  command: bundle exec rake cf:on_first_instance db:migrate && exec bundle exec rails s -p $PORT -e $RAILS_ENV
+  services:
+    - gov-au-beta-db
