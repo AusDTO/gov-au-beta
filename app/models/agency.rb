@@ -1,0 +1,2 @@
+class Agency < Section 
+end
