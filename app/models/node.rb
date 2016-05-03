@@ -1,12 +1,27 @@
 class Node < ApplicationRecord
-  include Sluggable
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
   belongs_to :template
-  belongs_to :parent_node, class_name: 'Node'
-  has_many :child_nodes, class_name: 'Node', foreign_key: 'parent_node_id'
   has_one :content_block
 
-  delegate :name, to: :content_block
+  before_save :ensure_order_num_present
+
+  validates_uniqueness_of :order_num, scope: :parent_id
+
+  private 
+
+  def ensure_order_num_present
+    unless order_num.present?
+      if parent.present? && parent.children.any?
+        self.order_num = parent.children.maximum(:order_num) + 1
+      else
+        self.order_num = 0
+      end
+    end
+  end
 
 end
