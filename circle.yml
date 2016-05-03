@@ -9,12 +9,12 @@ dependencies:
     - sudo dpkg -i cf-cli_amd64.deb
     - cf -v
 
-test:
-  post:
-
-
 deployment:
   staging:
     branch: develop
     commands:
+        - cf api https://api.system.staging.digital.gov.au --skip-ssl-validation
+      - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
+      - cf target -o dto -s dtomisc
+      - cf apps
       - cf push gov-au-beta
