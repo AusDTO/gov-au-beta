@@ -1,7 +1,7 @@
 ---
 applications:
 - name: gov-au-beta
-  buildpack: ruby_buildpack
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git
   memory: 256M
   instances: 1
   path: .
