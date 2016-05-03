@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
-  include Sluggable
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   has_many :nodes
 

@@ -28,6 +28,8 @@ gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/r
 gem 'rails_12factor'
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'mini_magick'
+gem 'friendly_id', '~> 5.1.0'
+gem 'acts_as_tree', '~> 2.4.0'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -39,7 +41,8 @@ end
 group :test, :development do 
   gem 'rspec-rails', '>= 3.5.0.beta3'
   gem 'spinach', '~> 0.8.10'
-  gem 'factory_girl', '~> 4.7.0'
+  gem 'fabrication', '~> 2.15.0'
+  gem 'faker', '~> 1.6.3'
 end
 
 group :test do 
