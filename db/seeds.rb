@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Topic.delete_all
+topic = Topic.create(name: "Business")
+Template.delete_all
+template = Template.create(name: "Main Template")
+
+Node.delete_all
+node1 = Node.create(name: "Starting a Business", section: topic, template: template)
+node2 = node1.children.create(name: "Finding Staff", section: topic, template: template)
+ContentBlock.delete_all
+content_block = ContentBlock.create(body: "Lorem ipsum", node: node2)
