@@ -32,6 +32,7 @@ gem 'mini_magick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'acts_as_tree', '~> 2.4.0'
 gem 'haml', '~> 4.0.7'
+gem 'httparty',  '~> 0.13.0'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -45,7 +46,8 @@ group :test, :development do
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
   gem 'faker', '~> 1.6.3'
-  gem 'simplecov'
+  gem 'webmock', '~> 2.0.1'
+  gem 'simplecov', '~> 0.11.2'
 end
 
 group :test do 

@@ -30,6 +30,8 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 bundle install
 # setup db with seed data
 rails db:setup
+# set environment variables
+export AUTHORING_BASE_URL=http://localhost:8083
 ```
 
 ## Setting Up/Deploying to cloudfoundry
@@ -42,34 +44,7 @@ cf create-service aws-rds-postgres 5.6-t2.micro-5G gov-au-beta-db
 cf service gov-au-beta-db # do until status is 'available' - 10 minutes or so
 cf push -i 1 -u none -c "bundle exec rake db:schema:load db:seed" 
 cf set-env gov-au-beta SECRET_KEY_BASE `rails secret`
+cf set-env gov-au-beta AUTHORING_BASE_URL http://localhost:8083
 ```
-## TODO
-
-Write a better readme
-
-### Rails suggests:
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 
 

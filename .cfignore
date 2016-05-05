@@ -1,2 +1,3 @@
 #don't send gems to cloudfoundry, buildpack will get it's own
 vendor/bundle
+.bundle
