@@ -8,11 +8,12 @@
 
 Topic.delete_all
 topic = Topic.create(name: "Business")
-Template.delete_all
-template = Template.create(name: "Main Template")
+# Template.delete_all
+# template = Template.create(name: "Main Template")
 
 Node.delete_all
-node1 = Node.create(name: "Starting a Business", section: topic, template: template)
-node2 = node1.children.create(name: "Finding Staff", section: topic, template: template)
+node1 = Node.create(name: "Starting a Business", section: topic, template: "default")
+node2 = node1.children.create(name: "Finding Staff", section: topic, template: "default")
+
 ContentBlock.delete_all
 content_block = ContentBlock.create(body: "Lorem ipsum", node: node2)
