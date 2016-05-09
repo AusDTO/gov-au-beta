@@ -5,7 +5,6 @@ class Node < ApplicationRecord
   acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
-  belongs_to :template
   has_one :content_block
 
   before_save :ensure_order_num_present

@@ -31,6 +31,7 @@ gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'mini_magick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'acts_as_tree', '~> 2.4.0'
+gem 'haml', '~> 4.0.7'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -44,6 +45,7 @@ group :test, :development do
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
   gem 'faker', '~> 1.6.3'
+  gem 'simplecov'
 end
 
 group :test do 

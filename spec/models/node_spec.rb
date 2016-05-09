@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Node, type: :model do
 
   it { should belong_to :section }
-  it { should belong_to :template }
   it { should belong_to :parent }
   it { should have_many :children }
   it { should have_one :content_block }

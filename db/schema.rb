@@ -38,16 +38,15 @@ ActiveRecord::Schema.define(version: 20160503011905) do
 
   create_table "nodes", force: :cascade do |t|
     t.integer  "section_id"
-    t.integer  "template_id"
     t.integer  "parent_id"
+    t.string   "template"
     t.string   "name"
     t.string   "slug"
     t.integer  "order_num"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
-    t.index ["template_id"], name: "index_nodes_on_template_id", using: :btree
   end
 
   create_table "sections", force: :cascade do |t|
