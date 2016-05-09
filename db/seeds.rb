@@ -6,14 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Topic.delete_all
+Topic.where(name: "Business").delete_all
 topic = Topic.create(name: "Business")
-# Template.delete_all
-# template = Template.create(name: "Main Template")
 
-Node.delete_all
+Node.where(name: "Starting a Business").delete_all
 node1 = Node.create(name: "Starting a Business", section: topic, template: "default")
+ContentBlock.where(body: "Lorem ipsum").delete_all
+Node.where(name: "Finding Staff").delete_all
 node2 = node1.children.create(name: "Finding Staff", section: topic, template: "default")
-
-ContentBlock.delete_all
-content_block = ContentBlock.create(body: "Lorem ipsum", node: node2)
+node2.content_block = ContentBlock.new(body: "Lorem ipsum")
