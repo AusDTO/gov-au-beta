@@ -1,5 +1,4 @@
 class NodesController < ApplicationController
-  include NodeHelper
 
   def show
     @section = Section.find_by(slug: params[:section])
