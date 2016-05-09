@@ -69,5 +69,12 @@ RSpec.describe NodesController, :type => :controller do
         expect(response.status).to eq(404)
       end
     end
+
+    context "given an existing page beneath a non-existing section" do
+      it "should return a 404" do
+        get :show, {:section => "bad-section", path: "zero"}
+        expect(response.status).to eq(404)
+      end
+    end
   end
 end
