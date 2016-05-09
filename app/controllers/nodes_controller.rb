@@ -5,7 +5,7 @@ class NodesController < ApplicationController
     @node = nil
     if params[:path] and @section
       params[:path].split('/').each_with_index do |node, idx|
-        if @node == nil and idx == 0
+        if @node == nil && idx == 0
           @node = @section.nodes.find_by(slug: node)
         else
           s_node = @node.children.find_by(slug: node)
