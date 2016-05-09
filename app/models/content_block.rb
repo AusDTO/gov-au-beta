@@ -1,3 +1,3 @@
 class ContentBlock < ApplicationRecord
-  belongs_to :node
+  belongs_to :node, :dependent => :destroy
 end
