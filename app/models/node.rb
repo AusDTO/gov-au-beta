@@ -11,6 +11,22 @@ class Node < ApplicationRecord
 
   validates_uniqueness_of :order_num, scope: :parent_id
 
+  def ancestry
+    arr = [self]
+
+    while ancestor = arr.last.parent
+      arr << ancestor
+    end
+
+    arr
+  end
+
+  def path
+    ancestry.reverse.collect {|node| 
+      node.slug
+    }.join '/'
+  end
+
   private 
 
   def ensure_order_num_present

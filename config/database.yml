@@ -18,12 +18,12 @@ development:
 # Both postgresql and mysql are set up to use the ubuntu user, have a database called circle_test available, and don't require any password.
 test:
   <<: *common
-  database: <%= ENV['DB_NAME_TEST'] || 'govau_beta' %><%= ENV['TEST_ENV_NUMBER'] %>
+  database: <%= ENV['DB_NAME_TEST'] || 'govau_beta_test' %><%= ENV['TEST_ENV_NUMBER'] %>
   pool: 5
 
 staging:
   <<: *common
-  database: <%= ENV['DB_NAME'] || 'govau_beta' %>
+  database: <%= ENV['DB_NAME'] || 'govau_beta_staging' %>
 
 production:
   database: <%= ENV['DB_NAME'] || 'govau_beta' %>

@@ -1,3 +1,3 @@
 Fabricator(:section) do
-  # Nothing to do
+  name { Fabricate.sequence(:section_name) { |i| "section-#{i}" } }
 end

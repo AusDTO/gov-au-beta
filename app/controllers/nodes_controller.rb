@@ -3,6 +3,7 @@ class NodesController < ApplicationController
   def show
     @section = Section.find_by(slug: params[:section])
     @node = nil
+
     if params[:path] and @section
       params[:path].split('/').each_with_index do |node, idx|
         if @node == nil && idx == 0
@@ -18,10 +19,17 @@ class NodesController < ApplicationController
         end
       end
     end
+
     if @node
-      render "templates/#{@node.template}"
+      layout = @section.layout.presence
+
+      if layout 
+        render "templates/#{@node.template}", layout: layout
+      else
+        render "templates/#{@node.template}"
+      end
     else
-      render file: "#{Rails.root}/public/404.html", status: 404
+      raise ActiveRecord::RecordNotFound.new "Invalid path: #{params[:path]}"
     end
   end
 
