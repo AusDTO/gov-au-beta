@@ -1,4 +1,6 @@
-- default:
-    name: "Default template"
-- media:
-    name: "Media release"
+default:
+  name: "Default template"
+  image: "/assets/default.png"
+media:
+  name: "Media release"
+  image: "/assets/media.png"

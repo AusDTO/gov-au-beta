@@ -1,0 +1,11 @@
+%h1
+  Media Template
+
+%h2
+  =@node.name
+
+- if @node.content_block
+  =@node.content_block.body
+
+%p
+  =@hierarchy
