@@ -28,7 +28,39 @@ RSpec.describe Node, type: :model do
       [one, two, three, new_one]
       new_one.order_num.should eq 4
     end
-
   end
 
+  describe 'ancestry' do
+
+    let(:alpha) { Fabricate(:node, name: 'alpha') }
+    let(:beta) { Fabricate(:node, name: 'beta', parent: alpha) }
+    let(:gamma) { Fabricate(:node, name: 'gamma', parent: beta) }
+
+    it 'should know its ancestry' do
+      expect(gamma.ancestry).to eq [gamma, beta, alpha]
+    end
+
+    describe 'path' do
+
+      subject { node.path }
+
+      context 'for top level node' do
+        let(:node) { alpha }
+
+        it { should eq 'alpha' }
+      end
+
+      context 'for second level node' do 
+        let(:node) { beta }
+
+        it { should eq 'alpha/beta' }
+      end
+
+      context 'for third level node' do
+        let(:node) { gamma }
+
+        it { should eq 'alpha/beta/gamma' }
+      end
+    end
+  end
 end
