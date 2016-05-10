@@ -1,1 +1,396 @@
-{"vid":"1","uid":"1","title":"My page","log":"","status":"1","comment":"2","promote":"1","sticky":"0","vuuid":"ca1cdab3-93cd-43e2-b704-374365065a82","nid":"1","type":"gov_au_page","language":"und","created":"1462428071","changed":"1462428266","tnid":"0","translate":"0","uuid":"9a1f4ffe-3f8b-4e0e-b6e0-1c58ffa6efb4","revision_timestamp":"1462428266","revision_uid":"1","body":{"und":[{"value":"\u003Cp\u003Epage\u003C\/p\u003E","summary":"","format":"rich_text","safe_value":"\u003Cp\u003Epage\u003C\/p\u003E\n","safe_summary":""}]},"field_section":{"und":[{"value":"0","format":null,"safe_value":"0"}]},"metatags":{"und":{"AGLSTERMS.act":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.aggregationLevel":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.availability":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.case":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.category":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.dateLicenced":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.documentType":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.function":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.isBasisFor":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.isBasedOn":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.jurisdiction":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.mandate":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.protectiveMarking":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.regulation":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"AGLSTERMS.serviceType":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"robots":{"value":{"index":0,"follow":0,"noindex":0,"nofollow":0,"noarchive":0,"nosnippet":0,"noodp":0,"noydir":0,"noimageindex":0,"notranslate":0}},"dcterms.title":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.creator":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.subject":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.description":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.publisher":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.contributor":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"dcterms.date":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.modified":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.type":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.format":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.identifier":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"dcterms.source":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"dcterms.language":{"item":{"scheme":"","lang":"","dir":"0"}},"dcterms.relation":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"dcterms.coverage":{"item":{"value":"","scheme":"","lang":"","dir":"0"}},"dcterms.rights":{"item":{"value":"","scheme":"","lang":"","dir":"0"}}}},"path":{"pid":"9","source":"node\/1","alias":"my-page","language":"und"},"rdf_mapping":{"rdftype":["sioc:Item","foaf:Document"],"title":{"predicates":["dc:title"]},"created":{"predicates":["dc:date","dc:created"],"datatype":"xsd:dateTime","callback":"date_iso8601"},"changed":{"predicates":["dc:modified"],"datatype":"xsd:dateTime","callback":"date_iso8601"},"body":{"predicates":["content:encoded"]},"uid":{"predicates":["sioc:has_creator"],"type":"rel"},"name":{"predicates":["foaf:name"]},"comment_count":{"predicates":["sioc:num_replies"],"datatype":"xsd:integer"},"last_activity":{"predicates":["sioc:last_activity_date"],"datatype":"xsd:dateTime","callback":"date_iso8601"}},"cid":"0","last_comment_timestamp":"1462428071","last_comment_name":null,"last_comment_uid":"1","comment_count":"0","machine_name":false,"name":"admin","picture":"0","data":"a:1:{s:7:\u0022contact\u0022;i:1;}","menu":{"link_title":"About Us","mlid":0,"plid":"0","menu_name":"main-menu","weight":"-49","options":[],"module":"menu","expanded":"0","hidden":"0","has_children":"1","customized":0,"parent_depth_limit":8,"description":"","enabled":1},"node_export_drupal_version":"7","workbench_moderation_state_current":"draft","workbench_moderation_state_new":"draft","#node_export_object":"1"}
+{
+  "vid": "1",
+  "uid": "1",
+  "title": "My page",
+  "log": "",
+  "status": "1",
+  "comment": "2",
+  "promote": "1",
+  "sticky": "0",
+  "vuuid": "ca1cdab3-93cd-43e2-b704-374365065a82",
+  "nid": "1",
+  "type": "gov_au_page",
+  "language": "und",
+  "created": "1462428071",
+  "changed": "1462428266",
+  "tnid": "0",
+  "translate": "0",
+  "uuid": "9a1f4ffe-3f8b-4e0e-b6e0-1c58ffa6efb4",
+  "revision_timestamp": "1462428266",
+  "revision_uid": "1",
+  "body": {
+    "und": [
+      {
+        "value": "\u003Cp\u003Epage\u003C\/p\u003E",
+        "summary": "",
+        "format": "rich_text",
+        "safe_value": "\u003Cp\u003Epage\u003C\/p\u003E\n",
+        "safe_summary": ""
+      }
+    ]
+  },
+  "field_section": {
+    "und": [
+      {
+        "value": "0",
+        "format": null,
+        "safe_value": "0"
+      }
+    ]
+  },
+  "field_template": {
+    "und": [
+      {
+        "value": "default",
+        "format": null,
+        "safe_value": "0"
+      }
+    ]
+  },
+  "metatags": {
+    "und": {
+      "AGLSTERMS.act": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.aggregationLevel": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.availability": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.case": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.category": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.dateLicenced": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.documentType": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.function": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.isBasisFor": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.isBasedOn": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.jurisdiction": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.mandate": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.protectiveMarking": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.regulation": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "AGLSTERMS.serviceType": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "robots": {
+        "value": {
+          "index": 0,
+          "follow": 0,
+          "noindex": 0,
+          "nofollow": 0,
+          "noarchive": 0,
+          "nosnippet": 0,
+          "noodp": 0,
+          "noydir": 0,
+          "noimageindex": 0,
+          "notranslate": 0
+        }
+      },
+      "dcterms.title": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.creator": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.subject": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.description": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.publisher": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.contributor": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.date": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.modified": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.type": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.format": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.identifier": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.source": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.language": {
+        "item": {
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.relation": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.coverage": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      },
+      "dcterms.rights": {
+        "item": {
+          "value": "",
+          "scheme": "",
+          "lang": "",
+          "dir": "0"
+        }
+      }
+    }
+  },
+  "path": {
+    "pid": "9",
+    "source": "node\/1",
+    "alias": "my-page",
+    "language": "und"
+  },
+  "rdf_mapping": {
+    "rdftype": [
+      "sioc:Item",
+      "foaf:Document"
+    ],
+    "title": {
+      "predicates": [
+        "dc:title"
+      ]
+    },
+    "created": {
+      "predicates": [
+        "dc:date",
+        "dc:created"
+      ],
+      "datatype": "xsd:dateTime",
+      "callback": "date_iso8601"
+    },
+    "changed": {
+      "predicates": [
+        "dc:modified"
+      ],
+      "datatype": "xsd:dateTime",
+      "callback": "date_iso8601"
+    },
+    "body": {
+      "predicates": [
+        "content:encoded"
+      ]
+    },
+    "uid": {
+      "predicates": [
+        "sioc:has_creator"
+      ],
+      "type": "rel"
+    },
+    "name": {
+      "predicates": [
+        "foaf:name"
+      ]
+    },
+    "comment_count": {
+      "predicates": [
+        "sioc:num_replies"
+      ],
+      "datatype": "xsd:integer"
+    },
+    "last_activity": {
+      "predicates": [
+        "sioc:last_activity_date"
+      ],
+      "datatype": "xsd:dateTime",
+      "callback": "date_iso8601"
+    }
+  },
+  "cid": "0",
+  "last_comment_timestamp": "1462428071",
+  "last_comment_name": null,
+  "last_comment_uid": "1",
+  "comment_count": "0",
+  "machine_name": false,
+  "name": "admin",
+  "picture": "0",
+  "data": "a:1:{s:7:\u0022contact\u0022;i:1;}",
+  "menu": {
+    "link_title": "About Us",
+    "mlid": 0,
+    "plid": "0",
+    "menu_name": "main-menu",
+    "weight": "-49",
+    "options": [],
+    "module": "menu",
+    "expanded": "0",
+    "hidden": "0",
+    "has_children": "1",
+    "customized": 0,
+    "parent_depth_limit": 8,
+    "description": "",
+    "enabled": 1
+  },
+  "node_export_drupal_version": "7",
+  "workbench_moderation_state_current": "draft",
+  "workbench_moderation_state_new": "draft",
+  "#node_export_object": "1"
+}
