@@ -23,7 +23,11 @@ if ENV['CIRCLE_ARTIFACTS']
   dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
   SimpleCov.coverage_dir(dir)
 end
-SimpleCov.start 'rails'
+
+SimpleCov.start :rails do
+    add_filter do |source_file|
+    source_file.lines.count < 5
+end
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
