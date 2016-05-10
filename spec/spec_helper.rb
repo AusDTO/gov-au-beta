@@ -25,8 +25,9 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 
 SimpleCov.start :rails do
-    add_filter do |source_file|
+  add_filter do |source_file|
     source_file.lines.count < 3
+  end
 end
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
