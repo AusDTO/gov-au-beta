@@ -6,10 +6,6 @@ RSpec.describe Node, type: :model do
   it { should belong_to :parent }
   it { should have_many :children }
   it { should have_one :content_block }
-  describe "ordering" do
-    subject { Fabricate(:node, uuid: "root") }
-    it { should validate_uniqueness_of(:order_num).scoped_to(:parent_id) }
-  end
 
   describe 'Sibling order' do
 
