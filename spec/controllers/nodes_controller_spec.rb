@@ -24,14 +24,14 @@ RSpec.describe NodesController, :type => :controller do
       context "given a non-existing section" do
         it "should throw a not found" do
           expect {
-            get :show, {:section => "no-section"}
+            get :show, params: {:section => "no-section"}
           }.to raise_error ActiveRecord::RecordNotFound
         end
 
         context "given some path beneath a non-existing section" do
           it "should throw a not found" do
             expect {
-              get :show, {:section => "no-section", path: "some-path"}
+              get :show, params: {:section => "no-section", path: "some-path"}
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
@@ -39,7 +39,7 @@ RSpec.describe NodesController, :type => :controller do
 
       context "given an existing node with a valid section" do
         it "should return the page successfully" do
-          get :show, {:section => "root", path: "one"}
+          get :show, params: {:section => "root", path: "one"}
           expect(response.status).to eq(200)
         end
       end
@@ -47,21 +47,21 @@ RSpec.describe NodesController, :type => :controller do
       context "given a non-existing node beneath a valid section" do
         it "should throw a not found" do
           expect {
-            get :show, {:section => "root", path: "not-existing"}
+            get :show, params: {:section => "root", path: "not-existing"}
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
       context "given a page with a valid parent" do
         it "should return the page successfully" do
-          get :show, {:section => "root", path: "zero/three"}
+          get :show, params: {:section => "root", path: "zero/three"}
           expect(response.status).to eq(200)
         end
       end
 
       context "given a page nested beneath another page" do
         it "should return the page successfully" do
-          get :show, {:section => "root", path: "zero/four/six"}
+          get :show, params: {:section => "root", path: "zero/four/six"}
           expect(response.status).to eq(200)
         end
       end
@@ -69,7 +69,7 @@ RSpec.describe NodesController, :type => :controller do
       context "given a non-existing page in a valid route" do
         it "should throw a not found" do
           expect {
-            get :show, {:section => "root", path: "zero/four/six/eight"}
+            get :show, params: {:section => "root", path: "zero/four/six/eight"}
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe NodesController, :type => :controller do
       context "given an existing page beneath a non-existing section" do
         it "should throw a not found" do
           expect {
-            get :show, {:section => "bad-section", path: "zero"}
+            get :show, params: {:section => "bad-section", path: "zero"}
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -85,7 +85,7 @@ RSpec.describe NodesController, :type => :controller do
 
     describe 'layout' do 
       let(:node) { Fabricate(:node, section: section) }
-      subject { get :show, section: section.slug, path: node.path }
+      subject { get :show, params: {section: section.slug, path: node.path} }
 
       context 'with a custom layout' do 
         let(:section) { Fabricate(:section, layout: 'communications')}
@@ -102,6 +102,24 @@ RSpec.describe NodesController, :type => :controller do
           expect(subject).not_to render_template 'layouts/communications'
         end
       end
+    end
+
+    describe 'content block compiling' do
+
+      let(:root) { Fabricate(:section, name: "root")}
+      let!(:node) { Fabricate(:node, name: "nodeA", uuid:"uuid_nodeA", section: root) }
+
+      context 'with a uuid link' do
+        let(:linking_content) { Fabricate(:content_block, unique_id: "uuid_cb", body: '<a href="/invalid" data-uuid="uuid_nodeA">My link</a>')}
+        let!(:linking_node) { Fabricate(:node, name: "nodeB", uuid:"uuid_nodeB", section: root, content_block: linking_content) }
+
+        it 'should render the link' do
+          get :show, params: {:section => "root", path: "nodeb"}
+          expect(response.status).to eq(200)
+        end
+      end
+
+
     end
   end
 end

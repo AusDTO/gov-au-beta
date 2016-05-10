@@ -21,9 +21,12 @@ class NodesController < ApplicationController
     end
 
     if @node
+      if @node.content_block
+        @node.content_block.body = process_html(@node.content_block.body)
+      end
       layout = @section.layout.presence
 
-      if layout 
+      if layout
         render "templates/#{@node.template}", layout: layout
       else
         render "templates/#{@node.template}"
@@ -33,4 +36,16 @@ class NodesController < ApplicationController
     end
   end
 
+  def process_html(html)
+    html_doc = Nokogiri::HTML(html)
+    html_doc.xpath("//a").each do |a|
+      if a['data-uuid']
+        if Node.find_by(uuid: a['data-uuid'])
+          a['href'] =  nodes_path(Node.find_by(uuid: a['data-uuid']))
+        end
+      end
+
+    end
+    html_doc.to_html
+  end
 end

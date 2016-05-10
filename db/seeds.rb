@@ -10,8 +10,8 @@ Topic.where(name: "Business").delete_all
 topic = Topic.create(name: "Business")
 
 Node.where(name: "Starting a Business").delete_all
-node1 = Node.create(name: "Starting a Business", section: topic, template: "default")
+node1 = Node.create(name: "Starting a Business", section: topic, template: "default", uuid:"sab")
 ContentBlock.where(body: "Lorem ipsum").delete_all
 Node.where(name: "Finding Staff").delete_all
-node2 = node1.children.create(name: "Finding Staff", section: topic, template: "default")
-node2.content_block = ContentBlock.new(body: "Lorem ipsum")
+node2 = node1.children.create(name: "Finding Staff", section: topic, template: "default", uuid:"fs")
+node2.content_block = ContentBlock.new(body: "Lorem ipsum", unique_id:"fs_field_body")
