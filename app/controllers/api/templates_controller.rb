@@ -1,6 +1,9 @@
+include TemplateHelper
+
 class Api::TemplatesController < ApplicationController
+
   def index
-    templates = YAML.load_file("#{Rails.root}/app/views/templates/conf.yaml")
+    templates = TemplateHelper.list
     render :json => templates
   end
 end
