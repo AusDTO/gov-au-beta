@@ -40,8 +40,9 @@ class NodesController < ApplicationController
     html_doc = Nokogiri::HTML(html)
     html_doc.xpath("//a").each do |a|
       if a['data-uuid']
-        if Node.find_by(uuid: a['data-uuid'])
-          a['href'] =  nodes_path(Node.find_by(uuid: a['data-uuid']))
+        node = Node.find_by(uuid: a['data-uuid'])
+        if node
+          a['href'] = sections_path(node.section) + nodes_path(node)
         end
       end
 
