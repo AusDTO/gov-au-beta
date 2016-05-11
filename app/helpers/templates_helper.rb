@@ -1,4 +1,4 @@
-module TemplateHelper
+module TemplatesHelper
 
   def list
     YAML.load_file("#{Rails.root}/app/views/templates/conf.yaml")

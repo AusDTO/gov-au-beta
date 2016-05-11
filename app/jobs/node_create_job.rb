@@ -1,5 +1,5 @@
 require 'httparty'
-include TemplateHelper
+include TemplatesHelper
 
 class NodeCreateJob < ApplicationJob
   queue_as :default
@@ -12,7 +12,7 @@ class NodeCreateJob < ApplicationJob
       node.name = response["title"]
       node.uuid = response["uuid"]
       template = response["field_template"]["und"][0]["value"]
-      if TemplateHelper.exists?(template)
+      if TemplatesHelper.exists?(template)
         node.template = template
       else
         node.template = 'default'

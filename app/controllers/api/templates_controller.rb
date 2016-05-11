@@ -1,9 +1,7 @@
-include TemplateHelper
-
 class Api::TemplatesController < ApplicationController
 
   def index
-    templates = TemplateHelper.list
+    templates = TemplatesHelper.list
     render :json => templates
   end
 end
