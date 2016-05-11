@@ -39,3 +39,4 @@ bower.json
 
 # IntelliJ IDEA files
 .idea
+**.iml
