@@ -15,3 +15,4 @@ ContentBlock.where(body: "Lorem ipsum").delete_all
 Node.where(name: "Finding Staff").delete_all
 node2 = node1.children.create(name: "Finding Staff", section: topic, template: "default", uuid:"fs")
 node2.content_block = ContentBlock.new(body: "Lorem ipsum", unique_id:"fs_field_body")
+node3 = node2.children.create(name: "Types of Employment", section: topic, template: "default", uuid:"employment")

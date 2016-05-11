@@ -21,6 +21,10 @@ class Node < ApplicationRecord
     arr
   end
 
+  def to_s
+    self.name
+  end
+
   def path
     ancestry.reverse.collect {|node| 
       node.slug

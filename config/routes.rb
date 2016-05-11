@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     resources :nodes, only: :create
   end
 
-  #resources :nodes
+  get '/:section' => 'sections#show', as: :sections
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 end
