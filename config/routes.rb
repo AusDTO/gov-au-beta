@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   end
 
   #resources :nodes
-  get '/:section(/*path)' => 'nodes#show'
+  get '/:section(/*path)' => 'nodes#show', as: :nodes
 end
