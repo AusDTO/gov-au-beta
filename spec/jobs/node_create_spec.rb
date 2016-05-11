@@ -9,7 +9,8 @@ describe 'Node Creation' do
       expect(Node.find_by(name: "My page")).to be_present
     end
     it 'should update a node in this system' do
-      Node.create(:name => "My page", :content_block => ContentBlock.new(:body => "old body"))
+      Node.create(:name => "My page", :uuid => "9a1f4ffe-3f8b-4e0e-b6e0-1c58ffa6efb4",
+                  :content_block => ContentBlock.new(:body => "old body", :unique_id => "9a1f4ffe-3f8b-4e0e-b6e0-1c58ffa6efb4_body"))
       stub_request(:get, "www.example.com/api/node/1")
           .to_return(:headers =>{"Content-Type" => "application/json"},
                      :body => File.read(File.join("spec", "fixtures", "drupal_node.json")))

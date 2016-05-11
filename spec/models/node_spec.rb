@@ -6,14 +6,17 @@ RSpec.describe Node, type: :model do
   it { should belong_to :parent }
   it { should have_many :children }
   it { should have_one :content_block }
-  it { should validate_uniqueness_of(:order_num).scoped_to(:parent_id) }
+  describe "ordering" do
+    subject { Fabricate(:node, uuid: "root") }
+    it { should validate_uniqueness_of(:order_num).scoped_to(:parent_id) }
+  end
 
   describe 'Sibling order' do
 
-    let(:root) { Fabricate(:node) }
+    let(:root) { Fabricate(:node, uuid: "root") }
 
     %w(zero one two three four five).each_with_index do |num, idx|
-      let(num.to_sym) { Fabricate(:node, parent: root, order_num: idx) }
+      let(num.to_sym) { Fabricate(:node, uuid: "uuid_#{num}", parent: root, order_num: idx) }
     end
 
     it 'should find the siblings in the right order' do
@@ -22,7 +25,7 @@ RSpec.describe Node, type: :model do
       root.children.should eq [zero, one, two, three, four, five]
     end
 
-    let(:new_one) { Fabricate(:node, parent: root ) } # No explicit order num
+    let(:new_one) { Fabricate(:node, uuid: "uuid_new_one", parent: root ) } # No explicit order num
 
     it 'should automatically set an order number if necessary' do
       [one, two, three, new_one]
