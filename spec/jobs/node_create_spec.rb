@@ -1,5 +1,6 @@
 require 'rails_helper'
 describe 'Node Creation' do
+  let!(:root) { Fabricate(:section, name: 'root', id: 1)}
   context 'when given a valid node id' do
     it 'should create a node in this system' do
       stub_request(:get, "www.example.com/api/node/1/1")

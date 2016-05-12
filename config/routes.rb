@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :nodes, only: :create
     resources :templates, only: :index
+    resources :sections, only: :index
   end
 
   get '/:section' => 'sections#show', as: :sections
