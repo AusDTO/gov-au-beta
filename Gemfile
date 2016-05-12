@@ -10,7 +10,7 @@ end
 
 # Core gems
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
-gem 'pg'
+gem 'pg', '>= 0.19.0.beta'
 gem 'puma', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
@@ -33,6 +33,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'acts_as_tree', '~> 2.4.0'
 gem 'haml', '~> 4.0.7'
 gem 'httparty',  '~> 0.13.0'
+gem 'nokogiri', '1.6.8.rc3'
 
 group :development do 
   gem 'web-console', '~> 3.0'
@@ -55,4 +56,9 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 0.1.1'
   gem 'database_cleaner', '~> 1.5.3'
+end
+
+platforms :mingw, :mswin do
+  gem 'tzinfo-data'
+  gem 'wdm'
 end

@@ -35,4 +35,17 @@ describe 'Node Creation' do
       expect(Node.first).to eq(nil)
     end
   end
+
+  context 'when given an incorrect template' do
+    it 'should create a node with a default template' do
+      body = JSON.load(File.read(File.join("spec", "fixtures", "drupal_node.json")))
+      body['field_template']['und'][0]['value'] = 'note-a-template'
+      stub_request(:get, 'www.example.com/api/node/1')
+          .to_return(:headers =>{'Content-Type' => 'application/json'},
+                     :body => JSON.dump(body))
+      NodeCreateJob.perform_now '1'
+      expect(Node.find_by(name: 'My page')).to be_present
+      expect(Node.find_by(name: 'My page').template).to eq('default')
+    end
+  end
 end

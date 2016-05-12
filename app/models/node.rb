@@ -9,8 +9,6 @@ class Node < ApplicationRecord
 
   before_save :ensure_order_num_present
 
-  validates_uniqueness_of :order_num, scope: :parent_id
-
   def ancestry
     arr = [self]
 
@@ -26,12 +24,12 @@ class Node < ApplicationRecord
   end
 
   def path
-    ancestry.reverse.collect {|node| 
+    ancestry.reverse.collect {|node|
       node.slug
     }.join '/'
   end
 
-  private 
+  private
 
   def ensure_order_num_present
     unless order_num.present?
