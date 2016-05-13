@@ -7,11 +7,13 @@ class NodeCreateJob < ApplicationJob
   def perform(nid, vid)
     url = Rails.application.config.authoring_base_url + "/api/node/#{nid}/#{vid}"
     response = HTTParty.get(url)
-    if response["uuid"]
-      node = Node.find_by(uuid: response["uuid"]) || Node.new
-      node.name = response["title"]
-      node.uuid = response["uuid"]
-      template = response["field_template"]["und"][0]["value"]
+    if response.code == 200
+      resp_obj = DrupalMapper.parse(JSON.parse(response.body))
+
+      node = Node.find_by(uuid: resp_obj.uuid) || Node.new
+      node.name = resp_obj.title
+      node.uuid = resp_obj.uuid
+      template = resp_obj.template
       if TemplatesHelper.exists?(template)
         node.template = template
       else
@@ -23,10 +25,13 @@ class NodeCreateJob < ApplicationJob
         node.content_block = ContentBlock.new()
       end
 
-      node.content_block.body = response["body"]["und"][0]["value"]
-      node.content_block.unique_id = response["uuid"] + "_body"
+      node.content_block.body = resp_obj.body
+      node.content_block.unique_id = resp_obj.uuid + "_body"
       node.content_block.save()
       node.save()
+
+    elsif response.code == 404
+      # TODO: something interesting here
     end
 
   end

@@ -117,6 +117,7 @@ GEM
     haml (4.0.7)
       tilt
     hashdiff (0.3.0)
+    hashie (3.4.4)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -318,6 +319,7 @@ DEPENDENCIES
   faker (~> 1.6.3)
   friendly_id (~> 5.1.0)
   haml (~> 4.0.7)
+  hashie
   httparty (~> 0.13.0)
   jbuilder (~> 2.0)
   jquery-rails

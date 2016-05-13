@@ -34,6 +34,7 @@ gem 'acts_as_tree', '~> 2.4.0'
 gem 'haml', '~> 4.0.7'
 gem 'httparty',  '~> 0.13.0'
 gem 'nokogiri', '1.6.8.rc3'
+gem 'hashie'
 
 group :development do 
   gem 'web-console', '~> 3.0'
