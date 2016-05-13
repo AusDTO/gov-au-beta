@@ -50,4 +50,17 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.authoring_base_url = ENV['AUTHORING_BASE_URL']
+
+  if config.authoring_base_url.empty?
+    raise ".authoring_base_url can't be empty"
+  end
+
+  unless config.authoring_base_url.starts_with?("http")
+    raise ".authoring_base_url must start with http(s)"
+  end
+
+  if config.authoring_base_url.ends_with?("/")
+    raise ".authoring_base_url must not have trailing slash"
+  end
+
 end
