@@ -1,13 +1,22 @@
 class DrupalMapper
 
-  def initialize(json)
+  def self.parse(json)
+    json_map = fields.inject({}) do |agg, (k, v)|
+      agg[k] = v.inject(json) do |iterator, node|
+        iterator[node]
+      end
+      agg
+    end
+
+    Hashie::Mash.new json_map
 
   end
 
-  def fields
+private
+  def self.fields
     {
-        'title' => 'title',
-        'uuid' => 'uuid',
+        'title' => ['title'],
+        'uuid' => ['uuid'],
         'body' => ['body', 'und', 0, 'value'],
         'section' => ['field_section', 'und', 0, 'value'],
         'template' => ['field_template', 'und', 0, 'value'],
