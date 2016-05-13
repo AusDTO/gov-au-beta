@@ -1,5 +1,6 @@
 require 'rails_helper'
 describe 'Node Creation' do
+  let!(:root) { Fabricate(:section, name: 'root', id: 1)}
   context 'when given a valid node id' do
     it 'should create a node in this system' do
       stub_request(:get, "www.example.com/api/node/1/1")
@@ -7,6 +8,8 @@ describe 'Node Creation' do
                      :body => File.read(File.join("spec", "fixtures", "drupal_node.json")))
       NodeCreateJob.perform_now "1", "1"
       expect(Node.find_by(name: "My page")).to be_present
+      expect(Node.find_by(name: "My page").template).to eq("default")
+      expect(Node.find_by(name: "My page").section).to eq(root)
     end
     it 'should update a node in this system' do
       Node.create(:name => "My page", :uuid => "9a1f4ffe-3f8b-4e0e-b6e0-1c58ffa6efb4",
