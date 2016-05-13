@@ -36,6 +36,9 @@ gem 'httparty',  '~> 0.13.0'
 gem 'nokogiri', '1.6.8.rc3'
 gem 'hashie'
 
+gem 'rollbar'
+gem 'oj', '~> 2.12.14'
+
 group :development do 
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
