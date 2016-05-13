@@ -7,8 +7,8 @@ RSpec.describe Api::NodesController do
         ActiveJob::Base.queue_adapter = :test
 
         expect {
-          post :create, :params => {:updated_content => "1"}
-        }.to have_enqueued_job.with("1")
+          post :create, :params => {:updated_node => "1", :updated_revision => "1"}
+        }.to have_enqueued_job.with("1", "1")
 
         expect(response).to be_success
         expect(response).to have_http_status(:created)
@@ -21,7 +21,7 @@ RSpec.describe Api::NodesController do
 
         expect {
           post :create
-        }.to_not have_enqueued_job.with("1")
+        }.to_not have_enqueued_job.with("1", "1")
 
         expect(response).to_not be_success
         expect(response).to have_http_status(:bad_request)

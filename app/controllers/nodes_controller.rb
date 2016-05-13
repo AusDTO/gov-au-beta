@@ -47,6 +47,6 @@ class NodesController < ApplicationController
       end
 
     end
-    html_doc.to_html
+    html_doc.at("body").children.to_html
   end
 end
