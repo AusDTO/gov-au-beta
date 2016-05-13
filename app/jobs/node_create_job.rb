@@ -4,8 +4,8 @@ include TemplatesHelper
 class NodeCreateJob < ApplicationJob
   queue_as :default
 
-  def perform(id)
-    url = Rails.application.config.authoring_base_url + "/api/node/"+id
+  def perform(nid, vid)
+    url = Rails.application.config.authoring_base_url + "/api/node/#{nid}/#{vid}"
     response = HTTParty.get(url)
     if response["uuid"]
       node = Node.find_by(uuid: response["uuid"]) || Node.new

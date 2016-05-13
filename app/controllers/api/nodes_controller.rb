@@ -3,8 +3,8 @@ class Api::NodesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    if params['updated_content']
-      NodeCreateJob.perform_later params['updated_content']
+    if params['updated_node'] and params['updated_revision']
+      NodeCreateJob.perform_later params['updated_node'],params['updated_revision']
       head :created
     else
       head :bad_request
