@@ -95,31 +95,13 @@ RSpec.describe NodesController, :type => :controller do
         end
       end
 
-      context 'with a custom layout' do 
+      context 'without a custom layout' do
         let(:section) { Fabricate(:section)}
 
         it 'should not use the custom layout' do 
           expect(subject).not_to render_template 'layouts/communications'
         end
       end
-    end
-
-    describe 'content block compiling' do
-
-      let(:root) { Fabricate(:section, name: "root")}
-      let!(:node) { Fabricate(:node, name: "nodeA", uuid:"uuid_nodeA", section: root) }
-
-      context 'with a uuid link' do
-        let(:linking_content) { Fabricate(:content_block, unique_id: "uuid_cb", body: '<a href="/invalid" data-uuid="uuid_nodeA">My link</a>')}
-        let!(:linking_node) { Fabricate(:node, name: "nodeB", uuid:"uuid_nodeB", section: root, content_block: linking_content) }
-
-        it 'should render the link' do
-          get :show, params: {:section => "root", path: "nodeb"}
-          expect(response.status).to eq(200)
-        end
-      end
-
-
     end
   end
 end

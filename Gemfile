@@ -49,6 +49,7 @@ group :test, :development do
   gem 'faker', '~> 1.6.3'
   gem 'webmock', '~> 2.0.1'
   gem 'simplecov', '~> 0.11.2'
+  gem 'capybara', '~> 2.7'
 end
 
 group :test do 
