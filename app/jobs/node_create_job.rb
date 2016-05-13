@@ -19,7 +19,10 @@ class NodeCreateJob < ApplicationJob
       else
         node.template = 'default'
       end
-      node.section = Section.first
+
+      node.section = Section.find(
+          response['field_section']['und'][0]['value']
+      )
 
       if not node.content_block
         node.content_block = ContentBlock.new()
