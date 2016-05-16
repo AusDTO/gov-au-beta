@@ -30,6 +30,15 @@ class NodeCreateJob < ApplicationJob
         node.content_block = ContentBlock.new()
       end
 
+      if resp_obj.parent_uuid
+        if parent = Node.find_by(uuid: resp_obj.parent_uuid)
+          node.parent = parent
+        else
+          logger.error "Parent uuid not found: #{resp_obj.parent_uuid}"
+        end
+
+      end
+
       node.content_block.body = resp_obj.body
       node.content_block.unique_id = resp_obj.uuid + "_body"
       node.content_block.save()
