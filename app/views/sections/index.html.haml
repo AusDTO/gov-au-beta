@@ -1,0 +1,4 @@
+%ul
+  - @sections.each do |section|
+    %li
+      = link_to(section.name, sections_path(section))
