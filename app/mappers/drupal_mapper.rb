@@ -20,6 +20,7 @@ private
         'body' => ['body', 'und', 0, 'value'],
         'section' => ['field_section', 'und', 0, 'value'],
         'template' => ['field_template', 'und', 0, 'value'],
+        'parent_uuid' => ['field_parent', 'und', 0, 'target_uuid'],
     }
   end
 end
