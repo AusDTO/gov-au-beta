@@ -6,8 +6,10 @@ class NodeCreateJob < ApplicationJob
 
   def perform(nid, vid)
     url = Rails.application.config.authoring_base_url + "/api/node/#{nid}/#{vid}"
+    logger.info "Loading #{url}"
     response = HTTParty.get(url)
     if response.code == 200
+      logger.info "Loaded #{response.body}"
       resp_obj = DrupalMapper.parse(JSON.parse(response.body))
 
       node = Node.find_by(uuid: resp_obj.uuid) || Node.new
@@ -34,6 +36,7 @@ class NodeCreateJob < ApplicationJob
       node.save()
 
     elsif response.code == 404
+      logger.error "404 error for url #{url}"
       # TODO: something interesting here
     end
 
