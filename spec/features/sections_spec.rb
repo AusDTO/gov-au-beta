@@ -11,5 +11,10 @@ RSpec.describe "section features", :type => :feature do
       expect(find_link(nodeA.name)[:href]).to eq(sections_path(nodeA.section) +nodes_path(nodeA))
       expect(find_link(nodeB.name)[:href]).to eq(sections_path(nodeB.section) +nodes_path(nodeB))
     end
+
+    it 'should render the links to the sections from the root page' do
+      visit '/'
+      expect(find_link(root.name)[:href]).to eq(sections_path(root))
+    end
   end
 end
