@@ -45,6 +45,7 @@ cf service gov-au-beta-db # do until status is 'available' - 10 minutes or so
 cf push -i 1 -u none -c "bundle exec rake db:schema:load db:seed" 
 cf set-env gov-au-beta SECRET_KEY_BASE `rails secret`
 cf set-env gov-au-beta AUTHORING_BASE_URL http://localhost:8083
+cf set-env gov-au-beta ROLLBAR_ACCESS_TOKEN aabcc
 ```
 
 
