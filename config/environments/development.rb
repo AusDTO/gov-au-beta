@@ -51,7 +51,7 @@ Rails.application.configure do
 
   config.authoring_base_url = ENV['AUTHORING_BASE_URL']
 
-  if config.authoring_base_url.empty?
+  if config.authoring_base_url.blank?
     raise ".authoring_base_url can't be empty"
   end
 

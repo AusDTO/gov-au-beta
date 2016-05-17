@@ -8,18 +8,23 @@ RSpec.describe 'admin features', type: :feature do
     end
 
     it 'should show links to administer section types' do
-      expect(find_link('Agencies')[:href]).to eq '/admin/agencies'
-      expect(find_link('Topics')[:href]).to eq '/admin/topics'
+      expect(sidebar.find_link('Agencies')[:href]).to eq '/admin/agencies'
+      expect(sidebar.find_link('Topics')[:href]).to eq '/admin/topics'
     end
 
     it 'should not show a link to administer sections en masse' do
-      expect(has_link?('Sections')).to be false
+      expect(sidebar).not_to have_link 'Sections'
     end
 
     it 'should not show links to nodes or content blocks' do
-      expect(has_link?('Nodes')).to be false
-      expect(has_link?('Content Blocks')).to be false
+      expect(sidebar).not_to have_link 'Nodes'
+      expect(sidebar).not_to have_link 'Content Blocks'
     end
+
+    def sidebar
+      find('.sidebar')
+    end
+
   end
 
 end
