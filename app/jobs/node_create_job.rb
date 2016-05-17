@@ -9,7 +9,8 @@ class NodeCreateJob < ApplicationJob
     logger.info "Loading #{url}"
     response = HTTParty.get(url)
     if response.code == 200
-      logger.info "Loaded #{response.body}"
+      logger.info "Loaded #{url}"
+      logger.debug "JSON: #{response.body}"
       resp_obj = DrupalMapper.parse(JSON.parse(response.body))
 
       node = Node.find_by(uuid: resp_obj.uuid) || Node.new
@@ -34,7 +35,7 @@ class NodeCreateJob < ApplicationJob
         if parent = Node.find_by(uuid: resp_obj.parent_uuid)
           node.parent = parent
         else
-          logger.error "Parent uuid not found: #{resp_obj.parent_uuid}"
+          raise "Loaded url #{url} but parent uuid not found: #{resp_obj.parent_uuid}"
         end
 
       end
@@ -44,9 +45,8 @@ class NodeCreateJob < ApplicationJob
       node.content_block.save()
       node.save()
 
-    elsif response.code == 404
-      logger.error "404 error for url #{url}"
-      # TODO: something interesting here
+    else
+      raise "#{response.code} error for url #{url}"
     end
 
   end
