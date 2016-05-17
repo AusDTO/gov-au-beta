@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :nodes, only: :create
     resources :templates, only: :index
     resources :sections, only: :index
+
+    post '/linters' => 'linters#parse', :as => :parse_content
   end
 
   get root 'sections#index'
