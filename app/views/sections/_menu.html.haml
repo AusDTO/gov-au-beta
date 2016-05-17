@@ -1,5 +1,5 @@
 %ul
   - nodes.each do |node|
     %li
-      = link_to(node, sections_path(node.section) + nodes_path(node))
+      = link_to(node, nodes_path(section: node.section, path: node.path))
       = render partial: "menu", locals: {nodes: node.children}
