@@ -42,7 +42,7 @@ class NodesController < ApplicationController
       if a['data-uuid']
         node = Node.find_by(uuid: a['data-uuid'])
         if node
-          a['href'] = sections_path(node.section) + nodes_path(node)
+          a['href'] = nodes_path section: node.section, path: node.path
         end
       end
 

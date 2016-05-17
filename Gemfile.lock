@@ -8,6 +8,31 @@ GIT
       activemodel (> 4, < 5.1)
 
 GIT
+  remote: git://github.com/micapam/administrate.git
+  revision: ef679b62587e2cd4e84d38d46444e51acd5a2ea5
+  branch: govau
+  specs:
+    administrate (0.2.1)
+      autoprefixer-rails (~> 6.0)
+      datetime_picker_rails (~> 0.0.7)
+      jquery-rails (~> 4.0)
+      kaminari (> 0.16)
+      momentjs-rails (~> 2.8)
+      neat (~> 1.1)
+      normalize-rails (~> 3.0)
+      rails (>= 4.0, < 5.1)
+      sass-rails (~> 5.0)
+      selectize-rails (~> 0.6)
+
+GIT
+  remote: git://github.com/norman/friendly_id.git
+  revision: 8531cdce5737df541bc2dbf9c0fa3ee4824b6fc8
+  ref: 8531cdce
+  specs:
+    friendly_id (5.2.0.beta.1)
+      activerecord (>= 4.0.0)
+
+GIT
   remote: https://github.com/coderdan/draper.git
   revision: 9f3026657fa02763f2cf945d5b935dff693694b4
   specs:
@@ -62,8 +87,13 @@ GEM
       activerecord (>= 3.0.0)
     addressable (2.4.0)
     arel (7.0.0)
+    autoprefixer-rails (6.3.6.1)
+      execjs
     bcrypt (3.1.11)
     bcrypt (3.1.11-x86-mingw32)
+    bourbon (4.2.7)
+      sass (~> 3.4)
+      thor (~> 0.19)
     bower-rails (0.10.0)
     builder (3.2.2)
     byebug (8.2.5)
@@ -87,6 +117,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
+    datetime_picker_rails (0.0.7)
+      momentjs-rails (>= 2.8.1)
     debug_inspector (0.0.2)
     declarative (0.0.7)
       uber (>= 0.0.15)
@@ -109,8 +141,6 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.10)
     ffi (1.9.10-x86-mingw32)
-    friendly_id (5.1.0)
-      activerecord (>= 4.0.0)
     gherkin-ruby (0.3.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -130,6 +160,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (3.1.3)
       rb-fsevent (~> 0.9, >= 0.9.7)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -143,8 +176,13 @@ GEM
     mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.8.4)
+    momentjs-rails (2.11.1)
+      railties (>= 3.1)
     multi_json (1.12.0)
     multi_xml (0.5.5)
+    neat (1.7.4)
+      bourbon (>= 4.0)
+      sass (>= 3.3)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.rc3)
@@ -153,6 +191,7 @@ GEM
     nokogiri (1.6.8.rc3-x86-mingw32)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    normalize-rails (3.0.3)
     oj (2.12.14)
     orm_adapter (0.5.0)
     pg (0.19.0.pre20160409114042)
@@ -252,6 +291,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    selectize-rails (0.12.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     simplecov (0.11.2)
@@ -310,6 +350,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tree (~> 2.4.0)
+  administrate!
   bower-rails (~> 0.10.0)
   byebug
   capybara (~> 2.7)
@@ -320,7 +361,7 @@ DEPENDENCIES
   draper!
   fabrication (~> 2.15.0)
   faker (~> 1.6.3)
-  friendly_id (~> 5.1.0)
+  friendly_id!
   haml (~> 4.0.7)
   hashie
   httparty (~> 0.13.0)

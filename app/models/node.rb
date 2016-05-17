@@ -1,6 +1,6 @@
 class Node < ApplicationRecord
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: :slugged, routes: :default
 
   acts_as_tree order: 'order_num ASC'
 
