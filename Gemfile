@@ -35,6 +35,8 @@ gem 'haml', '~> 4.0.7'
 gem 'httparty',  '~> 0.13.0'
 gem 'nokogiri', '1.6.8.rc3'
 gem 'hashie'
+gem 'odyssey'
+
 
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
