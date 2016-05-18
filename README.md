@@ -28,10 +28,10 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 # logs etc. in /usr/local/var/postgres/
 #install deps
 bundle install
-# setup db with seed data
-rails db:setup
 # set environment variables
 export AUTHORING_BASE_URL=http://localhost:8083
+# setup db with seed data
+rails db:setup
 ```
 
 ## Setting Up/Deploying to cloudfoundry
