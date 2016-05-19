@@ -59,6 +59,7 @@ group :test, :development do
   gem 'webmock', '~> 2.0.1'
   gem 'simplecov', '~> 0.11.2'
   gem 'capybara', '~> 2.7'
+  gem 'dotenv-rails'
 end
 
 group :test do 
