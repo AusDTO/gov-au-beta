@@ -28,8 +28,10 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 # logs etc. in /usr/local/var/postgres/
 #install deps
 bundle install
-# set environment variables
-export AUTHORING_BASE_URL=http://localhost:8083
+# Setup environment variables
+cp .env.sample .env
+# Make any changes you need to (change credentials etc)
+$EDITOR .env
 # setup db with seed data
 rails db:setup
 ```
