@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe NodesController, :type => :controller do
   describe 'GET #show' do
 
-    describe 'finding a node' do    
+    describe 'finding a nodes' do
       render_views  
 
       let (:root) { Fabricate(:section, name: "root")}

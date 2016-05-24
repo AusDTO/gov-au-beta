@@ -25,12 +25,19 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 
-SimpleCov.start :rails do
-  add_filter do |source_file|
-    source_file.lines.count < 3
-  end
-end
 RSpec.configure do |config|
+
+  # Avoid overwriting coverage if one is just testing a single spec
+  if config.files_to_run.one?
+    config.default_formatter = 'doc'
+  else
+    SimpleCov.start :rails do
+      add_filter do |source_file|
+        source_file.lines.count < 3
+      end
+    end
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
