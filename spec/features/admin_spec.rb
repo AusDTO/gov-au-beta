@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'admin features', type: :feature do
 
-  describe 'home page sidebar links' do 
+  describe 'home page sidebar links' do
+    let!(:agency) { Fabricate(:agency) }
+    let!(:topic) { Fabricate(:topic) }
+
     before do 
       visit '/admin'
     end
@@ -19,6 +22,10 @@ RSpec.describe 'admin features', type: :feature do
     it 'should not show links to nodes or content blocks' do
       expect(sidebar).not_to have_link 'Nodes'
       expect(sidebar).not_to have_link 'Content Blocks'
+    end
+
+    it 'should show agencies by default' do
+      expect(page).to have_content agency.name
     end
 
     def sidebar
