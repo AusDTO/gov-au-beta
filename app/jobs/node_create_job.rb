@@ -4,6 +4,11 @@ include TemplatesHelper
 class NodeCreateJob < ApplicationJob
   queue_as :default
 
+  rescue_from(Exception) do |e|
+    Rollbar.error('Failed to publish node', e)
+    raise e
+  end
+
   def perform(nid, vid)
     url = Rails.application.config.authoring_base_url + "/api/node/#{nid}/#{vid}"
     logger.info "Loading #{url}"
@@ -23,9 +28,7 @@ class NodeCreateJob < ApplicationJob
         node.template = 'default'
       end
 
-      node.section = Section.find(
-          response['field_section']['und'][0]['value']
-      )
+      node.section = Section.find(resp_obj.section)
 
       if not node.content_block
         node.content_block = ContentBlock.new()
