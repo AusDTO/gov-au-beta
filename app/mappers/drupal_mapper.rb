@@ -3,7 +3,7 @@ class DrupalMapper
   def self.parse(json)
     json_map = fields.inject({}) do |agg, (k, v)|
       agg[k] = v.inject(json) do |iterator, node|
-        iterator[node]
+        iterator.fetch(node)
       end
       agg
     end
