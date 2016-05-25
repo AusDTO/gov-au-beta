@@ -8,7 +8,7 @@ RSpec.describe Admin::TopicsController, type: :controller do
 
     subject { Admin::TopicsController.new.find_resource topic.slug }
 
-    it { should eq topic }
+    it { is_expected.to eq topic }
 
   end
 

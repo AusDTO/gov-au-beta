@@ -8,7 +8,7 @@ RSpec.describe Admin::AgenciesController, type: :controller do
 
     subject { Admin::AgenciesController.new.find_resource agency.slug }
 
-    it { should eq agency }
+    it { is_expected.to eq agency }
 
   end
 
