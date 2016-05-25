@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :content_blocks
     resources :sections
 
-    root to: "agencies#index"
+    root to: 'agencies#index'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
