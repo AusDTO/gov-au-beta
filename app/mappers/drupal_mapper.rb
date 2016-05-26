@@ -1,9 +1,17 @@
 class DrupalMapper
 
   def self.parse(json)
-    json_map = fields.inject({}) do |agg, (k, v)|
-      agg[k] = v.inject(json) do |iterator, node|
-        iterator.fetch(node)
+    json_map = fields.inject({}) do |agg, (attribute, info)|
+      agg[attribute] = info[:path].inject(json) do |iterator, node|
+        begin
+          iterator.fetch(node)
+        rescue KeyError, TypeError => e
+          if info[:required]
+            raise "Missing required field #{attribute}"
+          else
+            break
+          end
+        end
       end
       agg
     end
@@ -15,12 +23,12 @@ class DrupalMapper
 private
   def self.fields
     {
-        'title' => ['title'],
-        'uuid' => ['uuid'],
-        'body' => ['body', 'und', 0, 'value'],
-        'section' => ['field_section', 'und', 0, 'value'],
-        'template' => ['field_template', 'und', 0, 'value'],
-        'parent_uuid' => ['field_parent', 'und', 0, 'target_uuid'],
+        'title' => { path: ['title'], required: true },
+        'uuid' => { path: ['uuid'], required: true },
+        'body' => { path: ['body', 'und', 0, 'value'], required: true },
+        'section' => { path: ['field_section', 'und', 0, 'value'], required: true },
+        'template' => { path: ['field_template', 'und', 0, 'value'], required: true },
+        'parent_uuid' => { path: ['field_parent', 'und', 0, 'target_uuid'], required: false },
     }
   end
 end
