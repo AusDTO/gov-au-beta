@@ -50,6 +50,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.authoring_base_url = ENV['AUTHORING_BASE_URL']
+  config.content_analysis_base_url = ENV['CONTENT_ANALYSIS_BASE_URL']
 
   if config.authoring_base_url.blank?
     raise ".authoring_base_url can't be empty"

@@ -45,8 +45,8 @@ class NodeCreateJob < ApplicationJob
 
       node.content_block.body = resp_obj.body
       node.content_block.unique_id = resp_obj.uuid + "_body"
-      node.content_block.save()
-      node.save()
+      node.content_block.save!()
+      node.save!()
 
     else
       raise "#{response.code} error for url #{url}"
