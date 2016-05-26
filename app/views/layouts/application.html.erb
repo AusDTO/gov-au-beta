@@ -9,6 +9,7 @@
   </head>
 
   <body>
+    <%= render 'toolbar' %>
     <%= content_for?(:header) ? yield(:header) : '' %>
     <%= yield %>
   </body>
