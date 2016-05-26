@@ -86,4 +86,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.authoring_base_url = ENV['AUTHORING_BASE_URL']
+  config.content_analysis_base_url = ENV['CONTENT_ANALYSIS_BASE_URL']
 end
