@@ -1,5 +1,6 @@
 require 'httparty'
 include TemplatesHelper
+include AuthoringHelper
 
 class NodeCreateJob < ApplicationJob
   queue_as :default
@@ -9,15 +10,9 @@ class NodeCreateJob < ApplicationJob
     raise e
   end
 
-  def perform(nid, vid)
-    url = Rails.application.config.authoring_base_url + "/api/node/#{nid}/#{vid}"
-    logger.info "Loading #{url}"
-    response = HTTParty.get(url)
-    if response.code == 200
-      logger.info "Loaded #{url}"
-      logger.debug "JSON: #{response.body}"
-      resp_obj = DrupalMapper.parse(JSON.parse(response.body))
-
+  def perform (nid, vid)
+    begin
+      resp_obj = AuthoringHelper.get_node(nid, vid)
       node = Node.find_by(uuid: resp_obj.uuid) || Node.new
       node.name = resp_obj.title
       node.uuid = resp_obj.uuid
@@ -47,10 +42,12 @@ class NodeCreateJob < ApplicationJob
       node.content_block.unique_id = resp_obj.uuid + "_body"
       node.content_block.save!()
       node.save!()
-
-    else
-      raise "#{response.code} error for url #{url}"
     end
-
+  rescue Exception => e
+    AuthoringHelper.publish_result(nid, vid, false)
+    raise e
+  else
+    AuthoringHelper.publish_result(nid, vid, true)
   end
+
 end
