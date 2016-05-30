@@ -13,35 +13,37 @@ class NodeCreateJob < ApplicationJob
   def perform (nid, vid)
     begin
       resp_obj = AuthoringHelper.get_node(nid, vid)
-      node = Node.find_by(uuid: resp_obj.uuid) || Node.new
-      node.name = resp_obj.title
-      node.uuid = resp_obj.uuid
-      template = resp_obj.template
-      if TemplatesHelper.exists?(template)
-        node.template = template
-      else
-        node.template = 'default'
-      end
-
-      node.section = Section.find(resp_obj.section)
-
-      if not node.content_block
-        node.content_block = ContentBlock.new()
-      end
-
-      if resp_obj.parent_uuid
-        if parent = Node.find_by(uuid: resp_obj.parent_uuid)
-          node.parent = parent
+      Node.transaction do
+        node = Node.find_by(uuid: resp_obj.uuid) || Node.new
+        node.name = resp_obj.title
+        node.uuid = resp_obj.uuid
+        template = resp_obj.template
+        if TemplatesHelper.exists?(template)
+          node.template = template
         else
-          raise "Loaded url #{url} but parent uuid not found: #{resp_obj.parent_uuid}"
+          node.template = 'default'
         end
 
-      end
+        node.section = Section.find(resp_obj.section)
 
-      node.content_block.body = resp_obj.body
-      node.content_block.unique_id = resp_obj.uuid + "_body"
-      node.content_block.save!()
-      node.save!()
+        if not node.content_block
+          node.content_block = ContentBlock.new()
+        end
+
+        if resp_obj.parent_uuid
+          if parent = Node.find_by(uuid: resp_obj.parent_uuid)
+            node.parent = parent
+          else
+            raise "Loaded url #{url} but parent uuid not found: #{resp_obj.parent_uuid}"
+          end
+
+        end
+
+        node.content_block.body = resp_obj.body
+        node.content_block.unique_id = resp_obj.uuid + "_body"
+        node.content_block.save!()
+        node.save!()
+      end
     end
   rescue Exception => e
     AuthoringHelper.publish_result(nid, vid, false)
