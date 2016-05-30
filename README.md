@@ -15,7 +15,7 @@ echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_pr
 source ~/.bash_profile
 
 # Install Ruby
-rbenv install 2.3.0
+rbenv install 2.3.1
 
 #missing openssl.h
 brew install openssl
