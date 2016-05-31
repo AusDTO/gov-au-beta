@@ -3,11 +3,17 @@ This project provides the user facing frontend to the GOV.AU content site.
 
 [![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta)
 
+## GOV.AU stack
+If you're contributing to this repo, then you'll most likely be contributing to the other GOV.AU repos in the stack:
+
+* [GOV.AU Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis)
+* [Experimental GOV.AU Authoring Tool](https://github.com/AusDTO/gov-au-beta-authoring)
+
 ## Local Ruby on Rails development environment on Mac OSX
 ```
-#install homebrew
+# install homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-#install rbenv
+# install rbenv
 brew install rbenv ruby-build
 
 # Add rbenv to bash so that it loads every time you open a terminal
@@ -17,23 +23,31 @@ source ~/.bash_profile
 # Install Ruby
 rbenv install 2.3.1
 
-#missing openssl.h
+# missing openssl.h
 brew install openssl
 brew link openssl --force
-#Can't find the 'libpq-fe.h header
+
+# Can't find the 'libpq-fe.h header
 brew install postgresql
 initdb /usr/local/var/postgres
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 # logs etc. in /usr/local/var/postgres/
-#install deps
+
+# install deps
 bundle install
+
 # Setup environment variables
 cp .env.sample .env
+
 # Make any changes you need to (change credentials etc)
 $EDITOR .env
+
 # setup db with seed data
 rails db:setup
+
+# run local dev server at http://localhost:3000
+bundle exec rails server
 ```
 
 ## Setting Up/Deploying to cloudfoundry
