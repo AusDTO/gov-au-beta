@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'node features', :type => :feature do
 
   before(:each) do
-    stub_request(:post, 'www.example.com/api/linters')
+    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
         .to_return(:headers =>{'Content-Type' => 'application/json'},
                    :body => '{}')
   end

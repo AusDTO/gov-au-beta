@@ -26,7 +26,7 @@ class NodeCreateJob < ApplicationJob
 
         node.section = Section.find(resp_obj.section)
 
-        if not node.content_block
+        unless node.content_block
           node.content_block = ContentBlock.new()
         end
 
