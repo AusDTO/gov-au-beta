@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :sections, only: :index
   end
 
+  get '/previews/:token' => 'previews#show'
   get root 'sections#index'
   get '/:section' => 'sections#show', as: :sections
   get '/:section(/*path)' => 'nodes#show', as: :nodes
