@@ -5,7 +5,7 @@ class DrupalMapper
       agg[attribute] = info[:path].inject(json) do |iterator, node|
         begin
           iterator.fetch(node)
-        rescue KeyError, TypeError => e
+        rescue KeyError, TypeError, NoMethodError => e
           if info[:required]
             raise "Missing required field #{attribute}"
           else

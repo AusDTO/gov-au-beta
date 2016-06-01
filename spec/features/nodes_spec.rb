@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'node features', :type => :feature do
 
+  before(:each) do
+    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
+        .to_return(:headers =>{'Content-Type' => 'application/json'},
+                   :body => '{}')
+  end
+
   context 'a node with a uuid link' do
     let(:root) { Fabricate(:section, name: 'root')}
     let!(:node) { Fabricate(:node, name: 'nodeA', uuid: 'uuid_nodeA',
