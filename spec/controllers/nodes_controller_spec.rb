@@ -90,17 +90,13 @@ RSpec.describe NodesController, :type => :controller do
       context 'with a custom layout' do 
         let(:section) { Fabricate(:section, layout: 'communications')}
 
-        it 'should use the custom layout' do 
-          expect(subject).to render_template 'layouts/communications'
-        end
+        it { is_expected.to render_with_layout 'communications'}
       end
 
       context 'without a custom layout' do
         let(:section) { Fabricate(:section)}
 
-        it 'should not use the custom layout' do 
-          expect(subject).not_to render_template 'layouts/communications'
-        end
+        it { is_expected.not_to render_with_layout 'communications' }
       end
     end
   end
