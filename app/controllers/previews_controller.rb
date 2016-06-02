@@ -15,11 +15,7 @@ class PreviewsController < ApplicationController
     @node = preview
     @section = preview.section
 
-    if @section.layout.present?
-      render "templates/#{preview.template}", layout: @section.layout
-    else
-      render "templates/#{preview.template}"
-    end
+    render_node @node, @section
   end
 
 end
