@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160531025511) do
     t.json     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_previews_on_token", unique: true, using: :btree
   end
 
   create_table "sections", force: :cascade do |t|

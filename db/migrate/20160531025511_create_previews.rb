@@ -5,6 +5,8 @@ class CreatePreviews < ActiveRecord::Migration[5.0]
       t.json :body
 
       t.timestamps
+
+      t.index :token, unique: true
     end
   end
 end
