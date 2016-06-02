@@ -13,12 +13,6 @@ class NodesController < ApplicationController
       @node.content_block.body = process_html(@node.content_block.body)
     end
 
-    layout = @section.layout.presence
-
-    if layout
-      render "templates/#{@node.template}", layout: layout
-    else
-      render "templates/#{@node.template}"
-    end
+    render_node @node, @section
   end
 end
