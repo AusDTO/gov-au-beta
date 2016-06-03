@@ -38,6 +38,7 @@ gem 'hashie'
 gem 'odyssey'
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
+gem 'enumerize', '~> 1.1.1'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
@@ -63,10 +64,11 @@ group :test, :development do
   gem 'pry'
 end
 
-group :test do 
+group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 0.1.1'
   gem 'database_cleaner', '~> 1.5.3'
+  gem 'shoulda-kept-assign-to', '~> 1.1.0'
 end
 
 platforms :mingw, :mswin do

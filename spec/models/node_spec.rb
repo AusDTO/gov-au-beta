@@ -6,6 +6,8 @@ RSpec.describe Node, type: :model do
   it { is_expected.to belong_to :parent }
   it { is_expected.to have_many :children }
   it { is_expected.to have_one :content_block }
+  it { is_expected.to validate_inclusion_of(:state).in_array(
+    ['draft', 'published']) }
 
   describe 'Sibling order' do
 

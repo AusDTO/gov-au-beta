@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(version: 20160606021046) do
     t.string   "name"
     t.string   "slug"
     t.integer  "order_num"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "uuid",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "uuid",                         null: false
+    t.string   "state",      default: "draft", null: false
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
   end
