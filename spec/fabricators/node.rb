@@ -3,4 +3,5 @@ Fabricator(:node) do
   uuid { SecureRandom.uuid }
   template 'default'
   section
+  state 'published'
 end

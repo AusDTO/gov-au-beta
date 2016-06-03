@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  namespace :editorial do
+    get '/:section/nodes' => 'nodes#index'
+  end
+
   namespace :admin do
     resources :agencies
     resources :topics
