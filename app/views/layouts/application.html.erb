@@ -10,6 +10,8 @@
 
   <body>
     <%= render 'toolbar' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= content_for?(:header) ? yield(:header) : '' %>
     <%= yield %>
   </body>
