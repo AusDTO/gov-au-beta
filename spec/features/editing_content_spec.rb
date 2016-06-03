@@ -7,9 +7,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should show a link to edit the content in the CMS' do
       visit "/#{node.section.slug}/#{node.slug}"
-      url = Rails.application.config.authoring_base_url +
-        "/node/#{node.uuid}/edit"
-      expect(find_link('Edit this page')[:href]).to eq url
+      expect(page).to have_link('Edit this page')
     end
   end
 
