@@ -7,7 +7,6 @@ Rails.application.configure do
     url
   end
 
-  config.authoring_base_url = check_format(ENV['AUTHORING_BASE_URL'], 'authoring base url')
   config.content_analysis_base_url = check_format(ENV['CONTENT_ANALYSIS_BASE_URL'], 'content analysis base url')
 
 end
