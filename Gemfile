@@ -60,6 +60,7 @@ group :test, :development do
   gem 'simplecov', '~> 0.11.2'
   gem 'capybara', '~> 2.7'
   gem 'dotenv-rails'
+  gem 'pry'
 end
 
 group :test do 
