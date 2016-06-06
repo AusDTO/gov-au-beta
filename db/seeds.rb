@@ -17,7 +17,6 @@ node2 = node1.children.create(name: "Finding Staff", section: topic)
 node2.content_block = ContentBlock.new(body: "Lorem ipsum")
 node3 = node2.children.create(name: "Types of Employment", section: topic)
 
-
 password = ENV['SEED_USER_ADMIN_PASSWORD']
 raise "SEED_USER_ADMIN_PASSWORD cannot be empty" if password.blank?
 User.create! email: "admin@example.com", password: password, is_admin: true
