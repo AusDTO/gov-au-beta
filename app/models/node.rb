@@ -1,5 +1,5 @@
 class Node < ApplicationRecord
-  extend FriendlyId
+  extend FriendlyId, Enumerize
   friendly_id :name, use: :slugged, routes: :default
 
   acts_as_tree order: 'order_num ASC'
@@ -8,6 +8,8 @@ class Node < ApplicationRecord
   has_one :content_block
 
   before_save :ensure_order_num_present
+
+  enumerize :state, in: %w(draft published)
 
   def ancestry
     arr = [self]
