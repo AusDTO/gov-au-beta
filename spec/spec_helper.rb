@@ -33,7 +33,11 @@ RSpec.configure do |config|
   else
     SimpleCov.start :rails do
       add_filter do |source_file|
-        source_file.lines.count < 3
+        source_file.lines.select do |line|
+          !line.src.blank?
+        end.select do |line|
+          line.src.strip !~ /^#/
+        end.count <= 3
       end
     end
   end
