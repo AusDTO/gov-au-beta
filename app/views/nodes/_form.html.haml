@@ -8,4 +8,4 @@
       = f.input :parent_id, collection: Node.all, selected: @form.parent_id, disabled: true
     = f.input :name
     = f.input :template
-    = f.submit "Create page"
+    = f.submit "#{verb} page"
