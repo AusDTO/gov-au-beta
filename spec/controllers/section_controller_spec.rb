@@ -31,7 +31,16 @@ RSpec.describe SectionsController, :type => :controller do
         end
       end
     end
+  end
 
+  describe 'GET #index' do
 
+    let! (:section_b) { Fabricate(:section, name: "b")}
+    let! (:section_a) { Fabricate(:section, name: "a")}
+
+    it "should assign @sections in name order" do
+      get :index
+      expect(assigns(:sections)).to eq([section_a, section_b])
+    end
   end
 end
