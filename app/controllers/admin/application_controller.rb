@@ -9,7 +9,10 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      # TODO Add authentication logic here.
+      unless user_signed_in? && current_user.is_admin?
+        flash[:alert] = 'Access denied'
+        redirect_to root_url
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
