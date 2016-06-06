@@ -26,5 +26,11 @@ Rails.application.routes.draw do
 
   get root 'sections#index'
   get '/:section' => 'sections#show', as: :sections
+
+  scope :editorial do
+    resources :nodes, only: [:create, :new, :edit, :update], as: :editorial_nodes
+  end
+
   get '/:section(/*path)' => 'nodes#show', as: :nodes
+
 end
