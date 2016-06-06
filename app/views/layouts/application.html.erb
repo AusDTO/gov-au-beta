@@ -10,6 +10,8 @@
 
   <body>
     <%= render 'toolbar' %>
+    <%= render 'session_status' %>
+    <%= render 'alerts' %>
     <%= content_for?(:header) ? yield(:header) : '' %>
     <%= yield %>
   </body>

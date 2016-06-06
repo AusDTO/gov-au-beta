@@ -65,3 +65,5 @@ Shoulda::Matchers.configure do |config|
     with.library :action_controller
   end
 end
+
+require './spec/support/devise'
