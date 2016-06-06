@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    resources :nodes, only: [:create, :new]
     get '/:section/nodes' => 'nodes#index'
+    resources :nodes, only: [:create, :new, :edit, :update]
     get '/nodes/:token' => 'nodes#show'
   end
 
@@ -27,9 +27,6 @@ Rails.application.routes.draw do
   get root 'sections#index'
   get '/:section' => 'sections#show', as: :sections
 
-  scope :editorial do
-    resources :nodes, only: [:create, :new, :edit, :update], as: :editorial_nodes
-  end
 
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 
