@@ -1,0 +1,11 @@
+.fieldset
+
+  = simple_form_for @form, url: editorial_nodes_path  do |f|
+    = f.input_field :section_id, hidden: true
+    = f.input :section_id, collection: Section.all.collect { |s| [s.name, s.id]}, selected: @form.section_id, disabled: true
+    - if @node.parent
+      = f.input_field :parent_id, hidden: true
+      = f.input :parent_id, collection: Node.all, selected: @form.parent_id, disabled: true
+    = f.input :name
+    = f.input :template
+    = f.submit "Create page"
