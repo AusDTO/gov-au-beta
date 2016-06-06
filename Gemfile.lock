@@ -97,6 +97,7 @@ GEM
     bower-rails (0.10.0)
     builder (3.2.2)
     byebug (8.2.5)
+    cancancan (1.14.0)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -370,6 +371,7 @@ DEPENDENCIES
   administrate!
   bower-rails (~> 0.10.0)
   byebug
+  cancancan
   capybara (~> 2.7)
   cf-app-utils
   coffee-rails (~> 4.1.0)
