@@ -1,0 +1,11 @@
+%h1
+  Create a new #{@form.model.decorate.type_display_name} page
+= simple_form_for [:editorial, @form], as: :node, url: editorial_nodes_path do |f|
+  = f.input :name
+  = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false
+  = f.input :parent_id, collection: @sections, as: :grouped_select, group_method: :nodes
+  = f.simple_fields_for :content_block do |content_f|
+    = content_f.input :body, as: :text
+  = render partial: @type_name, locals: {f: f}
+  = f.hidden_field :type, value: @type_name, name: :type
+  = f.submit 'Create'

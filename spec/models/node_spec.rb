@@ -11,10 +11,10 @@ RSpec.describe Node, type: :model do
 
   describe 'Sibling order' do
 
-    let(:root) { Fabricate(:node, uuid: "root") }
+    let(:root) { Fabricate(:node) }
 
     %w(zero one two three four five).each_with_index do |num, idx|
-      let(num.to_sym) { Fabricate(:node, uuid: "uuid_#{num}", parent: root, order_num: idx) }
+      let(num.to_sym) { Fabricate(:node, parent: root, order_num: idx) }
     end
 
     it 'should find the siblings in the right order' do
@@ -23,7 +23,7 @@ RSpec.describe Node, type: :model do
       expect(root.children).to eq [zero, one, two, three, four, five]
     end
 
-    let(:new_one) { Fabricate(:node, uuid: "uuid_new_one", parent: root ) } # No explicit order num
+    let(:new_one) { Fabricate(:node, parent: root ) } # No explicit order num
 
     it 'should automatically set an order number if necessary' do
       [one, two, three, new_one]

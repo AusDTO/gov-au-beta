@@ -1,0 +1,2 @@
+class GeneralContentForm < NodeForm
+end

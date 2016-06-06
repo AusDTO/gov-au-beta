@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "section features", :type => :feature do
   context 'a section' do
     let(:root) { Fabricate(:section, name: "root")}
-    let!(:nodeA) { Fabricate(:node, name: "nodeA", uuid:"uuid_nodeA", section: root) }
-    let!(:nodeB) { Fabricate(:node, name: "nodeB", uuid:"uuid_nodeB", section: root) }
+    let!(:nodeA) { Fabricate(:node, name: "nodeA", section: root) }
+    let!(:nodeB) { Fabricate(:node, name: "nodeB", section: root) }
 
     it 'should render the links to nodes in that section' do
       visit sections_path(root)

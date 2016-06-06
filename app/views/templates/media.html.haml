@@ -4,6 +4,11 @@
 %h2
   =@node.name
 
+- if @node.release_date
+  %p
+    Release Date:
+    = @node.release_date
+
 - if @node.content_block
   !=@node.content_block.body
 

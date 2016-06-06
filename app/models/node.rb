@@ -26,9 +26,21 @@ class Node < ApplicationRecord
   end
 
   def path
-    ancestry.reverse.collect {|node|
+    ancestry.reverse.collect { |node|
       node.slug
     }.join '/'
+  end
+
+  def full_path
+    "/#{section.slug}/#{path}"
+  end
+
+  def default_form
+    NodeForm.new(self)
+  end
+
+  def template
+    'default'
   end
 
   private

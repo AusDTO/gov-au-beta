@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606021046) do
+ActiveRecord::Schema.define(version: 20160606030000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160606021046) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "unique_id",  null: false
     t.index ["node_id"], name: "index_content_blocks_on_node_id", using: :btree
   end
 
@@ -46,7 +45,8 @@ ActiveRecord::Schema.define(version: 20160606021046) do
     t.integer  "order_num"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.string   "uuid",                         null: false
+    t.text     "type"
+    t.jsonb    "data"
     t.string   "state",      default: "draft", null: false
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
