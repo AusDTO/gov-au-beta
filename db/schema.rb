@@ -46,11 +46,12 @@ ActiveRecord::Schema.define(version: 20160607010429) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "state",      default: "draft", null: false
-    t.string   "token",                        null: false
     t.text     "type"
     t.jsonb    "data"
+    t.string   "token"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
+    t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
   end
 
   create_table "previews", force: :cascade do |t|
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160607010429) do
     t.json     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_previews_on_token", unique: true, using: :btree
   end
 
   create_table "sections", force: :cascade do |t|
