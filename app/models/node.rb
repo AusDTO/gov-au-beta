@@ -34,10 +34,6 @@ class Node < ApplicationRecord
     }.join '/'
   end
 
-  def full_path
-    "/#{section.slug}/#{path}"
-  end
-
   private
 
   def ensure_order_num_present

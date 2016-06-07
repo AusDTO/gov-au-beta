@@ -11,6 +11,13 @@ module Editorial
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end
 
+    # TODO: show useful editorial things here rather than just showing the published version
+    def show
+      @node = Node.find(params[:id]).decorate
+      @section = @node.section
+      render_node @node, @section
+    end
+
     def new
       @form = new_form
       @parent = Node.find(params[:parent]) if params[:parent] else nil
@@ -26,11 +33,10 @@ module Editorial
 
     def create
       @form = new_form
-      if @form.validate(params.require(:node).permit!) && @form.save
-        # TODO: redirect to draft view when we have one
-        redirect_to @form.model.full_path
+      if try_save
+        redirect_to editorial_node_path(@form)
       else
-        render 'new'
+        render :new
       end
     end
 
@@ -44,8 +50,8 @@ module Editorial
       @node = Node.find(params[:id])
       @form = new_form(@node)
 
-      if @form.validate(params.require(:node).permit!) && @form.save
-       redirect_to @form.model.full_path
+      if try_save
+       redirect_to editorial_node_path(@form)
       else
         render :edit
       end
@@ -72,6 +78,16 @@ module Editorial
       else
         @form_type.new(@type.new(content_block: ContentBlock.new))
       end
+    end
+
+    def try_save
+      return false unless @form.validate(params.require(:node).permit!)
+      @form.sync
+      @form.model.transaction do
+        return false unless @form.model.save
+        return false unless @form.model.content_block.save
+      end
+      return true
     end
   end
 end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :editorial do
     get '/:section/nodes' => 'nodes#index'
-    resources :nodes, only: [:create, :new, :edit, :update]
+    resources :nodes, only: [:show, :create, :new, :edit, :update]
   end
 
   namespace :admin do
