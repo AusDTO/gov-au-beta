@@ -99,5 +99,30 @@ RSpec.describe NodesController, :type => :controller do
         it { is_expected.not_to render_with_layout 'communications' }
       end
     end
+
+    describe 'node state' do
+      let(:node) { Fabricate(:node, state: state) }
+
+      let(:request) {
+        get :show, params: { section: node.section.slug, path: node.path}
+      }
+
+      context 'published node' do
+        let(:state) { 'published' }
+
+        it 'shows the node' do
+          request
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context 'draft node' do
+        let(:state) { 'draft' }
+
+        it 'throws an error' do
+          expect { request }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+    end
   end
 end
