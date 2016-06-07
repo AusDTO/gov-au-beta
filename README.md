@@ -9,6 +9,10 @@ If you're contributing to this repo, then you'll most likely be contributing to 
 * [GOV.AU Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis)
 * [Experimental GOV.AU Authoring Tool](https://github.com/AusDTO/gov-au-beta-authoring)
 
+## Dependencies
+
+The GOV.AU Beta Frontend requires postgres 9.4 or higher.
+
 ## Local Ruby on Rails development environment on Mac OSX
 ```
 # install homebrew
