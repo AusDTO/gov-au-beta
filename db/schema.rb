@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20160607010429) do
     t.integer  "order_num"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.text     "type"
-    t.jsonb    "data"
     t.string   "state",      default: "draft", null: false
     t.string   "token",                        null: false
+    t.text     "type"
+    t.jsonb    "data"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
   end
