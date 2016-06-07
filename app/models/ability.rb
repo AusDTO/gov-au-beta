@@ -10,7 +10,7 @@ class Ability
 
     if user.is_author?
       can :view, :editorial_page
-      can :read, Node, :state => "draft"
+      can :manage, Node, :state => "draft"
     end
 
     if user.is_reviewer?
@@ -18,6 +18,7 @@ class Ability
       can :read, Node, :state => "draft"
     end
 
-    #can :read, Node, :state => "published"
+    # Everyone (signed in or not) can view published pages.
+    can :read, Node, :state => "published"
   end
 end
