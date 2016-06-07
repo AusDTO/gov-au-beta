@@ -17,7 +17,6 @@ RSpec.describe Editorial::NodesController, type: :controller do
   shared_examples_for 'node preview' do
     it { is_expected.to assign_to(:node).with node }
     it { is_expected.to render_with_layout node.section.layout }
-    it { is_expected.to render_template node.template }
   end
 
   describe 'GET #show' do
