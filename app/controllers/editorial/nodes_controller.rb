@@ -6,6 +6,7 @@ module Editorial
     before_action :show_toolbar, only: :show
 
     def index
+      authorize! :view, :editorial_page
       @section = Section.find_by slug: params[:section]
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end

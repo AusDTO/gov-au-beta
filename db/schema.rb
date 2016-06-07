@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20160607010429) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "is_admin",               default: false, null: false
+    t.boolean  "is_author",              default: false, null: false
+    t.boolean  "is_reviewer",            default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
