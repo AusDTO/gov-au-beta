@@ -7,9 +7,12 @@ class Node < ApplicationRecord
   belongs_to :section
   has_one :content_block
 
+  before_create :generate_token
   before_save :ensure_order_num_present
 
-  enumerize :state, in: %w(draft published)
+  enumerize :state, in: %w(draft published), scope: true
+
+  validates_uniqueness_of :token
 
   def ancestry
     arr = [self]
@@ -45,6 +48,10 @@ class Node < ApplicationRecord
         self.order_num = 0
       end
     end
+  end
+
+  def generate_token
+    self.token = SecureRandom.uuid unless token.present?
   end
 
 end
