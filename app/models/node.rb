@@ -35,10 +35,6 @@ class Node < ApplicationRecord
     "/#{section.slug}/#{path}"
   end
 
-  def default_form
-    NodeForm.new(self)
-  end
-
   private
 
   def ensure_order_num_present

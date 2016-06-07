@@ -8,11 +8,11 @@ class Editorial::NodesController < ApplicationController
   end
 
   def new
-    @form = @type.new(content_block: ContentBlock.new).default_form
+    @form = new_form
   end
 
   def create
-    @form = @type.new(content_block: ContentBlock.new).default_form
+    @form = new_form
     if @form.validate(params[:node]) && @form.save
       # TODO: redirect to draft view when we have one
       redirect_to @form.model.full_path
@@ -29,8 +29,14 @@ class Editorial::NodesController < ApplicationController
 
   def derive_type
     @type_name = params[:type] || 'general_content'
+    # Be extra pedantic with user input that is being turned into code
+    raise 'Invalid type' unless %w{general_content news_article}.include?(@type_name)
     @type = @type_name.camelize.constantize
-    raise 'Invalid type' unless @type <= Node
+    @form_type = "#{@type.name}Form".constantize
+  end
+
+  def new_form
+    @form_type.new(@type.new(content_block: ContentBlock.new))
   end
 
 end
