@@ -5,8 +5,4 @@ class NewsArticle < Node
     NewsArticleForm.new self
   end
 
-  def template
-    'media'
-  end
-
 end

@@ -39,10 +39,6 @@ class Node < ApplicationRecord
     NodeForm.new(self)
   end
 
-  def template
-    'default'
-  end
-
   private
 
   def ensure_order_num_present

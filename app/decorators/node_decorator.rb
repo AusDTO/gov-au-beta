@@ -20,4 +20,8 @@ class NodeDecorator < Draper::Decorator
     end
   end
 
+  def template
+    object.class.to_s.underscore
+  end
+
 end
