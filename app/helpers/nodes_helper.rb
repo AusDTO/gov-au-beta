@@ -5,9 +5,9 @@ module NodesHelper
 
     nodes_path.split('/').each_with_index do |slug, idx|
       if node.nil? && idx.zero?
-        node = section.nodes.find_by! slug: slug
+        node = section.nodes.with_state(:published).find_by! slug: slug
       else
-        node = node.children.find_by! slug: slug
+        node = node.children.with_state(:published).find_by! slug: slug
       end
     end
 

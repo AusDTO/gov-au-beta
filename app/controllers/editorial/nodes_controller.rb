@@ -1,6 +1,9 @@
 class Editorial::NodesController < ApplicationController
+  include NodesHelper
+  include ContentHelper
 
-  before_action :load_lists, :derive_type
+  before_action :load_lists, :derive_type, except: :show
+  before_action :show_toolbar, only: :show
 
   def index
     @section = Section.find_by slug: params[:section]
@@ -21,6 +24,18 @@ class Editorial::NodesController < ApplicationController
     end
   end
 
+  def show
+    @node = Node.find_by_token!(params[:token]).decorate
+    @section = @node.section
+    @toolbar_info[:edit_url] = @node.edit_url
+
+    if @node.content_block
+      @node.content_block.body = process_html(@node.content_block.body)
+    end
+
+    render_node @node, @section
+  end
+
   private
 
   def load_lists
@@ -38,5 +53,4 @@ class Editorial::NodesController < ApplicationController
   def new_form
     @form_type.new(@type.new(content_block: ContentBlock.new))
   end
-
 end
