@@ -39,6 +39,7 @@ gem 'odyssey'
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
 gem 'enumerize', '~> 1.1.1'
+gem 'cancancan'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
