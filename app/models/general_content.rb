@@ -1,0 +1,2 @@
+class GeneralContent < Node
+end
