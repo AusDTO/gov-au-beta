@@ -1,6 +1,6 @@
 class AddTokenToNodes < ActiveRecord::Migration[5.0]
   def up
-    add_column :nodes, :token, :string, null: false
+    add_column :nodes, :token, :string
 
     Node.all.each do |node|
       node.update_column :token, SecureRandom.uuid
