@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    get '/:section/nodes' => 'nodes#index'
     resources :nodes, only: [:create, :new]
+    get '/:section/nodes' => 'nodes#index'
+    get '/nodes/:token' => 'nodes#show'
   end
 
   namespace :admin do
@@ -23,7 +24,6 @@ Rails.application.routes.draw do
     resources :sections, only: :index
   end
 
-  get '/previews/:token' => 'previews#show'
   get root 'sections#index'
   get '/:section' => 'sections#show', as: :sections
   get '/:section(/*path)' => 'nodes#show', as: :nodes

@@ -6,8 +6,6 @@ RSpec.describe Node, type: :model do
   it { is_expected.to belong_to :parent }
   it { is_expected.to have_many :children }
   it { is_expected.to have_one :content_block }
-  it { is_expected.to validate_inclusion_of(:state).in_array(
-    ['draft', 'published']) }
 
   describe 'Sibling order' do
 
@@ -62,6 +60,52 @@ RSpec.describe Node, type: :model do
 
         it { is_expected.to eq 'alpha/beta/gamma' }
       end
+    end
+  end
+
+  describe 'state' do
+    it { is_expected.to validate_inclusion_of(:state).in_array(
+      %w(draft published))}
+
+    let(:draft_node) { Fabricate(:node, state: 'draft') }
+    let(:published_node) { Fabricate(:node, state: 'published')}
+
+    context 'draft scope' do
+      subject { Node.with_state :draft }
+
+      it { is_expected.to include draft_node }
+      it { is_expected.not_to include published_node }
+    end
+
+    context 'published scope' do
+      subject { Node.with_state :published }
+
+      it { is_expected.not_to include draft_node }
+      it { is_expected.to include published_node }
+    end
+
+    context 'without scope' do
+      subject { Node.all }
+
+      it { is_expected.to include draft_node }
+      it { is_expected.to include published_node }
+    end
+
+    context 'combined draft and published scope' do
+      subject { Node.with_state :draft, :published }
+
+      it { is_expected.to include draft_node }
+      it { is_expected.to include published_node }
+    end
+  end
+
+  describe '#token' do
+    it { is_expected.to validate_uniqueness_of(:token) }
+
+    subject { Fabricate(:node, token: nil) }
+
+    it 'automatically populates a token' do
+      expect(subject.token).to be_present
     end
   end
 end
