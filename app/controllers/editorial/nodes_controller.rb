@@ -52,13 +52,6 @@ module Editorial
 
     end
 
-    def show
-      @node = Node.find_by_token!(params[:token]).decorate
-      @section = @node.section
-      @toolbar_info[:edit_url] = @node.edit_url
-      render_node @node, @section
-    end
-
     private
 
     def load_lists

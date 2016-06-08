@@ -124,5 +124,28 @@ RSpec.describe NodesController, :type => :controller do
         end
       end
     end
+
+    describe 'previews' do    
+      shared_examples_for 'node preview' do
+        it { is_expected.to assign_to(:node).with node }
+        it { is_expected.to render_with_layout node.section.layout }
+      end
+
+      let(:node) { Fabricate(:node, state: state) }
+
+      before do
+        get :preview, params: { token: node.token}
+      end
+
+      context 'published node' do
+        let(:state) { 'published' }
+        include_examples 'node preview'
+      end
+
+      context 'draft node' do
+        let(:state) { 'draft' }
+        include_examples 'node preview'
+      end
+    end
   end
 end

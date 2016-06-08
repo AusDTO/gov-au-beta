@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace :editorial do
     get '/:section/nodes' => 'nodes#index'
     resources :nodes, only: [:create, :new, :edit, :update]
-    get '/nodes/:token' => 'nodes#show'
   end
 
   namespace :admin do
@@ -25,9 +24,8 @@ Rails.application.routes.draw do
   end
 
   get root 'sections#index'
+  get '/preview/:token' => 'nodes#preview', as: :previews
   get '/:section' => 'sections#show', as: :sections
-
-
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 
 end
