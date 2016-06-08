@@ -13,11 +13,20 @@ module Editorial
 
     def new
       @form = new_form
+      @parent = Node.find(params[:parent]) if params[:parent] else nil
+
+      if @parent
+        @form.parent_id = @parent.id
+        @form.section_id = @parent.section_id
+      else
+        @form.section_id = params[:section]
+      end
+
     end
 
     def create
       @form = new_form
-      if @form.validate(params[:node]) && @form.save
+      if @form.validate(params.require(:node).permit!) && @form.save
         # TODO: redirect to draft view when we have one
         redirect_to @form.model.full_path
       else
@@ -25,59 +34,25 @@ module Editorial
       end
     end
 
-
-  # def new
-  #   @parent = Node.find(params[:parent]) if params[:parent] else nil
-  #
-  #   if @parent
-  #     @node = @parent.children.build
-  #     @node.section = @parent.section
-  #   else
-  #     @section = Section.find(params[:section])
-  #     @node = @section.nodes.build
-  #   end
-  #
-  #   @form = NodeForm.new(@node)
-  # end
-
-  # def create
-  #   @form = NodeForm.new(Node.new)
-  #
-  #   if @form.validate(params.require(:node).permit!)
-  #
-  #     @form.save do |hash|
-  #       node = Node.new(hash)
-  #       # TODO: UUID may not be required
-  #       node.uuid = SecureRandom.uuid
-  #       node.save
-  #     end
-  #
-  #   else
-  #     render :new
-  #   end
-  # end
-
-  def edit
-    @node = Node.find(params[:id])
-    @form = NodeForm.new(@node)
-  end
-
-  def update
-    @node = Node.find(params[:id])
-    @form = NodeForm.new(@form)
-
-    if @form.validate(params.require(:node).permit!)
-      @form.save do |hash|
-        @node.update_attributes(hash)
-        @node.save!
-      end
-    else
-      render :edit
+    def edit
+      @node = Node.find(params[:id])
+      @type_name = @node.class.to_s.underscore
+      @form = "#{@node.class.name}Form".constantize.new(@node)
+      #@form = new_form(@node)
     end
 
-  end
+    def update
+      @node = Node.find(params[:id])
+      @form = new_form(@node)
 
-  private
+      if @form.validate(params.require(:node).permit!) && @form.save
+       redirect_to @form.model.full_path
+      else
+        render :edit
+      end
+
+    end
+
     def show
       @node = Node.find_by_token!(params[:token]).decorate
       @section = @node.section
@@ -99,8 +74,12 @@ module Editorial
       @form_type = "#{@type.name}Form".constantize
     end
 
-    def new_form
-      @form_type.new(@type.new(content_block: ContentBlock.new))
+    def new_form(obj=nil)
+      if obj
+        @form_type.new(obj)
+      else
+        @form_type.new(@type.new(content_block: ContentBlock.new))
+      end
     end
   end
 end

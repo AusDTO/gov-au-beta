@@ -1,11 +1,11 @@
 .fieldset
 
-  = simple_form_for @form, url: editorial_nodes_path  do |f|
-    = f.input_field :section_id, hidden: true
-    = f.input :section_id, collection: Section.all.collect { |s| [s.name, s.id]}, selected: @form.section_id, disabled: true
-    - if @node.parent
-      = f.input_field :parent_id, hidden: true
-      = f.input :parent_id, collection: Node.all, selected: @form.parent_id, disabled: true
+  = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
+    = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false, selected: @form.section_id
+    = f.input :parent_id, collection: @sections, as: :grouped_select, include_blank: true, group_method: :nodes, selected: @form.parent_id
     = f.input :name
-    = f.input :template
+    = f.simple_fields_for :content_block do |content_f|
+      = content_f.input :body, as: :text
+    = render partial: @type_name, locals: {f: f}
+    = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page"
