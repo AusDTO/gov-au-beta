@@ -10,14 +10,7 @@ class NodeDecorator < Draper::Decorator
   end
 
   def type_display_name
-    case self
-    when GeneralContent
-      'general content'
-    when NewsArticle
-      'news article'
-    else
-      'node'
-    end
+    I18n.t("domain_model.nodes.#{object.class.name.underscore}")
   end
 
   def template

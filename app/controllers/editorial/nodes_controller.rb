@@ -2,8 +2,7 @@ module Editorial
   class NodesController < ::ApplicationController
     include ::NodesHelper
 
-    before_action :load_lists, :derive_type, except: :show
-    before_action :show_toolbar, only: :show
+    before_action :load_lists, :derive_type, except: [:show, :prepare]
 
     def index
       authorize! :view, :editorial_page
@@ -18,17 +17,25 @@ module Editorial
       render_node @node, @section
     end
 
-    def new
-      @form = new_form
-      @parent = Node.find(params[:parent]) if params[:parent] else nil
+    def prepare
+      @type = Node
+      @form_type = NodeForm
+      configure_defaults!
 
-      if @parent
-        @form.parent_id = @parent.id
-        @form.section_id = @parent.section_id
-      else
-        @form.section_id = params[:section]
+      @node_types = [GeneralContent, NewsArticle].collect do |clazz|
+        name = clazz.name.underscore
+        [I18n.t("domain_model.nodes.#{name}"), name]
       end
 
+      @prompt = if @parent
+        "below #{@parent.name}"
+      else
+        "in #{@section.name}"
+      end
+    end
+
+    def new
+      configure_defaults!
     end
 
     def create
@@ -78,6 +85,20 @@ module Editorial
       else
         @form_type.new(@type.new(content_block: ContentBlock.new))
       end
+    end
+
+    def configure_defaults!
+      @form = new_form
+      @parent = Node.find(params[:parent]) if params[:parent].present? else nil
+
+      @section = if @parent.present?
+        @form.parent_id = @parent.id
+        @parent.section
+      elsif params[:section].present?
+        Section.find params[:section]
+      end
+
+      @form.section_id = @section.id if @section.present?
     end
 
     def try_save
