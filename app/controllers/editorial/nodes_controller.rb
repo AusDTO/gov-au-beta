@@ -13,16 +13,43 @@ module Editorial
 
     def new
       @form = new_form
+      @parent = Node.find(params[:parent]) if params[:parent] else nil
+
+      if @parent
+        @form.parent_id = @parent.id
+        @form.section_id = @parent.section_id
+      else
+        @form.section_id = params[:section]
+      end
+
     end
 
     def create
       @form = new_form
-      if @form.validate(params[:node]) && @form.save
+      if @form.validate(params.require(:node).permit!) && @form.save
         # TODO: redirect to draft view when we have one
         redirect_to @form.model.full_path
       else
         render 'new'
       end
+    end
+
+    def edit
+      @node = Node.find(params[:id])
+      @type_name = @node.class.name.underscore
+      @form = "#{@node.class.name}Form".constantize.new(@node)
+    end
+
+    def update
+      @node = Node.find(params[:id])
+      @form = new_form(@node)
+
+      if @form.validate(params.require(:node).permit!) && @form.save
+       redirect_to @form.model.full_path
+      else
+        render :edit
+      end
+
     end
 
     def show
@@ -46,8 +73,12 @@ module Editorial
       @form_type = "#{@type.name}Form".constantize
     end
 
-    def new_form
-      @form_type.new(@type.new(content_block: ContentBlock.new))
+    def new_form(obj=nil)
+      if obj
+        @form_type.new(obj)
+      else
+        @form_type.new(@type.new(content_block: ContentBlock.new))
+      end
     end
   end
 end
