@@ -11,6 +11,4 @@ class NodesController < ApplicationController
 
     render_node @node, @section
   end
-
-
 end
