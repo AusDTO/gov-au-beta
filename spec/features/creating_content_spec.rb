@@ -94,4 +94,17 @@ RSpec.describe 'creating content:', type: :feature do
     end
   end
 
+  describe 'create a child of an existing page' do
+    let!(:node) { Fabricate(:node) }
+
+    it 'should allow a user to create a child of a specific type' do
+      visit "/#{node.section.slug}/#{node.slug}"
+      click_link 'New page here'
+      expect(page).to have_content 'Create a new page'
+      select 'News article', from: 'Page type'
+      click_button 'New page'
+      expect(page).to have_content 'Release date'
+    end
+  end
+
 end
