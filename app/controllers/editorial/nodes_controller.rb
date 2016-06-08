@@ -83,11 +83,7 @@ module Editorial
     def try_save
       return false unless @form.validate(params.require(:node).permit!)
       @form.sync
-      @form.model.transaction do
-        return false unless @form.model.save
-        return false unless @form.model.content_block.save
-      end
-      return true
+      @form.model.save
     end
   end
 end
