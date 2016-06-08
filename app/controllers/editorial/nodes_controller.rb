@@ -36,7 +36,7 @@ module Editorial
 
     def edit
       @node = Node.find(params[:id])
-      @type_name = @node.class.to_s.underscore
+      @type_name = @node.class.name.underscore
       @form = "#{@node.class.name}Form".constantize.new(@node)
     end
 
