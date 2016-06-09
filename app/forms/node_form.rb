@@ -5,9 +5,7 @@ class NodeForm < Reform::Form
 
   property :content_block do
     property :body
+    validates :body, content_analysis: true
   end
 
-  # TODO: Decide if we want our validations from the model to the form
-  extend ActiveModel::ModelValidations
-  copy_validations_from Node
 end
