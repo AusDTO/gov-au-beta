@@ -22,12 +22,13 @@ Rails.application.routes.draw do
     resources :templates, only: :index
     resources :sections, only: :index
   end
+  mount Synergy::Engine => "/api"
 
   get root 'sections#index'
   get '/preview/:token' => 'nodes#preview', as: :previews
   get '/:section' => 'sections#show', as: :sections
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 
-  mount Synergy::Engine => "/"
+
 
 end
