@@ -13,7 +13,10 @@ Rails.application.routes.draw do
     resources :topics
     resources :nodes
     resources :content_blocks
+    resources :general_contents
+    resources :news_articles
     resources :sections
+    resources :users
 
     root to: 'agencies#index'
   end

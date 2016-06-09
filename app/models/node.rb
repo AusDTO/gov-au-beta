@@ -10,7 +10,7 @@ class Node < ApplicationRecord
   before_create :generate_token
   before_save :ensure_order_num_present
 
-  enumerize :state, in: %w(draft published), scope: true
+  enumerize :state, in: NodesHelper.states, scope: true
 
   validates_uniqueness_of :token
 
