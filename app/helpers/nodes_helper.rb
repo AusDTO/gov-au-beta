@@ -7,5 +7,9 @@ module NodesHelper
       render "templates/#{node.template}"
     end
   end
+
+  def self.states
+    %w{draft published}
+  end
   
 end

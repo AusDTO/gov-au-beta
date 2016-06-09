@@ -8,19 +8,22 @@ class NodeDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    parent: Field::BelongsTo.with_options(class_name: "Node"),
-    children: Field::HasMany.with_options(class_name: "Node"),
-    section: Field::BelongsTo,
-    content_block: Field::HasOne,
-    id: Field::Number,
-    parent_id: Field::Number,
-    template: Field::String,
-    name: Field::String,
-    slug: Field::String,
-    order_num: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    uuid: Field::String,
+      parent: Field::BelongsTo.with_options(class_name: "Node"),
+      children: Field::HasMany.with_options(class_name: "Node"),
+      section: Field::BelongsTo.with_options(class_name: "Section"),
+      content_block: Field::HasOne.with_options(class_name: "ContentBlock"),
+      id: Field::Number,
+      parent_id: Field::Number,
+      template: Field::String,
+      name: Field::String,
+      slug: Field::String,
+      order_num: Field::Number,
+      created_at: Field::DateTime,
+      updated_at: Field::DateTime,
+      state: StateEnumField,
+      type: Field::Text,
+      data: Field::String.with_options(searchable: false),
+      token: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -29,29 +32,28 @@ class NodeDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :section,
+    :id,
     :name,
+    :section,
     :parent,
-    :children,
-    :template,
+    :state,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
-    :section,
     :name,
+    :section,
     :parent,
-    :children,
+    :state,
     :content_block,
-    :parent_id,
-    :template,
+    :children,
     :slug,
     :order_num,
+    :data,
     :created_at,
     :updated_at,
-    :uuid,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -59,13 +61,16 @@ class NodeDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
+    :section,
+    :parent,
+    :state,
   ].freeze
 
   # Overwrite this method to customize how nodes are displayed
   # across all pages of the admin dashboard.
   #
   def display_resource(node)
-    node.name
+    "#{I18n.t("domain_model.nodes.#{node.class.name.underscore}")} '#{node.name}'"
   end
 
   def show_in_sidebar?
