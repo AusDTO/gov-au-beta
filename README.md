@@ -116,3 +116,12 @@ To provide approval for a pull request once satisified with the code:
 In some instances an author may wish to merge a PR themselves, so it is important to check
 the message accompanying the PR to ensure the last reviewer is able to merge. By default,
 it is safe to merge a PR as the last reviewer to provide approval.
+
+### Code Climate
+
+To run Code Climate locally, first install the 
+[Code Climate CLI](https://github.com/codeclimate/codeclimate), then run
+from the root of the repo:
+```
+codeclimate analyze
+```
