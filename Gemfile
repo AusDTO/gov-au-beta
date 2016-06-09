@@ -24,7 +24,7 @@ gem 'reform'
 gem 'reform-rails'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
-gem 'cf-app-utils' # cloudfoundry utils 
+gem 'cf-app-utils' # cloudfoundry utils
 gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rails-4
 gem 'rails_12factor'
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
@@ -42,19 +42,22 @@ gem 'enumerize', '~> 1.1.1'
 gem 'store_schema'
 gem 'cancancan'
 
+# engines
+gem 'synergy', path: 'engines/synergy'
+
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
 # - https://github.com/thoughtbot/administrate/pull/575 # Rails 5
 gem 'administrate', github: 'micapam/administrate', branch: 'govau'
 
-group :development do 
+group :development do
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :test, :development do 
+group :test, :development do
   gem 'rspec-rails', '>= 3.5.0.beta3'
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
