@@ -22,3 +22,5 @@ password = ENV['SEED_USER_ADMIN_PASSWORD']
 raise "SEED_USER_ADMIN_PASSWORD cannot be empty" if password.blank?
 User.where(email: "admin@example.com").delete_all
 User.create! email: "admin@example.com", password: password, is_admin: true
+User.create! email: "author@example.com", password: password, is_author: true
+User.create! email: "reviewer@example.com", password: password, is_reviewer: true
