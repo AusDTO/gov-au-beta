@@ -1,0 +1,5 @@
+%p Select section to write content for
+%ul
+  - @sections.each do |section|
+    %li
+      = link_to(section.name, prepare_editorial_nodes_path(section: section.id))
