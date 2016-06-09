@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ContentBlockDashboard < Administrate::BaseDashboard
+class NewsArticleDashboard < NodeDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,49 +8,35 @@ class ContentBlockDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    node: Field::BelongsTo,
-    id: Field::Number,
-    body: Field::Text,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }.freeze
+      release_date: Field::DateTime,
+  }.update(self.superclass::ATTRIBUTE_TYPES).freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :node,
-    :body,
-  ].freeze
+  COLLECTION_ATTRIBUTES = (self.superclass::COLLECTION_ATTRIBUTES + [
+      :release_date,
+  ]).freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :node,
-    :body,
-    :created_at,
-    :updated_at,
-  ].freeze
+  SHOW_PAGE_ATTRIBUTES = (self.superclass::SHOW_PAGE_ATTRIBUTES + [
+      :release_date
+  ]).freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :body,
-  ].freeze
+  FORM_ATTRIBUTES = (self.superclass::FORM_ATTRIBUTES + [
+      :release_date
+  ]).freeze
 
-  # Overwrite this method to customize how content blocks are displayed
-  # across all pages of the admin dashboard.
+  # Overwrite this method to customize whether the index page for general contents
+  # is included in the sidebar.
   #
-  # def display_resource(content_block)
-  #   "ContentBlock ##{content_block.id}"
-  # end
-
   def show_in_sidebar?
-    false
+    true
   end
 end
