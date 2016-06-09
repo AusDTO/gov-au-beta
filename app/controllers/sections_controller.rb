@@ -1,5 +1,7 @@
 class SectionsController < ApplicationController
 
+  before_action :show_toolbar, only: :show
+  
   def index
     @sections = Section.all.order(:name)
   end
