@@ -4,9 +4,12 @@ class NodesController < ApplicationController
   before_action :show_toolbar, only: :show
 
   def show
-    # TODO should only work on published?
     @section = Section.find_by! slug: params[:section]
-    @node = find_node!(@section, params[:path]).decorate
+    @raw_node = @section.find_node!(params[:path])
+    if !can?(:read, @raw_node)
+      raise ActiveRecord::RecordNotFound
+    end
+    @node = @raw_node.decorate
     @toolbar_info[:edit_url] = @node.edit_url
     render_node @node, @section
   end
