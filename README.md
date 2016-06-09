@@ -60,7 +60,7 @@ See [Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis) f
 ```
 git clone git@github.com:AusDTO/gov-au-beta-content-analysis.git
 
-#etc etc etc, see documentation for details
+#Please see project documentation for complete details
 ```
 
 
