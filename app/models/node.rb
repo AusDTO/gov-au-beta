@@ -5,7 +5,7 @@ class Node < ApplicationRecord
   acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
-  has_one :content_block
+  has_one :content_block, autosave: true
 
   before_create :generate_token
   before_save :ensure_order_num_present
@@ -32,10 +32,6 @@ class Node < ApplicationRecord
     ancestry.reverse.collect { |node|
       node.slug
     }.join '/'
-  end
-
-  def full_path
-    "/#{section.slug}/#{path}"
   end
 
   private
