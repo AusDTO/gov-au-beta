@@ -1,9 +1,7 @@
 require 'test_helper'
 
 module Synergy
-  class WebhookControllerTest < ActionDispatch::IntegrationTest
-    include Engine.routes.url_helpers
-
+  class EventTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end
