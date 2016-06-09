@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   get '/:section' => 'sections#show', as: :sections
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 
+  mount Synergy::Engine => "/"
+
 end
