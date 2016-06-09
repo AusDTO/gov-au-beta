@@ -11,9 +11,14 @@ If you're contributing to this repo, then you'll most likely be contributing to 
 
 ## Dependencies
 
-The GOV.AU Beta Frontend requires postgres 9.4 or higher.
+ - Ruby 2.3.1
+ - PostgreSQL 9.4
+ - [Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis)
+
 
 ## Local Ruby on Rails development environment on Mac OSX
+
+
 ```
 # install homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -47,6 +52,21 @@ cp .env.sample .env
 # Make any changes you need to (change credentials etc)
 $EDITOR .env
 
+```
+
+## Setup and Run Content Analysis Project
+See [Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis) for detailed instructions.
+
+```
+git clone git@github.com:AusDTO/gov-au-beta-content-analysis.git
+
+#etc etc etc, see documentation for details
+```
+
+
+## Setup and Start the App
+```
+
 # setup db with seed data
 rails db:setup
 
@@ -60,11 +80,14 @@ Thanks to http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html
 # first time setup
 # https://docs.pivotal.io/pivotalcf/devguide/services/migrate-db.html
 # http://stackoverflow.com/a/10302357/684978 for db: rake tasks
-cf create-service aws-rds-postgres 5.6-t2.micro-5G gov-au-beta-db 
+cf create-service aws-rds-postgres 5.6-t2.micro-5G gov-au-beta-db
 cf service gov-au-beta-db # do until status is 'available' - 10 minutes or so
-cf push -i 1 -u none -c "bundle exec rake db:schema:load db:seed" 
+cf push -i 1 -u none -c "bundle exec rake db:schema:load db:seed"
 cf set-env gov-au-beta SECRET_KEY_BASE `rails secret`
 cf set-env gov-au-beta ROLLBAR_ACCESS_TOKEN aabcc
 ```
 
 
+## Development Process
+
+- Use [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow/)
