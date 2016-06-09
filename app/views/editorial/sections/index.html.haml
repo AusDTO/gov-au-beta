@@ -1,5 +1,7 @@
-%p Select section to write content for
+%h1 Editorial
 %ul
   - @sections.each do |section|
     %li
-      = link_to(section.name, prepare_editorial_nodes_path(section: section.id))
+      = link_to(section.name, editorial_path(section))
+      - if can? :create, Node
+        =link_to('Create new page', prepare_editorial_nodes_path(section: section.id))

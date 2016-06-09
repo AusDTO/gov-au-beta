@@ -4,7 +4,7 @@ RSpec.describe Editorial::SectionsController, type: :controller do
 
   describe 'GET #index' do
     let(:author) { Fabricate(:user, is_author: true) }
-    let(:reviewer) { Fabricate(:user, is_reviewer: true) }
+    let(:user) { Fabricate(:user) }
     let(:authenticated_request) { get :index }
 
     context 'when user is authorised' do
@@ -29,12 +29,12 @@ RSpec.describe Editorial::SectionsController, type: :controller do
 
     context 'when user is not authorised' do
       before do
-        sign_in(reviewer)
+        sign_in(user)
         authenticated_request
       end
 
       after do
-        sign_out(reviewer)
+        sign_out(user)
       end
 
       it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
