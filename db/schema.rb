@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160607010429) do
     t.string   "state",      default: "draft", null: false
     t.text     "type"
     t.jsonb    "data"
-    t.string   "token",                        null: false
+    t.string   "token"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
