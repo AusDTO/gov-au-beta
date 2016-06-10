@@ -1,0 +1,25 @@
+!!! 5
+
+%html
+  = render 'head', title: 'GovAuBeta: Collaboration'
+  %body
+    %header
+      %div.wrapper
+      - if content_for?(:header)
+        = yield(:header)
+      - else
+        %h1.page-title GOV.AU Beta
+    %main
+      = render 'navbar'
+      %article
+        = render 'toolbar'
+        = render 'session_status'
+        = render 'alerts'
+        = yield
+    %footer{role: "contentinfo"}
+      %div.wrapper
+        - if content_for?(:footer)
+          = yield(:footer)
+        - else
+          %p
+            &lt;insert footer here&gt;

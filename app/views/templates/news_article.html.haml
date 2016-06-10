@@ -1,4 +1,4 @@
-%h1
+%h2
   Media Template
 
 %h2
@@ -10,7 +10,8 @@
     = @node.release_date
 
 - if @node.content_block
-  !=@node.content_block.body
+  %p
+    !=@node.content_block.body
 
 %p
   =@hierarchy

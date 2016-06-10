@@ -1,13 +1,7 @@
 !!! 5
 
 %html
-  %head
-    %title= content_for?(:title) ? yield(:title) : GovAuBeta
-    = csrf_meta_tags
-
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-
+  = render 'head', title: 'GovAuBeta'
   %body
     %header
       %div.wrapper
