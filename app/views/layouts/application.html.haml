@@ -22,3 +22,10 @@
         = render 'session_status'
         = render 'alerts'
         = yield
+    %footer{role: "contentinfo"}
+      %div.wrapper
+        - if content_for?(:footer)
+          = yield(:footer)
+        - else
+          %p
+            &lt;insert footer here&gt;
