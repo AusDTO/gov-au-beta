@@ -91,3 +91,28 @@ cf set-env gov-au-beta ROLLBAR_ACCESS_TOKEN aabcc
 ## Development Process
 
 - Use [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow/)
+
+
+### Pull requests and branch protection
+
+Branch protection is currently turned on for `develop`, which means that all pull requests
+need to pass several tests before they can be merged. The current tests are:
+
+* circleCI - continuous integration to build and execute tests on the branch 
+* LGTM - reviewer approval plugin on the pull request
+
+#### Reviewing pull requests
+
+Pull requests currently require approval from at least two people before they can be merged.
+After approval has been granted, the PR can be merged by anyone (either the last reviewer
+or the author). The list of potential reviewers is stored in the root of the repo, as a 
+list of GitHub user accounts in `MAINTAINERS`.
+
+To provide approval for a pull request once satisified with the code:
+ * Leave a message of `LGTM` within the main thread of comments.
+ * If as a result the build turns green and is ready, use the merge button (unless otherwise
+   directed in the PR).
+
+In some instances an author may wish to merge a PR themselves, so it is important to check
+the message accompanying the PR to ensure the last reviewer is able to merge. By default,
+it is safe to merge a PR as the last reviewer to provide approval.
