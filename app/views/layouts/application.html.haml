@@ -1,0 +1,24 @@
+!!! 5
+
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : GovAuBeta
+    = csrf_meta_tags
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+    %header
+      %div.wrapper
+      - if content_for?(:header)
+        = yield(:header)
+      - else
+        %h1.page-title GOV.AU Beta
+    %main
+      = render 'navbar'
+      %article
+        = render 'toolbar'
+        = render 'session_status'
+        = render 'alerts'
+        = yield
