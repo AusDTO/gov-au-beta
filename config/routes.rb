@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    get '/:section/nodes' => 'nodes#index'
+    get '/:section/nodes' => 'nodes#index', as: :editorial_nodes
     resources :nodes, only: [:show, :create, :new, :edit, :update] do
       get 'prepare', on: :collection
     end
