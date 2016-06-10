@@ -5,21 +5,14 @@
   %body
     %header
       %div.wrapper
-      - if content_for?(:header)
-        = yield(:header)
-      - else
-        %h1.page-title GOV.AU Beta
+        %h1.page-title GOV.AU Beta: Collaboration
     %main
       = render 'navbar'
       %article
-        = render 'toolbar'
         = render 'session_status'
         = render 'alerts'
         = yield
     %footer{role: "contentinfo"}
       %div.wrapper
-        - if content_for?(:footer)
-          = yield(:footer)
-        - else
-          %p
-            &lt;insert footer here&gt;
+        %p
+          &lt;insert footer here&gt;
