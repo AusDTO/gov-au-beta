@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    get '/:section/nodes' => 'nodes#index'
-    resources :nodes, only: [:show, :create, :new, :edit, :update] do
+    resources :sections, only: [:index]
+    resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
       get 'prepare', on: :collection
     end
     root to: 'sections#index'

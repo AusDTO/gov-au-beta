@@ -2,11 +2,19 @@ module Editorial
   class NodesController < ::ApplicationController
     include ::NodesHelper
 
+    layout 'editorial'
+
     before_action :load_lists, :derive_type, except: [:show, :prepare]
 
     def index
       authorize! :view, :editorial_page
-      @section = Section.find_by slug: params[:section]
+
+      unless params[:section_id].present?
+        redirect_to editorial_sections_path
+        return
+      end
+
+      @section = Section.find params[:section_id]
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end
 

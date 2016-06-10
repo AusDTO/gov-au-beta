@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>GovAuBeta</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
+  <%= render 'head', title: 'GovAuBeta' %>
   <body>
     <%= render 'toolbar' %>
     <%= render 'session_status' %>
