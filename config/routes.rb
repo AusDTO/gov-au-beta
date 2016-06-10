@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :nodes, only: [:show, :create, :new, :edit, :update] do
       get 'prepare', on: :collection
     end
+    root to: 'sections#index'
   end
 
   namespace :admin do
