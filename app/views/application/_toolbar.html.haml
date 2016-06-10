@@ -5,4 +5,4 @@
       =link_to 'New page here', prepare_editorial_nodes_path(parent: @node.id)
     -else
       =link_to 'New page here', prepare_editorial_nodes_path(section: @section.id)
-    =link_to 'Editorial dashboard', "/editorial/#{@node.section.slug}/nodes"
+    =link_to 'Editorial dashboard', "/editorial/#{@section.slug}/nodes"
