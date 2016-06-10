@@ -2,6 +2,8 @@ module Editorial
   class NodesController < ::ApplicationController
     include ::NodesHelper
 
+    layout 'editorial'
+
     before_action :load_lists, :derive_type, except: [:show, :prepare]
 
     def index
