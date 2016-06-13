@@ -1,11 +1,11 @@
 class Node < ApplicationRecord
   extend FriendlyId, Enumerize
+  include Storext.model
   friendly_id :name, use: :slugged, routes: :default
 
   acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
-  has_one :content_block, autosave: true
 
   before_create :generate_token
   before_save :ensure_order_num_present
@@ -13,6 +13,10 @@ class Node < ApplicationRecord
   enumerize :state, in: NodesHelper.states, scope: true
 
   validates_uniqueness_of :token
+
+  store_attributes :data do 
+    content_blocks Array[::ContentBlock]
+  end
 
   def ancestry
     arr = [self]
@@ -32,6 +36,16 @@ class Node < ApplicationRecord
     ancestry.reverse.collect { |node|
       node.slug
     }.join '/'
+  end
+
+  # Syntactic sugar - TODO get rid of this once we have a type with >1
+  def content_block
+    content_blocks.first
+  end
+
+  # Override in subclasses as needs
+  def num_content_blocks
+    1
   end
 
   private

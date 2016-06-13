@@ -5,7 +5,6 @@ RSpec.describe Node, type: :model do
   it { is_expected.to belong_to :section }
   it { is_expected.to belong_to :parent }
   it { is_expected.to have_many :children }
-  it { is_expected.to have_one :content_block }
 
   describe 'Sibling order' do
 

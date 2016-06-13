@@ -39,10 +39,9 @@ gem 'odyssey'
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
 gem 'enumerize', '~> 1.1.1'
-gem 'store_schema'
 gem 'cancancan'
 gem 'rolify'
-
+gem 'storext', github: 'micapam/storext', ref: '3e69a6b6'
 
 # engines
 gem 'synergy', path: 'engines/synergy'
