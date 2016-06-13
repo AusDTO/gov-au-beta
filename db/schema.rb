@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160621025209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "uuid-ossp"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -38,14 +39,22 @@ ActiveRecord::Schema.define(version: 20160621025209) do
     t.integer  "order_num"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "state",      default: "draft", null: false
     t.text     "type"
     t.jsonb    "data"
-    t.string   "state",      default: "draft", null: false
     t.string   "token"
     t.hstore   "content"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
+  end
+
+  create_table "previews", force: :cascade do |t|
+    t.string   "token"
+    t.json     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_previews_on_token", unique: true, using: :btree
   end
 
   create_table "requests", force: :cascade do |t|
@@ -59,6 +68,14 @@ ActiveRecord::Schema.define(version: 20160621025209) do
     t.index ["approver_id"], name: "index_requests_on_approver_id", using: :btree
     t.index ["section_id"], name: "index_requests_on_section_id", using: :btree
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
+  end
+
+  create_table "revisions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.integer  "node_id"
+    t.jsonb    "diffs"
+    t.datetime "created_at"
+    t.datetime "applied_at"
+    t.index ["node_id"], name: "index_revisions_on_node_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|

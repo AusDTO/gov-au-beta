@@ -1,6 +1,6 @@
 class Node < ApplicationRecord
   extend FriendlyId, Enumerize
-  include Storext.model
+  include Container, Revisable
   friendly_id :name, use: :slugged, routes: :default
 
   acts_as_tree order: 'order_num ASC'
@@ -14,7 +14,8 @@ class Node < ApplicationRecord
 
   validates_uniqueness_of :token
 
-  store_attribute :content, :content_body, String
+  # store_attribute :content, :content_body, String
+  content_attribute :content_body
 
   def ancestry
     arr = [self]

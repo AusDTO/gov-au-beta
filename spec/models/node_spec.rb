@@ -107,4 +107,14 @@ RSpec.describe Node, type: :model do
       expect(subject.token).to be_present
     end
   end
+
+  describe '#revise' do
+    let(:node) { Fabricate(:node, content_body: 'foo') }
+
+    subject { node.revise!(content_body: 'foo bar').diffs }
+
+    it { is_expected.to eq(
+      { content_body: Class.new.extend(Revisable).persistable_diff(
+        'foo', 'foo bar').to_json })}
+  end
 end
