@@ -1,9 +1,11 @@
 class Revision < ApplicationRecord
-  belongs_to :revisable, polymorphic: true
   scope :applied, -> { where.not(applied_at: nil).order(applied_at: :desc) }
   scope :pending, -> { where(applied_at: nil).order(:created_at) }
   scope :until, -> (revision) { where('created_at <= ?', revision.created_at) }
   scope :since, -> (revision) { where('applied_at > ?', revision.applied_at) }
+
+  belongs_to :revisable, polymorphic: true
+  has_one :submission
 
   def applied?
     applied_at.present?
@@ -14,7 +16,7 @@ class Revision < ApplicationRecord
   end
 
   def diffs
-    self[:diffs].symbolize_keys
+    HashWithIndifferentAccess.new(self[:diffs])
   end
 
   def apply!
@@ -25,3 +27,4 @@ class Revision < ApplicationRecord
     end
   end
 end
+

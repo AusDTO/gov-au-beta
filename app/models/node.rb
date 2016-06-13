@@ -6,6 +6,7 @@ class Node < ApplicationRecord
   acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
+  has_many :submissions, through: :revisions
 
   before_create :generate_token
   before_save :ensure_order_num_present

@@ -1,6 +1,6 @@
 module Editorial
   class NodesController < EditorialController
-    include ::NodesHelper
+    include ::NodesHelper, ::EditorialHelper
 
     layout 'editorial'
 
@@ -70,7 +70,7 @@ module Editorial
       @form = new_form(@node)
 
       if try_save
-       redirect_to editorial_node_path(@form)
+        redirect_to editorial_node_path(@form)
       else
         render :edit
       end
@@ -88,7 +88,7 @@ module Editorial
       # Be extra pedantic with user input that is being turned into code
       raise 'Invalid type' unless %w{general_content news_article}.include?(@type_name)
       @type = @type_name.camelize.constantize
-      @form_type = "#{@type.name}Form".constantize
+      @form_type = form_type @type
     end
 
     def new_form(obj=nil)

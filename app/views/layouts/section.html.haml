@@ -7,7 +7,7 @@
   = content_for :toolbar_actions do
     / TODO: Cleanup (perhaps in https://govausites.atlassian.net/browse/SITES-168)
     - if @node
-      =link_to 'Edit', edit_editorial_node_path(@node)
+      =link_to 'Edit', new_editorial_node_submission_path(@node)
       =link_to 'New page', prepare_editorial_nodes_path(parent: @node)
     - elsif @section
       =link_to 'New page', prepare_editorial_nodes_path(section: @section.id)

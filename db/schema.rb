@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621025209) do
+ActiveRecord::Schema.define(version: 20160622041215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +88,18 @@ ActiveRecord::Schema.define(version: 20160621025209) do
     t.datetime "updated_at", null: false
     t.string   "layout"
     t.text     "summary"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.uuid     "revision_id",                  null: false
+    t.integer  "submitter_id",                 null: false
+    t.integer  "reviewer_id"
+    t.text     "summary"
+    t.datetime "submitted_at"
+    t.datetime "reviewed_at"
+    t.boolean  "accepted",     default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "synergy_nodes", force: :cascade do |t|

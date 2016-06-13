@@ -13,6 +13,11 @@ RSpec.describe Revision, type: :model do
       expect(first_applied_revision).to be_applied
     end
 
+    it 'should flag instances' do
+      expect(first_pending_revision).to be_pending
+      expect(first_applied_revision).to be_applied
+    end
+
     describe 'applied' do
       subject { node.revisions.applied }
 
