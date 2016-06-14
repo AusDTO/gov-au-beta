@@ -1,5 +1,5 @@
 module Editorial
-  class NodesController < ::ApplicationController
+  class NodesController < ApplicationController
     include ::NodesHelper
 
     layout 'editorial'
@@ -7,7 +7,6 @@ module Editorial
     before_action :load_lists, :derive_type, except: [:show, :prepare]
 
     def index
-      authorize! :view, :editorial_page
 
       unless params[:section_id].present?
         redirect_to editorial_sections_path
@@ -26,6 +25,7 @@ module Editorial
     end
 
     def prepare
+      authorize! :create, Node
       @type = Node
       @form_type = NodeForm
       configure_defaults!
