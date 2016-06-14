@@ -8,9 +8,8 @@ class CreateSynergyNodes < ActiveRecord::Migration[5.0]
       t.integer :children_count, :null => false, :default => 0
 
       t.text :name, null: false
-      # t.text :path, null: false
-      # t.text :source, null: false
-      # t.json :content, null: false
+      t.text :source, null: false
+      t.json :data, null: false
 
       t.timestamps
     end

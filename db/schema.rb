@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 20160610021605) do
     t.integer  "depth",          default: 0, null: false
     t.integer  "children_count", default: 0, null: false
     t.text     "name",                       null: false
+    t.text     "source",                     null: false
+    t.json     "data",                       null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["lft"], name: "index_synergy_nodes_on_lft", using: :btree
