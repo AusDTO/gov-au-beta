@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610021605) do
+ActiveRecord::Schema.define(version: 20160609060129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,22 +74,6 @@ ActiveRecord::Schema.define(version: 20160610021605) do
   create_table "synergy_events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "synergy_nodes", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.integer  "lft",                        null: false
-    t.integer  "rgt",                        null: false
-    t.integer  "depth",          default: 0, null: false
-    t.integer  "children_count", default: 0, null: false
-    t.text     "name",                       null: false
-    t.text     "source",                     null: false
-    t.json     "data",                       null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["lft"], name: "index_synergy_nodes_on_lft", using: :btree
-    t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
-    t.index ["rgt"], name: "index_synergy_nodes_on_rgt", using: :btree
   end
 
   create_table "templates", force: :cascade do |t|
