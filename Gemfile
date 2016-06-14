@@ -71,6 +71,7 @@ group :test do
   gem 'rails-controller-testing', '~> 0.1.1'
   gem 'database_cleaner', '~> 1.5.3'
   gem 'shoulda-kept-assign-to', '~> 1.1.0'
+  gem 'launchy'
 end
 
 platforms :mingw, :mswin do

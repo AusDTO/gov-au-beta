@@ -15,8 +15,4 @@ class Section < ApplicationRecord
       node.children.find_by! slug: slug
     end
   end
-
-  def to_s
-    self.name
-  end
 end
