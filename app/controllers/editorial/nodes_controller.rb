@@ -1,5 +1,5 @@
 module Editorial
-  class NodesController < ApplicationController
+  class NodesController < EditorialController
     include ::NodesHelper
 
     layout 'editorial'

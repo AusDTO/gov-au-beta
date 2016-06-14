@@ -1,6 +1,6 @@
 
 module Editorial
-  class ApplicationController < ::ApplicationController
+  class EditorialController < ::ApplicationController
 
     before_action ->() { authorize! :view, :editorial_page }
 
