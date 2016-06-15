@@ -42,6 +42,12 @@ GIT
       activesupport (>= 3.0)
       request_store (~> 1.0)
 
+PATH
+  remote: engines/synergy
+  specs:
+    synergy (0.1.0)
+      rails (>= 5.0.0.rc1, < 5.1)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -419,6 +425,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   store_schema
+  synergy!
   turbolinks (~> 5.x)
   tzinfo-data
   uglifier (>= 1.3.0)
