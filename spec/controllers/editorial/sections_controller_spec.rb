@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Editorial::SectionsController, type: :controller do
+RSpec.describe Editorial::EditorialController, type: :controller do
 
   describe 'GET #index' do
     let(:author) { Fabricate(:user, is_author: true) }

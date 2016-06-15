@@ -24,7 +24,7 @@ describe 'editorial authorisation' do
     end
 
     context 'on a section editorial page' do
-      before { visit "/editorial/nodes?section_id=#{section.id}" }
+      before { visit "/editorial/=#{section.slug}" }
 
       include_examples "not authorized"
     end
@@ -39,7 +39,7 @@ describe 'editorial authorisation' do
   context 'logged in' do
     shared_examples_for 'view section links' do
       it 'can select a section' do
-        expect(page).to have_link section.name, :href => "/editorial/nodes?section_id=#{section.id}"
+        expect(page).to have_link section.name, :href => "/editorial/#{section.slug}"
       end
     end
 
