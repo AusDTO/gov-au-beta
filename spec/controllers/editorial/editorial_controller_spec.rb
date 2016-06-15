@@ -50,4 +50,32 @@ RSpec.describe Editorial::EditorialController, type: :controller do
 
     end
   end
+
+  describe 'GET #show' do
+    let(:user) { Fabricate(:user) }
+    before :example do
+      sign_in(user)
+    end
+
+    context 'when user is authenticated and views all pages filter' do
+      it 'should load the page' do
+        get :show
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when an authenticated user views submission filter' do
+      it 'should load the page' do
+        get :show, filter: 'submissions'
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when an authenticated user views my_pages filter' do
+      it 'should load the page' do
+        get :show, filter: 'my_pages'
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end
