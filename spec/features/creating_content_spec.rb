@@ -7,11 +7,11 @@ RSpec.describe 'creating content:', type: :feature do
 
   before :each do
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /Bad.*Content/)
+        .with(body: /Bad.*Content/i)
         .to_return(:headers => {'Content-Type' => 'application/json'},
                    :body => '{"Bad Content" : "Good Content"}')
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /Good.*Content/)
+        .with(body: /(Good|Random).*Content/i)
         .to_return(:headers => {'Content-Type' => 'application/json'},
                    :body => '{}')
 
@@ -109,6 +109,26 @@ RSpec.describe 'creating content:', type: :feature do
       select 'News article', from: 'Page type'
       click_button 'New page'
       expect(page).to have_content 'Release date'
+    end
+
+    it 'should prefill the section and parent' do
+      visit "/#{node.section.slug}/#{node.slug}"
+      click_link 'New page here'
+      expect(page).to have_content 'Create a new page'
+      click_button 'New page'
+      expect(page).to have_select('Section', selected: node.section.name)
+      expect(page).to have_select('Parent', selected: node.name)
+    end
+  end
+
+  describe 'create a top node in a section' do
+    it 'should prefill the section' do
+      visit "/#{root.slug}"
+      click_link 'New page here'
+      expect(page).to have_content 'Create a new page'
+      expect(page).to have_content root.name
+      click_button 'New page'
+      expect(page).to have_select('Section', selected: root.name)
     end
   end
 
