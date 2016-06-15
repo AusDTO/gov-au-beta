@@ -1,0 +1,7 @@
+%h2 Editorial
+%ul
+  - @sections.each do |section|
+    %li
+      = link_to(section.name, editorial_nodes_path(section_id: section.id))
+      - if can? :create, Node
+        =link_to('Create new page', prepare_editorial_nodes_path(section: section.id))

@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  domain_model:
+    nodes:
+      general_content: General content
+      news_article: News article

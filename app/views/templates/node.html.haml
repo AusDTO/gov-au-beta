@@ -1,8 +1,9 @@
-%h1
+%h2
   =@node.name
 
 - if @node.content_block
-  != @node.content_block.body
+  %p
+    != @node.content_block.body
 
 %p
   =@hierarchy

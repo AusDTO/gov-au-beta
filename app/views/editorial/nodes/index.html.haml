@@ -1,9 +1,21 @@
-%h1
+%h2
   All pages in #{@section.name}
 
 -@nodes.each do |node|
   %div
-    %a{href: nodes_path(section: @section.slug, path: node.path)}
-      %span= node.name
-      %span= node.state
-      %span= node.updated_at
+    %span= node.name
+    %span
+      %strong= node.state
+    %span= node.updated_at
+    %span
+      =link_to 'View', editorial_node_path(node)
+    -if node.state.draft?
+      %span
+        =link_to 'Edit', edit_editorial_node_path(node)
+    %span
+      -if node.state.published?
+        =link_to 'View on website',                            |
+          nodes_path(section: @section.slug, path: node.path), |
+          target: 'GOVAU_PREVIEW'                              |
+      -else
+        =link_to 'Preview', previews_path(token: node.token), target: '_blank'

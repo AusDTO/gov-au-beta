@@ -1,0 +1,18 @@
+!!! 5
+
+%html
+  = render 'head', title: 'GovAuBeta: Collaboration'
+  %body
+    %header
+      %div.wrapper
+        %h1.page-title GOV.AU Beta: Collaboration
+    %main
+      = render 'navbar'
+      %article
+        = render 'session_status'
+        = render 'alerts'
+        = yield
+    %footer{role: "contentinfo"}
+      %div.wrapper
+        %p
+          &lt;insert footer here&gt;

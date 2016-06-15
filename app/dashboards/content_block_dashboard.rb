@@ -13,7 +13,6 @@ class ContentBlockDashboard < Administrate::BaseDashboard
     body: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    unique_id: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -22,21 +21,19 @@ class ContentBlockDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :node,
     :id,
+    :node,
     :body,
-    :created_at,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :node,
     :id,
+    :node,
     :body,
     :created_at,
     :updated_at,
-    :unique_id,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -44,7 +41,6 @@ class ContentBlockDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :body,
-    :unique_id,
   ].freeze
 
   # Overwrite this method to customize how content blocks are displayed

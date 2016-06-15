@@ -1,4 +1,8 @@
 -if @toolbar_info[:visible]
   #toolbar
-    %a{href:edit_editorial_node_path(@node) } Edit this page
-    %a{href: new_editorial_node_path(section: @section.id, parent: @node.id)} New page here
+    -if @node
+      =link_to 'Edit this page', edit_editorial_node_path(@node)
+      =link_to 'New page here', prepare_editorial_nodes_path(parent: @node.id)
+    -else
+      =link_to 'New page here', prepare_editorial_nodes_path(section: @section.id)
+    =link_to 'Editorial dashboard', editorial_nodes_path(section_id: @section.id)

@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'creating content:', type: :feature do
+  include Warden::Test::Helpers
+  Warden.test_mode!
+  let!(:author_user) { Fabricate(:user, is_author: true) }
 
   before :each do
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
@@ -11,6 +14,8 @@ RSpec.describe 'creating content:', type: :feature do
         .with(body: /Good.*Content/)
         .to_return(:headers => {'Content-Type' => 'application/json'},
                    :body => '{}')
+
+    login_as(author_user, scope: :user)
   end
 
   # need a section for pages to be a part of
@@ -91,6 +96,19 @@ RSpec.describe 'creating content:', type: :feature do
       expect(page).to have_select('Parent', selected: node_1.name)
       visit new_editorial_node_path(parent: node_2.id)
       expect(page).to have_select('Parent', selected: node_2.name)
+    end
+  end
+
+  describe 'create a child of an existing page' do
+    let!(:node) { Fabricate(:node) }
+
+    it 'should allow a user to create a child of a specific type' do
+      visit "/#{node.section.slug}/#{node.slug}"
+      click_link 'New page here'
+      expect(page).to have_content 'Create a new page'
+      select 'News article', from: 'Page type'
+      click_button 'New page'
+      expect(page).to have_content 'Release date'
     end
   end
 

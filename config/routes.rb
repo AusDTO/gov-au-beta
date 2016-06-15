@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    get '/:section/nodes' => 'nodes#index'
-    resources :nodes, only: [:show, :create, :new, :edit, :update]
+    resources :sections, only: [:index]
+    resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
+      get 'prepare', on: :collection
+    end
+    root to: 'sections#index'
   end
 
   namespace :admin do
@@ -11,7 +14,10 @@ Rails.application.routes.draw do
     resources :topics
     resources :nodes
     resources :content_blocks
+    resources :general_contents
+    resources :news_articles
     resources :sections
+    resources :users
 
     root to: 'agencies#index'
   end
