@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'creating content:', type: :feature do
+  include Warden::Test::Helpers
+  Warden.test_mode!
+  let!(:author_user) { Fabricate(:user, is_author: true) }
 
   before :each do
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
@@ -11,6 +14,8 @@ RSpec.describe 'creating content:', type: :feature do
         .with(body: /Good.*Content/)
         .to_return(:headers => {'Content-Type' => 'application/json'},
                    :body => '{}')
+
+    login_as(author_user, scope: :user)
   end
 
   # need a section for pages to be a part of
