@@ -22,8 +22,8 @@ RSpec.describe 'editorial navigation:', type: :feature do
   context 'the root path' do
     it 'should have a list of sections' do
       visit editorial_root_path
-      expect(page.find_link(section1.name)[:href]).to eq(editorial_nodes_path(section_id: section1.id))
-      expect(page.find_link(section2.name)[:href]).to eq(editorial_nodes_path(section_id: section2.id))
+      expect(page.find_link(section1.name)[:href]).to eq(editorial_section_path(section: section1.slug))
+      expect(page.find_link(section2.name)[:href]).to eq(editorial_section_path(section: section2.slug))
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe 'editorial navigation:', type: :feature do
     context 'without a section_id' do
       it 'redirects to section list' do
         visit editorial_nodes_path
-        expect(current_path).to eq(editorial_sections_path)
+        expect(current_path).to eq(editorial_root_path)
       end
     end
 
