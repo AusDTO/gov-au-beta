@@ -4,10 +4,15 @@ module Synergy
   class PagesController < ApplicationController
 
     def show
-      # Synergy::Node.create(slug: 'blah/vtha')
-      # Synergy::Node.create(slug: 'blah')
-      
-      node = Synergy::Node.find_by!(slug: params[:path])
+      node = parent = Synergy::Node.find_by!(slug: '/')
+
+      if params[:path]
+        path = params[:path].split('/')
+        path.each do |p|
+          parent = node = parent.children.find_by!(slug: p)
+        end
+      end
+
       render :json => node
     end
 
