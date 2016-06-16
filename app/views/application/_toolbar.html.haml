@@ -4,5 +4,5 @@
       =link_to 'Edit this page', edit_editorial_node_path(@node)
       =link_to 'New page here', prepare_editorial_nodes_path(parent: @node.id)
     -else
+      =link_to 'Editorial dashboard', editorial_section_path(section: @section.slug)
       =link_to 'New page here', prepare_editorial_nodes_path(section: @section.id)
-    =link_to 'Editorial dashboard', editorial_section_path(section: @section.slug)
