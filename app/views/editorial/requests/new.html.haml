@@ -1,0 +1,5 @@
+.fieldset
+  =simple_form_for [:editorial, @form] do |f|
+    =f.input :section_id, as: :hidden
+    =f.text_area :message, required: false
+    =f.submit 'Request membership'
