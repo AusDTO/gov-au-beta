@@ -7,9 +7,9 @@ module Editorial
     before_action :load_lists, :derive_type, except: [:show, :prepare]
 
     def index
-
+      #TODO: evaluate whether this is required anymore!
       unless params[:section_id].present?
-        redirect_to editorial_sections_path
+        redirect_to editorial_root_path
         return
       end
 

@@ -42,14 +42,14 @@ RSpec.describe Editorial::NodesController, type: :controller do
       it { is_expected.not_to set_flash[:alert] }
     end
 
-    context 'when no section ID is specified' do
-      before do
-        sign_in author
-        get :index
-      end
-
-      it { is_expected.to redirect_to '/editorial/sections' }
-    end
+    # context 'when no section ID is specified' do
+    #   before do
+    #     sign_in author
+    #     get :index
+    #   end
+    #
+    #   it { is_expected.to redirect_to '/editorial' }
+    # end
   end
 
 end
