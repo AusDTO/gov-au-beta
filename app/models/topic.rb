@@ -1,2 +1,3 @@
-class Topic < Section 
+class Topic < Section
+  resourcify
 end

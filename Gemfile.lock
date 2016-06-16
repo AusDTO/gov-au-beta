@@ -286,6 +286,7 @@ GEM
       ffi (~> 1.9)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rolify (5.1.0)
     rollbar (2.11.3)
       multi_json
     rspec-core (3.5.0.beta3)
@@ -414,6 +415,7 @@ DEPENDENCIES
   refile
   reform
   reform-rails
+  rolify
   rollbar
   rspec-rails (>= 3.5.0.beta3)
   sass-rails (~> 5.0)

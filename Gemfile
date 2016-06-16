@@ -41,6 +41,8 @@ gem 'oj', '~> 2.12.14'
 gem 'enumerize', '~> 1.1.1'
 gem 'store_schema'
 gem 'cancancan'
+gem 'rolify'
+
 
 # engines
 gem 'synergy', path: 'engines/synergy'

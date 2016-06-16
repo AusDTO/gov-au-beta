@@ -1,2 +1,3 @@
-class Agency < Section 
+class Agency < Section
+  resourcify
 end

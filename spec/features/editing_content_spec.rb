@@ -4,7 +4,8 @@ RSpec.describe 'editing content', type: :feature do
 
   include Warden::Test::Helpers
   Warden.test_mode!
-  let!(:author) { Fabricate(:user, is_author: true) }
+  let!(:section) { Fabricate(:section) }
+  let!(:author) { Fabricate(:user, author_of: section) }
 
   before :each do
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
@@ -23,7 +24,7 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'on a node page' do
-    let!(:node) { Fabricate(:node) }
+    let!(:node) { Fabricate(:node, section: section) }
 
     it 'should show a link to edit the content in the CMS' do
       visit "/#{node.section.slug}/#{node.slug}"
@@ -32,8 +33,6 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'on a section page' do
-    let!(:section) { Fabricate(:section) }
-
     it 'should not show an edit link' do
       visit "/#{section.slug}"
       expect(page).not_to have_link('Edit this page')
@@ -43,12 +42,18 @@ RSpec.describe 'editing content', type: :feature do
   context 'when editing content' do
     let!(:section1) { Fabricate(:section) }
     let!(:section2) { Fabricate(:section) }
-    let!(:node1) { Fabricate(:general_content, section: section1) }
-    let!(:node2) { Fabricate(:news_article, section: section2) }
+    let!(:node1) { Fabricate(:general_content, section: section1, state: 'draft') }
+    let!(:node2) { Fabricate(:news_article, section: section2, state: 'draft') }
+
+    before :each do
+      author.add_role(:author, section1)
+      author.add_role(:author, section2)
+    end
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
         visit edit_editorial_node_path(id: node.id)
+        expect(current_path).to eq edit_editorial_node_path(id: node.id)
         expect(page).to have_select('Section', selected: node.section.name)
         expect(find_field('Name').value).to eq(node.name)
       end

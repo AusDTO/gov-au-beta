@@ -4,9 +4,9 @@ RSpec.describe Editorial::NodesController, type: :controller do
 
   describe 'GET #index' do
 
-    let(:author) { Fabricate(:user, is_author: true) }
-    let(:reviewer) { Fabricate(:user, is_reviewer: true) }
     let(:section) { Fabricate(:section) }
+    let(:author) { Fabricate(:user, author_of: section) }
+    let(:reviewer) { Fabricate(:user, reviewer_of: section) }
     let(:nodes) { Fabricate.times(3, :node, section: section) }
     let(:authenticated_request) { get :index, params: { section_id: section.id } }
 

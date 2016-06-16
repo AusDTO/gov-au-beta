@@ -25,10 +25,12 @@ module Editorial
     end
 
     def prepare
-      authorize! :create, Node
       @type = Node
       @form_type = NodeForm
       configure_defaults!
+      unless current_user.has_role?(:author, @section) or current_user.has_role?(:admin)
+        raise CanCan::AccessDenied
+      end
 
       @node_types = [GeneralContent, NewsArticle].collect do |clazz|
         name = clazz.name.underscore
