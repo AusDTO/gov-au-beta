@@ -1,5 +1,7 @@
 Synergy::Engine.routes.draw do
 
-  get '*path' => 'pages#show', as: :pages
+  get root 'pages#show'
+
+  get '/*path' => 'pages#show', as: :pages
 
 end
