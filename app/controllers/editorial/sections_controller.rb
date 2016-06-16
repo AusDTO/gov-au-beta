@@ -2,7 +2,7 @@ module Editorial
   class SectionsController < EditorialController
     def show
       @section = Section.find_by!(slug: params[:section])
-      params.fetch(:filter, nil).permit(:submissions, :my_pages)
+      @filter = %w(my_pages submissions).detect { |f| f == params[:filter] }
     end
   end
 end
