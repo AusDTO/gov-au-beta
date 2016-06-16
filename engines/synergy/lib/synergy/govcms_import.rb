@@ -26,7 +26,7 @@ module Synergy
           Synergy::Node.find_or_create_by! parent: parent_s_node, slug: slug
         end
 
-        leaf_s_node.content = {body: node["field_content_extra"]}
+        leaf_s_node.content = {body: node["field_content_extra"]["value"]} rescue nil
         leaf_s_node.save!
       end
       puts "Done importing nodes"
