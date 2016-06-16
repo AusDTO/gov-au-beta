@@ -12,3 +12,10 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+
+group :test, :development do
+  gem 'rspec-rails', '>= 3.5.0.beta3'
+  gem 'fabrication', '~> 2.15.0'
+  gem 'sqlite3'
+end
