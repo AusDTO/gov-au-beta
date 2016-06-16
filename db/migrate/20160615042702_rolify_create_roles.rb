@@ -15,5 +15,10 @@ class RolifyCreateRoles < ActiveRecord::Migration
     add_index(:roles, :name)
     add_index(:roles, [ :name, :resource_type, :resource_id ])
     add_index(:users_roles, [ :user_id, :role_id ])
+
+    # Remove old role structure
+    remove_column :users, :is_admin, :boolean, null: false, default: false
+    remove_column :users, :is_author, :boolean, null: false, default: false
+    remove_column :users, :is_reviewer, :boolean, null: false, default: false
   end
 end
