@@ -1,7 +1,8 @@
 class Request < ApplicationRecord
+  extend Enumerize
   belongs_to :user
-  has_one :section
-  has_one :owner, class_name: 'User'
+  belongs_to :section
+  belongs_to :owner, class_name: 'User'
 
   STATES = %w(requested approved rejected)
 
