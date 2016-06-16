@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(version: 20160616051750) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.integer  "owner_id"
+    t.string   "state",      default: "request", null: false
+    t.text     "message"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["owner_id"], name: "index_requests_on_owner_id", using: :btree
+    t.index ["section_id"], name: "index_requests_on_section_id", using: :btree
+    t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string   "type"
     t.string   "name"
