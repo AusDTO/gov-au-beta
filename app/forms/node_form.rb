@@ -3,15 +3,8 @@ class NodeForm < Reform::Form
   property :parent_id, type: Fixnum
   property :name
 
-  collection :content_blocks do
-    property :body
-    validates :body, content_analysis: true
-  end
-
-  def prepopulate!(options={})
-    self.content_blocks = Array.new(model.num_content_blocks) do 
-      ContentBlock.new
-    end
-  end
+  #TODO figure out a way to combine these to DRY up future content block declarations
+  property :content_body
+  validates :content_body, content_analysis: true
 
 end 

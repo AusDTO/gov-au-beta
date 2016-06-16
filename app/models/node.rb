@@ -14,9 +14,7 @@ class Node < ApplicationRecord
 
   validates_uniqueness_of :token
 
-  store_attributes :data do 
-    content_blocks Array[::ContentBlock]
-  end
+  store_attribute :content, :content_body, String
 
   def ancestry
     arr = [self]
@@ -36,16 +34,6 @@ class Node < ApplicationRecord
     ancestry.reverse.collect { |node|
       node.slug
     }.join '/'
-  end
-
-  # Syntactic sugar - TODO get rid of this once we have a type with >1
-  def content_block
-    content_blocks.first
-  end
-
-  # Override in subclasses as needs
-  def num_content_blocks
-    1
   end
 
   private

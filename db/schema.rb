@@ -11,18 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615042702) do
+ActiveRecord::Schema.define(version: 20160616051750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "content_blocks", force: :cascade do |t|
-    t.integer  "node_id"
-    t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["node_id"], name: "index_content_blocks_on_node_id", using: :btree
-  end
+  enable_extension "hstore"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -49,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160615042702) do
     t.jsonb    "data"
     t.string   "state",      default: "draft", null: false
     t.string   "token"
+    t.hstore   "content"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
@@ -71,6 +65,17 @@ ActiveRecord::Schema.define(version: 20160615042702) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "layout"
+  end
+
+  create_table "synergy_nodes", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "slug"
+    t.string   "source_url"
+    t.integer  "position"
+    t.jsonb    "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
   end
 
   create_table "templates", force: :cascade do |t|
