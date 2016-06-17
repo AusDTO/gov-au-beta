@@ -2,6 +2,14 @@ require_dependency "synergy/application_controller"
 
 module Synergy
   class PagesController < ApplicationController
+    attr_accessor :node
+    helper_method :node
+
+    def index
+      @node = Synergy::Node.find_by!(slug: '')
+      # @tree = Synergy::Node.tree_view(:slug)
+      render action: :index
+    end
 
     def show
       node = parent = Synergy::Node.find_by!(slug: '')
@@ -12,8 +20,8 @@ module Synergy
           parent = node = parent.children.find_by!(slug: p)
         end
       end
-
-      render :json => node
+      @node = node
+      render action: :show
     end
 
   end
