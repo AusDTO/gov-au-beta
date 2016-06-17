@@ -1,4 +1,4 @@
-# Analysis configuration for codeclimate.com
+# Analysis configuration for codeclimate.com v0.1
 ---
 engines:
   brakeman:
