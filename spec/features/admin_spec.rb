@@ -41,9 +41,8 @@ RSpec.describe 'admin features', type: :feature do
         expect(sidebar).not_to have_link 'Sections'
       end
 
-      it 'should not show links to nodes or content blocks' do
+      it 'should not show links to nodes' do
         expect(sidebar).not_to have_link 'Nodes'
-        expect(sidebar).not_to have_link 'Content Blocks'
       end
 
       it 'should show agencies by default' do
