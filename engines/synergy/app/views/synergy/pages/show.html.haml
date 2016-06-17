@@ -1,11 +1,12 @@
 %ul.breadcrumbs
-  - @node.parents.reverse.each do |parent|
+  - @node.ancestors.reverse.each do |parent|
     %li
       %a{href: node_path(parent)}= parent.name
 
 %p= "#{@node.id} - #{@node.name}"
 %p= @node.source_url
-%p= @node.content
+%p
+  = raw node_html(node)
 
 %ul
   - @node.children.each do |node|

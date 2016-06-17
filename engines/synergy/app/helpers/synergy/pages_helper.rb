@@ -5,6 +5,14 @@ module Synergy
       '/synergy' + node.path
     end
 
+    def node_html(node)
+      if node.content
+        if node.content['body']
+          node.content['body']['value']
+        end
+      end
+    end
+
     def tree_view(label_method = :to_s,  node = nil, level = -1)
      if node.nil?
        puts "root"
