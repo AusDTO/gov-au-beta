@@ -20,7 +20,7 @@ module Synergy
         puts "Importing #{node["url"]}"
 
         url = URI.parse(node["url"])
-        parts = url.path[1..-1].split("/")
+        parts = url.path.split("/")
 
         leaf_s_node = parts.reduce(nil) do |parent_s_node,slug|
           Synergy::Node.find_or_create_by! parent: parent_s_node, slug: slug
