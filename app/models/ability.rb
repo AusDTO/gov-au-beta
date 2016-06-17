@@ -11,9 +11,15 @@ class Ability
     if user.id
       # TODO: Should all logged in users be able to view editorial pages?
       can :view, :editorial_page
-      can :manage, Node, :section => {:id => Section.with_role(:author, user).pluck(:id)}, :state => :draft
-      can :read, Node, :section => {:id => Section.with_role(:reviewer, user).pluck(:id)}, :state => :draft
-      can :create_in, Section, :id => Section.with_role(:author, user).pluck(:id)
+      can :manage, Node do |node|
+        node.state == :draft && user.has_role?(:author, node.section)
+      end
+      can :read, Node do |node|
+        node.state == :draft && user.has_role?(:reviewer, node.section)
+      end
+      can :create_in, Section do |section|
+        user.has_role?(:author, section)
+      end
     end
 
     # Everyone (signed in or not) can view published pages.
