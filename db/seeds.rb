@@ -45,3 +45,7 @@ end
 if !User.exists?(email: "reviewer@example.com")
   User.create!(email: "reviewer@example.com", password: password).add_role :reviewer, topic
 end
+
+if !User.exists?(email: "owner@example.com")
+  User.create!(email: "owner@example.com", password: password).add_role :owner, topic
+end
