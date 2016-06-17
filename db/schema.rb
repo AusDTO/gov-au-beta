@@ -110,6 +110,4 @@ ActiveRecord::Schema.define(version: 20160616051750) do
     t.integer "role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
-
-  add_foreign_key "content_blocks", "nodes"
 end
