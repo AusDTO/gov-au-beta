@@ -21,9 +21,6 @@ class UserDashboard < Administrate::BaseDashboard
     last_sign_in_ip: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    is_admin: Field::Boolean,
-    is_author: Field::Boolean,
-    is_reviewer: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,9 +30,6 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :email,
-    :is_admin,
-    :is_author,
-    :is_reviewer
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -53,9 +47,6 @@ class UserDashboard < Administrate::BaseDashboard
     :last_sign_in_ip,
     :created_at,
     :updated_at,
-    :is_admin,
-    :is_author,
-    :is_reviewer,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -63,9 +54,6 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :email,
-    :is_admin,
-    :is_author,
-    :is_reviewer,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

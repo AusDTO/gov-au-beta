@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Editorial::SectionsController, type: :controller do
   describe 'GET #show' do
-    let(:user) { Fabricate(:user, is_author: true) }
+    let(:user) { Fabricate(:user) }
     let(:section) { Fabricate(:section) }
     before :example do
       sign_in(user)

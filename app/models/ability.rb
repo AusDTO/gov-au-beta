@@ -4,18 +4,22 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    if user.is_admin?
+    if user.has_role? :admin
       can :manage, :all
     end
 
-    if user.is_author?
+    if user.id
+      # TODO: Should all logged in users be able to view editorial pages?
       can :view, :editorial_page
-      can :manage, Node, :state => :draft
-    end
-
-    if user.is_reviewer?
-      can :view, :editorial_page
-      can :read, Node, :state => :draft
+      can :manage, Node do |node|
+        node.state == :draft && user.has_role?(:author, node.section)
+      end
+      can :read, Node do |node|
+        node.state == :draft && user.has_role?(:reviewer, node.section)
+      end
+      can :create_in, Section do |section|
+        user.has_role?(:author, section)
+      end
     end
 
     # Everyone (signed in or not) can view published pages.

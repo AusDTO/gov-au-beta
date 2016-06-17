@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'creating content:', type: :feature do
   include Warden::Test::Helpers
   Warden.test_mode!
-  let!(:author_user) { Fabricate(:user, is_author: true) }
 
   before :each do
     stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
@@ -14,12 +13,12 @@ RSpec.describe 'creating content:', type: :feature do
         .with(body: /(Good|Random).*Content/i)
         .to_return(:headers => {'Content-Type' => 'application/json'},
                    :body => '{}')
-
     login_as(author_user, scope: :user)
   end
 
   # need a section for pages to be a part of
   let!(:root) { Fabricate(:section) }
+  let!(:author_user) { Fabricate(:user, author_of: root) }
   let(:name) {'test name'}
   let(:slug) {'test-name'}
 
@@ -89,8 +88,9 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   context 'with a parent specified' do
-    let(:node_1) {Fabricate(:node)}
-    let(:node_2) {Fabricate(:node)}
+    let(:node_1) {Fabricate(:node, section: root)}
+    let(:node_2) {Fabricate(:node, section: root)}
+
     it 'prefill the parent' do
       visit new_editorial_node_path(parent: node_1.id)
       expect(page).to have_select('Parent', selected: node_1.name)
@@ -100,9 +100,10 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   describe 'create a child of an existing page' do
-    let!(:node) { Fabricate(:node) }
+    let!(:node) { Fabricate(:node, section: root) }
 
     it 'should allow a user to create a child of a specific type' do
+
       visit "/#{node.section.slug}/#{node.slug}"
       click_link 'New page here'
       expect(page).to have_content 'Create a new page'

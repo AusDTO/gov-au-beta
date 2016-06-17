@@ -25,10 +25,10 @@ module Editorial
     end
 
     def prepare
-      authorize! :create, Node
       @type = Node
       @form_type = NodeForm
       configure_defaults!
+      authorize! :create_in, @section
 
       @node_types = [GeneralContent, NewsArticle].collect do |clazz|
         name = clazz.name.underscore
