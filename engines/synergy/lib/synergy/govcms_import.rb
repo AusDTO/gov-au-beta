@@ -34,7 +34,7 @@ module Synergy
           content[:extra] = node["field_content_extra"]
         end
         leaf_s_node.content = content
-        leaf_s_node.title = node["field_content_title"]
+        leaf_s_node.title = node["field_title"]
         leaf_s_node.save!
       end
       puts "Done importing nodes"
