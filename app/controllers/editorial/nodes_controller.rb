@@ -28,9 +28,7 @@ module Editorial
       @type = Node
       @form_type = NodeForm
       configure_defaults!
-      unless current_user.has_role?(:author, @section) or current_user.has_role?(:admin)
-        raise CanCan::AccessDenied
-      end
+      authorize! :create_in, @section
 
       @node_types = [GeneralContent, NewsArticle].collect do |clazz|
         name = clazz.name.underscore

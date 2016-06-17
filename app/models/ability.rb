@@ -13,6 +13,7 @@ class Ability
       can :view, :editorial_page
       can :manage, Node, :section => {:id => Section.with_role(:author, user).pluck(:id)}, :state => :draft
       can :read, Node, :section => {:id => Section.with_role(:reviewer, user).pluck(:id)}, :state => :draft
+      can :create_in, Section, :id => Section.with_role(:author, user).pluck(:id)
     end
 
     # Everyone (signed in or not) can view published pages.
