@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "path",       null: false
+    t.text     "title"
     t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
     t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
   end
