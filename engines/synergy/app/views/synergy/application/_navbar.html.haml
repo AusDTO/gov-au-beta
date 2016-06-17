@@ -1,0 +1,6 @@
+%aside.sidebar
+  %nav.primary-nav{'aria-label' => 'main navigation'}
+    %ul
+      - @node.children.each do |node|
+        %li
+          %a{href: node_path(node)}= node.title

@@ -8,7 +8,7 @@ module Synergy
     layout 'synergy/layouts/application'
 
     def show
-      path = params[:path].blank? ? '' : "/#{params[:path]}"
+      path = params[:path].blank? ? '/' : "/#{params[:path]}"
       @node = Synergy::Node.find_by!(path: path)
       render action: :show
     end
