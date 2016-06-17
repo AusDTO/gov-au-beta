@@ -125,3 +125,5 @@ from the root of the repo:
 ```
 codeclimate analyze
 ```
+
+You can also [view the Code Climate live feed for the `develop` branch](https://codeclimate.com/repos/576396facfacf40074004a6e/feed), but you will need an invitation from someone on your team.
