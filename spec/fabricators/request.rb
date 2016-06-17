@@ -1,0 +1,2 @@
+Fabricator(:request) do
+end
