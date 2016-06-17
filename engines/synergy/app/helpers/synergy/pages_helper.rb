@@ -2,7 +2,7 @@ module Synergy
   module PagesHelper
 
     def node_path(node)
-      '/synergy' + node.path
+      'http://localhost:3000/synergy' + node.path
     end
 
     def node_html(node)

@@ -3,4 +3,4 @@
     %ul
       - @node.children.each do |node|
         %li
-          %a{href: node_path(node)}= node.title
+          %a{href: node_path(node)}= node.name

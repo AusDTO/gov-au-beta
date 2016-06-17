@@ -8,7 +8,7 @@ module Synergy
     before_save :set_path!
 
     def name
-      slug.blank? ? 'Home' : slug.underscore.humanize 
+      title || (slug.blank? ? 'Home' : slug.underscore.humanize)
     end
 
     private
