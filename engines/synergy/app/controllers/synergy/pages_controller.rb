@@ -5,22 +5,9 @@ module Synergy
     attr_accessor :node
     helper_method :node
 
-    def index
-      @node = Synergy::Node.find_by!(slug: '')
-      # @tree = Synergy::Node.tree_view(:slug)
-      render action: :index
-    end
-
     def show
-      node = parent = Synergy::Node.find_by!(slug: '')
-
-      if params[:path]
-        path = params[:path].split('/')
-        path.each do |p|
-          parent = node = parent.children.find_by!(slug: p)
-        end
-      end
-      @node = node
+      path = params[:path].blank? ? '' : "/#{params[:path]}"
+      @node = Synergy::Node.find_by!(path: path)
       render action: :show
     end
 
