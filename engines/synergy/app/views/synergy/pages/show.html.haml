@@ -7,8 +7,3 @@
 %p= @node.source_url
 %p
   = raw node_html(node)
-
-%ul
-  - @node.children.each do |node|
-    %li
-      %a{href: node_path(node)}= node.name

@@ -10,10 +10,8 @@
         - else
           %h1.page-title GOV.AU Beta
     %main
-      = render 'application/navbar'
+      = render 'navbar'
       %article
-        = render 'application/toolbar'
-        = render 'application/session_status'
         = render 'application/alerts'
         = yield
     %footer{role: "contentinfo"}

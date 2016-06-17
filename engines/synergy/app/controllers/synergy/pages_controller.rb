@@ -5,6 +5,8 @@ module Synergy
     attr_accessor :node
     helper_method :node
 
+    layout 'synergy/layouts/application'
+
     def show
       path = params[:path].blank? ? '' : "/#{params[:path]}"
       @node = Synergy::Node.find_by!(path: path)

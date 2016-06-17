@@ -14,3 +14,16 @@
  *= require "dto-ui-kit"
  *= require_self
  */
+ .breadcrumbs {
+   list-style: none;
+   overflow: hidden;
+   padding:0;
+ }
+ .breadcrumbs li {
+   display:inline;
+   padding:5px;
+ }
+
+.breadcrumbs li:not(:last-child):after {
+  content: ">";
+}
