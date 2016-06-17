@@ -89,6 +89,13 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.text     "summary"
   end
 
+  create_table "synergy_events", force: :cascade do |t|
+    t.text     "source",     null: false
+    t.json     "payload",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "synergy_nodes", force: :cascade do |t|
     t.integer  "parent_id"
     t.string   "slug"
@@ -97,7 +104,9 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.jsonb    "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "path",       null: false
     t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
+    t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
   end
 
   create_table "templates", force: :cascade do |t|

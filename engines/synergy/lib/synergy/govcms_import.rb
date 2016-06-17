@@ -20,13 +20,20 @@ module Synergy
         puts "Importing #{node["url"]}"
 
         url = URI.parse(node["url"])
-        parts = url.path.split("/")
+        parts = url.path[1..-1].split("/")
 
         leaf_s_node = parts.reduce(nil) do |parent_s_node,slug|
           Synergy::Node.find_or_create_by! parent: parent_s_node, slug: slug
         end
 
-        leaf_s_node.content = {body: node["field_content_extra"]["value"]} rescue nil
+        content = {}
+        if node["field_content_main"]
+          content[:body] = node["field_content_main"]
+        end
+        if node["field_content_extra"]
+          content[:extra] = node["field_content_extra"]
+        end
+        leaf_s_node.content = content
         leaf_s_node.save!
       end
       puts "Done importing nodes"

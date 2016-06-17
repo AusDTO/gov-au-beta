@@ -5,32 +5,16 @@ module Synergy
 
     acts_as_tree order: 'position ASC'
 
-    def parents
-      @parents ||= collect_parents
-    end
-
-    def path
-      parents.reverse.collect(&:slug).join('/')
-    end
+    before_save :set_path!
 
     def name
       slug.blank? ? 'Home' : slug 
     end
-    # validates :slug, presence: true, uniqueness: true
-
-    # def to_s
-    #   self.slug
-    # end
 
     private
-    def collect_parents
-      arr = [self]
 
-      while parent = arr.last.parent
-        arr << parent
-      end
-
-      arr
+    def set_path!
+      self.path = '/' + self.self_and_ancestors.map(&:slug).reverse.join('/')
     end
   end
 end
