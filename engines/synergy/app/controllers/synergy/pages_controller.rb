@@ -4,7 +4,7 @@ module Synergy
   class PagesController < ApplicationController
 
     def show
-      node = parent = Synergy::Node.find_by!(slug: '/')
+      node = parent = Synergy::Node.find_by!(slug: '')
 
       if params[:path]
         path = params[:path].split('/')
