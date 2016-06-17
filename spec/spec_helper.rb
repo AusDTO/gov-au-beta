@@ -28,7 +28,9 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 
 # report test metrics to codeclimate.com
+WebMock.disable_net_connect!(:allow => "codeclimate.com")
 CodeClimate::TestReporter.start
+
 
 RSpec.configure do |config|
 
