@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     resources :agencies
     resources :topics
     resources :nodes
-    resources :content_blocks
     resources :general_contents
     resources :news_articles
     resources :sections

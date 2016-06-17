@@ -2,6 +2,8 @@
 module Editorial
   class EditorialController < ::ApplicationController
 
+    check_authorization
+
     before_action ->() { authorize! :view, :editorial_page }
 
     layout 'editorial'

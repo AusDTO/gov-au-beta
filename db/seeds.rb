@@ -21,7 +21,7 @@ node2 = node1.children.find_or_create_by!({
   state: :published
 })
 
-node2.content_block = ContentBlock.find_or_create_by!(body: "Lorem ipsum")
+node2.update_attribute :content_body, 'Lorem ipsum'
 
 node3 = node2.children.find_or_create_by!({
   name: "Types of Employment",
@@ -34,13 +34,14 @@ password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
 
 if !User.exists?(email: "admin@example.com")
-  User.create!(email: "admin@example.com", password: password, is_admin: true) 
+  User.create!(email: "admin@example.com", password: password).add_role :admin
 end
 
 if !User.exists?(email: "author@example.com")
-  User.create!(email: "author@example.com", password: password, is_author: true)
+  User.create!(email: "author@example.com", password: password).add_role :author, topic.becomes(Section)
+
 end
 
 if !User.exists?(email: "reviewer@example.com")
-  User.create!(email: "reviewer@example.com", password: password, is_reviewer: true)
+  User.create!(email: "reviewer@example.com", password: password).add_role :reviewer, topic.becomes(Section)
 end

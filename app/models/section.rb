@@ -9,6 +9,9 @@ class Section < ApplicationRecord
   validates :name, uniqueness: { case_sensitive: false }
   validates :slug, uniqueness: { case_sensitive: false }
 
+  # Note: resourcify must be called in every subclass so rolify will work
+  resourcify
+
   # Finds a node via path from this Section.
   def find_node!(path)
     path.split('/').reduce(self) do |node,slug|

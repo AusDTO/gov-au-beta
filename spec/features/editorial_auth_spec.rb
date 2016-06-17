@@ -4,14 +4,15 @@ describe 'editorial authorisation' do
   include Warden::Test::Helpers
   Warden.test_mode!
 
-  let!(:author_user) { Fabricate(:user, is_author: true) }
-  let!(:reviewer_user) { Fabricate(:user, is_reviewer: true) }
   let!(:section) { Fabricate(:section) }
+  let!(:author_user) { Fabricate(:user, author_of: section) }
+  let!(:reviewer_user) { Fabricate(:user, reviewer_of: section) }
+  let!(:admin_user) { Fabricate(:user, is_admin: true) }
 
   shared_examples_for 'not authorized' do
     it 'should have been redirected to root and shown not authorized' do
       expect(page.current_path).to eq('/')
-      page.has_content?('You are not authorized to access this page')
+      expect(page).to have_content('You are not authorized to access this page')
     end
   end
 
@@ -37,9 +38,10 @@ describe 'editorial authorisation' do
   end
 
   context 'logged in' do
-    shared_examples_for 'view section links' do
-      it 'can select a section' do
-        expect(page).to have_link section.name, :href => "/editorial/#{section.slug}"
+
+    shared_examples_for 'authorized' do
+      it 'should not show not authorized' do
+        expect(page).to have_no_content('You are not authorized to access this page')
       end
     end
 
@@ -49,8 +51,21 @@ describe 'editorial authorisation' do
       context 'on the editorial dashboard page' do
         before { visit '/editorial' }
 
-        include_examples 'view section links'
+        include_examples "authorized"
       end
+      context 'on the create new content interstitial' do
+        before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+
+        include_examples "authorized"
+      end
+
+      context 'on the create new content page' do
+        before { visit "/editorial/nodes/new?section=#{section.id}" }
+
+        include_examples "authorized"
+      end
+
+
     end
 
     context 'as reviewer' do
@@ -59,13 +74,36 @@ describe 'editorial authorisation' do
       context 'on the editorial dashboard page' do
         before { visit '/editorial' }
 
-        include_examples 'view section links'
+        include_examples "authorized"
       end
 
       context 'on the create new content interstitial' do
         before { visit "/editorial/nodes/prepare?section=#{section.id}" }
 
         include_examples "not authorized"
+      end
+
+    end
+
+    context ' as admin' do
+      before { login_as(admin_user, scope: :user) }
+
+      context 'on the editorial dashboard page' do
+        before { visit '/editorial' }
+
+        include_examples "authorized"
+      end
+
+      context 'on the create new content interstitial' do
+        before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+
+        include_examples "authorized"
+      end
+
+      context 'on the create new content page' do
+        before { visit "/editorial/nodes/new?section=#{section.id}" }
+
+        include_examples "authorized"
       end
 
     end

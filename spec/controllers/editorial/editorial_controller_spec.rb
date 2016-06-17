@@ -3,18 +3,17 @@ require 'rails_helper'
 RSpec.describe Editorial::EditorialController, type: :controller do
 
   describe 'GET #index' do
-    let(:author) { Fabricate(:user, is_author: true) }
     let(:user) { Fabricate(:user) }
     let(:authenticated_request) { get :index }
 
-    context 'when user is authorised' do
+    context 'when user is logged in' do
       before do
-        sign_in(author)
+        sign_in(user)
         authenticated_request
       end
 
       after do
-        sign_out(author)
+        sign_out(user)
       end
 
       let! (:section_b) { Fabricate(:section, name: "b") }
@@ -25,20 +24,6 @@ RSpec.describe Editorial::EditorialController, type: :controller do
       it "should assign @sections" do
         expect(assigns(:sections)).to eq([section_a, section_b])
       end
-    end
-
-    context 'when user is not authorised' do
-      before do
-        sign_in(user)
-        authenticated_request
-      end
-
-      after do
-        sign_out(user)
-      end
-
-      it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
-
     end
 
     context 'when user is not authenticated' do

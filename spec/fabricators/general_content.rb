@@ -1,6 +1,3 @@
-Fabricator(:general_content) do
-  name { Fabricate.sequence(:node_name) { |i| "node-#{i}" } }
-  content_block { Fabricate(:content_block) }
-  section
-  state 'published'
+Fabricator(:general_content, from: :node, class_name: :general_content) do
+  name { Fabricate.sequence(:general_content_name) { |i| "general_content-#{i}" } }
 end
