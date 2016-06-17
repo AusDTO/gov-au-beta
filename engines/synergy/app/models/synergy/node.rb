@@ -13,6 +13,9 @@ module Synergy
       parents.reverse.collect(&:slug).join('/')
     end
 
+    def name
+      slug.blank? ? 'Home' : slug 
+    end
     # validates :slug, presence: true, uniqueness: true
 
     # def to_s

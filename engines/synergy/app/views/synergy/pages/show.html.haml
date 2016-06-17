@@ -1,9 +1,13 @@
-%p= @node.slug
+%ul.breadcrumbs
+  - @node.parents.reverse.each do |parent|
+    %li
+      %a{href: node_path(parent)}= parent.name
+
+%p= "#{@node.id} - #{@node.name}"
 %p= @node.source_url
 %p= @node.content
 
-
 %ul
-  - @node.parents.reverse.each do |parent|
+  - @node.children.each do |node|
     %li
-      %a{href: node_path(parent)}= parent.slug.blank? ? 'home' : parent.slug 
+      %a{href: node_path(node)}= node.name
