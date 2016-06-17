@@ -1,3 +1,4 @@
+# Analysis configuration for codeclimate.com
 ---
 engines:
   brakeman:
