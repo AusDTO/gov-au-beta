@@ -14,7 +14,7 @@ module Synergy
     private
 
     def set_path!
-      self.path = '/' + self.self_and_ancestors.map(&:slug).reverse.join('/')
+      self.path = self.self_and_ancestors.map(&:slug).reverse.join('/')
     end
   end
 end
