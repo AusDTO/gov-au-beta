@@ -19,6 +19,7 @@
 require 'webmock/rspec'
 require 'capybara/rspec'
 require 'simplecov'
+require "codeclimate-test-reporter"
 
 # save to CircleCI's artifacts directory if we're on CircleCI
 if ENV['CIRCLE_ARTIFACTS']
