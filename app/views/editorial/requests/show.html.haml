@@ -1,0 +1,13 @@
+%h2
+  Request for membership to #{@rqst.section.name}
+
+-unless @rqst.message.blank?
+  %blockquote
+    %p
+      #{@rqst.message}
+
+Your request for membership to this section is sitting with
+
+%ul
+  -@owners.each do |owner|
+    %li #{owner.email}
