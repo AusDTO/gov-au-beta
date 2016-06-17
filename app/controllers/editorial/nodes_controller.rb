@@ -44,10 +44,13 @@ module Editorial
 
     def new
       configure_defaults!
+      @form.prepopulate!
     end
 
     def create
       @form = new_form
+      @form.prepopulate!
+      
       if try_save
         redirect_to editorial_node_path(@form)
       else
@@ -88,11 +91,8 @@ module Editorial
     end
 
     def new_form(obj=nil)
-      if obj
-        @form_type.new(obj)
-      else
-        @form_type.new(@type.new(content_block: ContentBlock.new))
-      end
+      obj = @type.new unless obj.present?
+      @form_type.new obj
     end
 
     def configure_defaults!

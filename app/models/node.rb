@@ -1,11 +1,11 @@
 class Node < ApplicationRecord
   extend FriendlyId, Enumerize
+  include Storext.model
   friendly_id :name, use: :slugged, routes: :default
 
   acts_as_tree order: 'order_num ASC'
 
   belongs_to :section
-  has_one :content_block, autosave: true
 
   before_create :generate_token
   before_save :ensure_order_num_present
@@ -13,6 +13,8 @@ class Node < ApplicationRecord
   enumerize :state, in: NodesHelper.states, scope: true
 
   validates_uniqueness_of :token
+
+  store_attribute :content, :content_body, String
 
   def ancestry
     arr = [self]

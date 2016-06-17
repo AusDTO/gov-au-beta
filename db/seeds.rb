@@ -21,7 +21,7 @@ node2 = node1.children.find_or_create_by!({
   state: :published
 })
 
-node2.content_block = ContentBlock.find_or_create_by!(body: "Lorem ipsum")
+node2.update_attribute :content_body, 'Lorem ipsum'
 
 node3 = node2.children.find_or_create_by!({
   name: "Types of Employment",

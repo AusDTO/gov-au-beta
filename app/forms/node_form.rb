@@ -3,9 +3,8 @@ class NodeForm < Reform::Form
   property :parent_id, type: Fixnum
   property :name
 
-  property :content_block do
-    property :body
-    validates :body, content_analysis: true
-  end
+  #TODO figure out a way to combine these to DRY up future content block declarations
+  property :content_body
+  validates :content_body, content_analysis: true
 
-end
+end 
