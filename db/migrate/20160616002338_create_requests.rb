@@ -4,7 +4,7 @@ class CreateRequests < ActiveRecord::Migration[5.0]
       t.references :section
       t.references :user
       t.references :owner
-      t.string :state, default: 'request', null: false
+      t.string :state, default: 'requested', null: false
       t.text :message
 
       t.timestamps

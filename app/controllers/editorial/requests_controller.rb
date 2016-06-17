@@ -4,9 +4,9 @@ module Editorial
     def new
       @section = Section.find(params[:section])
       @form = RequestForm.new(Request.new(section: @section))
-      @owners = User.all
+      @owners = User.with_role(:owner, @section)
 
-      if rq = Request.find_by(section: @section, user: current_user)
+      if (rq = Request.find_by(section: @section, user: current_user))
         flash[:notice] = 'You have already requested membership to this group'
         redirect_to editorial_request_path(rq)
       end
@@ -25,19 +25,19 @@ module Editorial
             request = Request.new(hash)
             request.state = 'requested'
             request.user = current_user
-            request.save
+            request.save!
           end
         end
 
         redirect_to editorial_request_path(request)
       else
-        render 'new'
+        redirect_to root_path
       end
     end
 
     def show
       @rqst = Request.find(params[:id])
-      @owners = User.all
+      @owners = User.with_role(:owner, @rqst.section)
     end
 
   end

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Editorial::RequestsController, type: :controller do
   describe '#new' do
 
-    let(:author) { Fabricate(:user, is_author: true) }
     let(:section) { Fabricate(:section) }
+    let(:author) { Fabricate(:user, author_of: section) }
     let(:alt_section) { Fabricate(:section) }
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested')}
 
@@ -19,7 +19,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         it { is_expected.to respond_with 200 }
         it { is_expected.to assign_to(:section).with section }
         it { is_expected.to assign_to(:form) }
-        it { is_expected.to assign_to(:owners).with User.all}
+        it { is_expected.to assign_to(:owners).with User.with_role(:owner, section)}
       end
 
       context 'when logged in for nonexistent section' do
@@ -52,8 +52,8 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
   describe '#create' do
 
-    let(:author) { Fabricate(:user, is_author: true) }
     let(:section) { Fabricate(:section) }
+    let(:author) { Fabricate(:user, author_of: section) }
     let(:alt_section) { Fabricate(:section)}
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested') }
 
@@ -62,10 +62,9 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(author)
       end
 
-      it 'should throw an error' do
-        expect {
-          post :create, { request: { section_id: '9999' } }
-        }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'redirects to root path' do
+        post :create, { request: { section_id: '9999' } }
+        response.should redirect_to root_path
       end
     end
 
@@ -109,17 +108,17 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(author)
       end
 
-      it 'renders new template' do
+      it 'redirects to root path' do
         post :create, { request: { foo: :bar } }
-        response.should render_template :new
+        response.should redirect_to root_path
       end
     end
 
   end
 
   describe '#show' do
-    let(:author) { Fabricate(:user, is_author: true) }
     let(:section) { Fabricate(:section) }
+    let(:author) { Fabricate(:user, author_of: section) }
     let!(:request) { Fabricate(:request, user: author, section: section, state: 'requested') }
     
     context 'when viewing an existing request' do
@@ -130,7 +129,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it { is_expected.to respond_with 200 }
       it { is_expected.to assign_to(:rqst).with request }
-      it { is_expected.to assign_to(:owners).with User.all }
+      it { is_expected.to assign_to(:owners).with User.with_role(:owner, section) }
 
       it 'renders the show template' do
         response.should render_template :show
