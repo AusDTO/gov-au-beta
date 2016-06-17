@@ -125,6 +125,8 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cf-app-utils (0.6)
+    codeclimate-test-reporter (0.5.2)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -407,6 +409,7 @@ DEPENDENCIES
   cancancan
   capybara (~> 2.7)
   cf-app-utils
+  codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.5.3)
   devise

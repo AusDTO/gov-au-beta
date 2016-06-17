@@ -9,6 +9,7 @@ source 'https://rails-assets.org' do
 end
 
 # Core gems
+gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
 gem 'pg', '>= 0.19.0.beta'
 gem 'puma', '~> 3.0'
