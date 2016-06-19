@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
       get 'prepare', on: :collection
     end
+    resources :requests, only: [:create, :new, :index, :show]
     get '/:section' => 'sections#show', as: 'section'
     root to: 'editorial#index'
   end

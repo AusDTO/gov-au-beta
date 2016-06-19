@@ -1,0 +1,19 @@
+%h2
+  #{@section.name}
+
+%p
+  Section description should go here
+
+%p
+  Current owners of this section are:
+
+  %ul
+    -@owners.each do |owner|
+      %li #{owner.email}
+
+
+.fieldset
+  =simple_form_for [:editorial, @form] do |f|
+    =f.input :section_id, as: :hidden
+    =f.text_area :message, required: false, placeholder: 'Optional'
+    =f.submit 'Request membership'
