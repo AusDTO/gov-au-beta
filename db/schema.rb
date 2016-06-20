@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.integer  "order_num"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "state",      default: "draft", null: false
     t.text     "type"
     t.jsonb    "data"
-    t.string   "state",      default: "draft", null: false
     t.string   "token"
     t.hstore   "content"
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
@@ -48,15 +48,23 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
   end
 
+  create_table "previews", force: :cascade do |t|
+    t.string   "token"
+    t.json     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_previews_on_token", unique: true, using: :btree
+  end
+
   create_table "requests", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "user_id"
-    t.integer  "owner_id"
-    t.string   "state",      default: "requested", null: false
+    t.integer  "approver_id"
+    t.string   "state",       default: "request", null: false
     t.text     "message"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.index ["owner_id"], name: "index_requests_on_owner_id", using: :btree
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["approver_id"], name: "index_requests_on_approver_id", using: :btree
     t.index ["section_id"], name: "index_requests_on_section_id", using: :btree
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
   end
@@ -78,7 +86,7 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "layout"
-    t.string   "summary"
+    t.text     "summary"
   end
 
   create_table "synergy_nodes", force: :cascade do |t|
@@ -115,6 +123,8 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
