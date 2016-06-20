@@ -55,4 +55,3 @@ User.find_by(email: "admin@example.com").add_role :admin
 User.find_by(email: "author@example.com").add_role :author, topic
 User.find_by(email: "reviewer@example.com").add_role :reviewer, topic
 User.find_by(email: "owner@example.com").add_role :owner, topic
-
