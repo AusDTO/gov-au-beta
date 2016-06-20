@@ -1,6 +1,9 @@
+- ancestors = @node.self_and_ancestors.reverse
 %aside.sidebar
-  %nav.primary-nav{'aria-label' => 'main navigation'}
-    %ul
-      - @node.children.each do |node|
-        %li
-          %a{href: node_path(node)}= node.name
+  - if @root_node
+    %nav.primary-nav{'aria-label' => 'main navigation'}
+      %ul
+        - @root_node.children.each do |child|
+          %li
+            %a{href: node_path(child)}= child.name
+          = render partial: 'sub_nav',  locals: {ancestors: ancestors, node: child} 

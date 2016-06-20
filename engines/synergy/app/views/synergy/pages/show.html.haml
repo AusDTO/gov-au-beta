@@ -6,4 +6,18 @@
 %p= "#{@node.id} - #{@node.name}"
 %p= @node.source_url
 %p
-  = raw node_html(node)
+  = raw node_html(@node)
+
+
+.technobabble
+  %hr
+    %table
+      %tr
+        %th Source
+        %td= @node.name
+      %tr
+        %th Path
+        %td= @node.path
+      %tr
+        %th JSON
+        %td= @node.to_json

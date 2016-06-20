@@ -1,0 +1,40 @@
+.breadcrumbs {
+  list-style: none;
+  overflow: hidden;
+  padding:0;
+}
+.breadcrumbs li {
+  display:inline;
+  padding:5px;
+}
+
+.breadcrumbs li:not(:last-child):after {
+ content: ">";
+}
+
+.technobabble {
+  color:#999999;
+  font-size: 0.8em;
+
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+  }
+
+  tr {
+    padding-bottom: 10px;
+  }
+  th {
+    font-weight: bold;
+    align: left;
+    vertical-align: top;
+    padding-right: 10px;
+  }
+  th:after {
+   content: ":";
+ }
+}
