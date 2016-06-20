@@ -11,3 +11,6 @@ Your request for membership to this section is sitting with
 %ul
   -@owners.each do |owner|
     %li #{owner.email}
+
+
+=link_to 'Back to topic', sections_path(@rqst.section)
