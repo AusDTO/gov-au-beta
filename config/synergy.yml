@@ -3,4 +3,4 @@ synergies:
   australia_gov_au:
     type: GovCMS
     url: https://edit.dev.aus.gov.au
-    destination_path: /australia_gov_au
+    destination_path: /blah/blah
