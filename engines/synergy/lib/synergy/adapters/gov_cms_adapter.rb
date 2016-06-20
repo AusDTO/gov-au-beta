@@ -41,7 +41,7 @@ module Synergy
         end
 
         {
-          path: url.path.split("/"),
+          path: url.path.split("/").select{|p| !p.blank?},
           title: govcms_node["field_title"],
           content: content
         }
