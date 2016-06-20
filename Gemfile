@@ -59,7 +59,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '>= 3.5.0.beta3'
+  gem 'rspec-rails', '>= 3.5.0.beta4'
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
   gem 'faker', '~> 1.6.3'
