@@ -6,4 +6,5 @@
         - @root_node.children.each do |child|
           %li
             %a{href: node_path(child)}= child.name
-          = render partial: 'sub_nav',  locals: {ancestors: ancestors, node: child} 
+          - if ancestors.include?(child)
+            = render partial: 'sub_nav',  locals: {ancestors: ancestors, node: child}
