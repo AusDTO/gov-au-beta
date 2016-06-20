@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20160620061159) do
   create_table "synergy_nodes", force: :cascade do |t|
     t.integer  "parent_id"
     t.string   "slug"
-    t.string   "source_url"
+    t.string   "source_url",  null: false
     t.integer  "position"
     t.jsonb    "content"
     t.datetime "created_at",  null: false
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
     t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
     t.index ["source_name"], name: "index_synergy_nodes_on_source_name", using: :btree
+    t.index ["source_url"], name: "index_synergy_nodes_on_source_url", using: :btree
   end
 
   create_table "templates", force: :cascade do |t|

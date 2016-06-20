@@ -29,17 +29,13 @@ module Synergy
             destination_parts = source_config["destination_path"].split("/")
             parts             = destination_parts + source_parts
 
-            leaf_s_node = parts.reduce(nil) do |parent_s_node,slug|
-              Synergy::Node.find_or_create_by!(
-                source_name: source_name,
-                parent: parent_s_node,
-                slug: slug
-              )
+            parts.reduce(nil) do |parent_s_node,slug|
+              Synergy::Node.find_or_create_by!(source_name: source_name, parent: parent_s_node, slug: slug) do |sn|
+                sn.content    = node_data[:content]
+                sn.title      = node_data[:title]
+                sn.source_url = node_data[:source_url]
+              end
             end
-
-            leaf_s_node.content = node_data[:content]
-            leaf_s_node.title = node_data[:title]
-            leaf_s_node.save!
           end
         end
       end
