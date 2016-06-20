@@ -1,7 +1,7 @@
 # GOV.AU Beta Frontend
 This project provides the user facing frontend to the GOV.AU content site.
 
-[![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta)
+[![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta) [![Code Climate](https://codeclimate.com/repos/576396facfacf40074004a6e/badges/76ba0d87dc83eb9e3202/gpa.svg)](https://codeclimate.com/repos/576396facfacf40074004a6e/feed) [![Test Coverage](https://codeclimate.com/repos/576396facfacf40074004a6e/badges/76ba0d87dc83eb9e3202/coverage.svg)](https://codeclimate.com/repos/576396facfacf40074004a6e/coverage)
 
 ## GOV.AU stack
 If you're contributing to this repo, then you'll most likely be contributing to the other GOV.AU repos in the stack:
@@ -125,3 +125,5 @@ from the root of the repo:
 ```
 codeclimate analyze
 ```
+
+You can also [view the Code Climate live feed for the `develop` branch](https://codeclimate.com/repos/576396facfacf40074004a6e/feed), but you will need an invitation from someone on your team.

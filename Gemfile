@@ -76,6 +76,7 @@ group :test do
   gem 'database_cleaner', '~> 1.5.3'
   gem 'shoulda-kept-assign-to', '~> 1.1.0'
   gem 'launchy'
+  gem "codeclimate-test-reporter", require: nil
 end
 
 platforms :mingw, :mswin do
