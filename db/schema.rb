@@ -102,12 +102,14 @@ ActiveRecord::Schema.define(version: 20160620061159) do
     t.string   "source_url"
     t.integer  "position"
     t.jsonb    "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "path",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "path",        null: false
     t.text     "title"
+    t.string   "source_name", null: false
     t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
     t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
+    t.index ["source_name"], name: "index_synergy_nodes_on_source_name", using: :btree
   end
 
   create_table "templates", force: :cascade do |t|
