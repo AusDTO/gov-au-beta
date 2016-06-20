@@ -5,7 +5,7 @@ require 'pry' if Rails.env.development? || Rails.env.test?
 require 'synergy/adapters/gov_cms_adapter'
 
 module Synergy
-  class GovCMSImport
+  class CMSImport
     ADAPTERS = {
       "GovCMS" => Synergy::Adapters::GovCMSAdapter
     }.freeze

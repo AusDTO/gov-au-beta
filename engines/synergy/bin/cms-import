@@ -1,0 +1,4 @@
+#!/usr/bin/env DISABLE_SPRING=1 bin/rails runner engines/synergy/bin/cms-import
+
+require 'synergy/cms_import'
+Synergy::CMSImport.run
