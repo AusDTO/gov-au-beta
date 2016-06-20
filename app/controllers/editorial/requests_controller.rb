@@ -36,8 +36,41 @@ module Editorial
     end
 
     def show
-      @rqst = Request.find(params[:id])
+      @rqst = Request.find(params[:id]).decorate
+      @requestor = @rqst.user.decorate
+      @approver = @rqst.approver.decorate unless @rqst.approver.nil?
       @owners = User.with_role(:owner, @rqst.section)
+    end
+
+    def update
+      @rqst = Request.find(params[:id])
+
+      if @rqst.state == 'requested'
+
+        unless params[:request][:state].in? Request.state.values
+          flash[:alert] = 'Unknown approval state'
+        else
+
+          @rqst.state = params[:request][:state]
+          @rqst.approver = current_user
+          @rqst.save!
+          @rqst.user.add_role :author, @rqst.section
+          flash[:notice] = "You have granted #{@rqst.user.first_name} access
+                            to #{@rqst.section.name}"
+
+        end
+      else
+        flash[:alert] = 'Request has already been actioned'
+      end
+
+      redirect_to editorial_root_path
+
+    end
+
+    private
+
+    def request_params
+      params.required(:request).permit(:id, :state)
     end
 
   end
