@@ -28,7 +28,7 @@ module Editorial
             request.save!
           end
         end
-
+        Notifier.author_request(request).deliver_later
         redirect_to editorial_request_path(request)
       else
         redirect_to root_path
