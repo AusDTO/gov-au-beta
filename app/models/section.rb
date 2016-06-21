@@ -21,10 +21,8 @@ class Section < ApplicationRecord
 
   # Finds the users with a role on this Section
   def users
-    users =Section.find_roles.pluck(:name).inject(Array.new) do |result, role|
-      result += User.with_role(role, Topic.first)
-    end
-    users.uniq
+    Section.find_roles.pluck(:name).inject(Array.new) do |result, role|
+      result += User.with_role(role, self)
+    end.uniq
   end
-
 end
