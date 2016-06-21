@@ -8,4 +8,8 @@
     =link_to 'Editorial dashboard', editorial_section_path(section: @section.slug)
 
   -if user_signed_in?
-    =link_to 'Request membership', new_editorial_request_path(section: @section.id)
+    - unless current_user.roles.collect(&:resource).include? @section
+      - if pending_request(current_user, @section).nil?
+        =link_to 'Request membership', new_editorial_request_path(section: @section.id)
+      - else
+        =link_to 'Membership requested', editorial_request_path(pending_request(current_user, @section))

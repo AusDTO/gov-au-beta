@@ -12,6 +12,7 @@ class SectionDashboard < Administrate::BaseDashboard
     id: Field::Number,
     type: Field::String,
     name: Field::String,
+    summary: Field::Text,
     slug: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -34,6 +35,7 @@ class SectionDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :name,
+    :summary,
     :nodes,
     :slug,
     :created_at,
@@ -46,6 +48,7 @@ class SectionDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
+    :summary,
     :layout,
   ].freeze
 

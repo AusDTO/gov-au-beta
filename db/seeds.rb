@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 topic = Topic.find_or_create_by!(name: "Business")
+topic.summary = 'The business section covers a range of business-related topics.'
+topic.save
 
 node1 = GeneralContent.find_or_create_by!({
   name: "Starting a Business",
