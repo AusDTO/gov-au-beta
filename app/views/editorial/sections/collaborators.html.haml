@@ -2,10 +2,14 @@
   Collaborators
 
 %p
-  = link_to 'Editorial', :editorial_root
-  \::
-  = link_to(@section.name, editorial_section_path(section: @section))
-  \:: Collaborators
+  %nav.breadcrumbs
+    %ul
+      %li
+        = link_to 'Editorial', :editorial_root
+      %li
+        = link_to(@section.name, editorial_section_path(section: @section))
+      %li
+        Collaborators
 
 -if @pending.present?
   There are pending membership requests:
