@@ -10,4 +10,18 @@ class Role < ApplicationRecord
             :allow_nil => true
 
   scopify
+
+  # Required by administrate to set the resource using a single parameter
+  def resource_type_and_id
+    "#{resource_type}-#{resource_id}"
+  end
+
+  def resource_type_and_id=(arg)
+    if arg.blank?
+      self.resource = nil
+    elsif m = /([\w\d]+)-([\d]+)/.match(arg)
+      self.resource_type = m[1]
+      self.resource_id = m[2]
+    end
+  end
 end
