@@ -49,10 +49,16 @@ module Editorial
       authorize! :update, @rqst
 
       if params[:request][:state] != 'requested' && params[:request][:state].in?(Request.state.values)
-        @rqst.state = params[:request][:state]
-        @rqst.approver = current_user
-        @rqst.save!
-        @rqst.user.add_role :author, @rqst.section
+
+        @rqst.transaction do
+          if @rqst.state == 'requested'
+            @rqst.state = params[:request][:state]
+            @rqst.approver = current_user
+            @rqst.save!
+            @rqst.user.add_role :author, @rqst.section
+          end
+        end
+
         flash[:notice] = "You have #{@rqst.state} #{@rqst.user.first_name} access
                           to #{@rqst.section.name}"
       else
