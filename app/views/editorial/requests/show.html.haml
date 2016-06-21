@@ -19,7 +19,7 @@
 %h3 Owners
 %ul
   -@owners.each do |owner|
-    %li #{owner.email}
+    %li #{owner.full_name}
 
 -if current_user.in? @owners
   - if @rqst.open?

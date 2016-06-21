@@ -41,7 +41,7 @@ module Editorial
       @rqst = Request.find(params[:id]).decorate
       @requestor = @rqst.user.decorate
       @approver = @rqst.approver.decorate unless @rqst.approver.nil?
-      @owners = User.with_role(:owner, @rqst.section)
+      @owners = User.with_role(:owner, @rqst.section).decorate
     end
 
     def update

@@ -129,7 +129,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it { is_expected.to respond_with 200 }
       it { is_expected.to assign_to(:rqst).with request }
-      it { is_expected.to assign_to(:owners).with User.with_role(:owner, section) }
+      it { is_expected.to assign_to(:owners).with User.with_role(:owner, section).decorate }
 
       it 'renders the show template' do
         response.should render_template :show
