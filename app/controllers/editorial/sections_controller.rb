@@ -7,16 +7,8 @@ module Editorial
 
     def collaborators
       @section = Section.find_by!(slug: params[:section])
-
       @pending = Request.where(section: @section, state: :requested)
-
-      #Find all the collaborators and roles on @section
-      @users_and_roles = Hash.new([])
-      Section.find_roles.pluck(:name).uniq.each do |role|
-        User.with_role(role, @section).each do |user|
-          @users_and_roles[user] += [role]
-        end
-      end
+      @collaborators = @section.users.map(&:decorate)
     end
   end
 end

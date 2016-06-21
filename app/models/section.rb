@@ -18,4 +18,13 @@ class Section < ApplicationRecord
       node.children.find_by! slug: slug
     end
   end
+
+  # Finds the users with a role on this Section
+  def users
+    users =Section.find_roles.pluck(:name).inject(Array.new) do |result, role|
+      result += User.with_role(role, Topic.first)
+    end
+    users.uniq
+  end
+
 end

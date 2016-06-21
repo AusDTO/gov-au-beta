@@ -20,8 +20,8 @@
       %td Email
       %td Roles
   %tbody
-    - @users_and_roles.each do |user, roles|
+    - @collaborators.each do |user|
       %tr
         %td #{user.email}
         %td
-          = roles.join ', '
+          = user.roles_for(@section).join ', '
