@@ -9,7 +9,7 @@
 
   -if user_signed_in?
     - unless current_user.roles.collect(&:resource).include? @section
-      - if open_request(current_user, @section).nil?
+      - if pending_request(current_user, @section).nil?
         =link_to 'Request membership', new_editorial_request_path(section: @section.id)
       - else
-        =link_to 'Membership requested', editorial_request_path(open_request(current_user, @section))
+        =link_to 'Membership requested', editorial_request_path(pending_request(current_user, @section))
