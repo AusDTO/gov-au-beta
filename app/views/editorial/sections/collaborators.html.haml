@@ -1,0 +1,27 @@
+%h2
+  Collaborators
+
+%p
+  = link_to 'Editorial', :editorial_root
+  \::
+  = link_to(@section.name, editorial_section_path(section: @section))
+  \:: Collaborators
+
+-if @pending.present?
+  There are pending membership requests:
+  %ul
+    - @pending.each do |p|
+      %li
+        =link_to "#{p.user.email}", editorial_request_path(p)
+
+%table{border: 1, cellpadding: 10}
+  %thead
+    %tr
+      %td Email
+      %td Roles
+  %tbody
+    - @users_and_roles.each do |user, roles|
+      %tr
+        %td #{user.email}
+        %td
+          = roles.join ', '
