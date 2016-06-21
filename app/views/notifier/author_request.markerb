@@ -1,0 +1,7 @@
+Collaboration Request
+=====================
+
+You have a new collaboration request from <%= @request.user.email %>.
+To view the request, go to:
+
+<<%= @url %>>

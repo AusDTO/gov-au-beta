@@ -1,0 +1,21 @@
+<%#
+# Role Resource Field Form Partial
+
+This partial renders an input element for role_resource_field relationships.
+
+## Local variables:
+
+- `f`:
+  A Rails form generator, used to help create the appropriate input fields.
+- `field`:
+  An instance of [RoleResourceField].
+%>
+
+<div class="field-unit__label">
+  <%= f.label field.class.form_name, field.attribute.capitalize %>
+</div>
+<div class="field-unit__field">
+  <%= f.select(field.class.form_name) do %>
+      <%= options_for_select(field.associated_resource_options, field.selected_option) %>
+  <% end %>
+</div>

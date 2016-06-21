@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :news_articles
     resources :sections
     resources :users
+    resources :roles
 
     root to: 'agencies#index'
   end

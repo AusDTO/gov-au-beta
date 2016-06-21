@@ -79,6 +79,41 @@ RSpec.describe 'admin features', type: :feature do
         expect(find('h1')).to have_content(admin_user.email)
       end
     end
+
+    context 'adding a role' do
+      it 'should create the role with the correct resource' do
+        visit new_admin_role_path
+        expect(current_path).to eq(new_admin_role_path)
+        fill_in('Name', with: 'test')
+        select(topic.name, from: 'Resource')
+        click_button('Create')
+        expect(page).to have_content(topic.name)
+      end
+    end
+
+    context 'editing a role' do
+      let (:role) { Fabricate(:role, resource: agency) }
+      before do
+        visit edit_admin_role_path(role)
+      end
+
+      it 'should prefill the resource' do
+        expect(page).to have_select('Resource', selected: role.resource.name)
+      end
+
+      it 'should allow editing the resource' do
+        select(topic.name, from: 'Resource')
+        click_button('Update')
+        expect(page).to have_content(topic.name)
+        expect(page).not_to have_content(agency.name)
+      end
+
+      it 'should allow clearing the resource' do
+        select('', from: 'Resource')
+        click_button('Update')
+        expect(page).not_to have_content(agency.name)
+      end
+    end
   end
 
   context 'a non-admin user' do

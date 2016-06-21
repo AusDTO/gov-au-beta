@@ -7,11 +7,10 @@ Fabricator(:user) do
     if transients[:is_admin]
       user.add_role(:admin)
     end
-    if transients[:author_of]
-      user.add_role(:author, transients[:author_of])
-    end
-    if transients[:reviewer_of]
-      user.add_role(:reviewer, transients[:reviewer_of])
+    [:author_of, :reviewer_of, :owner_of].each do |role|
+      if transients[role]
+        user.add_role(role[0..-4], transients[role])
+      end
     end
 
     if transients[:owner_of]

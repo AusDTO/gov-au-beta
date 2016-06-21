@@ -42,6 +42,8 @@ gem 'enumerize', '~> 1.1.1'
 gem 'cancancan'
 gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)
+gem 'markerb'
+gem 'kramdown'
 
 # engines
 gem 'synergy', path: 'engines/synergy'
