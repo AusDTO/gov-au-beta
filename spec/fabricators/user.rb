@@ -12,6 +12,10 @@ Fabricator(:user) do
         user.add_role(role[0..-4], transients[role])
       end
     end
+
+    if transients[:owner_of]
+      user.add_role(:owner, transients[:owner_of])
+    end
   end
 end
 

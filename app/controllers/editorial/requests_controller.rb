@@ -1,6 +1,8 @@
 module Editorial
   class RequestsController < EditorialController
 
+    check_authorization
+
     def new
       @section = Section.find(params[:section])
       @form = RequestForm.new(Request.new(section: @section))
@@ -36,8 +38,41 @@ module Editorial
     end
 
     def show
+      @rqst = Request.find(params[:id]).decorate
+      @requestor = @rqst.user.decorate
+      @approver = @rqst.approver.decorate unless @rqst.approver.nil?
+      @owners = User.with_role(:owner, @rqst.section).decorate
+    end
+
+    def update
       @rqst = Request.find(params[:id])
-      @owners = User.with_role(:owner, @rqst.section)
+      authorize! :update, @rqst
+
+      if params[:request][:state] != 'requested' && params[:request][:state].in?(Request.state.values)
+
+        @rqst.transaction do
+          if @rqst.state == 'requested'
+            @rqst.state = params[:request][:state]
+            @rqst.approver = current_user
+            @rqst.save!
+            @rqst.user.add_role :author, @rqst.section
+          end
+        end
+
+        flash[:notice] = "You have #{@rqst.state} #{@rqst.user.first_name} access
+                          to #{@rqst.section.name}"
+      else
+        flash[:alert] = 'Unknown approval state'
+      end
+
+      redirect_to editorial_root_path
+
+    end
+
+    private
+
+    def request_params
+      params.required(:request).permit(:state)
     end
 
   end

@@ -1,16 +1,32 @@
 %h2
-  Request for membership to #{@rqst.section.name}
+  #{@requestor.full_name} wants to join #{@rqst.section.name}
+
+- if current_user.in? @owners
+  %p
+    Granting access will allow #{@rqst.user.first_name} to submit new documents
+    or make changes to existing pages within the topic.
+
+  %p
+    Any new pages or changes will require acceptance by the topic owner before
+    beinng published.
 
 -unless @rqst.message.blank?
   %blockquote
     %p
       #{@rqst.message}
 
-Your request for membership to this section is sitting with
 
+%h3 Owners
 %ul
   -@owners.each do |owner|
-    %li #{owner.email}
+    %li #{owner.full_name}
 
+-if current_user.in? @owners
+  - if @rqst.open?
+    =simple_form_for [:editorial, @rqst] do |f|
+      =f.input :section_id, as: :hidden
+      =f.input :state, input_html: {value: 'approved'}, as: :hidden
+      =f.submit 'Approve membership'
+#{@rqst.actioned_status}
 
 =link_to 'Back to topic', sections_path(@rqst.section)
