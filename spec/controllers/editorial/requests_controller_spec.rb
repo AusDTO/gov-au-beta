@@ -149,4 +149,121 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
     end
   end
+
+  describe '#update' do
+    let(:section) { Fabricate(:section) }
+    let(:owner) { Fabricate(:user, owner_of: section) }
+    let(:non_author) { Fabricate(:user) }
+    let(:author) { Fabricate(:user) }
+    let!(:new_request) { Fabricate(:request, user: non_author, section: section, state: 'requested') }
+    let!(:old_request) { Fabricate(:request, user: non_author, section: section, state: 'rejected', approver: owner) }
+
+    context 'when accepting a new request' do
+
+      before do
+        sign_in(owner)
+
+        put :update, params: {
+          id: new_request, request: {
+              state: 'approved',
+          }
+        }
+      end
+
+      it { is_expected.to redirect_to editorial_root_path }
+      it { is_expected.to assign_to(:rqst).with new_request}
+      it { expect(controller).to set_flash[:notice] }
+
+      it 'adds a role to the user' do
+        expect(non_author.roles.collect(&:resource)).to include(section)
+      end
+
+      it 'adds the approver to the owner' do
+        expect(Request.find(new_request.id).approver).to eq(owner)
+      end
+
+      it 'sets the request approval status' do
+        expect(Request.find(new_request.id).state).to eq('approved')
+      end
+
+    end
+
+    context 'when rejecting a new request' do
+      before do
+        sign_in(owner)
+
+        put :update, params: {
+            id: new_request, request: {
+                state: 'rejected'
+            }
+        }
+      end
+
+      it { expect(controller).to set_flash[:notice] }
+
+      it 'sets request state to rejected' do
+        expect(Request.find(new_request.id).state).to eq('rejected')
+      end
+
+      it 'sets the rejector to the owner' do
+        expect(Request.find(new_request.id).approver).to eq(owner)
+      end
+
+    end
+
+    context 'when providing an unknown approval' do
+      before do
+        sign_in(owner)
+
+        put :update, params: {
+            id: new_request, request: {
+                state: 'not-a-state'
+            }
+        }
+      end
+
+      it { expect(controller).to set_flash[:alert] }
+
+      it 'does not change request state' do
+        expect(Request.find(new_request.id).state).to eq('requested')
+      end
+
+    end
+
+    context 'when changing actioned request' do
+      before do
+        sign_in(owner)
+
+        put :update, params: {
+            id: old_request, request: {
+                state: 'approved'
+            }
+        }
+      end
+
+      it { expect(controller).to set_flash[:alert] }
+      it { is_expected.to assign_to(:rqst).with old_request}
+
+      it 'does not change request state' do
+        expect(Request.find(old_request.id).state).to eq('rejected')
+      end
+    end
+
+    context 'when invalid user' do
+      before do
+      sign_in(non_author)
+
+      put :update, params: {
+          id: new_request, request: {
+              state: 'approved'
+          }
+      }
+      end
+
+      it 'does not change request state' do
+        expect(Request.find(new_request.id).state).to eq('requested')
+      end
+    end
+  end
+
 end
