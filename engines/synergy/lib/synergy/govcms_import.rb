@@ -24,18 +24,20 @@ module Synergy
           Synergy::Node.where(source_name: source_name).delete_all
           adapter.log "finished deleting existing nodes"
 
-          adapter.run do |node_data|
-            source_parts      = node_data[:path]
-            destination_parts = source_config["destination_path"].split("/")
-            parts             = destination_parts + source_parts
+          destination_parts = source_config["destination_path"].split("/")
 
-            parts.reduce(nil) do |parent_s_node,slug|
-              Synergy::Node.find_or_create_by!(source_name: source_name, parent: parent_s_node, slug: slug) do |sn|
-                sn.content    = node_data[:content]
-                sn.title      = node_data[:title]
-                sn.source_url = node_data[:source_url]
-              end
+          adapter.run do |node_data|
+            source_parts = node_data[:path]
+            parts        = destination_parts + source_parts
+
+            leaf = parts.reduce(nil) do |parent_s_node,slug|
+              Synergy::Node.find_or_create_by!(source_name: source_name, parent: parent_s_node, slug: slug)
             end
+
+            leaf.content    = node_data[:content]
+            leaf.title      = node_data[:title]
+            leaf.source_url = node_data[:source_url]
+            leaf.save!
           end
         end
       end

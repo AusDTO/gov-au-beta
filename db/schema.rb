@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620061159) do
+ActiveRecord::Schema.define(version: 20160621025209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20160620061159) do
   create_table "synergy_nodes", force: :cascade do |t|
     t.integer  "parent_id"
     t.string   "slug"
-    t.string   "source_url",  null: false
+    t.string   "source_url"
     t.integer  "position"
     t.jsonb    "content"
     t.datetime "created_at",  null: false
