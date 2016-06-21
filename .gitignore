@@ -41,3 +41,7 @@ bower.json
 # IntelliJ IDEA files
 .idea
 **.iml
+
+# ignore dummy app logs
+engines/synergy/spec/dummy/db/*.sqlite3
+engines/synergy/spec/dummy/log
