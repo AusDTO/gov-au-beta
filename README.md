@@ -54,6 +54,14 @@ $EDITOR .env
 
 ```
 
+### Mailtrap
+
+We use [Mailtrap](https://mailtrap.io) for development email testing.
+To configure Mailtrap, create an account (the free version is fine)
+and view the inbox to get your SMTP username and password. Add these to your
+environment or `.env` file as `MAILTRAP_USERNAME` and
+`MAILTRAP_PASSWORD`.
+
 ## Setup and Run Content Analysis Project
 See [Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis) for detailed instructions.
 

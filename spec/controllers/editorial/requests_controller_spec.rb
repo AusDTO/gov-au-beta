@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Editorial::RequestsController, type: :controller do
+  include ActiveJob::TestHelper
+
   describe '#new' do
 
     let(:section) { Fabricate(:section) }
@@ -19,7 +21,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         it { is_expected.to respond_with 200 }
         it { is_expected.to assign_to(:section).with section }
         it { is_expected.to assign_to(:form) }
-        it { is_expected.to assign_to(:owners).with User.with_role(:owner, section)}
+        it { is_expected.to assign_to(:owners).with User.with_role(:owner, section) }
       end
 
       context 'when logged in for nonexistent section' do
@@ -54,6 +56,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
     let(:section) { Fabricate(:section) }
     let(:author) { Fabricate(:user, author_of: section) }
+    let!(:owner) { Fabricate(:user, owner_of: section) }
     let(:alt_section) { Fabricate(:section)}
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested') }
 
@@ -64,7 +67,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it 'redirects to root path' do
         post :create, { request: { section_id: '9999' } }
-        response.should redirect_to root_path
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -74,16 +77,17 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(author)
       end
 
-      it 'create new request' do
-        expect {
-          post :create, { request: { section_id: section.id } }
-        }.to change(Request, :count).by(1)
+      subject { post :create, { request: { section_id: section.id } } }
+
+      it { expect { subject }.to change(Request, :count).by(1) }
+      it { is_expected.to redirect_to(editorial_request_path(Request.last)) }
+
+      it 'sends an email notification' do
+        perform_enqueued_jobs do
+          expect { subject }.to change(ActionMailer::Base.deliveries, :count).by(1)
+        end
       end
 
-      it 'redirects to new request' do
-        post :create, { request: { section_id: section.id } }
-        response.should redirect_to editorial_request_path(Request.last)
-      end
     end
 
     context 'when section already has been requested' do
@@ -99,7 +103,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it 'redirects to existing request' do
         post :create, { request: { section_id: alt_section.id } }
-        response.should redirect_to editorial_request_path(request.id)
+        expect(response).to redirect_to(editorial_request_path(request.id))
       end
     end
 
@@ -110,7 +114,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it 'redirects to root path' do
         post :create, { request: { foo: :bar } }
-        response.should redirect_to root_path
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -132,7 +136,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       it { is_expected.to assign_to(:owners).with User.with_role(:owner, section) }
 
       it 'renders the show template' do
-        response.should render_template :show
+        expect(response).to render_template :show
       end
     end
 
