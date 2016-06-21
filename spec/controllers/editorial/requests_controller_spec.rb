@@ -154,7 +154,6 @@ RSpec.describe Editorial::RequestsController, type: :controller do
     let(:section) { Fabricate(:section) }
     let(:owner) { Fabricate(:user, owner_of: section) }
     let(:non_author) { Fabricate(:user) }
-    let(:author) { Fabricate(:user) }
     let!(:new_request) { Fabricate(:request, user: non_author, section: section, state: 'requested') }
     let!(:old_request) { Fabricate(:request, user: non_author, section: section, state: 'rejected', approver: owner) }
 
