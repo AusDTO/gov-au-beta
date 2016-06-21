@@ -14,6 +14,13 @@ class Ability
       can :manage, Node do |node|
         node.state == :draft && user.has_role?(:author, node.section)
       end
+
+      can :update, Request do |request|
+        request.state == 'requested' &&
+            user.has_role?(:owner, request.section) &&
+            user != request.user
+      end
+
       can :read, Node do |node|
         node.state == :draft && user.has_role?(:reviewer, node.section)
       end
