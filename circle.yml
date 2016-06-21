@@ -14,7 +14,7 @@ deployment:
   staging:
     branch: develop
     commands:
-      - cf api https://api.system.staging.digital.gov.au --skip-ssl-validation
+      - cf api https://api.system.staging.digital.gov.au
       - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
       - cf target -o dto -s dtomisc
       - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
