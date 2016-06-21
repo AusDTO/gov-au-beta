@@ -36,18 +36,23 @@ password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
 
 if !User.exists?(email: "admin@example.com")
-  User.create!(email: "admin@example.com", password: password).add_role :admin
+  User.create!(email: "admin@example.com", password: password)
 end
 
 if !User.exists?(email: "author@example.com")
-  User.create!(email: "author@example.com", password: password).add_role :author, topic
-
+  User.create!(email: "author@example.com", password: password)
 end
 
 if !User.exists?(email: "reviewer@example.com")
-  User.create!(email: "reviewer@example.com", password: password).add_role :reviewer, topic
+  User.create!(email: "reviewer@example.com", password: password)
 end
 
 if !User.exists?(email: "owner@example.com")
-  User.create!(email: "owner@example.com", password: password).add_role :owner, topic
+  User.create!(email: "owner@example.com", password: password)
 end
+
+User.find_by(email: "admin@example.com").add_role :admin
+User.find_by(email: "author@example.com").add_role :author, topic
+User.find_by(email: "reviewer@example.com").add_role :reviewer, topic
+User.find_by(email: "owner@example.com").add_role :owner, topic
+
