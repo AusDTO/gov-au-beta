@@ -44,6 +44,7 @@ gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)
 gem 'markerb'
 gem 'kramdown'
+gem 'andand'
 
 # engines
 gem 'synergy', path: 'engines/synergy'

@@ -6,14 +6,7 @@ module Synergy
     end
 
     def node_html(node)
-      if node.content
-        if node.content['body']
-          node.content['body']['value']
-        elsif node.content['extra']
-          node.content['extra']['value']
-        end
-      end
+      node.content.andand["body"]
     end
-
   end
 end

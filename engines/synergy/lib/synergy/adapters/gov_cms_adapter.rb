@@ -32,19 +32,20 @@ module Synergy
       def to_node_data(govcms_node)
         url = URI.parse(govcms_node["url"])
 
-        content = {}
-        if govcms_node["field_content_main"]
-          content[:body] = govcms_node["field_content_main"]
-        end
-        if govcms_node["field_content_extra"]
-          content[:extra] = govcms_node["field_content_extra"]
-        end
-
         {
           source_url: govcms_node["url"],
           path: url.path.split("/").select{|p| !p.blank?},
           title: govcms_node["field_title"],
-          content: content
+          content: extract_content(govcms_node)
+        }
+      end
+
+      def extract_content(govcms_node)
+        # NOTE: GovCMS can return a hash, and array (always empty for some reason) or nil
+        # for field content. Only the hash version is useful.
+        {
+          body: (govcms_node["field_content_main"].andand["value"] rescue nil) ||
+                (govcms_node["field_content_extra"].andand["value"] rescue nil)
         }
       end
 
