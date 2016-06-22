@@ -17,4 +17,7 @@ deployment:
       - cf api https://api.system.staging.digital.gov.au
       - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
       - cf target -o dto -s dtomisc
+      - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
+          -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
+          -F local_username=`whoami`
       - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
