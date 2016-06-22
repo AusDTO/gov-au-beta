@@ -3,11 +3,13 @@ require 'yaml'
 require 'pry' if Rails.env.development? || Rails.env.test?
 
 require 'synergy/adapters/gov_cms_adapter'
+require 'synergy/adapters/collaboration_adapter'
 
 module Synergy
   class CMSImport
     ADAPTERS = {
-      "GovCMS" => Synergy::Adapters::GovCMSAdapter
+      'GovCMS'        => Synergy::Adapters::GovCMSAdapter,
+      'Collaboration' => Synergy::Adapters::CollaborationAdapter
     }.freeze
 
     def self.run
