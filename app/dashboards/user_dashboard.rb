@@ -22,6 +22,8 @@ class UserDashboard < Administrate::BaseDashboard
     roles: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    password: PasswordField,
+    password_confirmation: PasswordField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -55,6 +57,8 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :email,
+    :password,
+    :password_confirmation,
     :roles,
   ].freeze
 
