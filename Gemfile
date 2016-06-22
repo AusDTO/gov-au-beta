@@ -53,6 +53,9 @@ gem 'synergy', path: 'engines/synergy'
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
 # - https://github.com/thoughtbot/administrate/pull/575 # Rails 5
 gem 'administrate', github: 'micapam/administrate', branch: 'govau'
+# Administrate depends on bourbon but doesn't include its own dependency yet
+# https://github.com/thoughtbot/administrate/pull/614
+gem 'bourbon'
 
 group :development do
   gem 'web-console', '~> 3.0'
