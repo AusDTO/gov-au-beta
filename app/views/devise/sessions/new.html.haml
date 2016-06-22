@@ -1,0 +1,15 @@
+%h2 Log in
+%section.form-wrapper
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    / TODO: UI Kit needs styles for email type (see https://github.com/AusDTO/gov-au-ui-kit/issues/51)
+    /= f.input :email, autofocus: true
+    %p
+      = f.label :email
+      = f.text_field :email
+    %p
+      = f.label :password
+      = f.password_field :password
+    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    = f.button :submit, "Log in", role: 'button'
+
+= render "devise/shared/links"

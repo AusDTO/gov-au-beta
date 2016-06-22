@@ -1,9 +1,6 @@
 module RequestsHelper
-
-  def pending_request(user, section)
-
-    Request.find_by(user: user, section: section, state: 'requested')
-
+  def show_request_controls?
+    return false unless user_signed_in?
+    @section.present? && !current_user.collaborator_on?(@section)
   end
-
 end

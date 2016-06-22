@@ -8,12 +8,12 @@
   Current owners of this section are:
 
   %ul
-    -@owners.each do |owner|
-      %li #{owner.email}
+    - owners.each do |owner|
+      %li #{owner.full_name} (#{owner.email})
 
 
 .fieldset
   =simple_form_for [:editorial, @form] do |f|
-    =f.input :section_id, as: :hidden
-    =f.text_area :message, required: false, placeholder: 'Optional'
-    =f.submit 'Request membership'
+    = f.input :section_id, as: :hidden
+    = f.text_area :message, required: false, placeholder: 'Optional'
+    = f.submit 'Request membership', role: 'button'

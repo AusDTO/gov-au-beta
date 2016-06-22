@@ -1,32 +1,31 @@
-%h2
-  #{@requestor.full_name} wants to join #{@rqst.section.name}
+%h2 #{requestor.full_name} wants to join #{rqst.section_name}
 
-- if current_user.in? @owners
+- if current_user.in?(@owners)
   %p
-    Granting access will allow #{@rqst.user.first_name} to submit new documents
+    Granting access will allow #{rqst.user.first_name} to submit new documents
     or make changes to existing pages within the topic.
 
   %p
     Any new pages or changes will require acceptance by the topic owner before
     beinng published.
 
--unless @rqst.message.blank?
+-unless rqst.message.blank?
   %blockquote
     %p
-      #{@rqst.message}
+      #{rqst.message}
 
 
 %h3 Owners
 %ul
-  -@owners.each do |owner|
+  - owners.each do |owner|
     %li #{owner.full_name}
 
--if current_user.in? @owners
-  - if @rqst.open?
+-if current_user.in?(@owners)
+  - if rqst.open?
     =simple_form_for [:editorial, @rqst] do |f|
       =f.input :section_id, as: :hidden
       =f.input :state, input_html: {value: 'approved'}, as: :hidden
       =f.submit 'Approve membership'
-#{@rqst.actioned_status}
+#{rqst.actioned_status}
 
-=link_to 'Back to topic', sections_path(@rqst.section)
+=link_to 'Back to topic', section_path(@rqst.section)

@@ -4,22 +4,20 @@
   = render 'head', title: 'GovAuBeta: Collaboration'
   %body
     %header{role: 'banner'}
+      = render 'application/signed_in_nav'
       %section.govau--header
         %div.wrapper
           %div.govau--logo
-            %a.logo
+            %a.logo(href="/")
               gov.au
             %span.badge--beta beta
 
-      %section.hero
-        %div.wrapper
-          %a.site-title
-            GOV.AU Beta: Collaboration
-
     %main
-      = render 'navbar'
+      - if content_for?(:navbar)
+        %aside.sidebar
+          %nav.primary-nav{'aria-label' => 'main navigation'}
+            = yield :navbar
       %article
-        = render 'session_status'
         = render 'alerts'
         = yield
     %footer{role: "contentinfo"}

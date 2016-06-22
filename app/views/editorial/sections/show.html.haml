@@ -9,13 +9,9 @@
       %li
         #{@section.name}
 
-= link_to 'View Collaborators', editorial_collaborators_path(@section)
+%h3 Pages
 
-%h3
-  Pages
-
-%p
-  =link_to 'Add_page', new_editorial_node_path(section: @section.id)
+%p= link_to 'Add_page', new_editorial_node_path(section: @section.id)
 
 %p
   -if @filter != 'submissions'

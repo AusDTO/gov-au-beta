@@ -1,0 +1,7 @@
+%section.controls
+  .wrapper
+    = link_to('Editorial', editorial_root_path)
+    = yield :toolbar_actions
+    = link_to('Sign out', destroy_user_session_path, method: :delete)
+    %span (#{current_user.full_name})
+

@@ -135,3 +135,19 @@ codeclimate analyze
 ```
 
 You can also [view the Code Climate live feed for the `develop` branch](https://codeclimate.com/repos/576396facfacf40074004a6e/feed), but you will need an invitation from someone on your team.
+
+
+## Layouts
+
+The application uses nested layouts (using the inside_layout method inside ApplicationHelper).
+
+* Public facing pages all use or are nested within app/views/layouts/application.html.haml.
+* Sections use app/views/layouts/section.html.haml
+* Custom section layouts should be nested inside section. For example:
+
+```
+= inside_layout('section') do
+  / Your markup
+  = yield
+```
+

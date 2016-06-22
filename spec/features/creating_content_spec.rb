@@ -105,7 +105,7 @@ RSpec.describe 'creating content:', type: :feature do
     it 'should allow a user to create a child of a specific type' do
 
       visit "/#{node.section.slug}/#{node.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       select 'News article', from: 'Page type'
       click_button 'New page'
@@ -114,7 +114,7 @@ RSpec.describe 'creating content:', type: :feature do
 
     it 'should prefill the section and parent' do
       visit "/#{node.section.slug}/#{node.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       click_button 'New page'
       expect(page).to have_select('Section', selected: node.section.name)
@@ -125,7 +125,7 @@ RSpec.describe 'creating content:', type: :feature do
   describe 'create a top node in a section' do
     it 'should prefill the section' do
       visit "/#{root.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       expect(page).to have_content root.name
       click_button 'New page'
