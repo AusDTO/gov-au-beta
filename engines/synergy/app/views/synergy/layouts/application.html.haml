@@ -1,0 +1,21 @@
+!!! 5
+
+%html
+  = render 'application/head', title: 'GovAuBeta'
+  %base{href: 'http://edit.dev.aus.gov.au/'}
+  %body
+    %header
+      %div.wrapper
+        - if content_for?(:header)
+          = yield(:header)
+        - else
+          %h1.page-title GOV.AU Beta
+    %main
+      = render 'navbar'
+      %article
+        = render 'application/alerts'
+        = yield
+    %footer{role: "contentinfo"}
+      %div.wrapper
+        %p
+          &lt;insert footer here&gt;

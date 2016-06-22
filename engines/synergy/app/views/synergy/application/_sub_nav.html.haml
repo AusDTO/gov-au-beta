@@ -1,0 +1,7 @@
+- css_class = ('sub-' * ancestors.index(node)) + 'nav-list'
+%ul{class: css_class}
+  - node.children.each do |child, level|
+    %li
+      %a{href: node_path(child)}= child.name
+    - if ancestors.include?(child)
+      = render partial: 'sub_nav',  locals: {ancestors: ancestors, node: child}

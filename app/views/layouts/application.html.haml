@@ -1,7 +1,7 @@
 !!! 5
 
 %html
-  = render 'head', title: 'GovAuBeta'
+  = render 'application/head', title: 'GovAuBeta'
   %body
     %header{role: 'banner'}
       %section.govau--header
@@ -17,11 +17,11 @@
           - else
             %a.site-title{href: root_path} GOV.AU Beta
     %main
-      = render 'navbar'
+      = render 'application/navbar'
       %article
-        = render 'toolbar'
-        = render 'session_status'
-        = render 'alerts'
+        = render 'application/toolbar'
+        = render 'application/session_status'
+        = render 'application/alerts'
         = yield
     %footer{role: "contentinfo"}
       %div.wrapper
