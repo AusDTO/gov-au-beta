@@ -9,9 +9,7 @@
     Release Date:
     = @node.release_date
 
-- if @node.content_body
-  %p
-    !=@node.content_body
+= render partial: 'templates/content_body', object: @node.content_body
 
 %p
   =@hierarchy

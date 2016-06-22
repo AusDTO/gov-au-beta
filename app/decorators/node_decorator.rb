@@ -21,4 +21,8 @@ class NodeDecorator < Draper::Decorator
     object.children.with_state(:published).decorate
   end
 
+  def content_body
+    ActionController::Base.helpers.sanitize(object.content_body)
+  end
+
 end
