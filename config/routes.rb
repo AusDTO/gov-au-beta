@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :templates, only: :index
     resources :sections, only: :index
   end
-  mount Synergy::Engine => "/api"
+  mount Synergy::Engine => '/synergy'
 
   get root 'sections#index'
   get '/preview/:token' => 'nodes#preview', as: :previews
