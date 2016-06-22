@@ -3,9 +3,19 @@
 %html
   = render 'head', title: 'GovAuBeta: Collaboration'
   %body
-    %header
-      %div.wrapper
-        %h1.page-title GOV.AU Beta: Collaboration
+    %header{role: 'banner'}
+      %section.govau--header
+        %div.wrapper
+          %div.govau--logo
+            %a.logo
+              gov.au
+            %span.badge--beta beta
+
+      %section.hero
+        %div.wrapper
+          %a.site-title
+            GOV.AU Beta: Collaboration
+
     %main
       = render 'navbar'
       %article
