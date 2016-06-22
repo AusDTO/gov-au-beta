@@ -8,6 +8,7 @@ module Synergy
       def initialize(source_name, url)
         @source_name = source_name
         @url = "#{url}/node.json?field_current_revision_state=published"
+        @image_base_href = URI.parse(url)
       end
 
       def run(&block)
@@ -41,12 +42,33 @@ module Synergy
       end
 
       def extract_content(govcms_node)
-        # NOTE: GovCMS can return a hash, and array (always empty for some reason) or nil
+        # NOTE: GovCMS can return a hash, or an array (always empty for some reason) or nil
         # for field content. Only the hash version is useful.
         {
-          body: (govcms_node["field_content_main"].andand["value"] rescue nil) ||
-                (govcms_node["field_content_extra"].andand["value"] rescue nil)
+          body: absolutify_image_links(
+                  (govcms_node["field_content_main"].andand["value"] rescue nil) ||
+                  (govcms_node["field_content_extra"].andand["value"] rescue nil)
+                )
         }
+      end
+
+      def absolutify_image_links(content)
+        html = Nokogiri::HTML(content)
+        html.search("img").each do |node|
+          src = node["src"]
+          unless src.empty?
+            uri = URI.parse(URI.escape(src))
+            unless uri.host
+              uri.scheme = @image_base_href.scheme
+              uri.host = @image_base_href.host
+              node["src"] = uri.to_s
+            end
+          end
+        end
+        html.to_html
+      rescue
+        Rails.logger.error "[#{@source_name}] Could not parse HTML content: #{$!.message}"
+        content
       end
 
       def load_nodes
