@@ -3,12 +3,19 @@
 %html
   = render 'application/head', title: 'GovAuBeta'
   %body
-    %header
-      %div.wrapper
-        - if content_for?(:header)
-          = yield(:header)
-        - else
-          %h1.page-title GOV.AU Beta
+    %header{role: 'banner'}
+      %section.govau--header
+        %div.wrapper
+          %div.govau--logo
+            %a.logo{href: root_path}
+              gov.au
+            %span.badge--beta beta
+      %section.hero
+        %div.wrapper
+          - if content_for?(:header)
+            = yield(:header)
+          - else
+            %a.site-title{href: root_path} GOV.AU Beta
     %main
       = render 'application/navbar'
       %article

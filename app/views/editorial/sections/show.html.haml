@@ -2,8 +2,12 @@
   #{@section.name}
 
 %p
-  = link_to 'Editorial', :editorial_root
-  \:: #{@section.name}
+  %nav.breadcrumbs
+    %ul
+      %li
+        = link_to 'Editorial', :editorial_root
+      %li
+        #{@section.name}
 
 = link_to 'View Collaborators', editorial_collaborators_path(@section)
 
