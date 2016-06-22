@@ -101,6 +101,7 @@ GEM
     acts_as_tree (2.4.0)
       activerecord (>= 3.0.0)
     addressable (2.4.0)
+    andand (1.3.3)
     arel (7.0.0)
     autoprefixer-rails (6.3.6.1)
       execjs
@@ -406,6 +407,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree (~> 2.4.0)
   administrate!
+  andand
   bower-rails (~> 0.10.0)
   byebug
   cancancan

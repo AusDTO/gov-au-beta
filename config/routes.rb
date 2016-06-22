@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    #resources :sections, only: [:index]
     resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
       get 'prepare', on: :collection
     end
     resources :requests, only: [:create, :new, :index, :show, :update]
     get '/:section' => 'sections#show', as: 'section'
+    get '/:section/collaborators' => 'sections#collaborators', as: 'collaborators'
     root to: 'editorial#index'
   end
 
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :templates, only: :index
     resources :sections, only: :index
   end
-  mount Synergy::Engine => "/api"
+  mount Synergy::Engine => '/synergy'
 
   get root 'sections#index'
   get '/preview/:token' => 'nodes#preview', as: :previews

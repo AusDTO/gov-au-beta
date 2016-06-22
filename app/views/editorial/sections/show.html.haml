@@ -5,6 +5,8 @@
   = link_to 'Editorial', :editorial_root
   \:: #{@section.name}
 
+= link_to 'View Collaborators', editorial_collaborators_path(@section)
+
 %h3
   Pages
 
@@ -43,4 +45,3 @@
         %td #{page.type}
         %td #{page.state}
         %td Author
-
