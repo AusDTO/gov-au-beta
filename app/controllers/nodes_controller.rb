@@ -1,7 +1,6 @@
 class NodesController < ApplicationController
   include NodesHelper
-
-  before_action :show_toolbar, only: :show
+  layout 'section'
 
   def show
     @section = Section.find_by! slug: params[:section]
@@ -10,7 +9,6 @@ class NodesController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
     @node = @raw_node.decorate
-    @toolbar_info[:edit_url] = @node.edit_url
     render_node @node, @section
   end
 

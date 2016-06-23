@@ -1,5 +1,7 @@
 module Editorial
   class SectionsController < EditorialController
+    layout 'editorial_section'
+
     def show
       @section = Section.find_by!(slug: params[:section])
       @filter = %w(my_pages submissions).detect { |f| f == params[:filter] }

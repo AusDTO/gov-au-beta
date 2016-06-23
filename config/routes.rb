@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get root 'sections#index'
   get '/preview/:token' => 'nodes#preview', as: :previews
-  get '/:section' => 'sections#show', as: :sections
+  get '/:section' => 'sections#show', as: :section
   get '/:section(/*path)' => 'nodes#show', as: :nodes
 
 

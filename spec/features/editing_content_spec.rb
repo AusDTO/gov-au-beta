@@ -28,7 +28,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should show a link to edit the content in the CMS' do
       visit "/#{node.section.slug}/#{node.slug}"
-      expect(page).to have_link('Edit this page')
+      expect(page).to have_link('Edit')
     end
   end
 

@@ -91,3 +91,5 @@ platforms :mingw, :mswin do
   gem 'tzinfo-data'
   gem 'wdm'
 end
+
+gem 'html2haml'
