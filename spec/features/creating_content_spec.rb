@@ -23,14 +23,16 @@ RSpec.describe 'creating content:', type: :feature do
   let(:slug) {'test-name'}
 
   context 'when creating general content' do
-    it 'show the correct form' do
+    before do
       visit new_editorial_node_path(type: :general_content)
+    end
+
+    it 'show the correct form' do
       expect(page).to have_content(/general content/i)
     end
 
     context 'with valid data' do
       it 'create the correct type of content' do
-        visit new_editorial_node_path(type: :general_content)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         click_button('Create')
@@ -41,24 +43,27 @@ RSpec.describe 'creating content:', type: :feature do
 
     context 'with invalid data' do
       it 'return to the edit form' do
-        visit new_editorial_node_path(type: :general_content)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Bad Content')
         click_button('Create')
         expect(page).to have_content(/failed.*content.*analysis/i)
       end
     end
+
+    it_behaves_like 'robust to XSS'
   end
 
   context 'when creating a news article' do
-    it 'show the correct form' do
+    before do
       visit new_editorial_node_path(type: :news_article)
+    end
+
+    it 'show the correct form' do
       expect(page).to have_content(/news article/i)
     end
 
     context 'with valid data' do
       it 'create the correct type of content' do
-        visit new_editorial_node_path(type: :news_article)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         select('2017', from: 'Release date')
@@ -67,6 +72,8 @@ RSpec.describe 'creating content:', type: :feature do
         expect(page).to have_content(/release date/i)
       end
     end
+
+    it_behaves_like 'robust to XSS'
   end
 
   context 'when no type is specified' do

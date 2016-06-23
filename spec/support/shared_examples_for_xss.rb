@@ -1,0 +1,13 @@
+# Expects to be on a page with a Name and Body field, a single button and redirect to
+# somewhere displaying the content
+RSpec.shared_examples 'robust to XSS' do
+  it 'strip the script tags' do
+    fill_in('Name', with: 'XSS Attempt')
+    fill_in('Body', with: 'Good Content<script>alert()</script>')
+    click_button('')
+    within('article') do
+      expect(page).not_to have_css('script', text: 'alert', visible: false)
+      expect(page).to have_content('Good Content')
+    end
+  end
+end

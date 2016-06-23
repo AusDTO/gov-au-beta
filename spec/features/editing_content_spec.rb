@@ -80,6 +80,13 @@ RSpec.describe 'editing content', type: :feature do
         expect(page).to have_content(/failed.*content.*analysis/i)
       end
     end
+
+    it_behaves_like 'robust to XSS' do
+      before { visit edit_editorial_node_path(id: node1.id) }
+    end
+    it_behaves_like 'robust to XSS' do
+      before { visit edit_editorial_node_path(id: node2.id) }
+    end
   end
 
 end
