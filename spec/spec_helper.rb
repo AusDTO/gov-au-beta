@@ -19,7 +19,8 @@
 require 'webmock/rspec'
 require 'capybara/rspec'
 require 'simplecov'
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
+require 'with_model'
 
 # save to CircleCI's artifacts directory if we're on CircleCI
 if ENV['CIRCLE_ARTIFACTS']
@@ -70,6 +71,8 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  config.extend WithModel
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

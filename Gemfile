@@ -45,6 +45,7 @@ gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work
 gem 'markerb'
 gem 'kramdown'
 gem 'andand'
+gem 'diff-lcs', '~> 1.2.5'
 
 # engines
 gem 'synergy', path: 'engines/synergy'
@@ -82,7 +83,8 @@ group :test do
   gem 'database_cleaner', '~> 1.5.3'
   gem 'shoulda-kept-assign-to', '~> 1.1.0'
   gem 'launchy'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'with_model', '~> 1.2.1'
 end
 
 platforms :mingw, :mswin do

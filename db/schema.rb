@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160621025209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "uuid-ossp"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -59,6 +60,15 @@ ActiveRecord::Schema.define(version: 20160621025209) do
     t.index ["approver_id"], name: "index_requests_on_approver_id", using: :btree
     t.index ["section_id"], name: "index_requests_on_section_id", using: :btree
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
+  end
+
+  create_table "revisions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "revisable_type"
+    t.integer  "revisable_id"
+    t.jsonb    "diffs"
+    t.datetime "created_at"
+    t.datetime "applied_at"
+    t.index ["revisable_type", "revisable_id"], name: "index_revisions_on_revisable_type_and_revisable_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
