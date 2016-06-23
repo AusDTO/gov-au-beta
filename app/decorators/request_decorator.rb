@@ -1,5 +1,8 @@
 class RequestDecorator < Draper::Decorator
+  decorates_association :approver, with: UserDecorator
   delegate_all
+  delegate :name, to: :section, prefix: true
+  delegate :full_name, to: :approver, allow_nil: true, prefix: true
 
   def open?
     object.state == 'requested'
@@ -11,7 +14,7 @@ class RequestDecorator < Draper::Decorator
 
   def actioned_status
     if closed?
-      "This request was #{object.state} at #{actioned_at} by #{object.approver.decorate.full_name}"
+      "This request was #{object.state} at #{actioned_at} by #{approver_full_name}"
     else
       "Pending"
     end

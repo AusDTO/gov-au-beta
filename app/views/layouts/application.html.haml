@@ -4,26 +4,23 @@
   = render 'application/head', title: 'GovAuBeta'
   %body
     %header{role: 'banner'}
+      = render 'application/signed_in_nav' if user_signed_in?
       %section.govau--header
-        %div.wrapper
-          %div.govau--logo
+        .wrapper
+          .govau--logo
             %a.logo{href: root_path}
               gov.au
             %span.badge--beta beta
-      %section.hero
-        %div.wrapper
-          - if content_for?(:header)
-            = yield(:header)
-          - else
-            %a.site-title{href: root_path} GOV.AU Beta
+      - if content_for?(:header)
+        %section.hero
+          .wrapper= yield(:header)
+
     %main
       = render 'application/navbar'
       %article
-        = render 'application/toolbar'
-        = render 'application/session_status'
         = render 'application/alerts'
         = yield
     %footer{role: "contentinfo"}
-      %div.wrapper
-        %p
-          &lt;insert footer here&gt;
+      .wrapper
+        %span
+          = link_to('Sign in', new_user_session_path, style: 'color:#fff;') # TODO: No styles for links in footer in UI Kit yet

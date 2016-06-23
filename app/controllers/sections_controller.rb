@@ -1,9 +1,9 @@
 class SectionsController < ApplicationController
+  layout 'section'
 
-  before_action :show_toolbar, only: :show
-  
   def index
     @sections = Section.all.order(:name)
+    render layout: 'application'
   end
 
   def show

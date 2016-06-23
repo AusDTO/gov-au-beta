@@ -1,5 +1,8 @@
 module Editorial
   class RequestsController < EditorialController
+    decorates_assigned :owners
+    decorates_assigned :rqst, with: RequestDecorator
+    decorates_assigned :requestor, with: UserDecorator
 
     check_authorization
 
@@ -38,10 +41,10 @@ module Editorial
     end
 
     def show
-      @rqst = Request.find(params[:id]).decorate
-      @requestor = @rqst.user.decorate
+      @rqst = Request.find(params[:id])
+      @requestor = @rqst.user
       @approver = @rqst.approver.decorate unless @rqst.approver.nil?
-      @owners = User.with_role(:owner, @rqst.section).decorate
+      @owners = User.with_role(:owner, @rqst.section)
     end
 
     def update

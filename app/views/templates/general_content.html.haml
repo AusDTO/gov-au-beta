@@ -1,9 +1,7 @@
 %h2
   =@node.name
 
-- if @node.content_body
-  %p
-    != @node.content_body
+= render partial: 'templates/content_body', object: @node.content_body
 
 %p
   =@hierarchy

@@ -204,7 +204,7 @@ samp {
  * 2. Correct font properties not being inherited.
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
-button,
+button, header[role='banner'] .govau--header .button--feedback,
 input,
 optgroup,
 select,
@@ -219,7 +219,7 @@ textarea {
 /**
  * Address `overflow` set to `hidden` in IE 8/9/10/11.
  */
-button {
+button, header[role='banner'] .govau--header .button--feedback {
   overflow: visible; }
 
 /**
@@ -228,7 +228,7 @@ button {
  * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
  * Correct `select` style inheritance in Firefox.
  */
-button,
+button, header[role='banner'] .govau--header .button--feedback,
 select {
   text-transform: none; }
 
@@ -239,7 +239,7 @@ select {
  * 3. Improve usability and consistency of cursor style between image-type
  *    `input` and others.
  */
-button,
+button, header[role='banner'] .govau--header .button--feedback,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
@@ -251,14 +251,14 @@ input[type="submit"] {
 /**
  * Re-set default cursor for disabled elements.
  */
-button[disabled],
+button[disabled], header[role='banner'] .govau--header [disabled].button--feedback,
 html input[disabled] {
   cursor: default; }
 
 /**
  * Remove inner padding and border in Firefox 4+.
  */
-button::-moz-focus-inner,
+button::-moz-focus-inner, header[role='banner'] .govau--header .button--feedback::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
   padding: 0; }
@@ -490,7 +490,8 @@ a {
   a:visited {
     color: #222222; }
   a:hover, a:active {
-    color: #67cee4; }
+    color: #67cee4;
+    border-bottom-width: 3px; }
 
 ul,
 ol,
@@ -771,71 +772,70 @@ main:after {
       .sidebar:last-child {
         margin-right: 0; } }
 
-header[role='banner'] {
-  margin-bottom: 1.8em; }
-  header[role='banner'] .controls a,
+header[role='banner'] .controls {
+  padding: 1.35em 0;
+  text-align: right;
+  background-color: #152d3b;
+  color: #fff; }
+  header[role='banner'] .controls a {
+    color: #fff; }
+
+header[role='banner'] .govau--header {
+  padding: 1.35em 0;
+  background-color: #224a61;
+  color: #fff; }
+  header[role='banner'] .govau--header .govau--logo {
+    float: left; }
+    @media screen and (max-width: 420px) {
+      header[role='banner'] .govau--header .govau--logo {
+        float: left;
+        display: block;
+        margin-right: 6.04063%;
+        width: 100%;
+        float: none;
+        padding-bottom: 1.35em; }
+        header[role='banner'] .govau--header .govau--logo:last-child {
+          margin-right: 0; } }
   header[role='banner'] .govau--header .logo {
-    border-bottom: 2px solid transparent;
     padding-bottom: 2px;
+    border-bottom: none;
+    color: #fff;
+    font-family: "Lato", Verdana, "Bitstream Vera Sans", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px; }
+    header[role='banner'] .govau--header .logo:hover, header[role='banner'] .govau--header .logo:focus {
+      border-bottom: 1px; }
+  header[role='banner'] .govau--header .badge--alpha,
+  header[role='banner'] .govau--header .badge--beta {
+    vertical-align: top;
+    margin-left: 0.45em;
+    background-color: #1b8197; }
+  header[role='banner'] .govau--header .feedback {
+    float: right; }
+    @media screen and (max-width: 420px) {
+      header[role='banner'] .govau--header .feedback {
+        float: left;
+        display: block;
+        margin-right: 6.04063%;
+        width: 100%;
+        float: none; }
+        header[role='banner'] .govau--header .feedback:last-child {
+          margin-right: 0; } }
+  header[role='banner'] .govau--header .button--feedback {
+    margin: 0;
+    border: solid 1px;
+    background-color: transparent; }
+    header[role='banner'] .govau--header .button--feedback:hover, header[role='banner'] .govau--header .button--feedback:focus {
+      background: #fff;
+      color: #224a61; }
+
+header[role='banner'] .hero {
+  padding: 3.6em 0;
+  background-color: #1b8197;
+  color: #fff; }
+  header[role='banner'] .hero .site-title {
+    margin: 0.45em 0;
     color: #fff; }
-    header[role='banner'] .controls a:hover, header[role='banner'] .controls a:focus,
-    header[role='banner'] .govau--header .logo:hover,
-    header[role='banner'] .govau--header .logo:focus {
-      padding-bottom: 2px;
-      border-bottom: 2px solid #fbb03b; }
-  header[role='banner'] .controls {
-    padding: 1.35em 0;
-    text-align: right;
-    background-color: #224a61;
-    color: #fff; }
-  header[role='banner'] .govau--header {
-    padding: 1.35em 0;
-    background-color: #176f81;
-    color: #fff; }
-    header[role='banner'] .govau--header .govau--logo {
-      float: left; }
-      @media screen and (max-width: 420px) {
-        header[role='banner'] .govau--header .govau--logo {
-          float: left;
-          display: block;
-          margin-right: 6.04063%;
-          width: 100%;
-          float: none;
-          padding-bottom: 1.35em; }
-          header[role='banner'] .govau--header .govau--logo:last-child {
-            margin-right: 0; } }
-    header[role='banner'] .govau--header .logo {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-family: "Lato", Verdana, "Bitstream Vera Sans", sans-serif;
-      color: #fff; }
-      header[role='banner'] .govau--header .logo:hover, header[role='banner'] .govau--header .logo:focus {
-        border-bottom: 3px solid #fbb03b; }
-    header[role='banner'] .govau--header .badge--alpha,
-    header[role='banner'] .govau--header .badge--beta {
-      vertical-align: top;
-      margin-left: 0.45em; }
-    header[role='banner'] .govau--header .feedback {
-      float: right; }
-      @media screen and (max-width: 420px) {
-        header[role='banner'] .govau--header .feedback {
-          float: left;
-          display: block;
-          margin-right: 6.04063%;
-          width: 100%;
-          float: none; }
-          header[role='banner'] .govau--header .feedback:last-child {
-            margin-right: 0; } }
-    header[role='banner'] .govau--header .button--feedback {
-      margin: 0; }
-  header[role='banner'] .hero {
-    padding: 1.8em 0;
-    background-color: #67cee4;
-    color: #000; }
-    header[role='banner'] .hero .site-title {
-      margin: 0.45em 0;
-      color: #000;
-      border-bottom: none; }
 
 footer[role='contentinfo'] {
   padding: 1.8em 0;
@@ -884,11 +884,14 @@ footer[role='contentinfo'] {
     list-style: none; }
 
 header[role='banner'] .govau--header .button--feedback, button,
-[role='button'] {
-  -webkit-appearance: none;
-  appearance: none;
+.button,
+[role='button'],
+[type='button'] {
   display: inline-block;
+  margin: 0 0.9em 0.9em 0;
+  height: 2.7em;
   border: none;
+  border-radius: 1px;
   outline-offset: -2px;
   outline: 2px solid transparent;
   padding: 0.45em 1.35em 0.585em;
@@ -897,125 +900,156 @@ header[role='banner'] .govau--header .button--feedback, button,
   font-weight: 700;
   color: #fff; }
   header[role='banner'] .govau--header .button--feedback:focus, button:focus,
-  [role='button']:focus {
+  .button:focus,
+  [role='button']:focus,
+  [type='button']:focus {
     outline-color: #52c7e0; }
   header[role='banner'] .govau--header .button--feedback:visited, button:visited,
-  [role='button']:visited {
+  .button:visited,
+  [role='button']:visited,
+  [type='button']:visited {
     color: #fff; }
   header[role='banner'] .govau--header .button--feedback:hover, button:hover,
-  [role='button']:hover {
-    background-color: #135c6c; }
+  .button:hover,
+  [role='button']:hover,
+  [type='button']:hover {
+    background-color: #135c6c;
+    color: #fff; }
   header[role='banner'] .govau--header .button--feedback:active, button:active,
-  [role='button']:active {
-    background-color: #176f81; }
+  .button:active,
+  [role='button']:active,
+  [type='button']:active {
+    background-color: #176f81;
+    color: #fff; }
   header[role='banner'] .govau--header [disabled].button--feedback, button[disabled],
-  [disabled][role='button'], header[role='banner'] .govau--header [disabled].button--feedback:hover, button[disabled]:hover,
-  [disabled][role='button']:hover, header[role='banner'] .govau--header [disabled].button--feedback:active, button[disabled]:active,
-  [disabled][role='button']:active, header[role='banner'] .govau--header [disabled].button--feedback:focus, button[disabled]:focus,
-  [disabled][role='button']:focus, header[role='banner'] .govau--header .disabled.button--feedback, button.disabled,
-  .disabled[role='button'], header[role='banner'] .govau--header .disabled.button--feedback:hover, button.disabled:hover,
-  .disabled[role='button']:hover, header[role='banner'] .govau--header .disabled.button--feedback:active, button.disabled:active,
-  .disabled[role='button']:active, header[role='banner'] .govau--header .disabled.button--feedback:focus, button.disabled:focus,
-  .disabled[role='button']:focus {
+  [disabled].button,
+  [disabled][role='button'],
+  [disabled][type='button'], header[role='banner'] .govau--header [disabled].button--feedback:hover, button[disabled]:hover,
+  [disabled].button:hover,
+  [disabled][role='button']:hover,
+  [disabled][type='button']:hover, header[role='banner'] .govau--header [disabled].button--feedback:active, button[disabled]:active,
+  [disabled].button:active,
+  [disabled][role='button']:active,
+  [disabled][type='button']:active, header[role='banner'] .govau--header [disabled].button--feedback:focus, button[disabled]:focus,
+  [disabled].button:focus,
+  [disabled][role='button']:focus,
+  [disabled][type='button']:focus, header[role='banner'] .govau--header .disabled.button--feedback, button.disabled,
+  .disabled.button,
+  .disabled[role='button'],
+  .disabled[type='button'], header[role='banner'] .govau--header .disabled.button--feedback:hover, button.disabled:hover,
+  .disabled.button:hover,
+  .disabled[role='button']:hover,
+  .disabled[type='button']:hover, header[role='banner'] .govau--header .disabled.button--feedback:active, button.disabled:active,
+  .disabled.button:active,
+  .disabled[role='button']:active,
+  .disabled[type='button']:active, header[role='banner'] .govau--header .disabled.button--feedback:focus, button.disabled:focus,
+  .disabled.button:focus,
+  .disabled[role='button']:focus,
+  .disabled[type='button']:focus {
     cursor: not-allowed;
     outline: none;
     background-color: #cfcfcf;
     color: #222222; }
   @media screen and (max-width: 768px) {
     header[role='banner'] .govau--header .button--feedback, button,
-    [role='button'] {
+    .button,
+    [role='button'],
+    [type='button'] {
       margin: 0.9em; } }
 
-button + button,
-[role='button'] + button, button +
-[role='button'],
-[role='button'] +
-[role='button'] {
-  margin-left: 0.9em; }
-
-button.contrast, header[role='banner'] .govau--header .button--feedback,
-[role='button'].contrast {
+button.contrast, header[role='banner'] .govau--header .contrast.button--feedback,
+.button.contrast,
+[role='button'].contrast,
+[type='button'].contrast {
   background-color: #880e48; }
-  button.contrast:focus, header[role='banner'] .govau--header .button--feedback:focus,
-  [role='button'].contrast:focus {
+  button.contrast:focus, header[role='banner'] .govau--header .contrast.button--feedback:focus,
+  .button.contrast:focus,
+  [role='button'].contrast:focus,
+  [type='button'].contrast:focus {
     outline-color: #e92c86; }
-  button.contrast:hover, header[role='banner'] .govau--header .button--feedback:hover,
-  [role='button'].contrast:hover {
+  button.contrast:hover, header[role='banner'] .govau--header .contrast.button--feedback:hover,
+  .button.contrast:hover,
+  [role='button'].contrast:hover,
+  [type='button'].contrast:hover {
     background-color: #5a0930; }
-  button.contrast:active, header[role='banner'] .govau--header .button--feedback:active,
-  [role='button'].contrast:active {
+  button.contrast:active, header[role='banner'] .govau--header .contrast.button--feedback:active,
+  .button.contrast:active,
+  [role='button'].contrast:active,
+  [type='button'].contrast:active {
     background-color: #710c3c; }
 
-button.secondary,
-[role='button'].secondary {
-  background-color: none;
-  text-decoration: underline; }
+button.secondary, header[role='banner'] .govau--header .secondary.button--feedback,
+.button.secondary,
+[role='button'].secondary,
+[type='button'].secondary {
+  background-color: transparent;
+  text-decoration: underline;
+  color: #222222; }
 
-header[role='banner'] {
-  margin-bottom: 1.8em; }
-  header[role='banner'] .controls a,
+header[role='banner'] .controls {
+  padding: 1.35em 0;
+  text-align: right;
+  background-color: #152d3b;
+  color: #fff; }
+  header[role='banner'] .controls a {
+    color: #fff; }
+
+header[role='banner'] .govau--header {
+  padding: 1.35em 0;
+  background-color: #224a61;
+  color: #fff; }
+  header[role='banner'] .govau--header .govau--logo {
+    float: left; }
+    @media screen and (max-width: 420px) {
+      header[role='banner'] .govau--header .govau--logo {
+        float: left;
+        display: block;
+        margin-right: 6.04063%;
+        width: 100%;
+        float: none;
+        padding-bottom: 1.35em; }
+        header[role='banner'] .govau--header .govau--logo:last-child {
+          margin-right: 0; } }
   header[role='banner'] .govau--header .logo {
-    border-bottom: 2px solid transparent;
     padding-bottom: 2px;
+    border-bottom: none;
+    color: #fff;
+    font-family: "Lato", Verdana, "Bitstream Vera Sans", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px; }
+    header[role='banner'] .govau--header .logo:hover, header[role='banner'] .govau--header .logo:focus {
+      border-bottom: 1px; }
+  header[role='banner'] .govau--header .badge--alpha,
+  header[role='banner'] .govau--header .badge--beta {
+    vertical-align: top;
+    margin-left: 0.45em;
+    background-color: #1b8197; }
+  header[role='banner'] .govau--header .feedback {
+    float: right; }
+    @media screen and (max-width: 420px) {
+      header[role='banner'] .govau--header .feedback {
+        float: left;
+        display: block;
+        margin-right: 6.04063%;
+        width: 100%;
+        float: none; }
+        header[role='banner'] .govau--header .feedback:last-child {
+          margin-right: 0; } }
+  header[role='banner'] .govau--header .button--feedback {
+    margin: 0;
+    border: solid 1px;
+    background-color: transparent; }
+    header[role='banner'] .govau--header .button--feedback:hover, header[role='banner'] .govau--header .button--feedback:focus {
+      background: #fff;
+      color: #224a61; }
+
+header[role='banner'] .hero {
+  padding: 3.6em 0;
+  background-color: #1b8197;
+  color: #fff; }
+  header[role='banner'] .hero .site-title {
+    margin: 0.45em 0;
     color: #fff; }
-    header[role='banner'] .controls a:hover, header[role='banner'] .controls a:focus,
-    header[role='banner'] .govau--header .logo:hover,
-    header[role='banner'] .govau--header .logo:focus {
-      padding-bottom: 2px;
-      border-bottom: 2px solid #fbb03b; }
-  header[role='banner'] .controls {
-    padding: 1.35em 0;
-    text-align: right;
-    background-color: #224a61;
-    color: #fff; }
-  header[role='banner'] .govau--header {
-    padding: 1.35em 0;
-    background-color: #176f81;
-    color: #fff; }
-    header[role='banner'] .govau--header .govau--logo {
-      float: left; }
-      @media screen and (max-width: 420px) {
-        header[role='banner'] .govau--header .govau--logo {
-          float: left;
-          display: block;
-          margin-right: 6.04063%;
-          width: 100%;
-          float: none;
-          padding-bottom: 1.35em; }
-          header[role='banner'] .govau--header .govau--logo:last-child {
-            margin-right: 0; } }
-    header[role='banner'] .govau--header .logo {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-family: "Lato", Verdana, "Bitstream Vera Sans", sans-serif;
-      color: #fff; }
-      header[role='banner'] .govau--header .logo:hover, header[role='banner'] .govau--header .logo:focus {
-        border-bottom: 3px solid #fbb03b; }
-    header[role='banner'] .govau--header .badge--alpha,
-    header[role='banner'] .govau--header .badge--beta {
-      vertical-align: top;
-      margin-left: 0.45em; }
-    header[role='banner'] .govau--header .feedback {
-      float: right; }
-      @media screen and (max-width: 420px) {
-        header[role='banner'] .govau--header .feedback {
-          float: left;
-          display: block;
-          margin-right: 6.04063%;
-          width: 100%;
-          float: none; }
-          header[role='banner'] .govau--header .feedback:last-child {
-            margin-right: 0; } }
-    header[role='banner'] .govau--header .button--feedback {
-      margin: 0; }
-  header[role='banner'] .hero {
-    padding: 1.8em 0;
-    background-color: #67cee4;
-    color: #000; }
-    header[role='banner'] .hero .site-title {
-      margin: 0.45em 0;
-      color: #000;
-      border-bottom: none; }
 
 footer[role='contentinfo'] {
   padding: 1.8em 0;
@@ -1215,5 +1249,5 @@ form .hint {
   header[role='banner'] .govau--header .logo {
     page-break-after: avoid; } }
 
-/* git version: 245ee67c8583e81724546395516fb637a6ee3c6a */
-/* created at: Tue Jun 21 2016 10:01:06 GMT+0000 (UTC)*/
+/* git version: 57d46826e1ea926cf4956c8929f2b1665d487007 */
+/* created at: Wed Jun 22 2016 07:50:35 GMT+0000 (UTC)*/

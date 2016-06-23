@@ -23,14 +23,16 @@ RSpec.describe 'creating content:', type: :feature do
   let(:slug) {'test-name'}
 
   context 'when creating general content' do
-    it 'show the correct form' do
+    before do
       visit new_editorial_node_path(type: :general_content)
+    end
+
+    it 'show the correct form' do
       expect(page).to have_content(/general content/i)
     end
 
     context 'with valid data' do
       it 'create the correct type of content' do
-        visit new_editorial_node_path(type: :general_content)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         click_button('Create')
@@ -41,24 +43,27 @@ RSpec.describe 'creating content:', type: :feature do
 
     context 'with invalid data' do
       it 'return to the edit form' do
-        visit new_editorial_node_path(type: :general_content)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Bad Content')
         click_button('Create')
         expect(page).to have_content(/failed.*content.*analysis/i)
       end
     end
+
+    it_behaves_like 'robust to XSS'
   end
 
   context 'when creating a news article' do
-    it 'show the correct form' do
+    before do
       visit new_editorial_node_path(type: :news_article)
+    end
+
+    it 'show the correct form' do
       expect(page).to have_content(/news article/i)
     end
 
     context 'with valid data' do
       it 'create the correct type of content' do
-        visit new_editorial_node_path(type: :news_article)
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         select('2017', from: 'Release date')
@@ -67,6 +72,8 @@ RSpec.describe 'creating content:', type: :feature do
         expect(page).to have_content(/release date/i)
       end
     end
+
+    it_behaves_like 'robust to XSS'
   end
 
   context 'when no type is specified' do
@@ -105,7 +112,7 @@ RSpec.describe 'creating content:', type: :feature do
     it 'should allow a user to create a child of a specific type' do
 
       visit "/#{node.section.slug}/#{node.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       select 'News article', from: 'Page type'
       click_button 'New page'
@@ -114,7 +121,7 @@ RSpec.describe 'creating content:', type: :feature do
 
     it 'should prefill the section and parent' do
       visit "/#{node.section.slug}/#{node.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       click_button 'New page'
       expect(page).to have_select('Section', selected: node.section.name)
@@ -125,7 +132,7 @@ RSpec.describe 'creating content:', type: :feature do
   describe 'create a top node in a section' do
     it 'should prefill the section' do
       visit "/#{root.slug}"
-      click_link 'New page here'
+      click_link 'New page'
       expect(page).to have_content 'Create a new page'
       expect(page).to have_content root.name
       click_button 'New page'

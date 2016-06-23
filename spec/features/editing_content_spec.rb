@@ -28,7 +28,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should show a link to edit the content in the CMS' do
       visit "/#{node.section.slug}/#{node.slug}"
-      expect(page).to have_link('Edit this page')
+      expect(page).to have_link('Edit')
     end
   end
 
@@ -79,6 +79,13 @@ RSpec.describe 'editing content', type: :feature do
         expect(page).to have_content(/edit/i)
         expect(page).to have_content(/failed.*content.*analysis/i)
       end
+    end
+
+    it_behaves_like 'robust to XSS' do
+      before { visit edit_editorial_node_path(id: node1.id) }
+    end
+    it_behaves_like 'robust to XSS' do
+      before { visit edit_editorial_node_path(id: node2.id) }
     end
   end
 

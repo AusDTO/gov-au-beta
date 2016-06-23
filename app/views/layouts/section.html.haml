@@ -1,0 +1,22 @@
+= inside_layout :application do
+  = yield
+
+  = content_for :header do
+    %a.site-title{href: section_path(@section)}= @section.name
+
+  = content_for :toolbar_actions do
+    / TODO: Cleanup (perhaps in https://govausites.atlassian.net/browse/SITES-168)
+    - if @node
+      =link_to 'Edit', edit_editorial_node_path(@node)
+      =link_to 'New page', prepare_editorial_nodes_path(parent: @node)
+    - elsif @section
+      =link_to 'New page', prepare_editorial_nodes_path(section: @section.id)
+
+    - if show_request_controls?
+      - if current_user.pending_request_for?(@section)
+        = link_to 'Membership requested', editorial_request_path(current_user.pending_request_for(@section))
+      - else
+        = link_to 'Request membership', new_editorial_request_path(section: @section.id)
+
+
+
