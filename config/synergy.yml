@@ -4,3 +4,7 @@ synergies:
     type: GovCMS
     url: https://edit.dev.aus.gov.au
     destination_path: /australia_gov_au
+  collaboration:
+    type: Collaboration
+    url: https://gov.au
+    destination_path: /collaboration

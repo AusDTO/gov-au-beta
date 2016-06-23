@@ -38,6 +38,29 @@ RSpec.describe Node, type: :model do
       expect(gamma.ancestry).to eq [gamma, beta, alpha]
     end
 
+    describe 'path_elements' do
+
+      subject { node.path_elements }
+
+      context 'for top level node' do
+        let(:node) { alpha }
+
+        it { is_expected.to eq ['alpha'] }
+      end
+
+      context 'for second level node' do
+        let(:node) { beta }
+
+        it { is_expected.to eq ['alpha','beta'] }
+      end
+
+      context 'for third level node' do
+        let(:node) { gamma }
+
+        it { is_expected.to eq ['alpha','beta','gamma'] }
+      end
+    end
+
     describe 'path' do
 
       subject { node.path }
@@ -48,7 +71,7 @@ RSpec.describe Node, type: :model do
         it { is_expected.to eq 'alpha' }
       end
 
-      context 'for second level node' do 
+      context 'for second level node' do
         let(:node) { beta }
 
         it { is_expected.to eq 'alpha/beta' }

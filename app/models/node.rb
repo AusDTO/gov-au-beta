@@ -32,9 +32,11 @@ class Node < ApplicationRecord
   end
 
   def path
-    ancestry.reverse.collect { |node|
-      node.slug
-    }.join '/'
+    path_elements.join('/')
+  end
+
+  def path_elements
+    ancestry.reverse.collect(&:slug)
   end
 
   private
