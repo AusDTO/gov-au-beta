@@ -1,9 +1,10 @@
-- unless @editor == 'simplemde'
-  = link_to 'Try SimpleMDE editor', edit_editorial_node_path(@node, {editor: 'simplemde'})
+- if @node
+  - unless @editor == 'simplemde'
+    = link_to 'Try SimpleMDE editor', edit_editorial_node_path(@node, {editor: 'simplemde'})
 
-- unless @editor.nil?
-  = link_to 'Use default editor', edit_editorial_node_path(@node)
-  
+  - unless @editor.nil?
+    = link_to 'Use default editor', edit_editorial_node_path(@node)
+
 .fieldset
 
   = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
