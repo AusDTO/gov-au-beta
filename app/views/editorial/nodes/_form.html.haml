@@ -4,7 +4,12 @@
     = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false, selected: @form.section_id
     = f.input :parent_id, collection: @sections, as: :grouped_select, include_blank: true, group_method: :nodes, required: false, selected: @form.parent_id
     = f.input :name
-    = f.input :content_body, as: :text, label: 'Body'
+    ~ f.input :content_body, as: :text, label: 'Body'
     = render partial: @type_name, locals: {f: f}
     = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page"
+
+%script
+  //var simplemde = new SimpleMDE({toolbar: ["bold", "italic", "heading", "|", "quote"],});
+  var simplemde = new SimpleMDE();
+  $('form').submit(function(event) {simplemde.element.value = simplemde.value();});
