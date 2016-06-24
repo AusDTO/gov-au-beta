@@ -1,7 +1,8 @@
-%ul.breadcrumbs
-  - @node.ancestors.reverse.each do |parent|
-    %li
-      %a{href: node_path(parent)}= parent.name
+%nav.breadcrumbs
+  %ul
+    - @node.ancestors.reverse.each do |parent|
+      %li
+        %a{href: node_path(parent)}= parent.name
 
 %p= "#{@node.id} - #{@node.name}"
 %p= @node.source_url
