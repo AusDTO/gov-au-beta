@@ -22,8 +22,10 @@ class NodeDecorator < Draper::Decorator
   end
 
   def content_body
-    raw = Kramdown::Document.new(object.content_body).to_html.html_safe
-    ActionController::Base.helpers.sanitize(raw)
+    unless object.content_body.nil?
+      raw = Kramdown::Document.new(object.content_body).to_html.html_safe
+      ActionController::Base.helpers.sanitize(raw)
+    end
   end
 
 end
