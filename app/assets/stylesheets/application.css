@@ -12,5 +12,6 @@
  *
  *= require_tree .
  *= require "dto-ui-kit"
+ *= require "simplemde.min"
  *= require_self
  */
