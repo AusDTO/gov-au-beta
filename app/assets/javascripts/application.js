@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require simplemde.min
+//= require trumbowyg
 //= require_tree .

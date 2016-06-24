@@ -1,10 +1,33 @@
+- if @node
+  - unless @editor == 'simplemde'
+    = link_to 'Try SimpleMDE editor', '?editor=simplemde'
+
+  - unless @editor == 'trum'
+    = link_to 'Try Trumbowyg editor', '?editor=trum'
+
+  - unless @editor.nil?
+    = link_to 'Use default editor', edit_editorial_node_path(@node)
+
 .fieldset
 
   = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
     = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false, selected: @form.section_id
     = f.input :parent_id, collection: @sections, as: :grouped_select, include_blank: true, group_method: :nodes, required: false, selected: @form.parent_id
     = f.input :name
-    = f.input :content_body, as: :text, label: 'Body'
+    ~ f.input :content_body, as: :text, label: 'Body'
     = render partial: @type_name, locals: {f: f}
     = f.hidden_field :type, value: @type_name, name: :type
-    = f.submit "#{verb} page"
+    = f.submit "#{verb} page", role: 'button'
+
+- if @editor == 'simplemde'
+  %script
+    var simplemde = new SimpleMDE();
+    $('form').submit(function(event) {simplemde.element.value = simplemde.value();});
+
+- if @editor == 'trum'
+  %script
+    $('#node_content_body').after('<div id="editor"></div>');
+    $('#editor').trumbowyg({svgPath: "#{image_path 'icons.svg'}", removeformatPasted: true});
+    $('#node_content_body').css({'display': 'none'});
+    $('#editor').trumbowyg('html', document.getElementById('node_content_body').value);
+    $('form').submit(function(event) {document.getElementById('node_content_body').value = $('#editor').trumbowyg('html');});

@@ -12,5 +12,7 @@
  *
  *= require_tree .
  *= require "dto-ui-kit"
+ *= require "simplemde.min"
+ *= require "trumbowyg.min"
  *= require_self
  */
