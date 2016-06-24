@@ -7,7 +7,7 @@
     ~ f.input :content_body, as: :text, label: 'Body'
     = render partial: @type_name, locals: {f: f}
     = f.hidden_field :type, value: @type_name, name: :type
-    = f.submit "#{verb} page"
+    = f.submit "#{verb} page", role: 'button'
 
 - if @editor == 'simplemde'
   %script
