@@ -1,6 +1,6 @@
 - if @node
   - unless @editor == 'simplemde'
-    = link_to 'Try SimpleMDE editor', edit_editorial_node_path(@node, {editor: 'simplemde'})
+    = link_to 'Try SimpleMDE editor', '?editor=simplemde'
 
   - unless @editor.nil?
     = link_to 'Use default editor', edit_editorial_node_path(@node)
