@@ -16,7 +16,7 @@ module Synergy
       config_path = File.join(Rails.root, "config/synergy.yml")
       config = YAML.load_file(config_path)
 
-      root_node = Synergy::Node.find_or_create_by!(path: '/', source_name: 'synergy')
+      root_node = SynergyNode.find_or_create_by!(path: '/', source_name: 'synergy')
 
       config["synergies"].each_pair do |source_name, source_config|
         adapter = ADAPTERS[source_config["type"]].new(
@@ -25,7 +25,7 @@ module Synergy
         )
         ActiveRecord::Base.transaction(isolation: :read_committed) do
           adapter.log "deleting existing nodes"
-          Synergy::Node.where(source_name: source_name).delete_all
+          SynergyNode.where(source_name: source_name).delete_all
           adapter.log "finished deleting existing nodes"
 
           destination_parts = source_config["destination_path"].split("/").select{|p| !p.blank?}
@@ -35,7 +35,7 @@ module Synergy
             parts        = destination_parts + source_parts
 
             leaf = parts.reduce(root_node) do |parent_s_node,slug|
-              Synergy::Node.find_or_create_by!(source_name: source_name, parent: parent_s_node, slug: slug)
+              SynergyNode.find_or_create_by!(source_name: source_name, parent: parent_s_node, slug: slug)
             end
 
             leaf.content    = node_data[:content]

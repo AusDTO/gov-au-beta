@@ -47,9 +47,6 @@ gem 'kramdown'
 gem 'andand'
 gem 'diff-lcs', '~> 1.2.5'
 
-# engines
-gem 'synergy', path: 'engines/synergy'
-
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
 # - https://github.com/thoughtbot/administrate/pull/575 # Rails 5
