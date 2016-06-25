@@ -10,3 +10,41 @@
     $('#node_content_body').css({'display': 'none'});
     $('#editor').trumbowyg('html', document.getElementById('node_content_body').value);
     $('form').submit(function(event) {document.getElementById('node_content_body').value = $('#editor').trumbowyg('html');});
+
+- if @editor == 'editormd'
+  :javascript
+    $('#node_content_body').wrap('<div id="editormd"></div>');
+    $('#node_content_body').css({'display': 'none'});
+    var editor_md = editormd("editormd",{
+      path : '/assets/editor.md/lib/',
+      placeholder: "Start typing here...",
+      toolbarIcons : function() {
+        return [
+          "undo",
+          "redo",
+          "|",
+          "bold",
+          "italic",
+          "quote",
+          "uppercase",
+          "lowercase",
+          "|",
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "|",
+          "list-ul",
+          "list-ol",
+          "hr",
+          "|",
+          "link",
+          "image",
+          "||",
+          "watch",
+          "fullscreen"
+          ];
+        }
+      });
+    $('form').submit(function(event) {editor_md.element.value = editor_md.getMarkdown();});
+

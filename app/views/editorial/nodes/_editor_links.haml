@@ -5,5 +5,8 @@
   - unless @editor == 'trum'
     = link_to 'Try Trumbowyg editor', '?editor=trum'
 
+  - unless @editor == 'editormd'
+    = link_to 'Try Editor.md editor', '?editor=editormd'
+
   - unless @editor.nil?
     = link_to 'Use default editor', edit_editorial_node_path(@node)

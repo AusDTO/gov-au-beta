@@ -255,6 +255,7 @@ GEM
       sprockets-rails (>= 2.0.0)
     rails-assets-bootstrap-sass (3.3.6)
       rails-assets-jquery (>= 1.9.0)
+    rails-assets-editor.md (1.5.0)
     rails-assets-jquery (3.0.0)
     rails-controller-testing (0.1.1)
       actionpack (~> 5.x)
@@ -436,6 +437,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (>= 5.0.0.beta4, < 5.1)
   rails-assets-bootstrap-sass!
+  rails-assets-editor.md!
   rails-controller-testing (~> 0.1.1)
   rails_12factor
   rails_serve_static_assets

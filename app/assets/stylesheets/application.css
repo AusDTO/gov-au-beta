@@ -14,5 +14,6 @@
  *= require "dto-ui-kit"
  *= require "simplemde.min"
  *= require "trumbowyg.min"
+ *= require "editor.md/scss/editormd"
  *= require_self
  */

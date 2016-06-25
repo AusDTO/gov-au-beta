@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require simplemde.min
 //= require trumbowyg
+//= require editor.md/editormd
+//= require editor.md/languages/en
 //= require_tree .
