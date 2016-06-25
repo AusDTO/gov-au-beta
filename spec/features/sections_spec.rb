@@ -16,5 +16,30 @@ RSpec.describe "section features", :type => :feature do
       visit '/'
       expect(find_link(root.name)[:href]).to eq(section_path(root))
     end
+
+    context 'when signed in' do
+      let (:user) { Fabricate(:user) }
+      before do
+        login_as(user)
+      end
+
+      context 'a topic page' do
+        before do
+          visit section_path(Fabricate(:topic))
+        end
+        it 'shows a request membership link' do
+          expect(page.body).to have_content(/request/i)
+        end
+      end
+
+      context 'an agency page' do
+        before do
+          visit section_path(Fabricate(:agency))
+        end
+        it 'does not show request membership link' do
+          expect(page.body).not_to have_content(/request/i)
+        end
+      end
+    end
   end
 end
