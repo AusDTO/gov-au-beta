@@ -1,0 +1,9 @@
+- if @node
+  - unless @editor == 'simplemde'
+    = link_to 'Try SimpleMDE editor', '?editor=simplemde'
+
+  - unless @editor == 'trum'
+    = link_to 'Try Trumbowyg editor', '?editor=trum'
+
+  - unless @editor.nil?
+    = link_to 'Use default editor', edit_editorial_node_path(@node)

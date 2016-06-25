@@ -136,8 +136,12 @@ RSpec.describe Node, type: :model do
 
     subject { node.revise!(content_body: 'foo bar').diffs }
 
-    it { is_expected.to eq(
-      { content_body: Class.new.extend(Revisable).persistable_diff(
-        'foo', 'foo bar').to_json })}
+    it do
+      is_expected.to eq({
+        'content_body' => Class.new.extend(Revisable).persistable_diff(
+          'foo', 'foo bar'
+        ).to_json
+      })
+    end
   end
 end

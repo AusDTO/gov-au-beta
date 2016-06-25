@@ -32,13 +32,6 @@ RSpec.describe 'editing content', type: :feature do
     end
   end
 
-  context 'on a section page' do
-    it 'should not show an edit link' do
-      visit "/#{section.slug}"
-      expect(page).not_to have_link('Edit this page')
-    end
-  end
-
   context 'when editing content' do
     let!(:section1) { Fabricate(:section) }
     let!(:section2) { Fabricate(:section) }
@@ -52,22 +45,27 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit edit_editorial_node_path(id: node.id)
-        expect(current_path).to eq edit_editorial_node_path(id: node.id)
-        expect(page).to have_select('Section', selected: node.section.name)
-        expect(find_field('Name').value).to eq(node.name)
+        visit nodes_path section: node.section.slug, path: node.path
+        click_link 'Edit'
+        expect(current_path).to eq new_editorial_node_submission_path node
+        expect(find_field('Body').value).to eq node.content_body
       end
     end
 
-    context 'editing the name' do
-      it 'should update the record' do
-        [node1, node2].each do |node|
-          new_name = "#{node.name} updated"
-          visit edit_editorial_node_path(id: node.id)
-          fill_in('Name', with: new_name)
-          click_button('Update')
-          expect(page).to have_content(new_name)
-        end
+    context 'creating a submission' do
+      before do
+        visit new_editorial_node_submission_path node1
+        fill_in 'Body', with: 'Brand new content'
+        click_button 'Submit for review'
+      end
+
+      it 'should take the user to the created submission view' do
+        expect(current_path).to match /editorial\/submissions\/\d+/
+      end
+
+      it 'should not update the record directly' do
+        visit nodes_path section: node1.section.slug, path: node1.path
+        expect(page).not_to have_content 'Brand new content'
       end
     end
 

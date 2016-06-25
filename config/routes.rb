@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :editorial do
     resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
       get 'prepare', on: :collection
+      resources :submissions, shallow: true
     end
+
     resources :requests, only: [:create, :new, :index, :show, :update]
     get '/:section' => 'sections#show', as: 'section'
     get '/:section/collaborators' => 'sections#collaborators', as: 'collaborators'
