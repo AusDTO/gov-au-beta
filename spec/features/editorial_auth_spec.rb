@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'editorial authorisation' do
-  include Warden::Test::Helpers
   Warden.test_mode!
 
   let!(:section) { Fabricate(:section) }
