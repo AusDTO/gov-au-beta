@@ -5,25 +5,19 @@ class Editorial::SubmissionsController < ApplicationController
   before_action :find_submission, only: [:show, :update]
   decorates_assigned :submission
 
-  def user_index  
 
-    submissions = Submission. 
-      where(submitter: current_user). 
-      where.not(state: %w(accepted rejected)). 
-      order(updated_at: :desc)  
-  
-    # TODO: work out how to determine whether a submission
-    #       is against a new or existing page  
+  def user_index
 
-    @new_submissions = submissions.inject([]) do |agg, submission|
-      agg << submission #if submission.node.nil? 
-    end  
+    submissions = Submission.where(submitter: current_user).
+                  where.not(state: %w(accepted rejected)).order(updated_at: :desc)
 
-    @existing_submissions = submissions - @new_submissions  
+    @new_submissions = submissions.inject([]) do | agg, submission|
+      agg << submission # if no submission node
+    end
 
+    @existing_submissions = submissions - @new_submissions
   end
 
-  end
   def create
     @submission = Submission.new(revision: @node.revise!(params[:node]))
 
