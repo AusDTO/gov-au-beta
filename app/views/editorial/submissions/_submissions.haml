@@ -6,5 +6,5 @@
   %tbody
     - submissions.each do |submission|
       %tr
-        %td submission.revisable.name
+        %td= link_to "#{submission.revisable.name}", editorial_submission_path(submission)
         %td submission.revision.created_at

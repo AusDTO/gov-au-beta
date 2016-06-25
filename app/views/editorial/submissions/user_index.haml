@@ -2,8 +2,14 @@
 
 %h3 New Pages
 
-= render partial: 'submissions', locals: {submissions: @new_submissions}
+- if @new_submissions.empty?
+  No new pages
+- else
+  = render partial: 'submissions', locals: {submissions: @new_submissions}
 
 %h3 Existing page revisions
 
-= render partial: 'submissions', locals: {submissions: @existing_submissions}
+- if @existing_submissions.empty?
+  No revisions to existing pages
+- else
+  = render partial: 'submissions', locals: {submissions: @existing_submissions}
