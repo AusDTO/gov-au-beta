@@ -5,6 +5,26 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
   let(:node) { Fabricate(:node) }
 
+  describe 'GET #user_index' do
+    let(:user_a) { Fabricate(:user) }
+    let(:user_b) { Fabricate(:user) }
+    let!(:submission_a) { Fabricate(:submission, submitter: user_a) }
+    let!(:submission_b) { Fabricate(:submission, submitter: user_b)}
+
+    context 'as user_a' do
+
+      before do
+        sign_in(user_a)
+        get :user_index
+      end
+
+      it 'should return only their submission' do
+        expect(assigns('new_submissions')).to eq([submission_a])
+      end
+
+    end
+  end
+
   context 'as an author' do
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }
