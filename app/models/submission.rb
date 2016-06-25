@@ -1,64 +1,70 @@
 class Submission < ApplicationRecord
+  extend Enumerize
 
-  scope :draft, -> { where reviewed_at: nil }
-  scope :unsubmitted, -> { where submitted_at: nil }
-  scope :submitted, -> { where.not submitted_at: nil }
-  scope :reviewed, -> { where.not reviewed_at: nil }
-  scope :accepted, -> { reviewed.where accepted: true }
-  scope :rejected, -> { reviewed.where accepted: false }
+  enumerize :state, in: %w{draft submitted accepted rejected}, scope: true
 
   belongs_to :revision
   belongs_to :submitter, class_name: 'User'
   belongs_to :reviewer, class_name: 'User'
 
   delegate :revisable, to: :revision
+  delegate :section, to: :revision
 
   validates_presence_of :revision
   validates_presence_of :submitter
 
   def draft?
-    reviewed_at.nil?
+    self.state == 'draft'
   end
 
   def submitted?
-    submitted_at.present?
+    self.state == 'submitted'
   end
 
-  def unsubmitted?
-    submitted_at.nil?
-  end
-
-  def reviewed?
-    reviewed_at.present?
+  def accepted?
+    self.state == 'accepted'
   end
 
   def rejected?
-    !accepted?
+    self.state == 'rejected'
+  end
+
+  class StateError < StandardError
   end
 
   def submit!(by_author)
+    if self.state != 'draft'
+      raise StateError, 'Submissions can only be made from a draft'
+    end
+    self.state = 'submitted'
     self.submitted_at = Time.now
     self.submitter = by_author
     save!
   end
 
   def accept!(by_reviewer)
+    if self.state != 'submitted'
+      raise StateError, 'Only submitted revisions can be accepted'
+    end
     transaction do
-      review! by_reviewer, true
+      review! by_reviewer, 'accepted'
       revision.apply!
     end
   end
 
   def reject!(by_reviewer)
-    review! by_reviewer, false
+    if self.state != 'submitted'
+      raise StateError, 'Only submitted revisions can be rejected'
+    end
+    review! by_reviewer, 'rejected'
   end
 
   private
 
-  def review!(by_reviewer, accept)
+  def review!(by_reviewer, state)
     self.reviewer = by_reviewer
     self.reviewed_at = Time.now
-    self.accepted = accept
+    self.state = state
     save!
   end
 

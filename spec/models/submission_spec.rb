@@ -12,46 +12,47 @@ RSpec.describe Submission, type: :model do
 
   describe 'scopes' do
     let(:private_draft) { Fabricate(:submission) }
-    let(:submitted_draft) { Fabricate(:submission, submitted_at: 2.days.ago) }
-    let(:rejected) { Fabricate(:submission, reviewed_at: 2.days.ago) }
-    let(:accepted) { Fabricate(:submission, reviewed_at: 2.days.ago,
-      accepted: true)}
+    let(:submitted_draft) { Fabricate(:submission, submitted_at: 2.days.ago, state: :submitted) }
+    let(:rejected) { Fabricate(:submission, reviewed_at: 2.days.ago, state: :rejected) }
+    let(:accepted) { Fabricate(:submission, reviewed_at: 2.days.ago, state: :accepted)}
 
     describe 'draft' do
-      subject { Submission.draft }
-      it { is_expected.to eq [private_draft, submitted_draft] }
-    end
-
-    describe 'unsubmitted drafts' do
-      subject { Submission.unsubmitted.draft }
+      subject { Submission.with_state(:draft) }
       it { is_expected.to eq [private_draft] }
     end
 
     describe 'submitted drafts' do
-      subject { Submission.submitted.draft }
+      subject { Submission.with_state(:submitted) }
       it { is_expected.to eq [submitted_draft] }
     end
 
-    describe 'reviewed' do
-      subject { Submission.reviewed }
-      it { is_expected.to eq [accepted, rejected] }
-    end
-
     describe 'accepted' do
-      subject { Submission.accepted }
+      subject { Submission.with_state(:accepted) }
       it { is_expected.to eq [accepted] }
     end
 
     describe 'rejected' do
-      subject { Submission.rejected }
+      subject { Submission.with_state(:rejected) }
       it { is_expected.to eq [rejected] }
     end
   end
 
-  describe 'reviewing' do
-    let(:reviewer) { Fabricate(:user, reviewer_of: revision.revisable.section) }
+  describe '#submit!' do
+    let(:author) { Fabricate(:user, reviewer_of: revision.section) }
     let(:revision) { Fabricate(:node).revise! content_body: 'Revised content' }
-    subject { Fabricate(:submission, revision: revision, submitted_at: 3.days.ago) }
+    subject { Fabricate(:submission, revision: revision) }
+    before do
+      subject.submit! author
+    end
+    it { is_expected.to be_submitted }
+    it { expect(subject.submitted_at).to be_present }
+    it { expect(revision.revisable.content_body).not_to eq 'Revised content' }
+  end
+
+  describe 'reviewing' do
+    let(:reviewer) { Fabricate(:user, reviewer_of: revision.section) }
+    let(:revision) { Fabricate(:node).revise! content_body: 'Revised content' }
+    subject { Fabricate(:submission, revision: revision, submitted_at: 3.days.ago, state: :submitted) }
 
     before do
       review_it
