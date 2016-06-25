@@ -13,21 +13,24 @@ module Revisable
 
   included do
     has_many :revisions, as: :revisable
+
+    before_create :spawn_initial_revision
   end
 
-  # n.b. Working assumption is based on a single stream of work: new pending
-  #      revision will be based on the most recently created revision
-  #      (or just off self if there aren't any pending revisions
   def revise!(revised_contents)
-    diffs = revised_contents.collect {|content_key, revised_value|
-      current_value = latest_content content_key
-
-      unless send(content_key) == revised_value # Ignore unchanged contents
-        [content_key, persistable_diff(current_value, revised_value).to_json]
+    if revisions.applied.any?
+      revise_from_revision!(revisions.applied.first, revised_contents)
+    else
+      revise_from_content(self, revised_contents).tap do |revision|
+        revision.save!
       end
-    }.compact.to_h
+    end
+  end
 
-    revisions.build(diffs: diffs).tap do |revision|
+  def revise_from_revision!(base_revision, revised_contents)
+    base_content = RevisionContent.new(base_revision)
+    revise_from_content(base_content, revised_contents).tap do |revision|
+      revision.parent = base_revision
       revision.save!
     end
   end
@@ -41,16 +44,18 @@ module Revisable
 
   private
 
-  def latest_content(key)
-    base.send(key) || ''
-  end
+  def revise_from_content(base_content, revised_contents)
+    diffs = revised_contents.collect {|content_key, revised_value|
+      current_value = base_content.send(content_key) || ''
 
-  def base
-    @base ||= if revisions.pending.any?
-                RevisionContent.new(revisions.pending.last)
-              else
-                self
-              end
+      unless send(content_key) == revised_value # Ignore unchanged contents
+        [content_key, persistable_diff(current_value, revised_value).to_json]
+      end
+    }.compact.to_h
+
+    rev = revisions.build(diffs: diffs)
+    puts rev.as_json
+    rev
   end
 
   # This is a bit gross, but I didn't want to monkey-patch Diff::LCS::Change
@@ -64,6 +69,12 @@ module Revisable
         element.to_a
       else
         element
+    end
+  end
+
+  def spawn_initial_revision
+    if content.present?
+      revise! content
     end
   end
 

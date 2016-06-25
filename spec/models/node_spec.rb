@@ -34,10 +34,6 @@ RSpec.describe Node, type: :model do
     let(:beta) { Fabricate(:node, name: 'beta', parent: alpha) }
     let(:gamma) { Fabricate(:node, name: 'gamma', parent: beta) }
 
-    it 'should know its ancestry' do
-      expect(gamma.ancestry).to eq [gamma, beta, alpha]
-    end
-
     describe 'path_elements' do
 
       subject { node.path_elements }

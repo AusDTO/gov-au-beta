@@ -31,7 +31,6 @@ gem 'rails_12factor'
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'mini_magick'
 gem 'friendly_id', github: 'norman/friendly_id', ref: '8531cdce'
-gem 'acts_as_tree', '~> 2.4.0'
 gem 'haml', '~> 4.0.7'
 gem 'httparty',  '~> 0.13.0'
 gem 'nokogiri', '1.6.8.rc3'
@@ -47,6 +46,7 @@ gem 'markerb'
 gem 'kramdown'
 gem 'andand'
 gem 'diff-lcs', '~> 1.2.5'
+gem 'closure_tree', '~> 6.0.0'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config

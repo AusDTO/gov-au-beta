@@ -18,14 +18,6 @@ class Node < ApplicationRecord
   # store_attribute :content, :content_body, String
   content_attribute :content_body
 
-  def ancestry
-    [self].tap do |arr|
-      while ancestor = arr.last.parent
-        arr << ancestor
-      end
-    end
-  end
-
   def to_s
     self.name
   end
@@ -35,7 +27,7 @@ class Node < ApplicationRecord
   end
 
   def path_elements
-    ancestry.reverse.collect(&:slug)
+    self_and_ancestors.reverse.collect(&:slug)
   end
 
   private

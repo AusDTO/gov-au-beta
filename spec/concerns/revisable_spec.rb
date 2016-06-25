@@ -9,10 +9,14 @@ describe Revisable do
 
     model do
       include Revisable
+
+      def self.content_attributes
+        [:ingredients, :instructions]
+      end
     end
   end
 
-  let(:recipe) { Recipe.new ingredients: 'sugar, flour', instructions: 'bake' }
+  let(:recipe) { Recipe.create ingredients: 'sugar, flour', instructions: '' }
 
   describe '#revise!' do
     context 'revising one content attribute' do
@@ -37,6 +41,28 @@ describe Revisable do
       it 'should include diffs for all attributes' do
         expect(subject.diffs).to have_key :instructions
         expect(subject.diffs).to have_key :ingredients
+      end
+    end
+
+    describe 'revision ancestry' do
+      let!(:first_revision) { recipe.revise! instructions: 'bake slowly' }
+
+      context 'revising based on an explicit parent revision' do
+        subject { recipe.revise_from_revision! first_revision,
+          instructions: 'actually bake slowly' }
+
+        it 'should have correct parent revision' do
+          expect(subject.parent).to eq first_revision
+        end
+      end
+
+      context 'revising implicitly based on latest applied revision' do
+        before { first_revision.update_attribute :applied_at, 1.day.ago }
+        subject { recipe.revise! instructions: 'actually bake slowly' }
+
+        it 'should have correct parent revision' do
+          expect(subject.parent).to eq first_revision
+        end
       end
     end
   end
