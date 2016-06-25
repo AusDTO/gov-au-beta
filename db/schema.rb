@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625044956) do
+ActiveRecord::Schema.define(version: 20160625052848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,15 +91,15 @@ ActiveRecord::Schema.define(version: 20160625044956) do
   end
 
   create_table "submissions", force: :cascade do |t|
-    t.uuid     "revision_id",                  null: false
-    t.integer  "submitter_id",                 null: false
+    t.uuid     "revision_id",                    null: false
+    t.integer  "submitter_id",                   null: false
     t.integer  "reviewer_id"
     t.text     "summary"
     t.datetime "submitted_at"
     t.datetime "reviewed_at"
-    t.boolean  "accepted",     default: false, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "state",        default: "draft", null: false
   end
 
   create_table "synergy_nodes", force: :cascade do |t|

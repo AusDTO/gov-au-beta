@@ -7,6 +7,8 @@ class Revision < ApplicationRecord
   belongs_to :revisable, polymorphic: true
   has_one :submission
 
+  delegate :section, to: :revisable, allow_nil: true
+
   def applied?
     applied_at.present?
   end

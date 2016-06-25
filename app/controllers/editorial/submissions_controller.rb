@@ -2,6 +2,7 @@ class Editorial::SubmissionsController < ApplicationController
   include ::EditorialHelper
 
   before_action :find_node, only: [:new, :create]
+  before_action :find_submission, only: [:show, :update]
   decorates_assigned :submission
 
   def create
@@ -18,7 +19,17 @@ class Editorial::SubmissionsController < ApplicationController
   end
 
   def show
-    @submission = Submission.find(params[:id])
+  end
+
+  def update
+    # Note: Once we support an author modifying a submission, this may need to be refactored
+    authorize! :review, @submission
+    if params[:accept]
+      @submission.accept!(current_user)
+    elsif params[:reject]
+      @submission.reject!(current_user)
+    end
+    redirect_to editorial_submission_path(@submission)
   end
 
   private
@@ -26,5 +37,9 @@ class Editorial::SubmissionsController < ApplicationController
   def find_node
     @node = Node.find params[:node_id]
     @form = form_type(@node.class).new @node
+  end
+
+  def find_submission
+    @submission = Submission.find(params[:id])
   end
 end

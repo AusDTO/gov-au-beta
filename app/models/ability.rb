@@ -27,6 +27,9 @@ class Ability
       can :create_in, Section do |section|
         user.has_role?(:author, section)
       end
+      can :review, Submission do |submission|
+        user.has_role?(:reviewer, submission.section)
+      end
     end
 
     # Everyone (signed in or not) can view published pages.

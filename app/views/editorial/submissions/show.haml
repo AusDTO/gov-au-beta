@@ -1,9 +1,29 @@
 %h2 Submission to #{submission.revisable.name}
 %h3 Submitted by: #{submission.submitter_full_name}
 %h3 Submitted at: #{submission.submitted_at}
+
+%h3 Status
+-# TODO: this should probably use locales
+- if submission.draft?
+  %p This submission is in draft
+- elsif submission.submitted?
+  %p This submission is awaiting review
+- elsif submission.accepted?
+  %p This submission has been accepted
+- elsif submission.rejected?
+  %p This submission has been rejected
+- else
+  %p Unknown
+
 %h3 Original content
 %p
   = submission.revisable.content_body
+
 %h3 Submitted content
 %p
   = submission.submitted_content.content_body
+
+- if can_review?
+  = simple_form_for [:editorial, submission] do |f|
+    = f.button :button, 'Publish change', name: 'accept'
+    = f.button :button, 'Reject change', name: 'reject'
