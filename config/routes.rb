@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :submissions, shallow: true
     end
 
+    get '/submissions' => 'submissions#user_index', as: 'user_submissions'
     resources :requests, only: [:create, :new, :index, :show, :update]
     get '/:section' => 'sections#show', as: 'section'
     get '/:section/collaborators' => 'sections#collaborators', as: 'collaborators'

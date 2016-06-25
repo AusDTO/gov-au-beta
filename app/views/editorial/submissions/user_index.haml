@@ -1,0 +1,9 @@
+%h2 List of Submissions
+
+%h3 New Pages
+
+= render partial: 'submissions', locals: {submissions: @new_submissions}
+
+%h3 Existing page revisions
+
+= render partial: 'submissions', locals: {submissions: @existing_submissions}

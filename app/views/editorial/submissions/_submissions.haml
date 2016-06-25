@@ -1,0 +1,10 @@
+%table
+  %thead
+    %tr
+      %td Name
+      %td Date
+  %tbody
+    - submissions.each do |submission|
+      %tr
+        %td submission.revisable.name
+        %td submission.revision.created_at
