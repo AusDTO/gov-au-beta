@@ -23,4 +23,5 @@
     %footer{role: "contentinfo"}
       .wrapper
         %span
-          = link_to('Sign in', new_user_session_path, style: 'color:#fff;') # TODO: No styles for links in footer in UI Kit yet
+          - unless user_signed_in?
+            = link_to('Sign in', new_user_session_path, style: 'color:#fff;') # TODO: No styles for links in footer in UI Kit yet

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'creating content:', type: :feature do
-  include Warden::Test::Helpers
   Warden.test_mode!
 
   before :each do

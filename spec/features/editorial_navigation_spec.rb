@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'editorial navigation:', type: :feature do
 
-  include Warden::Test::Helpers
   Warden.test_mode!
 
   let!(:section1) { Fabricate(:section) }

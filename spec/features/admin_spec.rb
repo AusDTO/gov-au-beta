@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'admin features', type: :feature do
 
-  include Warden::Test::Helpers
   Warden.test_mode!
   let!(:admin_user) { Fabricate(:user, is_admin: true) }
 

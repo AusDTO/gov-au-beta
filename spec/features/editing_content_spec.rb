@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'editing content', type: :feature do
 
-  include Warden::Test::Helpers
   Warden.test_mode!
   let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
