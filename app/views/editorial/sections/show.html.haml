@@ -11,7 +11,7 @@
 
 %h3 Pages
 
-%p= link_to 'Add_page', new_editorial_node_path(section: @section.id)
+%p= link_to 'Add_page', prepare_editorial_nodes_path(section: @section.id)
 
 %p
   -if @filter != 'submissions'
