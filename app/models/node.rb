@@ -55,5 +55,7 @@ class Node < ApplicationRecord
   def generate_token
     self.token = SecureRandom.uuid unless token.present?
   end
-
 end
+
+# Ensure we load all of the models so Node.descendants is accurate (probably could namespace these!)
+Dir.glob('./app/models/*.rb') { |f| require f }

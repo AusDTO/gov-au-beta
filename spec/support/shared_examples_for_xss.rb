@@ -2,7 +2,9 @@
 # somewhere displaying the content
 RSpec.shared_examples 'robust to XSS' do
   it 'strip the script tags' do
-    fill_in('Name', with: 'XSS Attempt')
+    # FIXME: Really, we should test all of the fields in the content type
+    # Right now when we create a revision we can only change body (DD 20160625)
+    # fill_in('Name', with: 'XSS Attempt')
     fill_in('Body', with: 'Good Content<script>alert()</script>')
     click_button('')
     within('article') do

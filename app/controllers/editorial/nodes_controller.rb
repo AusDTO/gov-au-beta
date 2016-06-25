@@ -30,8 +30,8 @@ module Editorial
       configure_defaults!
       authorize! :create_in, @section
 
-      @node_types = [GeneralContent, NewsArticle].collect do |clazz|
-        name = clazz.name.underscore
+      @node_types = Node.descendants.map do |klass|
+        name = klass.name.underscore
         [I18n.t("domain_model.nodes.#{name}"), name]
       end
 
@@ -43,6 +43,7 @@ module Editorial
     end
 
     def new
+      @editor = 'simplemde'
       configure_defaults!
       @form.prepopulate!
     end
@@ -63,6 +64,7 @@ module Editorial
       @type_name = @node.class.name.underscore
       @form = "#{@node.class.name}Form".constantize.new(@node)
       @editor = params[:editor]
+      redirect_to new_editorial_node_submission_path(@node, editor: @editor)
     end
 
     def update
@@ -86,9 +88,9 @@ module Editorial
     def derive_type
       @type_name = params[:type] || 'general_content'
       # Be extra pedantic with user input that is being turned into code
-      raise 'Invalid type' unless %w{general_content news_article}.include?(@type_name)
       @type = @type_name.camelize.constantize
-      @form_type = form_type @type
+      raise 'Invalid Type' unless @type.superclass == Node
+      @form_type = form_type(@type)
     end
 
     def new_form(obj=nil)

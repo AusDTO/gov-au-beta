@@ -2,6 +2,7 @@
 
 .fieldset
 
+
   = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
     - unless @form.section_id.present?
       = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false, selected: @form.section_id
@@ -11,6 +12,5 @@
     = render partial: @type_name, locals: {f: f}
     = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page", role: 'button'
+= render 'editor_injection'
 
-/= render partial: 'editor_injection'
-= render partial: 'editorial/nodes/editor_injection'

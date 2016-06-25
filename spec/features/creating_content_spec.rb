@@ -82,17 +82,6 @@ RSpec.describe 'creating content:', type: :feature do
     end
   end
 
-  context 'with a section specified' do
-    let(:section_1) {Fabricate(:section)}
-    let(:section_2) {Fabricate(:section)}
-    it 'prefill the section' do
-      visit new_editorial_node_path(section: section_1.id)
-      expect(page).to have_select('Section', selected: section_1.name)
-      visit new_editorial_node_path(section: section_2.id)
-      expect(page).to have_select('Section', selected: section_2.name)
-    end
-  end
-
   context 'with a parent specified' do
     let(:node_1) {Fabricate(:node, section: root)}
     let(:node_2) {Fabricate(:node, section: root)}
@@ -123,19 +112,7 @@ RSpec.describe 'creating content:', type: :feature do
       click_link 'New page'
       expect(page).to have_content 'Create a new page'
       click_button 'New page'
-      expect(page).to have_select('Section', selected: node.section.name)
       expect(page).to have_select('Parent', selected: node.name)
-    end
-  end
-
-  describe 'create a top node in a section' do
-    it 'should prefill the section' do
-      visit "/#{root.slug}"
-      click_link 'New page'
-      expect(page).to have_content 'Create a new page'
-      expect(page).to have_content root.name
-      click_button 'New page'
-      expect(page).to have_select('Section', selected: root.name)
     end
   end
 
