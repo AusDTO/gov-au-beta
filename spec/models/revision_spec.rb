@@ -21,7 +21,7 @@ RSpec.describe Revision, type: :model do
     describe 'applied' do
       subject { node.revisions.applied }
 
-      it { is_expected.to eq [second_applied_revision, first_applied_revision] }
+      it { is_expected.to eq [first_applied_revision, second_applied_revision] }
       it { is_expected.not_to include first_pending_revision }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Revision, type: :model do
   end
 
   describe '#apply!' do
-    let!(:node) { Fabricate(:node, content_body: 'initial content') }
+    let(:node) { Fabricate(:node, content_body: 'initial content') }
     let(:revision) { node.revise! content_body: 'changed content' }
 
     context 'before applying revision' do

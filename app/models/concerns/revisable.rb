@@ -17,7 +17,7 @@ module Revisable
 
   def revise!(revised_contents)
     if revisions.applied.any?
-      revise_from_revision!(revisions.applied.first, revised_contents)
+      revise_from_revision!(revisions.applied.last, revised_contents)
     else
       revise_from_content(self, revised_contents).tap do |revision|
         revision.save!
