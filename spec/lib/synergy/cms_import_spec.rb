@@ -3,11 +3,7 @@ require 'pry'
 
 require 'synergy/cms_import'
 
-RSpec.configure do |c|
-  c.use_transactional_examples = false
-end
-
-RSpec.describe Synergy::CMSImport, :type => :controller do
+RSpec.describe Synergy::CMSImport, :type => :cms_import do
 
   class DummyCMSAdapter
     attr_reader :source_name, :destination_path, :url
@@ -29,7 +25,11 @@ RSpec.describe Synergy::CMSImport, :type => :controller do
     def log(message); end
   end
 
-  after do
+  before(:each) do
+    SynergyNode.delete_all
+  end
+
+  after(:each) do
     SynergyNode.delete_all
   end
 
