@@ -17,8 +17,6 @@ class RevisionContent
   def get_content(content_key)
     value = ''
 
-    puts traversal_sequence.as_json
-
     traversal_sequence.each do |rev|
       if rev.diffs[content_key].present?
         diff = JSON.parse(rev.diffs[content_key])
