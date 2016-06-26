@@ -16,7 +16,7 @@ describe Revisable do
     end
   end
 
-  let(:recipe) { Recipe.create ingredients: 'sugar, flour', instructions: '' }
+  let(:recipe) { Recipe.create }
 
   describe '#revise!' do
     context 'revising one content attribute' do

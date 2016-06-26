@@ -127,6 +127,14 @@ RSpec.describe Node, type: :model do
     end
   end
 
+  describe 'creation of a node with content' do
+    let(:node) { Fabricate(:node, content_body: 'foo') }
+
+    it 'has an automatically generated revision' do
+      expect(node.revisions.count).to eq 1
+    end
+  end
+
   describe '#revise' do
     let(:node) { Fabricate(:node, content_body: 'foo') }
 

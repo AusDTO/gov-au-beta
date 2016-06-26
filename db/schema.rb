@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625142219) do
+ActiveRecord::Schema.define(version: 20160625141212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,14 +27,6 @@ ActiveRecord::Schema.define(version: 20160625142219) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
-  end
-
-  create_table "node_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
-    t.index ["ancestor_id", "descendant_id", "generations"], name: "node_anc_desc_idx", unique: true, using: :btree
-    t.index ["descendant_id"], name: "node_desc_idx", using: :btree
   end
 
   create_table "nodes", force: :cascade do |t|
@@ -67,14 +59,6 @@ ActiveRecord::Schema.define(version: 20160625142219) do
     t.index ["approver_id"], name: "index_requests_on_approver_id", using: :btree
     t.index ["section_id"], name: "index_requests_on_section_id", using: :btree
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
-  end
-
-  create_table "revision_hierarchies", id: false, force: :cascade do |t|
-    t.uuid    "ancestor_id",   null: false
-    t.uuid    "descendant_id", null: false
-    t.integer "generations",   null: false
-    t.index ["ancestor_id", "descendant_id", "generations"], name: "revision_anc_desc_idx", unique: true, using: :btree
-    t.index ["descendant_id"], name: "revision_desc_idx", using: :btree
   end
 
   create_table "revisions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -117,14 +101,6 @@ ActiveRecord::Schema.define(version: 20160625142219) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "state",        default: "draft", null: false
-  end
-
-  create_table "synergy_node_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
-    t.index ["ancestor_id", "descendant_id", "generations"], name: "synergy_node_anc_desc_idx", unique: true, using: :btree
-    t.index ["descendant_id"], name: "synergy_node_desc_idx", using: :btree
   end
 
   create_table "synergy_nodes", force: :cascade do |t|

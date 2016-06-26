@@ -1,4 +1,7 @@
 class SynergyNode < ApplicationRecord
+  extend ActsAsTree::TreeView
+  extend ActsAsTree::TreeWalker
+
   acts_as_tree order: 'position ASC'
 
   before_save :set_path!

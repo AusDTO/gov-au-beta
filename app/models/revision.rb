@@ -1,5 +1,5 @@
 class Revision < ApplicationRecord
-  has_closure_tree
+  acts_as_tree
 
   scope :applied, -> { where.not(applied_at: nil).order(applied_at: :desc) }
   scope :pending, -> { where(applied_at: nil).order(:created_at) }

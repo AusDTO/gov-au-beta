@@ -13,8 +13,6 @@ module Revisable
 
   included do
     has_many :revisions, as: :revisable
-
-    before_create :spawn_initial_revision
   end
 
   def revise!(revised_contents)
@@ -53,9 +51,7 @@ module Revisable
       end
     }.compact.to_h
 
-    rev = revisions.build(diffs: diffs)
-    puts rev.as_json
-    rev
+    revisions.build(diffs: diffs)
   end
 
   # This is a bit gross, but I didn't want to monkey-patch Diff::LCS::Change
@@ -71,11 +67,4 @@ module Revisable
         element
     end
   end
-
-  def spawn_initial_revision
-    if content.present?
-      revise! content
-    end
-  end
-
 end
