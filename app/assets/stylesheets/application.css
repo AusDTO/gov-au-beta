@@ -15,6 +15,6 @@
  *= require "simplemde.min"
  *= require "trumbowyg.min"
  *= require "editor.md/scss/editormd"
- *= require "table"
  *= require_self
+ *= require "main"
  */
