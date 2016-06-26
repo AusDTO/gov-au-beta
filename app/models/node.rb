@@ -19,13 +19,11 @@ class Node < ApplicationRecord
   content_attribute :content_body
 
   def ancestry
-    arr = [self]
-
-    while ancestor = arr.last.parent
-      arr << ancestor
+    [self].tap do |arr|
+      while ancestor = arr.last.parent
+        arr << ancestor
+      end
     end
-
-    arr
   end
 
   def to_s
