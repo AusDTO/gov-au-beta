@@ -1,5 +1,7 @@
 class Revision < ApplicationRecord
-  scope :applied, -> { where.not(applied_at: nil).order(applied_at: :desc) }
+  acts_as_tree
+
+  scope :applied, -> { where.not(applied_at: nil).order(:applied_at) }
   scope :pending, -> { where(applied_at: nil).order(:created_at) }
   scope :until, -> (revision) { where('created_at <= ?', revision.created_at) }
   scope :since, -> (revision) { where('applied_at > ?', revision.applied_at) }
@@ -29,4 +31,3 @@ class Revision < ApplicationRecord
     end
   end
 end
-

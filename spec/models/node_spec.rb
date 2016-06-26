@@ -34,10 +34,6 @@ RSpec.describe Node, type: :model do
     let(:beta) { Fabricate(:node, name: 'beta', parent: alpha) }
     let(:gamma) { Fabricate(:node, name: 'gamma', parent: beta) }
 
-    it 'should know its ancestry' do
-      expect(gamma.ancestry).to eq [gamma, beta, alpha]
-    end
-
     describe 'path_elements' do
 
       subject { node.path_elements }
@@ -128,6 +124,14 @@ RSpec.describe Node, type: :model do
 
     it 'automatically populates a token' do
       expect(subject.token).to be_present
+    end
+  end
+
+  describe 'creation of a node with content' do
+    let(:node) { Fabricate(:node, content_body: 'foo') }
+
+    it 'has an automatically generated revision' do
+      expect(node.revisions.count).to eq 1
     end
   end
 

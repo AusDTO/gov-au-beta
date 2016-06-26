@@ -51,7 +51,7 @@ module Editorial
     def create
       @form = new_form
       @form.prepopulate!
-      
+
       if @form.validate(params.require(:node).permit!)
         submission = NodeCreator.new(@form).perform!(current_user)
         redirect_to editorial_submission_path(submission)
