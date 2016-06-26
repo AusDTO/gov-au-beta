@@ -35,8 +35,7 @@ RSpec.describe 'creating content:', type: :feature do
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         click_button('Create')
-        expect(current_path).to match(Regexp.new(editorial_nodes_path + '/\d+'))
-        expect(page).not_to have_content(/release date/i)
+        expect(page).to have_content(/Submission to test name/i)
       end
     end
 
@@ -67,8 +66,7 @@ RSpec.describe 'creating content:', type: :feature do
         fill_in('Body', with: 'Good Content')
         select('2017', from: 'Release date')
         click_button('Create')
-        expect(current_path).to match(Regexp.new(editorial_nodes_path + '/\d+'))
-        expect(page).to have_content(/release date/i)
+        expect(page).to have_content(/Good Content/i)
       end
     end
 

@@ -52,8 +52,9 @@ module Editorial
       @form = new_form
       @form.prepopulate!
       
-      if try_save
-        redirect_to editorial_node_path(@form)
+      if @form.validate(params.require(:node).permit!)
+        submission = NodeCreator.new(@form).perform!(current_user)
+        redirect_to editorial_submission_path(submission)
       else
         render :new
       end
@@ -89,7 +90,7 @@ module Editorial
       @type_name = params[:type] || 'general_content'
       # Be extra pedantic with user input that is being turned into code
       @type = @type_name.camelize.constantize
-      raise 'Invalid Type' unless @type.superclass == Node
+      raise 'Invalid Type' unless @type.superclass.name == 'Node'
       @form_type = form_type(@type)
     end
 
