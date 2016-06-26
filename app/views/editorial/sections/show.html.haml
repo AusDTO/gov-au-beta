@@ -13,21 +13,24 @@
 
 %p= link_to 'Add_page', prepare_editorial_nodes_path(section: @section.id)
 
-%p
-  -if @filter != 'submissions'
-    =link_to 'Submissions', editorial_section_path(@section, filter: 'submissions')
-  -else
-    Submissions
+%ul.accordion-tabs-minimal
+  %li.tab-header-and-content
+    - if @filter != 'submissions'
+      = link_to 'Submissions', '?filter=submissions', class: 'tab-link'
+    - else
+      = link_to 'Submission', '#', class: 'tab-link is-active'
 
-  -if @filter != 'my_pages'
-    =link_to 'My pages', editorial_section_path(@section, filter: 'my_pages')
-  -else
-    My pages
+  %li.tab-header-and-content
+    - if @filter != 'my_pages'
+      = link_to 'My pages', '?filter=my_pages', class: 'tab-link'
+    - else
+      = link_to 'My pages', '#', class: 'tab-link is-active'
 
-  -if @filter != nil
-    =link_to 'All content', editorial_section_path(@section)
-  -else
-    All pages
+  %li.tab-header-and-content
+    - if @filter != nil
+      = link_to 'All content', editorial_section_path(@section), class: 'tab-link'
+    - else
+      = link_to 'All content', '#', class: 'tab-link is-active'
 
 
 %table.tables
