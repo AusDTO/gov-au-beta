@@ -45,6 +45,7 @@ module Revisable
   def revise_from_content(base_content, revised_contents)
     diffs = revised_contents.collect {|content_key, revised_value|
       current_value = base_content.send(content_key) || ''
+      revised_value ||= ''
 
       unless current_value == revised_value # Ignore unchanged contents
         [content_key, persistable_diff(current_value, revised_value).to_json]
