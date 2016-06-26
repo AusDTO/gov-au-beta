@@ -19,13 +19,11 @@ class Node < ApplicationRecord
   content_attribute :content_body
 
   def ancestry
-    arr = [self]
-
-    while ancestor = arr.last.parent
-      arr << ancestor
+    [self].tap do |arr|
+      while ancestor = arr.last.parent
+        arr << ancestor
+      end
     end
-
-    arr
   end
 
   def to_s
@@ -55,5 +53,7 @@ class Node < ApplicationRecord
   def generate_token
     self.token = SecureRandom.uuid unless token.present?
   end
-
 end
+
+# Ensure we load all of the models so Node.descendants is accurate (probably could namespace these!)
+Dir.glob('./app/models/*.rb') { |f| require f }

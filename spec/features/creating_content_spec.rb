@@ -35,8 +35,7 @@ RSpec.describe 'creating content:', type: :feature do
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         click_button('Create')
-        expect(current_path).to match(Regexp.new(editorial_nodes_path + '/\d+'))
-        expect(page).not_to have_content(/release date/i)
+        expect(page).to have_content(/Submission to test name/i)
       end
     end
 
@@ -67,8 +66,7 @@ RSpec.describe 'creating content:', type: :feature do
         fill_in('Body', with: 'Good Content')
         select('2017', from: 'Release date')
         click_button('Create')
-        expect(current_path).to match(Regexp.new(editorial_nodes_path + '/\d+'))
-        expect(page).to have_content(/release date/i)
+        expect(page).to have_content(/Good Content/i)
       end
     end
 
@@ -79,17 +77,6 @@ RSpec.describe 'creating content:', type: :feature do
     it 'default to general content' do
       visit new_editorial_node_path
       expect(page).to have_content(/general content/i)
-    end
-  end
-
-  context 'with a section specified' do
-    let(:section_1) {Fabricate(:section)}
-    let(:section_2) {Fabricate(:section)}
-    it 'prefill the section' do
-      visit new_editorial_node_path(section: section_1.id)
-      expect(page).to have_select('Section', selected: section_1.name)
-      visit new_editorial_node_path(section: section_2.id)
-      expect(page).to have_select('Section', selected: section_2.name)
     end
   end
 
@@ -123,19 +110,7 @@ RSpec.describe 'creating content:', type: :feature do
       click_link 'New page'
       expect(page).to have_content 'Create a new page'
       click_button 'New page'
-      expect(page).to have_select('Section', selected: node.section.name)
       expect(page).to have_select('Parent', selected: node.name)
-    end
-  end
-
-  describe 'create a top node in a section' do
-    it 'should prefill the section' do
-      visit "/#{root.slug}"
-      click_link 'New page'
-      expect(page).to have_content 'Create a new page'
-      expect(page).to have_content root.name
-      click_button 'New page'
-      expect(page).to have_select('Section', selected: root.name)
     end
   end
 

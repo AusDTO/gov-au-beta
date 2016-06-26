@@ -306,6 +306,8 @@ GEM
     rolify (5.1.0)
     rollbar (2.11.5)
       multi_json
+    rspec-collection_matchers (1.1.2)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.5.0.beta4)
       rspec-support (= 3.5.0.beta4)
     rspec-expectations (3.5.0.beta4)
@@ -446,6 +448,7 @@ DEPENDENCIES
   reform-rails
   rolify
   rollbar
+  rspec-collection_matchers (~> 1.1, >= 1.1.2)
   rspec-rails (>= 3.5.0.beta4)
   sass-rails (~> 5.0)
   shoulda-kept-assign-to (~> 1.1.0)

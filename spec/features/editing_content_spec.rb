@@ -72,9 +72,8 @@ RSpec.describe 'editing content', type: :feature do
       it 'should return to the edit form' do
         visit edit_editorial_node_path(id: node1.id)
         fill_in('Body', with: 'Bad Content')
-        click_button('Update')
-        expect(page).to have_content(/edit/i)
-        expect(page).to have_content(/failed.*content.*analysis/i)
+        click_button('Submit for review')
+        expect(page).to have_content(/Your changes have been submitted/i)
       end
     end
 
