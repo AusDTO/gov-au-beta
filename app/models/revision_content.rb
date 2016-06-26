@@ -21,11 +21,6 @@ class RevisionContent
 
     traversal_sequence.each do |rev|
       if rev.diffs[content_key].present?
-        puts "in get_content"
-        puts content_key
-        puts value
-        puts rev.diffs[content_key]
-
         diff = JSON.parse(rev.diffs[content_key])
         value = value.patch diff
       end

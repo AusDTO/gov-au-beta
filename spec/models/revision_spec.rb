@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Revision, type: :model do
   describe 'scopes' do
-    let(:node) { Fabricate(:node) }
+    let(:node) { Fabricate(:node, content_body: nil) }
     let!(:first_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
     let!(:second_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
     let!(:first_pending_revision) { Fabricate(:revision, revisable: node,created_at: 2.days.ago) }
@@ -46,11 +46,11 @@ RSpec.describe Revision, type: :model do
   end
 
   describe '#ancestors' do
-    
+
   end
 
   describe '#apply!' do
-    let(:node) { Fabricate(:node, content_body: 'initial content') }
+    let!(:node) { Fabricate(:node, content_body: 'initial content') }
     let(:revision) { node.revise! content_body: 'changed content' }
 
     context 'before applying revision' do

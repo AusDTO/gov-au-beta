@@ -47,9 +47,11 @@ class Node < ApplicationRecord
   end
 
   def spawn_initial_revision
-    if content.present?
+    if content.values.reject(&:blank?).present?
       empty_content = self.class.new
-      revise_from_content empty_content, self.all_content
+      revise_from_content(empty_content, self.all_content).tap do |rev|
+        rev.applied_at = Time.now
+      end
     end
   end
 
