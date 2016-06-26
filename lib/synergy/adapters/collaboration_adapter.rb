@@ -3,11 +3,12 @@ require 'net/http'
 module Synergy
   module Adapters
     class CollaborationAdapter
-      attr_accessor :source_name, :url
+      attr_accessor :source_name, :url, :destination_path
 
-      def initialize(source_name, url)
+      def initialize(source_name, url, destination_path)
         @source_name = source_name
         @url = url
+        @destination_path = destination_path
       end
 
       def run(&block)
@@ -20,31 +21,26 @@ module Synergy
 
       private
 
-      def import_nodes
+      def import_nodes(&block)
         log "importing nodes"
-
-        nodes = []
-        ::Node.where(parent_id: nil).each do |node|
-          nodes << import_node(node)
+        Node.where(parent_id: nil, state: :published).each do |node|
+          import_node(node, &block)
         end
-        nodes.flatten.each do |node|
-          yield(to_node_data(node))
-        end
-
         log "finished importing nodes"
       end
 
-      def import_node(node)
+      def import_node(node, &block)
         log "importing #{node.path}"
-        node.children.reduce([node]) do |nodes, child|
-          nodes << import_node(child)
+        yield(to_node_data(node))
+        node.children.where(state: :published).each do |child|
+          import_node(child, &block)
         end
       end
 
       def to_node_data(node)
         {
           source_url: url,
-          path: node.path_elements,
+          path: node.path,
           title: node.name,
           content: node.content
         }

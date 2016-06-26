@@ -35,7 +35,7 @@ module Synergy
 
         {
           source_url: govcms_node["url"],
-          path: url.path.split("/").select{|p| !p.blank?},
+          path: url.path,
           title: govcms_node["field_title"],
           content: extract_content(govcms_node)
         }
