@@ -30,13 +30,13 @@
     All pages
 
 
-%table{border: 1, cellpadding: 10}
+%table.tables
   %thead
     %tr
-      %td Title
-      %td Type
-      %td Status
-      %td Author(s)
+      %th Title
+      %th Type
+      %th Status
+      %th Author(s)
   %tbody
     - @section.nodes.order(updated_at: :desc).each do |page|
       %tr
