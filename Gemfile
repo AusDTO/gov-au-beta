@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 # Other sources
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-editor.md'
 end
 
 # Core gems
