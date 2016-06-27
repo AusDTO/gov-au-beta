@@ -1,5 +1,5 @@
 class Page < ApplicationRecord
   def name
-    title || (slug.blank? ? 'Home' : slug.underscore.humanize)
+    title
   end
 end
