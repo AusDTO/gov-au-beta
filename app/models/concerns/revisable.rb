@@ -44,11 +44,13 @@ module Revisable
 
   def revise_from_content(base_content, revised_contents)
     diffs = revised_contents.collect {|content_key, revised_value|
-      current_value = base_content.send(content_key) || ''
-      revised_value ||= ''
+      unless revised_value.nil? # Ignore nil (but not empty string!)
+        current_value = base_content.send(content_key) || ''
 
-      unless current_value == revised_value # Ignore unchanged contents
-        [content_key, persistable_diff(current_value, revised_value).to_json]
+        # Ignore unchanged contents or nil (not blank!) content attributes
+        unless current_value == revised_value
+          [content_key, persistable_diff(current_value, revised_value || '').to_json]
+        end
       end
     }.compact.to_h
 

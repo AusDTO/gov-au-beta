@@ -25,7 +25,7 @@ node2 = node1.children.find_or_create_by!({
   state: :published
 })
 
-node2.update_attribute :content_body, 'Lorem ipsum'
+node2.revise!(content_body: 'Lorem ipsum').apply!
 
 node3 = node2.children.find_or_create_by!({
   name: "Types of Employment",
@@ -73,4 +73,3 @@ names.keys.each do |key|
 end
 
 Synergy::CMSImport.import_from_all_sections
-

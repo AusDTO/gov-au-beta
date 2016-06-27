@@ -6,9 +6,14 @@ class NodeCreator
 
   def perform!(user)
     @form.save do |params|
-      body = params.delete(:content_body)
+      content = @klass.content_attributes.select {|attr|
+        params.has_key? attr
+      }.collect {|attr|
+        [attr, params.delete(attr)]
+      }.to_h
+
       node = @klass.create!(params)
-      Submission.new(revision: node.revise!(content_body: body)).tap do |submission|
+      Submission.new(revision: node.revise!(content)).tap do |submission|
         submission.submit!(user)
       end
     end
