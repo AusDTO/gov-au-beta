@@ -7,4 +7,4 @@
     - submissions.each do |submission|
       %tr
         %td= link_to "#{submission.revisable.name}", editorial_submission_path(submission)
-        %td #{submission.created_at}
+        %td #{submission.submitted_at}
