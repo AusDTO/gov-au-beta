@@ -3,6 +3,7 @@ class Section < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_many :nodes
+  has_many :submissions
   # Make Section look like a node
   alias_attribute :children, :nodes
 

@@ -4,6 +4,7 @@ class Submission < ApplicationRecord
   enumerize :state, in: %w{draft submitted accepted rejected}, scope: true
 
   belongs_to :revision
+  belongs_to :section
   belongs_to :submitter, class_name: 'User'
   belongs_to :reviewer, class_name: 'User'
 
@@ -66,6 +67,10 @@ class Submission < ApplicationRecord
     self.reviewed_at = Time.now
     self.state = state
     save!
+  end
+
+  def self.open_submissions_for(user)
+    where(submitter: user).where.not(state: %w(accepted rejected)).order(updated_at: :desc)
   end
 
 end
