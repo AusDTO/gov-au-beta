@@ -1,13 +1,7 @@
+- breadcrumb :editorial_section, @section
+
 %h2
   #{@section.name}
-
-%p
-  %nav.breadcrumbs
-    %ul
-      %li
-        = link_to 'Editorial', :editorial_root
-      %li
-        #{@section.name}
 
 %h3 Pages
 

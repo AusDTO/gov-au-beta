@@ -15,6 +15,10 @@
         %section.hero
           .wrapper= yield(:header)
 
+    %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
+      .wrapper
+        = breadcrumbs style: :ul, class: nil
+
     %main
       = render 'application/navbar'
       %article
