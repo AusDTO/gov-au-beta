@@ -9,9 +9,14 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     let(:user_a) { Fabricate(:user) }
     let(:user_b) { Fabricate(:user) }
     let(:section) { Fabricate(:section) }
+    let(:node_a) { Fabricate(:node, section: section) }
+    let(:node_b) { Fabricate(:node, section: section) }
+    let(:revision_a) { Fabricate(:revision, revisable: node_a) }
+    let(:revision_b) { Fabricate(:revision, revisable: node_b) }
+
     let!(:submission_a) { Fabricate(:submission, submitter: user_a) }
-    let!(:submission_b) { Fabricate(:submission, submitter: user_b, section: section) }
-    let!(:submission_c) { Fabricate(:submission, submitter: user_a, section: section) }
+    let!(:submission_b) { Fabricate(:submission, submitter: user_b, revision: revision_a) }
+    let!(:submission_c) { Fabricate(:submission, submitter: user_a, revision: revision_b) }
 
     context 'as user_a' do
 
@@ -21,7 +26,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       it 'should return only their submission' do
-        expect(assigns('new_submissions')).to eq([submission_c, submission_a])
+        expect(assigns('existing_submissions')).to eq([submission_c, submission_a])
       end
     end
 
@@ -33,7 +38,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       it 'should return only their submission for section' do
-        expect(assigns('new_submissions')).to eq([submission_b])
+        expect(assigns('existing_submissions')).to eq([submission_b])
       end
     end
 
@@ -45,7 +50,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       it 'should return only their submission for section' do
-        expect(assigns('new_submissions')).to eq([submission_c])
+        expect(assigns('existing_submissions')).to eq([submission_c])
       end
     end
 
