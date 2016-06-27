@@ -1,16 +1,21 @@
 class Editorial::SubmissionsController < ApplicationController
   include ::EditorialHelper
+  layout 'editorial_section'
 
   before_action :find_node, only: [:new, :create]
   before_action :find_submission, only: [:show, :update]
+  before_action :find_section
   decorates_assigned :submission
 
 
   def index
-    user_submissions = scope.open_submissions_for(current_user)
+    if params[:section]
+      @section = Section.find_by_slug(params[:section])
+    end
+    @submissions = scope.open_submissions_for(current_user)
 
-    @new_submissions = user_submissions.with_unpublished_node
-    @existing_submissions = user_submissions.with_published_node
+    # @new_submissions = user_submissions.with_unpublished_node
+    # @existing_submissions = user_submissions.with_published_node
   end
 
   def create
@@ -60,6 +65,16 @@ class Editorial::SubmissionsController < ApplicationController
       Submission.of_section(Section.find_by_slug([params[:section]]))
     else
       Submission
+    end
+  end
+
+  def find_section
+    @section = if params[:section]
+      Section.find_by_slug(params[:section])
+    elsif @node
+        @node.section
+    else
+      @submission.revisable.section
     end
   end
 end
