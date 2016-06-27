@@ -27,7 +27,7 @@ module Synergy
     def run
       ActiveRecord::Base.transaction(isolation: :read_committed) do
         @adapter.log "deleting existing nodes"
-        SynergyNode.where(source_name: @adapter.section.slug).delete_all
+        Page.where(source_name: @adapter.section.slug).delete_all
         @adapter.log "finished deleting existing nodes"
 
         destination_parts = @adapter.destination_path.split("/").select{|p| !p.blank?}
@@ -36,7 +36,7 @@ module Synergy
           source_parts = node_data[:path].split("/").select{|p| !p.blank?}
           parts        = destination_parts + source_parts
 
-          SynergyNode.create!(
+          Page.create!(
             source_name: @adapter.section.slug,
             path:        "/#{parts.join("/")}",
             cms_ref:     node_data[:cms_ref],
