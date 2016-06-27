@@ -7,14 +7,10 @@ class Editorial::SubmissionsController < ApplicationController
 
 
   def index
+    user_submissions = scope.open_submissions_for(current_user)
 
-    submissions = scope.open_submissions_for(current_user)
-
-    @new_submissions = submissions.inject([]) do |agg, submission|
-      agg << submission # if no submission node
-    end
-
-    @existing_submissions = submissions - @new_submissions
+    @new_submissions = user_submissions.with_unpublished_node
+    @existing_submissions = user_submissions.with_published_node
   end
 
   def create
@@ -57,7 +53,7 @@ class Editorial::SubmissionsController < ApplicationController
 
   def scope
     if params[:section]
-      Section.find_by_slug(params[:section]).submissions
+      Submission.of_section(Section.find_by_slug([params[:section]]))
     else
       Submission
     end
