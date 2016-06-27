@@ -16,4 +16,5 @@
  *= require "trumbowyg.min"
  *= require "editor.md/scss/editormd"
  *= require_self
+ *= require "main"
  */

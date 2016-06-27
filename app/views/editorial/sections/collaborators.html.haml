@@ -18,12 +18,12 @@
       %li
         =link_to "#{p.user.decorate.full_name} (#{p.user.email})", editorial_request_path(p)
 
-%table{border: 1, cellpadding: 10}
+%table.table-alternating
   %thead
     %tr
-      %td Full name
-      %td Email
-      %td Roles
+      %th Full name
+      %th Email
+      %th Roles
   %tbody
     - @collaborators.each do |user|
       %tr
