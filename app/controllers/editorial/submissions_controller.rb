@@ -5,6 +5,14 @@ class Editorial::SubmissionsController < ApplicationController
   before_action :find_submission, only: [:show, :update]
   decorates_assigned :submission
 
+
+  def index
+    user_submissions = scope.open_submissions_for(current_user)
+
+    @new_submissions = user_submissions.with_unpublished_node
+    @existing_submissions = user_submissions.with_published_node
+  end
+
   def create
     @submission = Submission.new(revision: @node.revise!(params[:node]))
 
@@ -41,5 +49,13 @@ class Editorial::SubmissionsController < ApplicationController
 
   def find_submission
     @submission = Submission.find(params[:id])
+  end
+
+  def scope
+    if params[:section]
+      Submission.of_section(Section.find_by_slug([params[:section]]))
+    else
+      Submission
+    end
   end
 end

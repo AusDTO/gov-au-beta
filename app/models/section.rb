@@ -25,4 +25,9 @@ class Section < ApplicationRecord
       result += User.with_role(role, self)
     end.uniq
   end
+
+  def find_by_slug(slug)
+    Section.find_by(slug: slug)
+  end
+
 end

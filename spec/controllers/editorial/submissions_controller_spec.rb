@@ -5,6 +5,57 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
   let(:node) { Fabricate(:node) }
 
+  describe 'GET #index' do
+    let(:user_a) { Fabricate(:user) }
+    let(:user_b) { Fabricate(:user) }
+    let(:section) { Fabricate(:section) }
+    let(:node_a) { Fabricate(:node, section: section) }
+    let(:node_b) { Fabricate(:node, section: section) }
+    let(:revision_a) { Fabricate(:revision, revisable: node_a) }
+    let(:revision_b) { Fabricate(:revision, revisable: node_b) }
+
+    let!(:submission_a) { Fabricate(:submission, submitter: user_a) }
+    let!(:submission_b) { Fabricate(:submission, submitter: user_b, revision: revision_a) }
+    let!(:submission_c) { Fabricate(:submission, submitter: user_a, revision: revision_b) }
+
+    context 'as user_a' do
+
+      before do
+        sign_in(user_a)
+        get :index
+      end
+
+      it 'should return only their submission' do
+        expect(assigns('existing_submissions')).to eq([submission_c, submission_a])
+      end
+    end
+
+    context 'as user_b on section' do
+
+      before do
+        sign_in(user_b)
+        get :index, section: section.slug
+      end
+
+      it 'should return only their submission for section' do
+        expect(assigns('existing_submissions')).to eq([submission_b])
+      end
+    end
+
+    context 'as user_c on section' do
+
+      before do
+        sign_in(user_a)
+        get :index, section: section.slug
+      end
+
+      it 'should return only their submission for section' do
+        expect(assigns('existing_submissions')).to eq([submission_c])
+      end
+    end
+
+  end
+
   context 'as an author' do
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }

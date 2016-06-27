@@ -1,0 +1,15 @@
+%h2 List of Submissions
+
+%h3 New Pages
+
+- if @new_submissions.empty?
+  No new pages
+- else
+  = render partial: 'submissions', locals: {submissions: @new_submissions}
+
+%h3 Existing page revisions
+
+- if @existing_submissions.empty?
+  No revisions to existing pages
+- else
+  = render partial: 'submissions', locals: {submissions: @existing_submissions}
