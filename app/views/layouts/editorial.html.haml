@@ -12,6 +12,10 @@
               gov.au
             %span.badge--beta beta
 
+    %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
+      .wrapper
+        = breadcrumbs style: :ul, class: nil
+
     %main
       - if content_for?(:navbar)
         %aside.sidebar
