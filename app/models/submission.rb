@@ -26,6 +26,10 @@ class Submission < ApplicationRecord
     with_node.where('nodes.section_id=?', section.id)
   }
 
+  scope :open_submissions_for, -> (user) {
+    where(submitter: user).without_state(:accepted, :rejected).order(updated_at: :desc)
+  }
+
   validates_presence_of :revision
   validates_presence_of :submitter
 
@@ -82,10 +86,6 @@ class Submission < ApplicationRecord
     self.reviewed_at = Time.now
     self.state = state
     save!
-  end
-
-  def self.open_submissions_for(user)
-    where(submitter: user).where.not(state: %w(accepted rejected)).order(updated_at: :desc)
   end
 
 end
