@@ -100,18 +100,27 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     describe 'POST #update' do
 
       context '(:accept)' do
-        subject { post :update, id: submission.id, accept: true }
-        it { is_expected.to redirect_to editorial_submission_path(submission.id) }
+        subject { post :update, params: { id: submission.id, accept: true } }
+        it { is_expected.to redirect_to nodes_path(section: submission.section, path: submission.revisable.path) }
         it 'change to accepted' do
           expect { subject }.to change { submission.reload.accepted? }.from(false).to(true)
         end
       end
 
       context '(:reject)' do
-        subject { post :update, id: submission.id, reject: true }
+        subject { post :update, params: { id: submission.id, reject: true } }
         it { is_expected.to redirect_to editorial_submission_path(submission.id) }
         it 'change to rejected' do
           expect { subject }.to change { submission.reload.rejected? }.from(false).to(true)
+        end
+      end
+
+      context '()' do
+        subject { post :update, params: { id: submission.id } }
+        it { is_expected.to redirect_to editorial_submission_path(submission.id) }
+        it 'sets flash' do
+          subject
+          expect(flash[:alert]).to be_present
         end
       end
     end
