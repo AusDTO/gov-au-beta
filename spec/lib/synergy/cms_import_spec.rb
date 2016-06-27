@@ -6,12 +6,10 @@ require 'synergy/cms_import'
 RSpec.describe Synergy::CMSImport, :type => :cms_import do
 
   class DummyCMSAdapter
-    attr_reader :source_name, :destination_path, :url
+    attr_reader :section
 
-    def initialize(source_name, url, destination_path)
-      @source_name = source_name
-      @url = url
-      @destination_path = destination_path
+    def initialize(section)
+      @section = section
     end
 
     def dummy_nodes=(nodes)
@@ -20,6 +18,10 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
 
     def run(&block)
       @dummy_nodes.each{|node| yield node}
+    end
+
+    def destination_path
+      "/#{section.slug}"
     end
 
     def log(message); end
@@ -33,11 +35,10 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
     SynergyNode.delete_all
   end
 
-  let(:source_name)       { "dummy_cms" }
-  let(:url)               { "http://foo.bar.com/stuff" }
-  let(:destination_path)  { "/dummy-content" }
+  let(:cms_url)               { "http://foo.bar.com/stuff" }
+  let(:section)           { Fabricate(:section, :cms_url => cms_url) }
   let(:adapter)           do
-    adapter = DummyCMSAdapter.new(source_name, url, destination_path)
+    adapter = DummyCMSAdapter.new(section)
     adapter.dummy_nodes = dummy_nodes
     adapter
   end
@@ -59,14 +60,14 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
     let(:dummy_nodes) { [] }
 
     before do
-      Fabricate(:synergy_node, source_name: source_name, parent: root_node)
+      Fabricate(:synergy_node, source_name: section.slug, parent: root_node)
     end
 
 
     it "all nodes for a source are replaced during import" do
-      expect(SynergyNode.where(source_name: source_name).count).to eq(1)
+      expect(SynergyNode.where(source_name: section.slug).count).to eq(1)
       importer.run
-      expect(SynergyNode.where(source_name: source_name).count).to eq(0)
+      expect(SynergyNode.where(source_name: section.slug).count).to eq(0)
     end
 
   end

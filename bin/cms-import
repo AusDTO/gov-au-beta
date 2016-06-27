@@ -2,5 +2,5 @@
 
 require 'synergy/cms_import'
 
-Synergy::CMSImport.import_from_all_sources
+Synergy::CMSImport.import_from_all_sections
 

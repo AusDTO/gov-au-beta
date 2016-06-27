@@ -8,19 +8,16 @@ module Synergy
   class CMSImport
 
     ADAPTERS = {
-      'GovCMS'        => Synergy::Adapters::GovCMSAdapter,
-      'Collaboration' => Synergy::Adapters::CollaborationAdapter
+      'GovCMS'      => Synergy::Adapters::GovCMSAdapter,
+      'Collaborate' => Synergy::Adapters::CollaborationAdapter
     }.freeze
 
-    def self.import_from_all_sources
-      config["synergies"].keys.each do |source_name|
-        import_from(source_name)
-      end
+    def self.import_from_all_sections
+      Section.all.each{|section| import_from(section)}
     end
 
-    def self.import_from(source_name)
-      source_config = config["synergies"][source_name]
-      new(make_adapter(source_name, source_config)).run
+    def self.import_from(section)
+      new(make_adapter(section)).run
     end
 
     def initialize(adapter)
@@ -31,7 +28,7 @@ module Synergy
       ActiveRecord::Base.transaction(isolation: :read_committed) do
         root_node = SynergyNode.find_or_create_by!(path: '/', source_name: 'synergy')
         @adapter.log "deleting existing nodes"
-        SynergyNode.where(source_name: @adapter.source_name).delete_all
+        SynergyNode.where(source_name: @adapter.section.slug).delete_all
         @adapter.log "finished deleting existing nodes"
 
         destination_parts = @adapter.destination_path.split("/").select{|p| !p.blank?}
@@ -42,7 +39,7 @@ module Synergy
 
           leaf = parts.reduce(root_node) do |parent_s_node,slug|
             SynergyNode.find_or_create_by!(
-              source_name: @adapter.source_name,
+              source_name: @adapter.section.slug,
               parent: parent_s_node,
               slug: slug
             ) do |sn|
@@ -59,16 +56,8 @@ module Synergy
 
     private
 
-    def self.config
-      @config ||= YAML.load_file(File.join(Rails.root, "config/synergy.yml"))
-    end
-
-    def self.make_adapter(source_name, source_config)
-      ADAPTERS[source_config["type"]].new(
-        source_name,
-        source_config["url"],
-        source_config["destination_path"]
-      )
+    def self.make_adapter(section)
+      ADAPTERS[section.cms_type].new(section)
     end
   end
 end

@@ -3,12 +3,10 @@ require 'net/http'
 module Synergy
   module Adapters
     class CollaborationAdapter
-      attr_accessor :source_name, :url, :destination_path
+      attr_reader :section
 
-      def initialize(source_name, url, destination_path)
-        @source_name = source_name
-        @url = url
-        @destination_path = destination_path
+      def initialize(section)
+        @section = section
       end
 
       def run(&block)
@@ -16,7 +14,11 @@ module Synergy
       end
 
       def log(message)
-        Rails.logger.info "[#{source_name}] #{message}"
+        Rails.logger.info "[#{destination_path}] #{message}"
+      end
+
+      def destination_path
+        "/#{section.slug}"
       end
 
       private
@@ -39,7 +41,7 @@ module Synergy
 
       def to_node_data(node)
         {
-          source_url: url,
+          source_url: node.path,
           path: node.path,
           title: node.name,
           content: node.content
