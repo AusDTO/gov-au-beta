@@ -17,6 +17,9 @@ class SectionDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     layout: Field::String,
+    cms_type: CmsTypeField,
+    cms_url: Field::String,
+    cms_path: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -41,6 +44,9 @@ class SectionDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :layout,
+    :cms_type,
+    :cms_url,
+    :cms_path,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -50,6 +56,9 @@ class SectionDashboard < Administrate::BaseDashboard
     :name,
     :summary,
     :layout,
+    :cms_type,
+    :cms_url,
+    :cms_path,
   ].freeze
 
   # Overwrite this method to customize how sections are displayed
