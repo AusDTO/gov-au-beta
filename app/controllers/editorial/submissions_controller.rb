@@ -13,9 +13,6 @@ class Editorial::SubmissionsController < ApplicationController
       @section = Section.find_by_slug(params[:section])
     end
     @submissions = scope.open_submissions_for(current_user)
-
-    # @new_submissions = user_submissions.with_unpublished_node
-    # @existing_submissions = user_submissions.with_published_node
   end
 
   def create
