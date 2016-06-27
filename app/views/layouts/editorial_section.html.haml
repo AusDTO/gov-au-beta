@@ -1,4 +1,7 @@
 = inside_layout 'editorial' do
+  = content_for :header do
+    %a.site-title{href: section_path(@section)}= @section.name
+
   = content_for :navbar do
     %ul
       %li= link_to('Submissions', editorial_section_submissions_path(@section))

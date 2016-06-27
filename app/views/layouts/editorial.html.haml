@@ -12,6 +12,9 @@
               gov.au
             %span.badge--beta beta
 
+      - if content_for?(:header)
+        %section.hero
+          .wrapper= yield(:header)
     %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
       .wrapper
         = breadcrumbs style: :ul, class: nil
