@@ -6,29 +6,21 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   let(:node) { Fabricate(:node) }
 
   describe 'GET #index' do
+    # Yes I hate the usage of all of these fabricators...
     let(:user_a) { Fabricate(:user) }
     let(:user_b) { Fabricate(:user) }
     let(:section) { Fabricate(:section) }
+    let(:section_b) { Fabricate(:section) }
     let(:node_a) { Fabricate(:node, section: section) }
     let(:node_b) { Fabricate(:node, section: section) }
+    let(:node_c) { Fabricate(:node, section: section_b ) }
     let(:revision_a) { Fabricate(:revision, revisable: node_a) }
     let(:revision_b) { Fabricate(:revision, revisable: node_b) }
+    let(:revision_c) { Fabricate(:revision, revisable: node_c) }
 
-    let!(:submission_a) { Fabricate(:submission, submitter: user_a) }
-    let!(:submission_b) { Fabricate(:submission, submitter: user_b, revision: revision_a) }
-    let!(:submission_c) { Fabricate(:submission, submitter: user_a, revision: revision_b) }
-
-    context 'as user_a' do
-
-      before do
-        sign_in(user_a)
-        get :index
-      end
-
-      it 'should return only their submission' do
-        expect(assigns('existing_submissions')).to eq([submission_c, submission_a])
-      end
-    end
+    let!(:submission_a) { Fabricate(:submission, submitter: user_a, revision: revision_a) }
+    let!(:submission_b) { Fabricate(:submission, submitter: user_b, revision: revision_b) }
+    let!(:submission_c) { Fabricate(:submission, submitter: user_a, revision: revision_c) }
 
     context 'as user_b on section' do
 
@@ -38,11 +30,11 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       it 'should return only their submission for section' do
-        expect(assigns('existing_submissions')).to eq([submission_b])
+        expect(assigns('submissions')).to eq([submission_b])
       end
     end
 
-    context 'as user_c on section' do
+    context 'as user_a on section' do
 
       before do
         sign_in(user_a)
@@ -50,7 +42,19 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       it 'should return only their submission for section' do
-        expect(assigns('existing_submissions')).to eq([submission_c])
+        expect(assigns('submissions')).to eq([submission_a])
+      end
+    end
+
+    context 'as user_a on a different section' do
+
+      before do
+        sign_in(user_a)
+        get :index, section: section_b.slug
+      end
+
+      it 'should return only their submission for that section' do
+        expect(assigns('submissions')).to eq([submission_c])
       end
     end
 
