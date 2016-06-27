@@ -5,10 +5,12 @@ require 'json'
 module Synergy
   module Adapters
     class GovCMSAdapter
-      def initialize(source_name, url)
-        @source_name = source_name
-        @url = "#{url}/node.json?field_current_revision_state=published"
-        @image_base_href = URI.parse(url)
+      attr_reader :section
+
+      def initialize(section)
+        @section = section
+        @url = "#{section.cms_url}/node.json?field_current_revision_state=published"
+        @image_base_href = URI.parse(section.cms_url)
       end
 
       def run(&block)
@@ -16,7 +18,11 @@ module Synergy
       end
 
       def log(message)
-        Rails.logger.info "[#{@source_name}] #{message}"
+        Rails.logger.info "[#{destination_path}] #{message}"
+      end
+
+      def destination_path
+        "/#{section.slug}"
       end
 
       private
@@ -34,8 +40,8 @@ module Synergy
         url = URI.parse(govcms_node["url"])
 
         {
-          source_url: govcms_node["url"],
-          path: url.path.split("/").select{|p| !p.blank?},
+          cms_ref: govcms_node["url"],
+          path: url.path,
           title: govcms_node["field_title"],
           content: extract_content(govcms_node)
         }
@@ -67,7 +73,7 @@ module Synergy
         end
         html.to_html
       rescue
-        Rails.logger.error "[#{@source_name}] Could not parse HTML content: #{$!.message}"
+        Rails.logger.error "[#{destination_path}] Could not parse HTML content: #{$!.message}"
         content
       end
 

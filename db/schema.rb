@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625141212) do
+ActiveRecord::Schema.define(version: 20160627020818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,10 +85,13 @@ ActiveRecord::Schema.define(version: 20160625141212) do
     t.string   "type"
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "layout"
     t.text     "summary"
+    t.string   "cms_type",   default: "Collaborate", null: false
+    t.string   "cms_url"
+    t.string   "cms_path"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -114,6 +117,7 @@ ActiveRecord::Schema.define(version: 20160625141212) do
     t.string   "path",        null: false
     t.text     "title"
     t.string   "source_name", null: false
+    t.string   "cms_ref"
     t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
     t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
     t.index ["source_name"], name: "index_synergy_nodes_on_source_name", using: :btree

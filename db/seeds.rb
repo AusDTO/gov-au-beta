@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'synergy/cms_import'
+
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
@@ -69,3 +71,6 @@ names.keys.each do |key|
   names[key][0].last_name = names[key][1][1]
   names[key][0].save!
 end
+
+Synergy::CMSImport.import_from_all_sections
+

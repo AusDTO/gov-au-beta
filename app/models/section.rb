@@ -12,6 +12,8 @@ class Section < ApplicationRecord
   # Note: resourcify must be called in every subclass so rolify will work
   resourcify
 
+  after_initialize :set_default_cms_type
+
   # Finds a node via path from this Section.
   def find_node!(path)
     path.split('/').reduce(self) do |node,slug|
@@ -30,4 +32,9 @@ class Section < ApplicationRecord
     Section.find_by(slug: slug)
   end
 
+  private
+
+  def set_default_cms_type
+    self.cms_type ||= "Collaborate"
+  end
 end
