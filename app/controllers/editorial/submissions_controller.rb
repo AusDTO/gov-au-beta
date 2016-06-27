@@ -9,9 +9,6 @@ class Editorial::SubmissionsController < ApplicationController
 
 
   def index
-    if params[:section]
-      @section = Section.find_by_slug(params[:section])
-    end
     @submissions = scope.open_submissions_for(current_user)
   end
 
