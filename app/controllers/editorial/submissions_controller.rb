@@ -14,7 +14,7 @@ class Editorial::SubmissionsController < ApplicationController
   end
 
   def create
-    @submission = Submission.new(revision: @node.revise!(params[:node]), section: @node.section)
+    @submission = Submission.new(revision: @node.revise!(params[:node]))
 
     if @submission.submit! current_user
       flash[:notice] = "Your changes have been submitted to #{@node.name}"
