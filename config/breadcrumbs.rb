@@ -56,9 +56,9 @@ crumb :new_editorial_node do |section, parent_node, type|
   parent :prepare_editorial_nodes, section, parent_node
 end
 
-crumb :editorial_user_submissions do |submission|
-  link 'Submissions', editorial_user_submissions_path
-  parent :editorial_root
+crumb :editorial_section_submissions do |section|
+  link 'Submissions', editorial_section_submissions_path(section)
+  parent :editorial_section, section
 end
 
 crumb :editorial_submission do |submission|
