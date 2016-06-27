@@ -58,6 +58,13 @@ author.add_role :author, topic
 reviewer.add_role :reviewer, topic
 owner.add_role :owner, topic
 
+node3.content_body = 'This is draft content I would like submitted'
+
+if node3.submissions.blank?
+  sub = Submission.new(revision: node3.revise!(node3.content)).tap do |submission|
+    submission.submit!(author)
+  end
+end
 
 names = {
     admin: [admin,  %w(Joe Bloggs)],
