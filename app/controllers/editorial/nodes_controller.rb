@@ -2,7 +2,7 @@ module Editorial
   class NodesController < EditorialController
     include ::NodesHelper, ::EditorialHelper
 
-    layout 'editorial'
+    layout 'editorial_node'
 
     before_action :load_lists, :derive_type, except: [:show, :prepare]
 

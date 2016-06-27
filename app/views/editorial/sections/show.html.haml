@@ -36,10 +36,11 @@
 %table.table-alternating
   %thead
     %tr
-      %th Title
-      %th Type
-      %th Status
-      %th Author(s)
+      %td Title
+      %td Type
+      %td Status
+      %td Author(s)
+      %td Action
   %tbody
     - @section.nodes.order(updated_at: :desc).each do |page|
       %tr
@@ -48,3 +49,7 @@
         %td #{page.type}
         %td #{page.state}
         %td Author
+        - if can? :manage, page
+          %td= link_to 'Edit', new_editorial_node_submission_path(page.id)
+        - else
+          %td -
