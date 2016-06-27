@@ -49,7 +49,7 @@
         %td #{page.type}
         %td #{page.state}
         %td Author
-        - if current_user.has_role? :author, page.section
+        - if can? :manage, page
           %td= link_to 'Edit', new_editorial_node_submission_path(page.id)
         - else
           %td -
