@@ -34,10 +34,14 @@ class Editorial::SubmissionsController < ApplicationController
     authorize! :review, @submission
     if params[:accept]
       @submission.accept!(current_user)
+      redirect_to nodes_path(section: @submission.section, path: @submission.revisable.path)
     elsif params[:reject]
       @submission.reject!(current_user)
+      redirect_to editorial_submission_path(@submission)
+    else
+      flash[:alert] = 'Unknown update action'
+      redirect_to editorial_submission_path(@submission)
     end
-    redirect_to editorial_submission_path(@submission)
   end
 
   private
