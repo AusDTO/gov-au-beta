@@ -57,8 +57,7 @@ class Editorial::SubmissionsController < ApplicationController
 
   def scope
     if params[:section]
-
-      Section.find_by(slug: params[:section]).submissions
+      Section.find_by_slug(params[:section]).submissions
     else
       Submission
     end
