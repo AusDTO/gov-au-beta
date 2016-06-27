@@ -40,7 +40,7 @@ module Synergy
         url = URI.parse(govcms_node["url"])
 
         {
-          source_url: govcms_node["url"],
+          cms_ref: govcms_node["url"],
           path: url.path,
           title: govcms_node["field_title"],
           content: extract_content(govcms_node)

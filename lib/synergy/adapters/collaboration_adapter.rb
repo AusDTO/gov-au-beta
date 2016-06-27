@@ -41,7 +41,7 @@ module Synergy
 
       def to_node_data(node)
         {
-          source_url: node.path,
+          cms_ref: "collaborate:#{node.id}",
           path: node.path,
           title: node.name,
           content: node.content

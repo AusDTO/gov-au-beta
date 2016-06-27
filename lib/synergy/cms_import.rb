@@ -43,7 +43,7 @@ module Synergy
               parent: parent_s_node,
               slug: slug
             ) do |sn|
-              sn.source_url = node_data[:source_url]
+              sn.cms_ref = node_data[:cms_ref]
             end
           end
 
