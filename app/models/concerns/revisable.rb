@@ -42,19 +42,21 @@ module Revisable
 
   private
 
-  def revise_from_content(base_content, revised_contents)
-    diffs = revised_contents.collect {|content_key, revised_value|
-      unless revised_value.nil? # Ignore nil (but not empty string!)
-        current_value = base_content.send(content_key) || ''
+  # Create a Revision using revised content compared to base content
+  def revise_from_content(base_content, revised_content)
+    revisions.build(diffs: generate_diff_hash(base_content, revised_content))
+  end
 
-        # Ignore unchanged contents or nil (not blank!) content attributes
-        unless current_value == revised_value
-          [content_key, persistable_diff(current_value, revised_value || '').to_json]
-        end
+  # Generate the hash of diffs to populate a Revision
+  def generate_diff_hash(base_content, revised_content)
+    revised_content.compact.collect {|content_key, revised_value|
+      current_value = base_content.send(content_key) || ''
+
+      # Ignore unchanged contents or nil (not blank!) content attributes
+      unless current_value == revised_value
+        [content_key, persistable_diff(current_value, revised_value || '').to_json]
       end
     }.compact.to_h
-
-    revisions.build(diffs: diffs)
   end
 
   # This is a bit gross, but I didn't want to monkey-patch Diff::LCS::Change
