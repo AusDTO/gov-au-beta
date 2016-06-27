@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627061012) do
+ActiveRecord::Schema.define(version: 20160627064522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 20160627061012) do
   end
 
   create_table "synergy_nodes", force: :cascade do |t|
-    t.integer  "parent_id"
     t.integer  "position"
     t.jsonb    "content"
     t.datetime "created_at",  null: false
@@ -117,7 +116,6 @@ ActiveRecord::Schema.define(version: 20160627061012) do
     t.string   "source_name", null: false
     t.string   "cms_ref"
     t.string   "slug"
-    t.index ["parent_id"], name: "index_synergy_nodes_on_parent_id", using: :btree
     t.index ["path"], name: "index_synergy_nodes_on_path", unique: true, using: :btree
     t.index ["source_name"], name: "index_synergy_nodes_on_source_name", using: :btree
   end
