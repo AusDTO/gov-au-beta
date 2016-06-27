@@ -12,7 +12,7 @@ class Ability
       # TODO: Should all logged in users be able to view editorial pages?
       can :view, :editorial_page
       can :manage, Node do |node|
-        node.state == :draft && user.has_role?(:author, node.section)
+        user.has_role?(:author, node.section)
       end
 
       can :update, Request do |request|
@@ -22,7 +22,7 @@ class Ability
       end
 
       can :read, Node do |node|
-        node.state == :draft && user.has_role?(:reviewer, node.section)
+        user.has_role?(:reviewer, node.section)
       end
       can :create_in, Section do |section|
         user.has_role?(:author, section)
