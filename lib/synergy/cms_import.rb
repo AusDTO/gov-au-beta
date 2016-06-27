@@ -54,10 +54,9 @@ module Synergy
       end
     end
 
-    private
-
     def self.make_adapter(section)
       ADAPTERS[section.cms_type].new(section)
     end
+    private_class_method :make_adapter
   end
 end
