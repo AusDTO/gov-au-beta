@@ -15,18 +15,12 @@ class RevisionContent
   end
 
   def get_content(content_key)
-    # First get the HEAD
-    value = node.send(content_key) || ''
+    value = ''
 
     traversal_sequence.each do |rev|
       if rev.diffs[content_key].present?
         diff = JSON.parse(rev.diffs[content_key])
-
-        value = if revision.applied?
-                  value.patch diff   # Patch forward
-                else
-                  value.unpatch diff # Unpatch backward
-                end
+        value = value.patch diff
       end
     end
 
@@ -34,7 +28,7 @@ class RevisionContent
   end
 
   def method_missing(method_sym, *arguments, &block)
-    if method_sym.to_s =~ /^content_/ && node.respond_to?(method_sym)
+    if node.class.content_attributes.include? method_sym
       get_content(method_sym)
     else
       super
@@ -48,10 +42,6 @@ class RevisionContent
   end
 
   def traversal_sequence
-    if revision.applied?
-      node.revisions.applied.since revision
-    else
-      node.revisions.pending.until revision
-    end
+    revision.self_and_ancestors.reverse
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625052848) do
+ActiveRecord::Schema.define(version: 20160625141212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160625052848) do
     t.jsonb    "diffs"
     t.datetime "created_at"
     t.datetime "applied_at"
+    t.uuid     "parent_id"
     t.index ["revisable_type", "revisable_id"], name: "index_revisions_on_revisable_type_and_revisable_id", using: :btree
   end
 

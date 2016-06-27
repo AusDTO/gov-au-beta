@@ -24,3 +24,5 @@ en:
     nodes:
       general_content: General content
       news_article: News article
+      general_content_form: General content
+      news_article_form: News article
