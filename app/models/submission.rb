@@ -1,15 +1,30 @@
 class Submission < ApplicationRecord
   extend Enumerize
-
   enumerize :state, in: %w{draft submitted accepted rejected}, scope: true
 
   belongs_to :revision
-  belongs_to :section
   belongs_to :submitter, class_name: 'User'
   belongs_to :reviewer, class_name: 'User'
 
   delegate :revisable, to: :revision
   delegate :section, to: :revision
+
+  scope :with_node, -> {
+    joins(:revision).joins('INNER JOIN nodes ON nodes.id=revisions.revisable_id').where('revisions.revisable_type=?', 'Node')
+  }
+
+  scope :with_published_node, ->{
+    with_node.where('nodes.state=?', 'published')
+  }
+
+
+  scope :with_unpublished_node, -> {
+    with_node.where('nodes.state!=?', 'published')
+  }
+
+  scope :of_section, -> (section) {
+    with_node.where('nodes.section_id=?', section.id)
+  }
 
   validates_presence_of :revision
   validates_presence_of :submitter
