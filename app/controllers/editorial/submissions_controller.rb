@@ -6,12 +6,11 @@ class Editorial::SubmissionsController < ApplicationController
   decorates_assigned :submission
 
 
-  def user_index
+  def index
 
-    submissions = Submission.where(submitter: current_user).
-                  where.not(state: %w(accepted rejected)).order(updated_at: :desc)
+    submissions = scope.open_submissions_for(current_user)
 
-    @new_submissions = submissions.inject([]) do | agg, submission|
+    @new_submissions = submissions.inject([]) do |agg, submission|
       agg << submission # if no submission node
     end
 
@@ -19,7 +18,7 @@ class Editorial::SubmissionsController < ApplicationController
   end
 
   def create
-    @submission = Submission.new(revision: @node.revise!(params[:node]))
+    @submission = Submission.new(revision: @node.revise!(params[:node]), section: @node.section)
 
     if @submission.submit! current_user
       flash[:notice] = "Your changes have been submitted to #{@node.name}"
@@ -54,5 +53,14 @@ class Editorial::SubmissionsController < ApplicationController
 
   def find_submission
     @submission = Submission.find(params[:id])
+  end
+
+  def scope
+    if params[:section]
+
+      Section.find_by(slug: params[:section]).submissions
+    else
+      Submission
+    end
   end
 end

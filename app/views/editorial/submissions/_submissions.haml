@@ -2,9 +2,9 @@
   %thead
     %tr
       %td Name
-      %td Date
+      %td Create Date
   %tbody
     - submissions.each do |submission|
       %tr
         %td= link_to "#{submission.revisable.name}", editorial_submission_path(submission)
-        %td #{submission.revision.created_at}
+        %td #{submission.created_at}
