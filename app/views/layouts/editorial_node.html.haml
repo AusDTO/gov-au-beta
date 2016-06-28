@@ -1,10 +1,10 @@
 = inside_layout 'editorial' do
   = content_for :toolbar_actions do
-    - if @node
-      - if can? :create, Submission
+    - if can?(:create_in, @section)
+      - if @node
         =link_to 'Edit', new_editorial_node_submission_path(@node)
         =link_to 'New page', prepare_editorial_nodes_path(parent: @node)
-    -elsif @section && can?(:create_in, @section)
-      =link_to 'New page', prepare_editorial_nodes_path(section: @section.id)
+      -elsif @section
+        =link_to 'New page', prepare_editorial_nodes_path(section: @section.id)
 
   = yield
