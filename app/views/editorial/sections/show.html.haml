@@ -1,8 +1,8 @@
 - breadcrumb :editorial_section, @section
 
 %h3 Pages
-
-%p= link_to 'Add_page', prepare_editorial_nodes_path(section: @section.id)
+- if can? :create_in, @section
+  %p= link_to 'Add_page', prepare_editorial_nodes_path(section: @section.id)
 
 %table.table-alternating
   %thead
