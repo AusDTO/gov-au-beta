@@ -60,6 +60,24 @@ RSpec.describe "controls", :type => :feature do
         include_examples 'no New page link'
         include_examples 'no Edit page link'
       end
+
+      context 'when visiting a topic page' do
+        before do
+          visit section_path(Fabricate(:topic))
+        end
+        it 'shows a request membership link' do
+          expect(page.body).to have_content(/request/i)
+        end
+      end
+
+      context 'when visiting an agency page' do
+        before do
+          visit section_path(Fabricate(:agency))
+        end
+        it 'does not show request membership link' do
+          expect(page.body).not_to have_content(/request/i)
+        end
+      end
     end
 
     context 'as reviewer' do
