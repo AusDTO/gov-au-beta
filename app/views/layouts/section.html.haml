@@ -15,7 +15,7 @@
 
     - if show_request_controls?
       - if current_user.pending_request_for?(@section)
-        = link_to 'Membership requested', editorial_request_path(current_user.pending_request_for(@section))
+        = link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
       - else
         = link_to 'Request membership', new_editorial_section_request_path(@section)
 

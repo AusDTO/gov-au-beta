@@ -2,6 +2,7 @@ module Editorial
   class SectionsController < EditorialController
     before_action :find_section
     decorates_assigned :section
+    decorates_assigned :users, with: UserDecorator
     layout 'editorial_section'
 
     def show
@@ -10,7 +11,7 @@ module Editorial
 
     def collaborators
       @pending = Request.where(section: @section, state: :requested)
-      @collaborators = @section.users.map(&:decorate)
+      @users = @section.users
     end
 
     private

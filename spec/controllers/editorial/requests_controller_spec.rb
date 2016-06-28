@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Editorial::RequestsController, type: :controller do
   include ActiveJob::TestHelper
+  render_views
 
   describe '#new' do
 

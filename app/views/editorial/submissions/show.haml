@@ -26,6 +26,6 @@
   = submission.submitted_content.content_body
 
 - if can_review?
-  = simple_form_for [:editorial, submission] do |f|
+  = simple_form_for @submission, url: editorial_section_submission_path(@section, submission) do |f|
     = f.button :button, 'Publish change', name: 'accept'
     = f.button :button, 'Reject change', name: 'reject'

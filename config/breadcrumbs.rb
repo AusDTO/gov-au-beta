@@ -73,12 +73,12 @@ end
 
 # use :editorial_root as parent because the user may not have access to :editorial_section
 crumb :editorial_request do |request|
-  link 'Membership Request', editorial_request_path(request)
+  link 'Membership Request', editorial_section_request_path(request.section, request)
   parent :editorial_root
 end
 
 crumb :new_editorial_request do |section|
-  link 'Request Membership', new_editorial_request_path(section: section.id)
+  link 'Request Membership', new_editorial_section_request_path(section)
   parent :editorial_root
 end
 

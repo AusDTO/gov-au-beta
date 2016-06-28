@@ -24,8 +24,7 @@
 
 -if current_user.in?(@owners)
   - if rqst.open?
-    =simple_form_for [:editorial, @rqst] do |f|
-      =f.input :section_id, as: :hidden
+    = simple_form_for @rqst, url: editorial_section_request_path(@section, @rqst) do |f|
       =f.input :state, input_html: {value: 'approved'}, as: :hidden
       =f.submit 'Approve membership'
 #{rqst.actioned_status}

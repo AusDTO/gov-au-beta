@@ -15,7 +15,6 @@
 
 
 .fieldset
-  =simple_form_for [:editorial, @form] do |f|
-    = f.input :section_id, as: :hidden
+  = simple_form_for @form, url: editorial_section_requests_path(@section) do |f|
     = f.text_area :message, required: false, placeholder: 'Optional'
     = f.submit 'Request membership', role: 'button'

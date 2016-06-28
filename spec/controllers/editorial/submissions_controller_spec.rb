@@ -6,11 +6,20 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   let(:node) { Fabricate(:node) }
 
   describe 'GET #show' do
-    context 'when user is authorised' do
+    context 'as an authorised author' do
       before { sign_in(author) }
       let(:submission) { Fabricate(:submission) }
       let(:section) { submission.revision.revisable.section }
       let!(:author) { Fabricate(:user, author_of: section) }
+      subject { get :show, section_id: section, id: submission.id }
+      it { is_expected.to be_success }
+    end
+
+    context 'as an authorised reviewer' do
+      before { sign_in(reviewer) }
+      let(:submission) { Fabricate(:submission) }
+      let(:section) { submission.revision.revisable.section }
+      let!(:reviewer) { Fabricate(:user, reviewer_of: section) }
       subject { get :show, section_id: section, id: submission.id }
       it { is_expected.to be_success }
     end

@@ -17,7 +17,7 @@
       %th Email
       %th Roles
   %tbody
-    - @collaborators.each do |user|
+    - users.each do |user|
       %tr
         %td #{user.full_name}
         %td #{user.email}

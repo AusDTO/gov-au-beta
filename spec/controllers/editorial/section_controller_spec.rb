@@ -67,7 +67,7 @@ RSpec.describe Editorial::SectionsController, type: :controller do
           get :collaborators, section_id: section
 
           expect(response.status).to eq(200)
-          expect(assigns(:collaborators)).to eq([author, reviewer])
+          expect(assigns(:users)).to eq([author, reviewer])
         end
       end
 
