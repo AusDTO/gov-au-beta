@@ -28,11 +28,11 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
   end
 
   before(:each) do
-    SynergyNode.delete_all
+    Page.delete_all
   end
 
   after(:each) do
-    SynergyNode.delete_all
+    Page.delete_all
   end
 
   let(:cms_url)           { "http://foo.bar.com/stuff" }
@@ -43,49 +43,43 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
     end
   end
   let(:importer)          { Synergy::CMSImport.new(adapter) }
-  let(:root_node)         { Fabricate(:synergy_node, path: '/', source_name: 'synergy') }
   let(:dummy_nodes) do
     [
       { 
-        cms_ref: "http://foo.bar.com/stuff/dummy.html",
-        path: "dummy",
-        title: "Hello from Dummy",
+        cms_ref: "http://foo.bar.com/stuff/dummy1.html",
+        path: "dummy1",
+        title: "Hello from Dummy1",
         content: "test content"
-      }
+      },
+      { 
+        cms_ref: "http://foo.bar.com/stuff/dummy2.html",
+        path: "dummy2",
+        title: "Hello from Dummy2",
+        content: "test content"
+      },
     ]
   end
 
-  describe "database transactions" do
+  describe "running the importer" do
+    before(:each) { importer.run }
 
+    it "should create a synergy node for every node produced by the adapter" do
+      expect(Page.count).to eq(dummy_nodes.count)
+    end
+  end
+
+  describe "database transactions" do
     let(:dummy_nodes) { [] }
 
     before(:each) do
-      Fabricate(:synergy_node, source_name: section.slug, parent: root_node)
+      Fabricate(:page, source_name: section.slug)
     end
 
     it "all nodes for a source are replaced during import" do
-      expect(SynergyNode.where(source_name: section.slug).count).to eq(1)
+      expect(Page.where(source_name: section.slug).count).to eq(1)
       importer.run
-      expect(SynergyNode.where(source_name: section.slug).count).to eq(0)
+      expect(Page.where(source_name: section.slug).count).to eq(0)
     end
   end
-
-  describe "pending..." do
-    let(:root_node)     { SynergyNode.root }
-    let(:all_nodes)     { SynergyNode.all }
-    let(:section_nodes) { SynergyNode.where(source_name: section.slug) }
-
-    before(:each) do
-      importer.run
-    end
-
-    it 'creates nodes off the synergy root node'
-
-    it 'recreates the full path of the source node'
-    #it 'sets the source url of every node in the path'
-    #it 'sets the content of the leaf node'
-    #it 'sets the title of the leaf node'
-  end
-
 end
 
