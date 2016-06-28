@@ -31,7 +31,7 @@ crumb :editorial_section do |section|
 end
 
 crumb :editorial_collaborators do |section|
-  link 'Collaborators', editorial_collaborators_path(section)
+  link 'Collaborators', editorial_section_collaborators_path(section)
   parent :editorial_section, section
 end
 

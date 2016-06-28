@@ -8,7 +8,7 @@
   %ul
     - @pending.each do |p|
       %li
-        =link_to "#{p.user.decorate.full_name} (#{p.user.email})", editorial_request_path(p)
+        =link_to "#{p.user.decorate.full_name} (#{p.user.email})", editorial_section_request_path(@section, p)
 
 %table.table-alternating
   %thead

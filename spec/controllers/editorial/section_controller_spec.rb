@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Editorial::SectionsController, type: :controller do
+  render_views
 
   let!(:section) { Fabricate(:section) }
   let!(:user) { Fabricate(:user) }
