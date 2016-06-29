@@ -6,13 +6,20 @@ class Ability
 
     if user.has_role? :admin
       can :manage, :all
+      cannot :manage, Node do |node|
+        node.section.cms_type != 'Collaborate'
+      end
+      cannot :create_in, Section do |section|
+        section.cms_type != 'Collaborate'
+      end
     end
 
     if user.id
       # TODO: Should all logged in users be able to view editorial pages?
       can :view, :editorial_page
       can :manage, Node do |node|
-        user.has_role?(:author, node.section)
+        user.has_role?(:author, node.section) &&
+            node.section.cms_type == 'Collaborate'
       end
 
       can :update, Request do |request|
@@ -25,12 +32,15 @@ class Ability
         user.has_role?(:reviewer, node.section)
       end
       can :create_in, Section do |section|
-        user.has_role?(:author, section)
+        user.has_role?(:author, section) &&
+            section.cms_type == 'Collaborate'
       end
       can :review, Submission do |submission|
         user.has_role?(:reviewer, submission.section)
       end
     end
+
+
 
     # Everyone (signed in or not) can view published pages.
     can :read, Node, :state => :published

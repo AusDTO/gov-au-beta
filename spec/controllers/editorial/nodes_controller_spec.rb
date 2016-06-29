@@ -66,4 +66,56 @@ RSpec.describe Editorial::NodesController, type: :controller do
       end
     end
   end
+  describe 'POST #create' do
+    describe 'to a collaborate node' do
+      context 'as authorised user' do
+
+        before do
+          expect(ContentAnalysisHelper).to receive(:lint).and_return('')
+        end
+        before { sign_in(author) }
+
+        let(:submission) { Fabricate(:submission) }
+
+        subject do
+          post :create, section_id: section, node: { name: 'Test Node' }
+          response
+        end
+
+        it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
+
+        specify 'that a node is created' do
+          expect { subject }.to change(Node, :count).by(1)
+        end
+      end
+
+      context 'as unauthorised user' do
+        let(:user) { Fabricate(:user) }
+        before do
+          sign_in(user)
+        end
+
+        it "does not save the new node" do
+          expect{
+            post :create, section_id: section, node: { name: 'Test Node' }
+          }.to_not change(Node,:count)
+        end
+      end
+    end
+    context 'to a govcms node' do
+      let(:section) { Fabricate(:section, cms_type: "govcms" ) }
+
+      context 'as admin user' do
+        let(:admin) { Fabricate(:user, is_admin: true) }
+        before do
+          sign_in(admin)
+        end
+        it "does not save the new node" do
+          expect{
+            post :create, section_id: section, node: { name: 'Test Node' }
+          }.to_not change(Node,:count)
+        end
+      end
+    end
+  end
 end

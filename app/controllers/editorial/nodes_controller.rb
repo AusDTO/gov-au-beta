@@ -41,13 +41,14 @@ module Editorial
     def new
       @editor = 'simple'
       configure_defaults!
+      authorize! :create_in, @section
       @form.prepopulate!
     end
 
     def create
       @form = new_form
       @form.prepopulate!
-
+      authorize! :create_in, @section
       if @form.validate(params.require(:node).permit!)
         submission = NodeCreator.new(@section, @form).perform!(current_user)
         redirect_to editorial_section_submission_path(@section, submission)
@@ -57,7 +58,9 @@ module Editorial
     end
 
     def edit
+
       @node = Node.find(params[:id])
+      authorize! :update, @node
       @type_name = @node.class.name.underscore
       @form = "#{@node.class.name}Form".constantize.new(@node)
       @editor = params[:editor]
@@ -66,6 +69,7 @@ module Editorial
 
     def update
       @node = Node.find(params[:id])
+      authorize! :update, @node
       @form = new_form(@node)
 
       if try_save
