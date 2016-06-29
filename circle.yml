@@ -11,23 +11,34 @@ dependencies:
     - cp .env.sample .env
 
 deployment:
-  development:
-    branch: develop
-    commands:
-      - cf api $CF_API_DEV --skip-ssl-validation &> /dev/null
-      - cf auth $CF_USER_DEV $CF_PASSWORD_DEV &> /dev/null
-      - cf target -o $CF_ORG_DEV &> /dev/null
-      - cf target -s $CF_SPACE_DEV &> /dev/null
-      - ./bin/cideploy.sh
+# development:
+# branch: develop
+# commands:
+#   - cf api $CF_API_DEV --skip-ssl-validation &> /dev/null
+#   - cf auth $CF_USER_DEV $CF_PASSWORD_DEV &> /dev/null
+#   - cf target -o $CF_ORG_DEV &> /dev/null
+#   - cf target -s $CF_SPACE_DEV &> /dev/null
+#   - ./bin/cideploy.sh
 
   staging:
-    branch: staging
+    branch: develop
     commands:
-      - cf api $CF_API_DEV --skip-ssl-validation &> /dev/null
-      - cf auth $CF_USER_DEV $CF_PASSWORD_DEV &> /dev/null
-      - cf target -o $CF_ORG_DEV &> /dev/null
-      - cf target -s $CF_SPACE_STAGING &> /dev/null
+      - cf api https://api.system.staging.digital.gov.au
+      - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
+      - cf target -o govau -s platform
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
-      - ./bin/cideploy-staging.sh
+      - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
+
+  production:
+    branch: master
+    commands:
+      - cf api $CF_API_PROD --skip-ssl-validation &> /dev/null
+      - cf auth $CF_USER_PROD $CF_PASSWORD_PROD &> /dev/null
+      - cf target -o $CF_ORG_PROD &> /dev/null
+      - cf target -s $CF_SPACE_PROD &> /dev/null
+      - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_PROD_ACCESS_TOKEN
+          -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
+          -F local_username=`whoami`
+      - ./bin/deploy-prod.sh
