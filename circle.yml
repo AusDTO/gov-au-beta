@@ -12,7 +12,8 @@ dependencies:
 
 deployment:
   staging:
-    branch: fix/deployment
+    branch: develop
+    owner: AusDTO
     commands:
       - cf api https://api.system.staging.digital.gov.au
       - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
@@ -22,7 +23,8 @@ deployment:
           -F local_username=`whoami`
       - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
   production:
-    tag: /v*/
+    tag: /v.*/
+    owner: AusDTO
     commands:
       - cf api $CF_API_PROD --skip-ssl-validation
       - cf auth $CF_USER_PROD $CF_PASSWORD_PROD
