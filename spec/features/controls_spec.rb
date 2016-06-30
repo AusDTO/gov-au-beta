@@ -121,5 +121,28 @@ RSpec.describe "controls", :type => :feature do
 
     end
 
+    context 'as admin' do
+      let (:user) { Fabricate(:user, is_admin: true) }
+
+      context 'when visiting govcms section' do
+        let(:section) { Fabricate(:section, cms_type: "govcms") }
+        before do
+          visit section_path(section)
+        end
+        include_examples 'no New page link'
+        include_examples 'no Edit page link'
+      end
+
+      context 'when visiting node in govcms section' do
+        let(:section) { Fabricate(:section, cms_type: "govcms") }
+        let!(:node) { Fabricate(:node, section: section) }
+        before do
+          visit nodes_path(section: section, path: node.path)
+        end
+        include_examples 'no New page link'
+        include_examples 'no Edit page link'
+      end
+
+    end
   end
 end
