@@ -5,6 +5,17 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
   let(:node) { Fabricate(:node) }
 
+  describe 'GET #show' do
+    context 'when user is authorised' do
+      before { sign_in(author) }
+      let(:submission) { Fabricate(:submission) }
+      let(:section) { submission.revision.revisable.section }
+      let!(:author) { Fabricate(:user, author_of: section) }
+      subject { get :show, section_id: section, id: submission.id }
+      it { is_expected.to be_success }
+    end
+  end
+
   describe 'GET #index' do
     # Yes I hate the usage of all of these fabricators...
     let(:user_a) { Fabricate(:user) }
@@ -26,7 +37,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
       before do
         sign_in(user_b)
-        get :index, section: section.slug
+        get :index, section_id: section
       end
 
       it 'should return only their submission for section' do
@@ -38,7 +49,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
       before do
         sign_in(user_a)
-        get :index, section: section.slug
+        get :index, section_id: section
       end
 
       it 'should return only their submission for section' do
@@ -50,7 +61,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
       before do
         sign_in(user_a)
-        get :index, section: section_b.slug
+        get :index, section_id: section_b
       end
 
       it 'should return only their submission for that section' do
@@ -65,16 +76,16 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     before { sign_in(user) }
 
     describe 'GET #new' do
-      before { get :new, node_id: node.id }
+      before { get :new, section_id: node.section, node_id: node.id }
       it { expect(assigns('node')).to eq node }
     end
 
     describe 'GET #create' do
       before do
-        post :create, node_id: node.id, node: {content_body: 'Submitted change'}
+        post :create, section_id: node.section, node_id: node.id, node: {content_body: 'Submitted change'}
       end
 
-      it { is_expected.to redirect_to editorial_submission_path(Submission.last) }
+      it { is_expected.to redirect_to editorial_section_submission_path(node.section, Submission.last) }
 
       it 'should create a new submission on the node' do
         submission = Submission.last
@@ -87,13 +98,6 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
         expect(content.content_body).to eq 'Submitted change'
       end
     end
-
-    describe 'GET #show' do
-      before { get :show, id: submission.id }
-      let!(:submission) { Fabricate(:submission) }
-
-      it { expect(assigns('submission')).to eq submission }
-    end
   end
 
   context 'as a reviewer' do
@@ -104,7 +108,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     describe 'POST #update' do
 
       context '(:accept)' do
-        subject { post :update, params: { id: submission.id, accept: true } }
+        subject { post :update, section_id: submission.section, id: submission.id, accept: true }
         it { is_expected.to redirect_to nodes_path(section: submission.section, path: submission.revisable.path) }
         it 'change to accepted' do
           expect { subject }.to change { submission.reload.accepted? }.from(false).to(true)
@@ -112,16 +116,16 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       end
 
       context '(:reject)' do
-        subject { post :update, params: { id: submission.id, reject: true } }
-        it { is_expected.to redirect_to editorial_submission_path(submission.id) }
+        subject { post :update, section_id: submission.section, id: submission.id, reject: true }
+        it { is_expected.to redirect_to editorial_section_submission_path(submission.section, submission.id) }
         it 'change to rejected' do
           expect { subject }.to change { submission.reload.rejected? }.from(false).to(true)
         end
       end
 
       context '()' do
-        subject { post :update, params: { id: submission.id } }
-        it { is_expected.to redirect_to editorial_submission_path(submission.id) }
+        subject { post :update, section_id: submission.section, id: submission.id }
+        it { is_expected.to redirect_to editorial_section_submission_path(submission.section, submission.id) }
         it 'sets flash' do
           subject
           expect(flash[:alert]).to be_present

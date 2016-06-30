@@ -1,10 +1,8 @@
 module Editorial
-  class NodesController < EditorialController
+  class NodesController < Editorial::SectionsController
     include ::NodesHelper, ::EditorialHelper
 
-    layout 'editorial_node'
-
-    before_action :load_lists, :derive_type, except: [:show, :prepare]
+    before_action :derive_type, except: [:show, :prepare]
 
     def index
       #TODO: evaluate whether this is required anymore!
@@ -13,14 +11,12 @@ module Editorial
         return
       end
 
-      @section = Section.find params[:section_id]
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end
 
     # TODO: show useful editorial things here rather than just showing the published version
     def show
       @node = Node.find(params[:id]).decorate
-      @section = @node.section
       render_node @node, @section
     end
 
@@ -53,8 +49,8 @@ module Editorial
       @form.prepopulate!
 
       if @form.validate(params.require(:node).permit!)
-        submission = NodeCreator.new(@form).perform!(current_user)
-        redirect_to editorial_submission_path(submission)
+        submission = NodeCreator.new(@section, @form).perform!(current_user)
+        redirect_to editorial_section_submission_path(@section, submission)
       else
         render :new
       end
@@ -65,7 +61,7 @@ module Editorial
       @type_name = @node.class.name.underscore
       @form = "#{@node.class.name}Form".constantize.new(@node)
       @editor = params[:editor]
-      redirect_to new_editorial_node_submission_path(@node, editor: @editor)
+      redirect_to new_editorial_section_submission_path(@section, node_id: @node, editor: @editor)
     end
 
     def update
@@ -77,14 +73,9 @@ module Editorial
       else
         render :edit
       end
-
     end
 
     private
-
-    def load_lists
-      @sections = Section.all
-    end
 
     def derive_type
       @type_name = params[:type] || 'general_content'
@@ -101,16 +92,8 @@ module Editorial
 
     def configure_defaults!
       @form = new_form
-      @parent = Node.find(params[:parent]) if params[:parent].present? else nil
-
-      @section = if @parent.present?
-        @form.parent_id = @parent.id
-        @parent.section
-      elsif params[:section].present?
-        Section.find params[:section]
-      end
-
-      @form.section_id = @section.id if @section.present?
+      @parent = Node.find(params[:parent_id]) if params[:parent_id].present?
+      @form.parent_id = @parent.id if @parent
     end
 
     def try_save

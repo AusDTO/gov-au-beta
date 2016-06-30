@@ -36,12 +36,12 @@ crumb :editorial_collaborators do |section|
 end
 
 crumb :editorial_node do |node|
-  link node.name, editorial_node_path(node)
+  link node.name, editorial_section_node_path(node.section, node)
   parent :editorial_section, node.section
 end
 
 crumb :prepare_editorial_nodes do |section, parent_node|
-  link 'Prepare', prepare_editorial_nodes_path(section: section.andand.id, parent: parent_node.andand.id)
+  link 'Prepare', prepare_editorial_section_nodes_path(section: section.andand.id, parent: parent_node.andand.id)
   if parent_node
     parent :editorial_node, parent_node
   elsif section
@@ -52,7 +52,7 @@ crumb :prepare_editorial_nodes do |section, parent_node|
 end
 
 crumb :new_editorial_node do |section, parent_node, type|
-  link 'New', new_editorial_node_path(section: section.andand.id, parent: parent_node.andand.id, type: type)
+  link 'New', new_editorial_section_node_path(section, parent: parent_node.andand.id, type: type)
   parent :prepare_editorial_nodes, section, parent_node
 end
 
@@ -62,12 +62,12 @@ crumb :editorial_section_submissions do |section|
 end
 
 crumb :editorial_submission do |submission|
-  link 'Submission', editorial_submission_path(submission)
+  link 'Submission', editorial_section_submission_path(submission.section, submission)
   parent :editorial_node, submission.revisable
 end
 
 crumb :editorial_submission_new do |node|
-  link 'New Submission', new_editorial_node_submission_path(node)
+  link 'New Submission', new_editorial_section_submission_path(node.section, node)
   parent :editorial_node, node
 end
 

@@ -2,15 +2,18 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
-      get 'prepare', on: :collection
-      resources :submissions, shallow: true
+
+    get ':section_id' => 'sections#show', as: 'section'
+    scope ':section_id', as: 'section' do
+      resources :submissions
+      resources :requests
+      get 'collaborators' => 'sections#collaborators', as: 'collaborators'
+
+      resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
+        get 'prepare', on: :collection
+      end
     end
 
-    get '/:section/submissions' => 'submissions#index', as: 'section_submissions'
-    resources :requests, only: [:create, :new, :index, :show, :update]
-    get '/:section' => 'sections#show', as: 'section'
-    get '/:section/collaborators' => 'sections#collaborators', as: 'collaborators'
     root to: 'editorial#index'
   end
 

@@ -1,13 +1,16 @@
 class NodeCreator
-  def initialize(form)
-    @form = form
-    @klass = form.model.class
+  def initialize(section, form)
+    @section = section
+    @form    = form
+    @klass   = form.model.class
   end
 
   def perform!(user)
     @form.save do |params|
       content = content_from_params params
-      node = @klass.create! params.delete_if {|k, _v| content.has_key?(k) }
+      node = @klass.new params.delete_if {|k, _v| content.has_key?(k) }
+      node.section = @section
+      node.save!
       Submission.new(revision: node.revise!(content)).tap do |submission|
         submission.submit!(user)
       end

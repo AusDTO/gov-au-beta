@@ -4,9 +4,8 @@
   Create a new page #{@prompt}
 
 .fieldset
-  = simple_form_for [:editorial, @form], as: :node, url: new_editorial_node_path, method: :get do |f|
+  = simple_form_for [:editorial, @form], as: :node, url: new_editorial_section_node_path(@section), method: :get do |f|
     = label_tag :type, 'Page type'
     = select_tag(:type, options_for_select(@node_types))
-    = f.hidden_field :parent_id, name: :parent
-    = f.hidden_field :section_id, name: :section
+    = hidden_field_tag :parent_id, @parent.id if @parent.present?
     = f.submit 'New page', role: 'button'

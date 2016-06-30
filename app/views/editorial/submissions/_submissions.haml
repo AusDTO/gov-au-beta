@@ -6,5 +6,5 @@
   %tbody
     - submissions.each do |submission|
       %tr
-        %td= link_to "#{submission.revisable.name}", editorial_submission_path(submission)
+        %td= link_to "#{submission.revisable.name}", editorial_section_submission_path(submission.section, submission)
         %td #{submission.submitted_at}

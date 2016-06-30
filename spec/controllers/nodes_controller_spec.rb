@@ -6,8 +6,8 @@ RSpec.describe NodesController, :type => :controller do
     describe 'finding a node' do
       render_views  
 
-      let (:root) { Fabricate(:section, name: "root")}
-      let (:zero) { Fabricate(:node, name: "zero", section: root) }
+      let(:root) { Fabricate(:section, name: "root")}
+      let(:zero) { Fabricate(:node, name: "zero", section: root) }
 
       %w(one two).each do |num|
         let!(num.to_sym) { Fabricate(:node, name: num, section: root) }
@@ -39,7 +39,7 @@ RSpec.describe NodesController, :type => :controller do
 
       context "given an existing node with a valid section" do
         it "should return the page successfully" do
-          get :show, params: {:section => "root", path: "one"}
+          get :show, params: { section: "root", path: "one" }
           expect(response.status).to eq(200)
         end
       end

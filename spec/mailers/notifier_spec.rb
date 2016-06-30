@@ -46,7 +46,7 @@ RSpec.describe Notifier, type: :mailer do
     end
 
     it_behaves_like 'has content' do
-      let!(:content) { editorial_request_path(request) }
+      let!(:content) { editorial_section_request_path(section, request) }
     end
     it_behaves_like 'has content' do
       let!(:content) { requester.email }

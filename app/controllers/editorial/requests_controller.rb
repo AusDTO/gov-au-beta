@@ -1,40 +1,41 @@
 module Editorial
-  class RequestsController < EditorialController
+  class RequestsController < Editorial::SectionsController
     decorates_assigned :owners
     decorates_assigned :rqst, with: RequestDecorator
     decorates_assigned :requestor, with: UserDecorator
 
     check_authorization
 
+    rescue_from ActiveRecord::RecordNotFound do
+      redirect_to root_path
+    end
+
     def new
-      @section = Section.find(params[:section])
       @form = RequestForm.new(Request.new(section: @section))
       @owners = User.with_role(:owner, @section)
 
       if (rq = Request.find_by(section: @section, user: current_user))
         flash[:notice] = 'You have already requested membership to this group'
-        redirect_to editorial_request_path(rq)
+        redirect_to editorial_section_request_path(@section, rq)
       end
     end
 
     def create
       @form = RequestForm.new(Request.new)
 
-      if @form.validate(params[:request])
-        section = Section.find(@form.section_id)
+      if @form.validate(params.require(:request).permit!)
         # Check for existing request for the user & section
-        request = Request.find_by(user: current_user, section_id: section.id)
+        request = @section.requests.find_by(user: current_user)
 
         if request.blank?
-          @form.save do |hash|
-            request = Request.new(hash)
-            request.state = 'requested'
-            request.user = current_user
-            request.save!
-          end
+          request = @section.requests.create!(
+            message: @form.message,
+            state: 'requested',
+            user: current_user
+          )
         end
         Notifier.author_request(request).deliver_later
-        redirect_to editorial_request_path(request)
+        redirect_to editorial_section_request_path(@section, request)
       else
         redirect_to root_path
       end

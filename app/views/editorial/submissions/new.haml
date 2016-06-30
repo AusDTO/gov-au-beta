@@ -5,7 +5,7 @@
 = render partial: 'editorial/nodes/editor_links'
 
 .fieldset
-  = simple_form_for [:editorial, @form], as: :node, url: editorial_node_submissions_path(node_id: @node), method: :post do |f|
+  = simple_form_for [:editorial, @form], as: :node, url: editorial_section_submissions_path(@section, node_id: @node), method: :post do |f|
     ~ f.input :content_body, as: :text, label: 'Body'
     = f.submit 'Submit for review'
 

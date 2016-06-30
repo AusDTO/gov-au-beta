@@ -30,7 +30,7 @@ describe 'editorial authorisation' do
     end
 
     context 'on the create new content interstitial' do
-      before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+      before { visit "/editorial/#{section.slug}/nodes/prepare" }
 
       include_examples "not authorized"
     end
@@ -53,13 +53,13 @@ describe 'editorial authorisation' do
         include_examples "authorized"
       end
       context 'on the create new content interstitial' do
-        before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+        before { visit "/editorial/#{section.slug}/nodes/prepare" }
 
         include_examples "authorized"
       end
 
       context 'on the create new content page' do
-        before { visit "/editorial/nodes/new?section=#{section.id}" }
+        before { visit "/editorial/#{section.slug}/nodes/prepare" }
 
         include_examples "authorized"
       end
@@ -77,7 +77,7 @@ describe 'editorial authorisation' do
       end
 
       context 'on the create new content interstitial' do
-        before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+        before { visit "/editorial/#{section.slug}/nodes/prepare" }
 
         include_examples "not authorized"
       end
@@ -94,13 +94,13 @@ describe 'editorial authorisation' do
       end
 
       context 'on the create new content interstitial' do
-        before { visit "/editorial/nodes/prepare?section=#{section.id}" }
+        before { visit "/editorial/#{section.slug}/nodes/prepare" }
 
         include_examples "authorized"
       end
 
       context 'on the create new content page' do
-        before { visit "/editorial/nodes/new?section=#{section.id}" }
+        before { visit "/editorial/#{section.slug}/nodes/new" }
 
         include_examples "authorized"
       end

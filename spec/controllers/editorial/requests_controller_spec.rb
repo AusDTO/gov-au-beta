@@ -5,7 +5,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
   describe '#new' do
 
-    let(:section) { Fabricate(:section) }
+    let!(:section) { Fabricate(:section) }
     let(:author) { Fabricate(:user, author_of: section) }
     let(:alt_section) { Fabricate(:section) }
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested')}
@@ -15,7 +15,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       context 'when logged in for an existing section' do
         before do
           sign_in(author)
-          get :new, section: section.id
+          get :new, section_id: section
         end
 
         it { is_expected.to respond_with 200 }
@@ -27,13 +27,10 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       context 'when logged in for nonexistent section' do
         before do
           sign_in(author)
+          get :new, section_id: '99999'
         end
 
-        it 'throws an exception' do
-          expect {
-            get :new, section: '99999'
-          }.to raise_error(ActiveRecord::RecordNotFound)
-        end
+        it { is_expected.to redirect_to(root_path) }
       end
     end
 
@@ -42,7 +39,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       context 'when logged in for a section already requested of' do
         before do
           sign_in(author)
-          get :new, section: alt_section.id
+          get :new, section_id: alt_section
         end
 
         it { is_expected.to set_flash[:notice] }
@@ -66,7 +63,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       end
 
       it 'redirects to root path' do
-        post :create, { request: { section_id: '9999' } }
+        post :create, section_id: '9999', request: { }
         expect(response).to redirect_to(root_path)
       end
     end
@@ -77,10 +74,10 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(author)
       end
 
-      subject { post :create, { request: { section_id: section.id } } }
+      subject { post :create, section_id: section, request: { message: 'hi' } }
 
       it { expect { subject }.to change(Request, :count).by(1) }
-      it { is_expected.to redirect_to(editorial_request_path(Request.last)) }
+      it { is_expected.to redirect_to(editorial_section_request_path(section, Request.last)) }
 
       it 'sends an email notification' do
         perform_enqueued_jobs do
@@ -97,27 +94,15 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
       it 'new request not created' do
         expect {
-          post :create, { request: { section_id: alt_section.id } }
+          post :create, section_id: alt_section, request: { message: 'Hi' }
         }.to change(Request, :count).by(0)
       end
 
       it 'redirects to existing request' do
-        post :create, { request: { section_id: alt_section.id } }
-        expect(response).to redirect_to(editorial_request_path(request.id))
+        post :create, section_id: alt_section, request: { message: 'Hi' }
+        expect(response).to redirect_to(editorial_section_request_path(alt_section, request.id))
       end
     end
-
-    context 'when section is invalid' do
-      before do
-        sign_in(author)
-      end
-
-      it 'redirects to root path' do
-        post :create, { request: { foo: :bar } }
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
   end
 
   describe '#show' do
@@ -128,7 +113,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
     context 'when viewing an existing request' do
       before do
         sign_in(author)
-        get :show, params: { id: request.id }
+        get :show, id: request.id, section_id: section
       end
 
       it { is_expected.to respond_with 200 }
@@ -138,19 +123,6 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       it 'renders the show template' do
         expect(response).to render_template :show
       end
-    end
-
-    context 'when viewing a nonexistent request' do
-      before do
-        sign_in(author)
-      end
-
-      it 'raises an error' do
-        expect {
-          get :show, params: { id: '9999' }
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-
     end
   end
 
@@ -167,7 +139,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(owner)
 
         put :update, params: {
-          id: new_request, request: {
+          id: new_request, section_id: section, request: {
               state: 'approved',
           }
         }
@@ -196,7 +168,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(owner)
 
         put :update, params: {
-            id: new_request, request: {
+            id: new_request, section_id: section, request: {
                 state: 'rejected'
             }
         }
@@ -219,7 +191,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(owner)
 
         put :update, params: {
-            id: new_request, request: {
+            id: new_request, section_id: section, request: {
                 state: 'not-a-state'
             }
         }
@@ -238,7 +210,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
         sign_in(owner)
 
         put :update, params: {
-            id: old_request, request: {
+            id: old_request, section_id: section, request: {
                 state: 'approved'
             }
         }
@@ -257,7 +229,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
       sign_in(non_author)
 
       put :update, params: {
-          id: new_request, request: {
+          id: new_request, section_id: section, request: {
               state: 'approved'
           }
       }

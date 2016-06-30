@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Editorial::NodesController, type: :controller do
   render_views
 
-  let(:section) { Fabricate(:section) }
-  let(:author) { Fabricate(:user, author_of: section) }
+  let!(:section) { Fabricate(:section) }
+  let!(:author) { Fabricate(:user, author_of: section) }
 
   describe 'GET #index' do
     let(:reviewer) { Fabricate(:user, reviewer_of: section) }
     let(:nodes) { Fabricate.times(3, :node, section: section) }
-    let(:authenticated_request) { get :index, params: { section_id: section.id } }
+    let(:authenticated_request) { get :index, params: { section_id: section } }
 
     context 'when user is authorised' do
       before do
@@ -55,11 +55,11 @@ RSpec.describe Editorial::NodesController, type: :controller do
       let(:submission) { Fabricate(:submission) }
 
       subject do
-        post :create, node: { section_id: section.id, name: 'Test Node' }
+        post :create, section_id: section, node: { name: 'Test Node' }
         response
       end
 
-      it { is_expected.to redirect_to(editorial_submission_path(Submission.last)) }
+      it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
 
       specify 'that a node is created' do
         expect { subject }.to change(Node, :count).by(1)

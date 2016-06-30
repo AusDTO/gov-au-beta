@@ -1,8 +1,9 @@
 - breadcrumb :editorial_section, @section
 
 %h3 Pages
+
 - if can? :create_in, @section
-  %p= link_to 'Add_page', prepare_editorial_nodes_path(section: @section.id)
+  %p= link_to 'Add Page', prepare_editorial_section_nodes_path(@section)
 
 %table.table-alternating
   %thead
@@ -16,11 +17,11 @@
     - @section.nodes.order(updated_at: :desc).each do |page|
       %tr
         %td
-          =link_to "#{page.name}", editorial_node_path(page.id)
+          =link_to "#{page.name}", editorial_section_node_path(@section, page.id)
         %td #{page.type}
         %td #{page.state}
         %td Author
         - if can? :manage, page
-          %td= link_to 'Edit', new_editorial_node_submission_path(page.id)
+          %td= link_to 'Edit', new_editorial_section_submission_path(@section, node_id: page.id)
         - else
           %td -

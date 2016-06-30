@@ -34,8 +34,8 @@ RSpec.describe 'editing content', type: :feature do
   context 'when editing content' do
     let!(:section1) { Fabricate(:section) }
     let!(:section2) { Fabricate(:section) }
-    let!(:node1) { Fabricate(:general_content, section: section1, state: 'draft') }
-    let!(:node2) { Fabricate(:news_article, section: section2, state: 'draft') }
+    let!(:node1) { Fabricate(:general_content, section: section1, state: 'published') }
+    let!(:node2) { Fabricate(:news_article, section: section2, state: 'published') }
 
     before :each do
       author.add_role(:author, section1)
@@ -46,20 +46,19 @@ RSpec.describe 'editing content', type: :feature do
       [node1, node2].each do |node|
         visit nodes_path section: node.section.slug, path: node.path
         click_link 'Edit'
-        expect(current_path).to eq new_editorial_node_submission_path node
         expect(find_field('Body').value).to eq node.content_body
       end
     end
 
     context 'creating a submission' do
       before do
-        visit new_editorial_node_submission_path node1
+        visit new_editorial_section_submission_path(node1.section, node_id: node1)
         fill_in 'Body', with: 'Brand new content'
         click_button 'Submit for review'
       end
 
       it 'should take the user to the created submission view' do
-        expect(current_path).to match /editorial\/submissions\/\d+/
+        expect(current_path).to match /editorial\/#{node1.section.slug}\/submissions\/\d+/
       end
 
       it 'should not update the record directly' do
@@ -70,7 +69,7 @@ RSpec.describe 'editing content', type: :feature do
 
     context 'with bad content' do
       it 'should return to the edit form' do
-        visit edit_editorial_node_path(id: node1.id)
+        visit edit_editorial_section_node_path(node1.section, node1.id)
         fill_in('Body', with: 'Bad Content')
         click_button('Submit for review')
         expect(page).to have_content(/Your changes have been submitted/i)
@@ -78,10 +77,10 @@ RSpec.describe 'editing content', type: :feature do
     end
 
     it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_node_path(id: node1.id) }
+      before { visit edit_editorial_section_node_path(node1.section, node1) }
     end
     it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_node_path(id: node2.id) }
+      before { visit edit_editorial_section_node_path(node2.section, node2) }
     end
   end
 

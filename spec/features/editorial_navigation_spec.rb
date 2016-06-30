@@ -21,8 +21,8 @@ RSpec.describe 'editorial navigation:', type: :feature do
         visit editorial_root_path
       end
       it 'should have a list of sections' do
-        expect(page.find_link(section1.name)[:href]).to eq(editorial_section_path(section: section1.slug))
-        expect(page.find_link(section2.name)[:href]).to eq(editorial_section_path(section: section2.slug))
+        expect(page.find_link(section1.name)[:href]).to eq(editorial_section_path(section1))
+        expect(page.find_link(section2.name)[:href]).to eq(editorial_section_path(section2))
       end
       it 'can not see Create new page link' do
         expect(page).to have_no_link("Create new page")
@@ -30,19 +30,12 @@ RSpec.describe 'editorial navigation:', type: :feature do
     end
 
     context 'the nodes path' do
-      context 'without a section_id' do
-        it 'redirects to section list' do
-          visit editorial_nodes_path
-          expect(current_path).to eq(editorial_root_path)
-        end
-      end
-
       context 'with a section_id' do
         it 'only displays nodes in that section' do
-          visit editorial_nodes_path(section_id: section1.id)
+          visit editorial_section_nodes_path(section1)
           expect(page).to have_content(node1.name)
           expect(page).not_to have_content(node2.name)
-          visit editorial_nodes_path(section_id: section2.id)
+          visit editorial_section_nodes_path(section2)
           expect(page).to have_content(node2.name)
           expect(page).not_to have_content(node1.name)
         end
