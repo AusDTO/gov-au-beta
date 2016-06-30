@@ -1,3 +1,26 @@
+- if @editor == 'simple'
+  :javascript
+    $('#node_content_body').after('<div id="editor-preview" style="display: none; border-color: black; border-style: solid; border-width: 1px;"></div>');
+
+    function previewMarkdown(){
+      var text = $('#node_content_body')[0].value,
+        target = $('#editor-preview')[0],
+        converter = new showdown.Converter(),
+        html = converter.makeHtml(text);
+
+        target.innerHTML = html;
+      if(text != ""){
+        $(target).css('display', 'block');
+      } else {
+        $(target).css('display', 'none');
+      }
+    };
+    $('#node_content_body').keyup(previewMarkdown);
+    previewMarkdown();
+
+
+
+
 - if @editor == 'simplemde'
   %script
     var simplemde = new SimpleMDE();

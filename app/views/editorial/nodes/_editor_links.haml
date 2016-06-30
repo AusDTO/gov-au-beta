@@ -9,4 +9,4 @@
     = link_to 'Try Editor.md editor', '?editor=editormd'
 
   - unless @editor.nil?
-    = link_to 'Use default editor', edit_editorial_node_path(@node)
+    = link_to 'Use default editor', edit_editorial_section_node_path(@section, @node)

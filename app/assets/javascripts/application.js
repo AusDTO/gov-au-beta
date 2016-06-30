@@ -17,4 +17,5 @@
 //= require trumbowyg
 //= require editor.md/editormd
 //= require editor.md/languages/en
+//= require showdown.min
 //= require_tree .
