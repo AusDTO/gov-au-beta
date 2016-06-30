@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     if resource.has_role?(:admin)
       admin_root_path
     else
-      super
+      editorial_root_path
     end
   end
 end
