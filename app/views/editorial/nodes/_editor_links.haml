@@ -1,12 +1,12 @@
 - if @node
   - unless @editor == 'simplemde'
-    = link_to 'Try SimpleMDE editor', '?editor=simplemde'
+    = link_to 'Try SimpleMDE editor', url_for(editor: 'simplemde', node_id: @node)
 
   - unless @editor == 'trum'
-    = link_to 'Try Trumbowyg editor', '?editor=trum'
+    = link_to 'Try Trumbowyg editor', url_for(editor: 'trum', node_id: @node)
 
   - unless @editor == 'editormd'
-    = link_to 'Try Editor.md editor', '?editor=editormd'
+    = link_to 'Try Editor.md editor', url_for(editor: 'editormd', node_id: @node)
 
   - unless @editor.nil?
     = link_to 'Use default editor', edit_editorial_section_node_path(@section, @node)
