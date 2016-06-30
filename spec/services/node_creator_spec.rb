@@ -6,11 +6,11 @@ RSpec.describe NodeCreator, type: :service do
   let!(:parent)      { Fabricate(:node) }
   let(:name)         { 'Node Name' }
   let(:content_body) { 'This is the first revision' }
-  let(:params)       { { section_id: section.id, name: name, content_body: content_body } }
+  let(:params)       { { name: name, content_body: content_body } }
   let(:node_class)   { Node }
   let(:form)         { NodeForm.new(node_class.new(params)) }
   
-  subject(:creator)  { described_class.new(form) }
+  subject(:creator)  { described_class.new(section, form) }
 
   it 'creates a new node' do
     expect { subject.perform!(user) }.to change(Node, :count).by(1)

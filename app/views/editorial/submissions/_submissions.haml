@@ -3,8 +3,10 @@
     %tr
       %th Name
       %th Create Date
+      %th Submitted By
   %tbody
     - submissions.each do |submission|
       %tr
-        %td= link_to "#{submission.revisable.name}", editorial_submission_path(submission)
+        %td= link_to "#{submission.revisable.name}", editorial_section_submission_path(submission.section, submission)
         %td #{submission.submitted_at}
+        %td= submission.submitter_full_name

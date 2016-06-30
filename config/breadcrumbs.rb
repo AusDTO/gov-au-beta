@@ -31,17 +31,17 @@ crumb :editorial_section do |section|
 end
 
 crumb :editorial_collaborators do |section|
-  link 'Collaborators', editorial_collaborators_path(section)
+  link 'Collaborators', editorial_section_collaborators_path(section)
   parent :editorial_section, section
 end
 
 crumb :editorial_node do |node|
-  link node.name, editorial_node_path(node)
+  link node.name, editorial_section_node_path(node.section, node)
   parent :editorial_section, node.section
 end
 
 crumb :prepare_editorial_nodes do |section, parent_node|
-  link 'Prepare', prepare_editorial_nodes_path(section: section.andand.id, parent: parent_node.andand.id)
+  link 'Prepare', prepare_editorial_section_nodes_path(section: section.andand.id, parent: parent_node.andand.id)
   if parent_node
     parent :editorial_node, parent_node
   elsif section
@@ -52,7 +52,7 @@ crumb :prepare_editorial_nodes do |section, parent_node|
 end
 
 crumb :new_editorial_node do |section, parent_node, type|
-  link 'New', new_editorial_node_path(section: section.andand.id, parent: parent_node.andand.id, type: type)
+  link 'New', new_editorial_section_node_path(section, parent: parent_node.andand.id, type: type)
   parent :prepare_editorial_nodes, section, parent_node
 end
 
@@ -62,23 +62,23 @@ crumb :editorial_section_submissions do |section|
 end
 
 crumb :editorial_submission do |submission|
-  link 'Submission', editorial_submission_path(submission)
+  link 'Submission', editorial_section_submission_path(submission.section, submission)
   parent :editorial_node, submission.revisable
 end
 
 crumb :editorial_submission_new do |node|
-  link 'New Submission', new_editorial_node_submission_path(node)
+  link 'New Submission', new_editorial_section_submission_path(node.section, node)
   parent :editorial_node, node
 end
 
 # use :editorial_root as parent because the user may not have access to :editorial_section
 crumb :editorial_request do |request|
-  link 'Membership Request', editorial_request_path(request)
+  link 'Membership Request', editorial_section_request_path(request.section, request)
   parent :editorial_root
 end
 
 crumb :new_editorial_request do |section|
-  link 'Request Membership', new_editorial_request_path(section: section.id)
+  link 'Request Membership', new_editorial_section_request_path(section)
   parent :editorial_root
 end
 

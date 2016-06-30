@@ -23,7 +23,7 @@ RSpec.describe 'creating content:', type: :feature do
 
   context 'when creating general content' do
     before do
-      visit new_editorial_node_path(type: :general_content)
+      visit new_editorial_section_node_path(root, type: :general_content)
     end
 
     it 'show the correct form' do
@@ -53,7 +53,7 @@ RSpec.describe 'creating content:', type: :feature do
 
   context 'when creating a news article' do
     before do
-      visit new_editorial_node_path(type: :news_article)
+      visit new_editorial_section_node_path(root, type: :news_article)
     end
 
     it 'show the correct form' do
@@ -75,7 +75,7 @@ RSpec.describe 'creating content:', type: :feature do
 
   context 'when no type is specified' do
     it 'default to general content' do
-      visit new_editorial_node_path
+      visit new_editorial_section_node_path(root)
       expect(page).to have_content(/general content/i)
     end
   end
@@ -85,9 +85,9 @@ RSpec.describe 'creating content:', type: :feature do
     let(:node_2) {Fabricate(:node, section: root)}
 
     it 'prefill the parent' do
-      visit new_editorial_node_path(parent: node_1.id)
+      visit new_editorial_section_node_path(root, parent_id: node_1.id)
       expect(page).to have_select('Parent', selected: node_1.name)
-      visit new_editorial_node_path(parent: node_2.id)
+      visit new_editorial_section_node_path(root, parent_id: node_2.id)
       expect(page).to have_select('Parent', selected: node_2.name)
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe 'creating content:', type: :feature do
 
   describe 'new page for a section' do
     it 'should allow you to create a new page' do
-      visit "/editorial/nodes/prepare?section=#{root.id}"
+      visit "/editorial/#{root.slug}/nodes/prepare"
       select 'General content', from: 'Page type'
       click_button 'New page'
       fill_in 'Name', with: 'foo'

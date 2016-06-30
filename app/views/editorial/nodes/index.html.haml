@@ -10,10 +10,10 @@
       %strong= node.state
     %span= node.updated_at
     %span
-      =link_to 'View', editorial_node_path(node)
+      =link_to 'View', editorial_section_node_path(node.section, node)
     -if node.state.draft?
       %span
-        =link_to 'Edit', edit_editorial_node_path(node)
+        =link_to 'Edit', edit_editorial_section_node_path(node.section, node)
     %span
       -if node.state.published?
         =link_to 'View on website',                            |
