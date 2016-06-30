@@ -11,15 +11,6 @@ dependencies:
     - cp .env.sample .env
 
 deployment:
-# development:
-# branch: develop
-# commands:
-#   - cf api $CF_API_DEV --skip-ssl-validation &> /dev/null
-#   - cf auth $CF_USER_DEV $CF_PASSWORD_DEV &> /dev/null
-#   - cf target -o $CF_ORG_DEV &> /dev/null
-#   - cf target -s $CF_SPACE_DEV &> /dev/null
-#   - ./bin/cideploy.sh
-
   staging:
     branch: develop
     commands:
@@ -30,14 +21,13 @@ deployment:
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
       - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
-
   production:
     tag: /v*/
     commands:
-      - cf api $CF_API_PROD --skip-ssl-validation &> /dev/null
-      - cf auth $CF_USER_PROD $CF_PASSWORD_PROD &> /dev/null
-      - cf target -o $CF_ORG_PROD &> /dev/null
-      - cf target -s $CF_SPACE_PROD &> /dev/null
+      - cf api $CF_API_PROD --skip-ssl-validation
+      - cf auth $CF_USER_PROD $CF_PASSWORD_PROD
+      - cf target -o $CF_ORG_PROD
+      - cf target -s $CF_SPACE_PROD
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_PROD_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
