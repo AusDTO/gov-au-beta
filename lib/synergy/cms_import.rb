@@ -52,7 +52,7 @@ module Synergy
           leaf.name         = node_data[:title]
           leaf.template     = "general_content"
           leaf.cms_url      = node_data[:cms_ref]
-          leaf.content_body = reparent_absolute_links_under_section(absolutify_image_links(node_data[:content]))
+          leaf.content_body = translate_absolute_links(absolutify_image_links(node_data[:content]))
           leaf.save!
         end
       end
@@ -60,15 +60,16 @@ module Synergy
 
     private
 
-    def reparent_absolute_links_under_section(content)
+    # Translates absolute links from GovCMS into absolute links in Collaborate.
+    # Essentially just adding the section as a path prefix.
+    def translate_absolute_links(content)
       return nil if !content || content.blank?
       html = Nokogiri::HTML.fragment(content)
       html.search("a").each do |node|
         href = node["href"]
         unless href.empty?
-          uri = URI.parse(URI.escape(href))
           if href =~ /^\// 
-            node["href"] = "/#{@adapter.section.slug}#{uri.to_s}"
+            node["href"] = "/#{@adapter.section.slug}#{href.to_s}"
           end
         end
       end
