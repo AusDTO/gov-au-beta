@@ -2,18 +2,20 @@ require 'yaml'
 require 'pry' if Rails.env.development? || Rails.env.test?
 
 require 'synergy/adapters/gov_cms_adapter'
-require 'synergy/adapters/collaboration_adapter'
 
 module Synergy
   class CMSImport
 
     ADAPTERS = {
-      'GovCMS'      => Synergy::Adapters::GovCMSAdapter,
-      'Collaborate' => Synergy::Adapters::CollaborationAdapter
+      'GovCMS'      => Synergy::Adapters::GovCMSAdapter
     }.freeze
 
     def self.import_from_all_sections
-      Section.all.each{|section| import_from(section)}
+      ADAPTERS.keys.each do |key|
+        Section.where('cms_type = ?', key).each do |section|
+          import_from(section)
+        end
+      end
     end
 
     def self.import_from(section)
