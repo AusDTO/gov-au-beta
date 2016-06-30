@@ -2,7 +2,7 @@
   :javascript
     $('#node_content_body').after('<div id="editor-preview" style="display: none; border-color: black; border-style: solid; border-width: 1px;"></div>');
 
-    $('#node_content_body').keyup(function(e){
+    function previewMarkdown(){
       var text = document.getElementById('node_content_body').value,
         target = document.getElementById('editor-preview'),
         converter = new showdown.Converter(),
@@ -14,7 +14,12 @@
       } else {
         $(target).css('display', 'none');
       }
-    });
+    };
+    $('#node_content_body').keyup(previewMarkdown);
+    previewMarkdown();
+
+
+
 
 - if @editor == 'simplemde'
   %script
