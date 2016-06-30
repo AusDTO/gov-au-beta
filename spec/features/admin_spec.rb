@@ -127,8 +127,8 @@ RSpec.describe 'admin features', type: :feature do
       logout(:user)
     end
 
-    it 'should have been redirected to root' do
-      expect(page.current_path).to eq(root_path)
+    it 'should have been redirected to editorial' do
+      expect(page.current_path).to eq(editorial_root_path)
     end
   end
 
@@ -147,12 +147,12 @@ RSpec.describe 'admin features', type: :feature do
     end
 
     context 'as a non-admin user' do
-      it 'redirect to root path' do
+      it 'redirect to editorial path' do
         visit admin_root_path
         fill_in('Email', with: non_admin_user.email)
         fill_in('Password', with: non_admin_user.password)
         click_button('Log in')
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq(editorial_root_path)
       end
     end
   end
