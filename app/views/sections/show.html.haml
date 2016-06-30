@@ -2,4 +2,4 @@
 
 %h2
   =@section.name
-= render partial: "menu", locals: {nodes: (@root_nodes)}
+= render partial: "menu", locals: {nodes: (@root_nodes), depth: 1, section: @section}

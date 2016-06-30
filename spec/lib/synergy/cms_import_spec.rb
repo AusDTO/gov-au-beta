@@ -28,11 +28,11 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
   end
 
   before(:each) do
-    Page.delete_all
+    Node.where(section: section).delete_all
   end
 
   after(:each) do
-    Page.delete_all
+    Node.where(section: section).delete_all
   end
 
   let(:cms_url)           { "http://foo.bar.com/stuff" }
@@ -64,7 +64,7 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
     before(:each) { importer.run }
 
     it "should create a synergy node for every node produced by the adapter" do
-      expect(Page.count).to eq(dummy_nodes.count)
+      expect(Node.where(section: section).count).to eq(dummy_nodes.count)
     end
   end
 
@@ -72,13 +72,13 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import do
     let(:dummy_nodes) { [] }
 
     before(:each) do
-      Fabricate(:page, source_name: section.slug)
+      Fabricate(:node, section: section)
     end
 
     it "all nodes for a source are replaced during import" do
-      expect(Page.where(source_name: section.slug).count).to eq(1)
+      expect(Node.where(section: section).count).to eq(1)
       importer.run
-      expect(Page.where(source_name: section.slug).count).to eq(0)
+      expect(Node.where(section: section).count).to eq(0)
     end
   end
 end

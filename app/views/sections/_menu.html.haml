@@ -1,5 +1,6 @@
-%ul
-  - nodes.each do |node|
-    %li
-      = link_to(node, nodes_path(section: node.section, path: node.path))
-      = render partial: "menu", locals: {nodes: node.children}
+- if depth <= NodesHelper::MAX_MENU_DEPTH
+  %ul
+    - nodes.each do |node|
+      %li
+        = link_to(node, nodes_path(section: section, path: node.path))
+        = render partial: "menu", locals: {nodes: node.children, depth: depth += 1, section: section}
