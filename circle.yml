@@ -32,7 +32,7 @@ deployment:
       - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
 
   production:
-    branch: master
+    tag: /v*/
     commands:
       - cf api $CF_API_PROD --skip-ssl-validation &> /dev/null
       - cf auth $CF_USER_PROD $CF_PASSWORD_PROD &> /dev/null
