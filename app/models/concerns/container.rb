@@ -25,17 +25,19 @@ only String content is currently supported.
 module Container
   extend ActiveSupport::Concern
 
-  included do 
+  included do
     include Storext.model
 
     class_attribute :content_attributes
     self.content_attributes = []
 
     def self.content_attribute(attribute_name)
-      module_eval <<-EOS
-        self.content_attributes += [:#{attribute_name}]
-        store_attribute :content, :#{attribute_name}, String
-      EOS
+      unless content_attributes.include? attribute_name
+        module_eval <<-EOS
+          self.content_attributes += [:#{attribute_name}]
+          store_attribute :content, :#{attribute_name}, String
+        EOS
+      end
     end
   end
 

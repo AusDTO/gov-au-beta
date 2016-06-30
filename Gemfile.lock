@@ -238,6 +238,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.0)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     puma (3.4.0)
     rack (2.0.0.rc1)
       json
@@ -438,7 +441,7 @@ DEPENDENCIES
   odyssey
   oj (~> 2.12.14)
   pg (>= 0.19.0.beta)
-  pry
+  pry-byebug
   puma (~> 3.0)
   rails (>= 5.0.0.beta4, < 5.1)
   rails-assets-bootstrap-sass!
