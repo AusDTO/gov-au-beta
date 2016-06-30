@@ -63,7 +63,7 @@ module Synergy
     # Translates absolute links from GovCMS into absolute links in Collaborate.
     # Essentially just adding the section as a path prefix.
     def translate_absolute_links(content)
-      return nil if !content || content.blank?
+      return nil if content.blank?
       html = Nokogiri::HTML.fragment(content)
       html.search("a").each do |node|
         href = node["href"]
@@ -80,7 +80,7 @@ module Synergy
     end
 
     def absolutify_image_links(content)
-      return nil if !content || content.blank?
+      return nil if content.blank?
       html = Nokogiri::HTML.fragment(content)
       html.search("img").each do |node|
         src = node["src"]
