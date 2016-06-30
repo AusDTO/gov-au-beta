@@ -1,6 +1,7 @@
 class SectionsController < ApplicationController
-  include NodesHelper
   layout 'section'
+
+  decorates_assigned :root_nodes, with: NodeDecorator
 
   def index
     @sections = Section.all.order(:name)
@@ -10,7 +11,7 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find_by!(slug: params[:section])
     layout = @section.layout.presence
-    @root_nodes = root_nodes @section
+    @root_nodes = @section.nodes.without_parent
     
     if layout
       render layout: layout

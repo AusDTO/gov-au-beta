@@ -18,6 +18,8 @@ class Node < ApplicationRecord
   # store_attribute :content, :content_body, String
   content_attribute :content_body
 
+  scope :without_parent, -> { where(:parent => nil) }
+
   def to_s
     self.name
   end
