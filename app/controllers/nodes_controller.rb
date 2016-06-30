@@ -9,12 +9,14 @@ class NodesController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
     @node = @raw_node.decorate
+    @root_nodes = root_nodes @section
     render_node @node, @section
   end
 
   def preview
     @node = Node.find_by_token!(params[:token]).decorate
     @section = @node.section
+    @root_nodes = root_nodes @section
     render_node @node, @section
   end
 end

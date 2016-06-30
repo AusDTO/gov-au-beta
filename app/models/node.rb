@@ -56,6 +56,3 @@ class Node < ApplicationRecord
   end
 
 end
-
-# Ensure we load all of the models so Node.descendants is accurate (probably could namespace these!)
-Dir.glob('./app/models/*.rb') { |f| require f }

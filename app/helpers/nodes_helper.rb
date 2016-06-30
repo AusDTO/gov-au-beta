@@ -10,6 +10,10 @@ module NodesHelper
     end
   end
 
+  def root_nodes(section)
+    section.nodes.where(:parent => nil).decorate
+  end
+
   def self.states
     %w{draft published}
   end
