@@ -12,7 +12,7 @@ dependencies:
 
 deployment:
   staging:
-    branch: develop
+    branch: fix/deployment
     commands:
       - cf api https://api.system.staging.digital.gov.au
       - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
