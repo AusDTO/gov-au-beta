@@ -39,7 +39,7 @@ module Editorial
     end
 
     def new
-      @editor = 'simplemde'
+      @editor = 'simple'
       configure_defaults!
       @form.prepopulate!
     end
