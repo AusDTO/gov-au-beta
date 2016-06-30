@@ -26,7 +26,7 @@ deployment:
     tag: /v.*/
     owner: AusDTO
     commands:
-      - cf api $CF_API_PROD --skip-ssl-validation
+      - cf api $CF_API_PROD
       - cf auth $CF_USER_PROD $CF_PASSWORD_PROD
       - cf target -o $CF_ORG_PROD
       - cf target -s $CF_SPACE_PROD
