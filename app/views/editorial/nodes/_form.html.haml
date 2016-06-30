@@ -4,7 +4,9 @@
 
 
   = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
-    - unless @form.section_id.present?
+    - if @form.section_id.present?
+      = f.hidden_field :section_id, value: @form.section_id
+    - else
       = f.input :section_id, collection: @sections, label_method: :name, value_method: :id, include_blank: false, selected: @form.section_id
     = f.input :parent_id, collection: @sections, as: :grouped_select, include_blank: true, group_method: :nodes, required: false, selected: @form.parent_id
     = f.input :name
@@ -13,4 +15,3 @@
     = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page", role: 'button'
 = render 'editor_injection'
-

@@ -114,4 +114,17 @@ RSpec.describe 'creating content:', type: :feature do
     end
   end
 
+  describe 'new page for a section' do
+    it 'should allow you to create a new page' do
+      visit "/editorial/nodes/prepare?section=#{root.id}"
+      select 'General content', from: 'Page type'
+      click_button 'New page'
+      fill_in 'Name', with: 'foo'
+      fill_in 'Body', with: 'Random content'
+      click_button 'Create page'
+      expect(page).to have_content 'Submission to foo'
+      expect(page).to have_content 'Random content'
+    end
+  end
+
 end
