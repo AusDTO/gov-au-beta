@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+#FIXME: restore CAS blocks in POST #create below once CAS is restored
+
 RSpec.describe Editorial::NodesController, type: :controller do
   render_views
 
@@ -45,9 +47,9 @@ RSpec.describe Editorial::NodesController, type: :controller do
   end
 
   describe 'POST #create' do
-    before do
-      expect(ContentAnalysisHelper).to receive(:lint).and_return('')
-    end
+    # before do
+    #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
+    # end
 
     context 'when user is authorised' do
       before { sign_in(author) }
@@ -65,14 +67,14 @@ RSpec.describe Editorial::NodesController, type: :controller do
         expect { subject }.to change(Node, :count).by(1)
       end
     end
-  end
-  describe 'POST #create' do
+
     describe 'to a collaborate node' do
       context 'as authorised user' do
 
-        before do
-          expect(ContentAnalysisHelper).to receive(:lint).and_return('')
-        end
+        # before do
+        #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
+        # end
+
         before { sign_in(author) }
 
         let(:submission) { Fabricate(:submission) }

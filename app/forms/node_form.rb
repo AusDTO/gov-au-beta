@@ -5,5 +5,5 @@ class NodeForm < Reform::Form
 
   #TODO figure out a way to combine these to DRY up future content block declarations
   property :content_body
-  validates :content_body, content_analysis: true
+  #validates :content_body, content_analysis: true #FIXME: restore once we have feedback and/or ability to ignore
 end

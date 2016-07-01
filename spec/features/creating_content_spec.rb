@@ -39,14 +39,15 @@ RSpec.describe 'creating content:', type: :feature do
       end
     end
 
-    context 'with invalid data' do
-      it 'return to the edit form' do
-        fill_in('Name', with: name)
-        fill_in('Body', with: 'Bad Content')
-        click_button('Create')
-        expect(page).to have_content(/failed.*content.*analysis/i)
-      end
-    end
+    # FIXME: restore this spec once CAS validation is restored
+    # context 'with invalid data' do
+    #   it 'return to the edit form' do
+    #     fill_in('Name', with: name)
+    #     fill_in('Body', with: 'Bad Content')
+    #     click_button('Create')
+    #     expect(page).to have_content(/failed.*content.*analysis/i)
+    #   end
+    # end
 
     it_behaves_like 'robust to XSS'
   end
