@@ -1,8 +1,10 @@
+-# locals: root_nodes, active
+
 %aside.sidebar
   %nav.primary-nav{'aria-label' => 'main navigation'}
-    %ul
-      %li
-        %a{href: root_path } Home
-      %li
-        %a{href: '/admin' } Admin
-
+    %a#primary-nav-heading.js-accordion-trigger.nav-heading{href: 'javascript:void(0)',
+            'aria-expanded' => true, 'aria-controls' => 'primary-nav-panel'}
+      %span Show menu
+      %i.chevron.bottom
+    %ul#primary-nav-panel{'aria-labelledby' => 'primary-nav-heading'}
+      = render partial: 'navbar_part', locals: { nodes: root_nodes, depth: 3, active: active }

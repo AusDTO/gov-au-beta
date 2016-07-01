@@ -18,4 +18,5 @@
 //= require editor.md/editormd
 //= require editor.md/languages/en
 //= require showdown.min
+//= require "dto-ui-kit"
 //= require_tree .

@@ -1,6 +1,11 @@
 <head>
   <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function (h) {
+    h.className = h.className.replace('no-js', 'js')
+    })(document.documentElement)
+  </script>
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>

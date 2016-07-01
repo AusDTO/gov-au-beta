@@ -1,11 +1,13 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'digest'
+require 'fileutils'
 
 module Synergy
   module Adapters
     class GovCMSAdapter
-      attr_reader :section
+      attr_reader :section, :image_base_href
 
       def initialize(section)
         @section = section
@@ -31,7 +33,10 @@ module Synergy
         log "importing nodes"
         nodes_hash.values.sort(&method(:by_url_alpha)).each do |node|
           log "importing #{node["url"]}"
-          yield(to_node_data(node))
+          node_data = to_node_data(node)
+          if node_data[:content] && !node_data[:content].blank?
+            yield(to_node_data(node))
+          end
         end
         log "finished importing nodes"
       end
@@ -41,6 +46,7 @@ module Synergy
 
         {
           cms_ref: govcms_node["url"],
+          cms_api_url: "#{@section.cms_url}/node/#{govcms_node["nid"]}.json",
           path: url.path,
           title: govcms_node["field_title"],
           content: extract_content(govcms_node)
@@ -50,31 +56,8 @@ module Synergy
       def extract_content(govcms_node)
         # NOTE: GovCMS can return a hash, or an array (always empty for some reason) or nil
         # for field content. Only the hash version is useful.
-        {
-          body: absolutify_image_links(
-                  (govcms_node["field_content_main"].andand["value"] rescue nil) ||
-                  (govcms_node["field_content_extra"].andand["value"] rescue nil)
-                )
-        }
-      end
-
-      def absolutify_image_links(content)
-        html = Nokogiri::HTML(content)
-        html.search("img").each do |node|
-          src = node["src"]
-          unless src.empty?
-            uri = URI.parse(URI.escape(src))
-            unless uri.host
-              uri.scheme = @image_base_href.scheme
-              uri.host = @image_base_href.host
-              node["src"] = uri.to_s
-            end
-          end
-        end
-        html.to_html
-      rescue
-        Rails.logger.error "[#{destination_path}] Could not parse HTML content: #{$!.message}"
-        content
+        (govcms_node["field_content_main"].andand["value"] rescue nil) ||
+        (govcms_node["field_content_extra"].andand["value"] rescue nil)
       end
 
       def load_nodes
@@ -110,7 +93,35 @@ module Synergy
       end
 
       def fetch(url)
-        JSON.parse(Net::HTTP.get_response(URI.parse(url)).body)
+        if Rails.env.development?
+          dir = File.join(Rails.root, "tmp/cache/cms-import")
+          FileUtils.mkdir_p dir
+          path = "#{dir}/#{Digest::SHA256.hexdigest(url)}"
+          if cached?(path)
+            JSON.parse(cached(path))
+          else
+            JSON.parse(cache(path, fetch_uncached(url)))
+          end
+        else
+          JSON.parse(fetch_uncached(url)) 
+        end
+      end
+
+      def cached?(path)
+        File.exists?(path)
+      end
+
+      def cached(path)
+        File.read(path)
+      end
+
+      def cache(path, content)
+        File.open(path, "w+"){|f| f.write(content)}
+        content
+      end
+
+      def fetch_uncached(url)
+        Net::HTTP.get_response(URI.parse(url)).body
       end
 
       def finished?(response)
