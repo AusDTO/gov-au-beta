@@ -95,6 +95,19 @@ cf set-env gov-au-beta SECRET_KEY_BASE `rails secret`
 cf set-env gov-au-beta ROLLBAR_ACCESS_TOKEN aabcc
 ```
 
+## Production Deployment
+
+Production URL is https://gov-au-beta-blue.apps.platform.digital.gov.au/
+
+To deploy to Production, tag the desired branch with a version number and push.
+
+`git tag v0.01`
+
+CircleCI will run the test suite and deploy to production on pass.
+
+
+
+
 
 ## Development Process
 
@@ -106,14 +119,14 @@ cf set-env gov-au-beta ROLLBAR_ACCESS_TOKEN aabcc
 Branch protection is currently turned on for `develop`, which means that all pull requests
 need to pass several tests before they can be merged. The current tests are:
 
-* circleCI - continuous integration to build and execute tests on the branch 
+* circleCI - continuous integration to build and execute tests on the branch
 * LGTM - reviewer approval plugin on the pull request
 
 #### Reviewing pull requests
 
 Pull requests currently require approval from at least two people before they can be merged.
 After approval has been granted, the PR can be merged by anyone (either the last reviewer
-or the author). The list of potential reviewers is stored in the root of the repo, as a 
+or the author). The list of potential reviewers is stored in the root of the repo, as a
 list of GitHub user accounts in `MAINTAINERS`.
 
 To provide approval for a pull request once satisified with the code:
@@ -127,7 +140,7 @@ it is safe to merge a PR as the last reviewer to provide approval.
 
 ### Code Climate
 
-To run Code Climate locally, first install the 
+To run Code Climate locally, first install the
 [Code Climate CLI](https://github.com/codeclimate/codeclimate), then run
 from the root of the repo:
 ```
@@ -150,4 +163,3 @@ The application uses nested layouts (using the inside_layout method inside Appli
   / Your markup
   = yield
 ```
-
