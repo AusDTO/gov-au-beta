@@ -18,14 +18,16 @@ RSpec.describe Section, type: :model do
 
   context 'a department can be related to agencies' do
     let(:dept) { Fabricate(:department) }
+    let(:connected) { Fabricate(:section) }
     let(:agency) { Fabricate(:agency) }
 
     before do
+      dept.sections << connected
       dept.agencies << agency
     end
 
     it 'has a connection' do
-      expect(dept.sections).to eq [agency]
+      expect(dept.sections).to eq [connected, agency]
       expect(dept.agencies).to eq [agency]
     end
 
