@@ -13,5 +13,4 @@ class Department < Section
         foreign_key: :section_id,
         association_foreign_key: :connection_id
 
-
 end

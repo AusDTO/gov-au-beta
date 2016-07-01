@@ -31,6 +31,7 @@ RSpec.describe Section, type: :model do
     it 'has a connection' do
       expect(dept.sections).to eq [connected, agency, topic]
       expect(dept.agencies).to eq [agency]
+      # expect(agency.departments).to eq [dept]
       expect(dept.topics).to eq [topic]
     end
   end
