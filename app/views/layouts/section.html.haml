@@ -10,7 +10,7 @@
       %li
         %span
           %i.fa.fa-file-text
-        = link_to 'New page', prepare_editorial_section_nodes_path(@section)
+        = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
 
     - if @node && can?(:manage, @node)
       %li
