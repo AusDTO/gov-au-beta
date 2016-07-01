@@ -1,0 +1,12 @@
+- if show_new_page_link?
+  %li
+    %span
+      %i.fa.fa-file-text
+    = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
+
+-if show_edit_page_link?
+  %li
+    %span
+      %i.fa.fa-pencil
+    = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
+
