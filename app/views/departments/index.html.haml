@@ -1,0 +1,12 @@
+- breadcrumb :public_root
+
+%h2
+  Departments
+%ul
+  - departments.each do |department|
+    %li
+      = link_to(department.name, section_path(department))
+      - if department.agencies.any?
+        %ul
+          - department.agencies.each do |agency|
+            %li= link_to(agency.name, section_path(agency))
