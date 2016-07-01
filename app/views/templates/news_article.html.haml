@@ -1,17 +1,14 @@
-- breadcrumb :public_node, @node
+- breadcrumb :public_node, node
 
 %h2
-  Media Template
+  =node.name
 
-%h2
-  =@node.name
-
-- if @node.release_date
+- if node.release_date
   %p
     Release Date:
-    = @node.release_date
+    = node.release_date
 
-= render partial: 'templates/content_body', object: @node.content_body
+= render partial: 'templates/content_body', object: node.content_body
 
 %p
   =@hierarchy
