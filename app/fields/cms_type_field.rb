@@ -15,8 +15,8 @@ class CmsTypeField < Administrate::Field::Base
   end
 
   def select_options
-    ::Synergy::CMSImport::ADAPTERS.keys.map do |cms_type|
-      [cms_type, cms_type]
+    ::Synergy::CMSImport::ADAPTERS.keys.inject(["Collaborate"]) do |acc, cms_type|
+      acc << cms_type
     end
   end
 end
