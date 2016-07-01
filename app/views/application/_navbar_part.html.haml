@@ -1,0 +1,11 @@
+-# locals: nodes, depth, active
+
+- if nodes
+  - nodes.each do |node|
+    %li
+      - klass = 'is-active' if node == active
+      %a{ href: nodes_path(section: node.section, path: node.path), class: klass }
+        = node.name
+      - if depth > 1
+        %ul
+          = render partial: 'navbar_part', locals: { nodes: node.children, depth: depth - 1, active: active }

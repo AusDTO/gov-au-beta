@@ -1,6 +1,6 @@
 !!! 5
 
-%html
+%html.js
   = render 'application/head', title: 'GovAuBeta'
   %body
     %header{role: 'banner'}
@@ -20,7 +20,8 @@
         = breadcrumbs style: :ul, class: nil
 
     %main
-      = render 'application/navbar'
+      - if content_for?(:navbar)
+        = yield :navbar
       %article
         = render 'application/alerts'
         = yield

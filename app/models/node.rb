@@ -18,6 +18,8 @@ class Node < ApplicationRecord
   # store_attribute :content, :content_body, String
   content_attribute :content_body
 
+  scope :without_parent, -> { where(:parent => nil) }
+
   def to_s
     self.name
   end
@@ -56,6 +58,3 @@ class Node < ApplicationRecord
   end
 
 end
-
-# Ensure we load all of the models so Node.descendants is accurate (probably could namespace these!)
-Dir.glob('./app/models/*.rb') { |f| require f }

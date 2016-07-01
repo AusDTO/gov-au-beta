@@ -19,5 +19,6 @@
       - else
         = link_to 'Request membership', new_editorial_section_request_path(@section)
 
-
+  = content_for :navbar do
+    = render partial: 'application/navbar', locals: {root_nodes: @root_nodes, active: @node}
 
