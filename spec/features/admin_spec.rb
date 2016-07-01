@@ -113,6 +113,26 @@ RSpec.describe 'admin features', type: :feature do
         expect(page).not_to have_content(agency.name)
       end
     end
+
+    context 'creating an agency' do
+      it 'can create a govcms agency' do
+        visit new_admin_agency_path
+        expect(current_path).to eq(new_admin_agency_path)
+        fill_in('Name', with: 'GovCMS agency')
+        select('GovCMS', from: 'Cms type')
+        click_button('Create')
+        expect(page).to have_content('GovCMS agency')
+      end
+
+      it 'can create a Collaborate agency' do
+        visit new_admin_agency_path
+        expect(current_path).to eq(new_admin_agency_path)
+        fill_in('Name', with: 'Collaborate agency')
+        select('Collaborate', from: 'Cms type')
+        click_button('Create')
+        expect(page).to have_content('Collaborate agency')
+      end
+    end
   end
 
   context 'a non-admin user' do
