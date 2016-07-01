@@ -3,7 +3,7 @@
 %html.js
   = render 'application/head', title: 'GovAuBeta'
   %body
-    %header{role: 'banner'}
+    %header{role: 'banner', class: 'navigation'}
       = render 'application/signed_in_nav' if user_signed_in?
       %section.govau--header
         .wrapper
@@ -11,6 +11,7 @@
             %a.logo{href: root_path}
               gov.au
             %span.badge--beta beta
+
       - if content_for?(:header)
         %section.hero
           .wrapper= yield(:header)

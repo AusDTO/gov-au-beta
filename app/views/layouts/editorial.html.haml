@@ -3,7 +3,7 @@
 %html.js
   = render 'head', title: 'GovAuBeta: Collaboration'
   %body
-    %header{role: 'banner'}
+    %header{role: 'banner', class: 'navigation'}
       = render 'application/signed_in_nav'
       %section.govau--header
         %div.wrapper
@@ -15,6 +15,7 @@
       - if content_for?(:header)
         %section.hero
           .wrapper= yield(:header)
+
     %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
       .wrapper
         = breadcrumbs style: :ul, class: nil

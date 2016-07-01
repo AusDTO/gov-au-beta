@@ -5,4 +5,6 @@
       %li= link_to("Pages", editorial_section_path(@section))
       %li= link_to("Collaborators", editorial_section_collaborators_path(@section))
 
+  = content_for :toolbar_actions do
+    = render partial: 'application/page_actions', locals: {section: @section, node: @node}
   = yield
