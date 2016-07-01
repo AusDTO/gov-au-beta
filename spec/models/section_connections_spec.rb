@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Section, type: :model do
 
-  context 'a section can be related to other sections ' do
+  describe 'a section can be related to other sections ' do
     let(:section) { Fabricate(:section) }
     let(:connected) { Fabricate(:section) }
 
@@ -16,21 +16,23 @@ RSpec.describe Section, type: :model do
 
   end
 
-  context 'a department can be related to agencies' do
+  describe 'a department can be related to agencies and topics' do
     let(:dept) { Fabricate(:department) }
     let(:connected) { Fabricate(:section) }
     let(:agency) { Fabricate(:agency) }
+    let(:topic) { Fabricate(:topic) }
 
     before do
       dept.sections << connected
-      dept.agencies << agency
+      dept.sections << agency
+      dept.sections << topic
     end
 
     it 'has a connection' do
-      expect(dept.sections).to eq [connected, agency]
+      expect(dept.sections).to eq [connected, agency, topic]
       expect(dept.agencies).to eq [agency]
+      expect(dept.topics).to eq [topic]
     end
-
   end
 
 
