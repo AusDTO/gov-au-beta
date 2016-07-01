@@ -101,7 +101,7 @@ Production URL is https://gov-au-beta-blue.apps.platform.digital.gov.au/
 
 To deploy to Production, tag the desired branch with a version number and push.
 
-`git tag v0.0.01`
+`git tag v0.01`
 
 CircleCI will run the test suite and deploy to production on pass.
 
