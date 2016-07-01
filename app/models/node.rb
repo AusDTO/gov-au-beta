@@ -32,6 +32,10 @@ class Node < ApplicationRecord
     self_and_ancestors.reverse.collect(&:slug)
   end
 
+  def authors
+    submissions.map(&:submitter).uniq
+  end
+
   private
 
   def ensure_order_num_present

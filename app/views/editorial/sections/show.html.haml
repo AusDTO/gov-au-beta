@@ -20,7 +20,10 @@
           =link_to "#{page.name}", editorial_section_node_path(@section, page.id)
         %td #{page.type}
         %td #{page.state}
-        %td Author
+        %td
+          %ul
+            - page.authors.each do |user|
+              %li #{user.email}
         - if can? :manage, page
           %td= link_to 'Edit', new_editorial_section_submission_path(@section, node_id: page.id)
         - else
