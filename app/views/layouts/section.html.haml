@@ -6,13 +6,13 @@
 
   = content_for :toolbar_actions do
     / TODO: Cleanup (perhaps in https://govausites.atlassian.net/browse/SITES-168)
-    - if @section && can?(:create_in, @section)
+    - if show_new_page_link?
       %li
         %span
           %i.fa.fa-file-text
         = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
 
-    - if @node && can?(:manage, @node)
+    - if show_edit_page_link?
       %li
         %span
           %i.fa.fa-pencil
