@@ -5,4 +5,17 @@
       %li= link_to("Pages", editorial_section_path(@section))
       %li= link_to("Collaborators", editorial_section_collaborators_path(@section))
 
+  = content_for :toolbar_actions do
+    - if @section && can?(:create_in, @section)
+      %li
+        %span
+          %i.fa.fa-file-text
+        = link_to 'New page', prepare_editorial_section_nodes_path(@section)
+
+    -if @node && can?(:manage, @node)
+      %li
+        %span
+          %i.fa.fa-pencil
+        = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
+
   = yield
