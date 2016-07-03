@@ -2,6 +2,9 @@ require "administrate/field/base"
 require 'synergy/cms_import'
 
 class CmsTypeField < Administrate::Field::Base
+
+  COLLABORATE = "Collaborate"
+
   def self.form_name
     'cms_type'
   end
@@ -15,8 +18,8 @@ class CmsTypeField < Administrate::Field::Base
   end
 
   def select_options
-    ::Synergy::CMSImport::ADAPTERS.keys.map do |cms_type|
-      [cms_type, cms_type]
+    ::Synergy::CMSImport::ADAPTERS.keys.inject([COLLABORATE]) do |acc, cms_type|
+      acc << cms_type
     end
   end
 end

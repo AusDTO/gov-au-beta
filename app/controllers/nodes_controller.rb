@@ -1,6 +1,7 @@
 class NodesController < ApplicationController
   include NodesHelper
   layout 'section'
+  decorates_assigned :node
 
   decorates_assigned :root_nodes, with: NodeDecorator
 
@@ -10,15 +11,15 @@ class NodesController < ApplicationController
     if !can?(:read, @raw_node)
       raise ActiveRecord::RecordNotFound
     end
-    @node = @raw_node.decorate
+    @node = @raw_node
     @root_nodes = @section.nodes.without_parent
-    render_node @node, @section
+    render_node node, @section
   end
 
   def preview
-    @node = Node.find_by_token!(params[:token]).decorate
+    @node = Node.find_by_token!(params[:token])
     @section = @node.section
     @root_nodes = @section.nodes.without_parent
-    render_node @node, @section
+    render_node node, @section
   end
 end
