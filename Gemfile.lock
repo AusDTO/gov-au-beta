@@ -198,7 +198,6 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kramdown (1.11.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -289,6 +288,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redcarpet (3.3.4)
     refile (0.3.0)
       rest-client (~> 1.7.2)
     reform (2.2.1)
@@ -433,7 +433,6 @@ DEPENDENCIES
   httparty (~> 0.13.0)
   jbuilder (~> 2.0)
   jquery-rails
-  kramdown
   launchy
   markerb
   mini_magick
@@ -449,6 +448,7 @@ DEPENDENCIES
   rails-controller-testing (~> 0.1.1)
   rails_12factor
   rails_serve_static_assets
+  redcarpet
   refile
   reform
   reform-rails

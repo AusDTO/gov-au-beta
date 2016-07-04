@@ -44,7 +44,7 @@ gem 'cancancan'
 gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)
 gem 'markerb'
-gem 'kramdown'
+gem 'redcarpet'
 gem 'andand'
 gem 'diff-lcs', '~> 1.2.5'
 gem 'gretel'
