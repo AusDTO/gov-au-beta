@@ -5,6 +5,12 @@ class Section < ApplicationRecord
   has_many :nodes
   has_many :requests
 
+  has_and_belongs_to_many :sections,
+        class_name: 'Section',
+        join_table: :section_connections,
+        foreign_key: :section_id,
+        association_foreign_key: :connection_id
+
   # Make Section look like a node
   alias_attribute :children, :nodes
 

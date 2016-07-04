@@ -6,18 +6,16 @@
 
   = content_for :toolbar_actions do
     / TODO: Cleanup (perhaps in https://govausites.atlassian.net/browse/SITES-168)
-    - if @node
-      - if can?(:create_in, @section)
-        =link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
-        =link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
-    - elsif @section && can?(:create_in, @section)
-      =link_to 'New page', prepare_editorial_section_nodes_path(@section)
+
+    = render partial: 'application/page_actions', locals: {section: @section, node: @node}
 
     - if show_request_controls?
       - if current_user.pending_request_for?(@section)
-        = link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
+        %li= link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
       - else
-        = link_to 'Request membership', new_editorial_section_request_path(@section)
+        %li= link_to 'Request membership', new_editorial_section_request_path(@section)
+
+
 
   = content_for :navbar do
     = render partial: 'application/navbar', locals: {root_nodes: @root_nodes, active: @node}

@@ -1,6 +1,7 @@
 module Editorial
   class NodesController < Editorial::SectionsController
     include ::NodesHelper, ::EditorialHelper
+    decorates_assigned :node
 
     before_action :derive_type, except: [:show, :prepare]
 
@@ -16,8 +17,8 @@ module Editorial
 
     # TODO: show useful editorial things here rather than just showing the published version
     def show
-      @node = Node.find(params[:id]).decorate
-      render_node @node, @section
+      @node = Node.find(params[:id])
+      render_node node, @section
     end
 
     def prepare

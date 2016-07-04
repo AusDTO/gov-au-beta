@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     resources :sections
     resources :users
     resources :roles
+    resources :requests
+    resources :submissions
+    resources :revisions
 
     root to: 'agencies#index'
   end
@@ -36,6 +39,8 @@ Rails.application.routes.draw do
     resources :templates, only: :index
     resources :sections, only: :index
   end
+
+  resources :departments, only: :index
 
   get root 'sections#index'
   get '/preview/:token' => 'nodes#preview', as: :previews
