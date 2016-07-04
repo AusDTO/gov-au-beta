@@ -12,6 +12,11 @@ crumb :public_section do |section|
   parent :public_root
 end
 
+crumb :departments do
+  link 'Departments', departments_path
+  parent :public_root
+end
+
 crumb :public_node do |node|
   link node.name, nodes_path(section: node.section, path: node.path)
   if node.parent
@@ -81,4 +86,3 @@ crumb :new_editorial_request do |section|
   link 'Request Membership', new_editorial_section_request_path(section)
   parent :editorial_root
 end
-
