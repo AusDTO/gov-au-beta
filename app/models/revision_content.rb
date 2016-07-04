@@ -47,9 +47,7 @@ class RevisionContent
     # revision should be applied, only include those that have
     # been applied.
 
-    revision.self_and_ancestors.select{ |rev|
-      rev.applied?
-    }.reverse
+    revision.self_and_ancestors.select(&:applied?).reverse
 
   end
 end
