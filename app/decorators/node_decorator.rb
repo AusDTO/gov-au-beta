@@ -23,7 +23,8 @@ class NodeDecorator < Draper::Decorator
 
   def content_body
     unless object.content_body.nil?
-      raw = Kramdown::Document.new(object.content_body).to_html.html_safe
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
+      raw = markdown.render(object.content_body)
       ActionController::Base.helpers.sanitize(raw)
     end
   end
