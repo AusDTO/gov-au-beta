@@ -20,7 +20,12 @@ class RevisionContent
     traversal_sequence.each do |rev|
       if rev.diffs[content_key].present?
         diff = JSON.parse(rev.diffs[content_key])
-        value = value.patch diff
+        # n.b. LCS::Diff#patch! *must* be used here rather than the bang-less
+        #      #patch method. The former simply applies the patch whereas the
+        #      latter attempts auto-discovery to determine whether to patch
+        #      or unpatch (and sometimes it gets it wrong = disaster).
+        #      Ref: http://www.rubydoc.info/github/halostatue/diff-lcs/Diff/LCS
+        value = value.patch! diff
       end
     end
 
