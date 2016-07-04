@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     resources :sections
     resources :users
     resources :roles
+    resources :requests
+    resources :submissions
+    resources :revisions
 
     root to: 'agencies#index'
   end
