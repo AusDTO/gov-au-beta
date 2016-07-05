@@ -15,9 +15,10 @@ module Editorial
     end
 
     private
-      def find_section
-        @section = Section.find_by!(slug: params[:section_id])
-      end
+
+    def find_section
+      @section = Section.find params[:section_id]
+    end
   end
 end
 

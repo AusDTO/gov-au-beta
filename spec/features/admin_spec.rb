@@ -4,12 +4,13 @@ RSpec.describe 'admin features', type: :feature do
 
   Warden.test_mode!
   let!(:admin_user) { Fabricate(:user, is_admin: true) }
+  let!(:root_node) { Fabricate(:root_node)}
 
   context 'an admin user' do
     let!(:agency) { Fabricate(:agency) }
     let!(:topic) { Fabricate(:topic) }
-    let!(:news_article) { Fabricate(:news_article) }
-    let!(:general_content) { Fabricate(:general_content) }
+    let!(:news_article) { Fabricate(:news_article, parent: root_node) }
+    let!(:general_content) { Fabricate(:general_content, parent: root_node) }
 
     before do
       login_as(admin_user, scope: :user)
@@ -41,7 +42,8 @@ RSpec.describe 'admin features', type: :feature do
       end
 
       it 'should not show links to nodes' do
-        expect(sidebar).not_to have_link 'Nodes'
+        # Can't use simple have_link matcher because it'll match 'Root Nodes'
+        expect(sidebar.find_all('a', :text => /^Nodes$/)).to be_empty
       end
 
       it 'should show agencies by default' do

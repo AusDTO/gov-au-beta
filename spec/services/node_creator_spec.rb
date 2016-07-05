@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe NodeCreator, type: :service do
+  let!(:root_node)   { Fabricate(:root_node) }
   let(:user)         { Fabricate(:user) }
   let!(:section)     { Fabricate(:section) }
-  let!(:parent)      { Fabricate(:node) }
+  let!(:parent)      { Fabricate(:node, section: section, parent: root_node) }
   let(:name)         { 'Node Name' }
   let(:content_body) { 'This is the first revision' }
-  let(:params)       { { name: name, content_body: content_body } }
   let(:node_class)   { Node }
   let(:form)         { NodeForm.new(node_class.new(params)) }
+  let(:params)       { { name: name, content_body: content_body,
+                         parent_id: parent.id } }
 
   subject(:creator)  { NodeCreator.new(section, form) }
 
@@ -49,13 +51,7 @@ RSpec.describe NodeCreator, type: :service do
         it { is_expected.to be_a(Node) }
 
         specify { expect(subject.section).to eq(section) }
-        specify { expect(subject.name).to_not eq(name) }
-        specify { expect(subject.content_body).to_not eq(content_body) }
-
-        context 'when a parent is specified' do
-          before { params.merge!(parent_id: parent.id) }
-          specify { expect(subject.parent).to eq(parent) }
-        end
+        specify { expect(subject.parent).to eq(parent) }
 
         context 'when node class is General Content' do
           let(:node_class) { GeneralContent }

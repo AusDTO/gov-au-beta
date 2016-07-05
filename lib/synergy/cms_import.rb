@@ -51,10 +51,12 @@ module Synergy
     end
 
     def build_path_to_leaf_node(parts, node_data)
-      parts.reduce(@adapter.section) do |node,part|
+      section_node = SectionHome.find_or_create_by!(section: @adapter.section, parent: Node.root)
+      parts.reduce(section_node) do |node,part|
         node.children.find_or_create_by!(
           section: @adapter.section,
-          parent_id: parent_id(node),
+          parent_id: node.id,
+          type: 'GeneralContent',
           slug: part
         ) do |child|
           child.name        = part.gsub("-", " ").humanize
@@ -117,15 +119,6 @@ module Synergy
     rescue
       Rails.logger.error "[/#{@adapter.section.slug}] Could not parse HTML content: #{$!.message}"
       content
-    end
-
-    def parent_id(thing)
-      if thing.is_a?(Node)
-        thing.id
-      else
-        # it is a section and we're at the root
-        nil
-      end
     end
 
     def self.make_adapter(section)

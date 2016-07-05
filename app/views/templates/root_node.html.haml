@@ -1,0 +1,11 @@
+- breadcrumb :public_node, node
+
+%h2
+  =node.name
+
+= render partial: 'templates/content_body', object: node.content_body
+
+%ul
+  - node.published_children.each do |section_home_node|
+    %li
+      = link_to(section_home_node.name, nodes_path(path: section_home_node.path))

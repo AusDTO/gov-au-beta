@@ -9,7 +9,7 @@ RSpec.describe Admin::AgenciesController, type: :controller do
 
   describe '#find_resource' do
 
-    subject { Admin::AgenciesController.new.find_resource agency.slug }
+    subject { Admin::AgenciesController.new.find_resource agency.id }
 
     it { is_expected.to eq agency }
 
@@ -20,13 +20,13 @@ RSpec.describe Admin::AgenciesController, type: :controller do
 
     it "schedules an import" do
       assert_enqueued_jobs 0
-      post :import, id: agency.slug
+      post :import, id: agency.id
       assert_enqueued_jobs 1
     end
 
     it "sets a flash message" do
-      post :import, id: agency.slug
-      expect(flash[:notice]).to eql("Import scheduled for #{agency.slug}.")
+      post :import, id: agency.id
+      expect(flash[:notice]).to eql("Import scheduled for #{agency.name}.")
     end
   end
 

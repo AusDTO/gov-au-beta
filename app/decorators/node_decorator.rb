@@ -11,4 +11,7 @@ class NodeDecorator < Draper::Decorator
     object.class.to_s.underscore
   end
 
+  def published_children
+    object.children.with_state(:published).order(:name).decorate
+  end
 end

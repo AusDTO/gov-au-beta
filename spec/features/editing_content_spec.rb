@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'editing content', type: :feature do
 
   Warden.test_mode!
+  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
 
@@ -23,10 +24,10 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'on a node page' do
-    let!(:node) { Fabricate(:node, section: section) }
+    let!(:node) { Fabricate(:node, section: section, parent: root_node) }
 
     it 'should show a link to edit the content in the CMS' do
-      visit "/#{node.section.slug}/#{node.slug}"
+      visit "/#{node.slug}"
       expect(page).to have_link('Edit')
     end
 
@@ -36,7 +37,7 @@ RSpec.describe 'editing content', type: :feature do
       let!(:submission) { Fabricate(:submission, revision: revision, submitter: author)}
 
       it 'should show a link to view the existing submission' do
-        visit "/#{node.section.slug}/#{node.slug}"
+        visit "/#{node.slug}"
         expect(page).to have_link('View submission')
       end
 
@@ -52,8 +53,10 @@ RSpec.describe 'editing content', type: :feature do
   context 'when editing content' do
     let!(:section1) { Fabricate(:section) }
     let!(:section2) { Fabricate(:section) }
-    let!(:node1) { Fabricate(:general_content, section: section1, state: 'published') }
-    let!(:node2) { Fabricate(:news_article, section: section2, state: 'published') }
+    let!(:node1) { Fabricate(:general_content, state: 'published',
+      parent: root_node, section: section1) }
+    let!(:node2) { Fabricate(:news_article, state: 'published',
+      parent: root_node, section: section2) }
 
     before :each do
       author.add_role(:author, section1)
@@ -62,7 +65,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit nodes_path section: node.section.slug, path: node.path
+        visit nodes_path path: node.path
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
       end
@@ -76,11 +79,11 @@ RSpec.describe 'editing content', type: :feature do
       end
 
       it 'should take the user to the created submission view' do
-        expect(current_path).to match /editorial\/#{node1.section.slug}\/submissions\/\d+/
+        expect(current_path).to match /editorial\/#{node1.section.id}\/submissions\/\d+/
       end
 
       it 'should not update the record directly' do
-        visit nodes_path section: node1.section.slug, path: node1.path
+        visit "/#{node1.path}"
         expect(page).not_to have_content 'Brand new content'
       end
     end

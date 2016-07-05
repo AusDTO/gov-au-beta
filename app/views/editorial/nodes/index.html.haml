@@ -17,7 +17,6 @@
     %span
       -if node.state.published?
         =link_to 'View on website',                            |
-          nodes_path(section: @section.slug, path: node.path), |
-          target: 'GOVAU_PREVIEW'                              |
+          nodes_path(node.path), target: 'GOVAU_PREVIEW'                              |
       -else
         =link_to 'Preview', previews_path(token: node.token), target: '_blank'

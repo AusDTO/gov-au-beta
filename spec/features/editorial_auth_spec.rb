@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'editorial authorisation' do
   Warden.test_mode!
 
-  let!(:section) { Fabricate(:section) }
+  let!(:root_node) { Fabricate(:root_node) }
+  let!(:section) { Fabricate(:section, with_home: true) }
   let!(:author_user) { Fabricate(:user, author_of: section) }
   let!(:reviewer_user) { Fabricate(:user, reviewer_of: section) }
   let!(:admin_user) { Fabricate(:user, is_admin: true) }
@@ -24,13 +25,13 @@ describe 'editorial authorisation' do
     end
 
     context 'on a section editorial page' do
-      before { visit "/editorial/=#{section.slug}" }
+      before { visit "/editorial/#{section.id}" }
 
       include_examples "not authorized"
     end
 
     context 'on the create new content interstitial' do
-      before { visit "/editorial/#{section.slug}/nodes/prepare" }
+      before { visit "/editorial/#{section.id}/nodes/prepare" }
 
       include_examples "not authorized"
     end
@@ -53,13 +54,13 @@ describe 'editorial authorisation' do
         include_examples "authorized"
       end
       context 'on the create new content interstitial' do
-        before { visit "/editorial/#{section.slug}/nodes/prepare" }
+        before { visit "/editorial/#{section.id}/nodes/prepare" }
 
         include_examples "authorized"
       end
 
       context 'on the create new content page' do
-        before { visit "/editorial/#{section.slug}/nodes/prepare" }
+        before { visit "/editorial/#{section.id}/nodes/prepare" }
 
         include_examples "authorized"
       end
@@ -77,7 +78,7 @@ describe 'editorial authorisation' do
       end
 
       context 'on the create new content interstitial' do
-        before { visit "/editorial/#{section.slug}/nodes/prepare" }
+        before { visit "/editorial/#{section.id}/nodes/prepare" }
 
         include_examples "not authorized"
       end
@@ -94,13 +95,13 @@ describe 'editorial authorisation' do
       end
 
       context 'on the create new content interstitial' do
-        before { visit "/editorial/#{section.slug}/nodes/prepare" }
+        before { visit "/editorial/#{section.id}/nodes/prepare" }
 
         include_examples "authorized"
       end
 
       context 'on the create new content page' do
-        before { visit "/editorial/#{section.slug}/nodes/new" }
+        before { visit "/editorial/#{section.id}/nodes/new" }
 
         include_examples "authorized"
       end
