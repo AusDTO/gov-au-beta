@@ -8,7 +8,7 @@ module Admin
       agency = requested_resource
       ImportCmsNodesJob.perform_later(agency.id)
       flash.keep[:notice] = "Import scheduled for #{agency.slug}."
-      redirect_to 'index'
+      redirect_to :action => :index
     end
   end
 end
