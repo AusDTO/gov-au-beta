@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :agencies
+    resources :agencies do
+      member do
+        post 'import'
+      end
+    end
     resources :topics
     resources :nodes
     resources :general_contents

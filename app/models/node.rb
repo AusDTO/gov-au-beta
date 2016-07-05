@@ -58,3 +58,9 @@ class Node < ApplicationRecord
   end
 
 end
+
+# In order for Node.descendants to work, we need to preload the STI classes.
+# `require_dependency` is used instead of `require` as it participates in
+# hot reloading a development time.
+require_dependency 'general_content'
+require_dependency 'news_article'
