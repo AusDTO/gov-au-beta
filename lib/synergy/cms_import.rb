@@ -27,38 +27,49 @@ module Synergy
     end
 
     def run
-      ActiveRecord::Base.logger.level = 1
-      ActiveRecord::Base.transaction(isolation: :read_committed) do
-        @adapter.log "deleting existing nodes"
-        Node.where(section: @adapter.section).delete_all
-        @adapter.log "finished deleting existing nodes"
+      with_muted_logging do
+        ActiveRecord::Base.transaction(isolation: :read_committed) do
+          @adapter.log "deleting existing nodes"
+          Node.where(section: @adapter.section).delete_all
+          @adapter.log "finished deleting existing nodes"
 
-        @adapter.run do |node_data|
-          source_parts = node_data[:path].split("/").select{|p| !p.blank?}
-          parts        = source_parts
+          @adapter.run do |node_data|
+            source_parts = node_data[:path].split("/").select{|p| !p.blank?}
+            parts        = source_parts
 
-          leaf = parts.reduce(@adapter.section) do |node,part|
-            node.children.find_or_create_by!(
-              section: @adapter.section,
-              parent_id: parent_id(node),
-              slug: part
-            ) do |child|
-              child.name        = part.gsub("-", " ").humanize
-              child.state       = :published
-              child.cms_api_url = node_data[:cms_api_url]
-            end 
+            leaf = parts.reduce(@adapter.section) do |node,part|
+              node.children.find_or_create_by!(
+                section: @adapter.section,
+                parent_id: parent_id(node),
+                slug: part
+              ) do |child|
+                child.name        = part.gsub("-", " ").humanize
+                child.state       = :published
+                child.cms_api_url = node_data[:cms_api_url]
+              end
+            end
+
+            leaf.name         = node_data[:title]
+            leaf.template     = "general_content"
+            leaf.cms_url      = node_data[:cms_ref]
+            leaf.content_body = translate_absolute_links(absolutify_image_links(node_data[:content]))
+            leaf.save!
           end
-
-          leaf.name         = node_data[:title]
-          leaf.template     = "general_content"
-          leaf.cms_url      = node_data[:cms_ref]
-          leaf.content_body = translate_absolute_links(absolutify_image_links(node_data[:content]))
-          leaf.save!
         end
       end
     end
 
     private
+
+    def with_muted_logging
+      logger_level = ActiveRecord::Base.logger.level
+      ActiveRecord::Base.logger.level = 1
+      begin
+        yield
+      ensure
+        ActiveRecord::Base.logger.level = logger_level
+      end
+    end
 
     # Translates absolute links from GovCMS into absolute links in Collaborate.
     # Essentially just adding the section as a path prefix.
