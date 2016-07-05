@@ -40,6 +40,10 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  config.log_level = :info
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.active_job.queue_adapter     = :async
+  config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
 end

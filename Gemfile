@@ -44,7 +44,7 @@ gem 'cancancan'
 gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)
 gem 'markerb'
-gem 'kramdown'
+gem 'redcarpet'
 gem 'andand'
 gem 'diff-lcs', '~> 1.2.5'
 gem 'gretel'
@@ -60,8 +60,7 @@ gem 'bourbon'
 group :development do
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'listen'
 end
 
 group :test, :development do

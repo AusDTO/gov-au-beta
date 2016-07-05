@@ -7,10 +7,10 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
       cannot :manage, Node do |node|
-        node.section.cms_type != 'Collaborate'
+        node.section.cms_type != CmsTypeField::COLLABORATE
       end
       cannot :create_in, Section do |section|
-        section.cms_type != 'Collaborate'
+        section.cms_type != CmsTypeField::COLLABORATE
       end
     end
 
@@ -19,7 +19,7 @@ class Ability
       can :view, :editorial_page
       can :manage, Node do |node|
         user.has_role?(:author, node.section) &&
-            node.section.cms_type == 'Collaborate'
+            node.section.cms_type == CmsTypeField::COLLABORATE
       end
 
       can :update, Request do |request|
@@ -33,7 +33,7 @@ class Ability
       end
       can :create_in, Section do |section|
         user.has_role?(:author, section) &&
-            section.cms_type == 'Collaborate'
+            section.cms_type == CmsTypeField::COLLABORATE
       end
       can :review, Submission do |submission|
         user.has_role?(:reviewer, submission.section)

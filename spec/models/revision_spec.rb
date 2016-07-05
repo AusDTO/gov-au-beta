@@ -74,4 +74,20 @@ RSpec.describe Revision, type: :model do
       end
     end
   end
+
+  describe 'patching' do
+    let(:node) { Fabricate(:node, content_body: nil) }
+    let(:basic_content) { "a\n\nb\n\nc" }
+    let(:revised_content) { "a#{"\n" * 20}b\nc" }
+
+    before do
+      node.revise!(content_body: basic_content).apply!
+      node.revise!(content_body: revised_content).apply!
+      node.reload
+    end
+
+    it 'should patch revisions correctly' do
+      expect(node.content_body).to eq revised_content
+    end
+  end
 end
