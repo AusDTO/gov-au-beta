@@ -46,3 +46,7 @@ class Section < ApplicationRecord
     self.cms_type ||= "Collaborate"
   end
 end
+
+require_dependency 'agency'
+require_dependency 'department'
+require_dependency 'topic'
