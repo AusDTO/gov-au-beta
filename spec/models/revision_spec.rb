@@ -86,7 +86,7 @@ RSpec.describe Revision, type: :model do
       node.reload
     end
 
-    it 'should be OK' do
+    it 'should patch revisions correctly' do
       expect(node.content_body).to eq revised_content
     end
   end
