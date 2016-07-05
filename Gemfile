@@ -60,8 +60,7 @@ gem 'bourbon'
 group :development do
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'listen'
 end
 
 group :test, :development do
