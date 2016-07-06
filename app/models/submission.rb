@@ -69,6 +69,9 @@ class Submission < ApplicationRecord
     transaction do
       review! by_reviewer, 'accepted'
       revision.apply!
+      # For now, as soon as a submission is accepted, the node is published
+      # This is subject to change as we update workflow
+      revisable.update(state: 'published')
     end
   end
 
