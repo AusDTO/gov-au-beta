@@ -12,6 +12,11 @@ module GovAuBeta
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Allow tables through the sanitizer
+    config.after_initialize do
+      ActionView::Base.sanitized_allowed_tags.merge(%w{table th tr td thead tbody})
+    end
+
     config.generators do |g|
       g.stylesheets false
       g.javascripts false
