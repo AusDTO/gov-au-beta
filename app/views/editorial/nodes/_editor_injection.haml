@@ -5,7 +5,7 @@
     function previewMarkdown(){
       var text = $('#node_content_body')[0].value,
         target = $('#editor-preview')[0],
-        converter = new showdown.Converter(),
+        converter = new showdown.Converter({tables: true}),
         html = converter.makeHtml(text);
 
         target.innerHTML = html;
