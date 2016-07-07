@@ -18,23 +18,25 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    root to: 'agencies#index'
     resources :agencies do
       member do
         post 'import'
       end
     end
-    resources :topics
-    resources :nodes
-    resources :general_contents
-    resources :news_articles
-    resources :sections
-    resources :users
-    resources :roles
-    resources :requests
-    resources :submissions
-    resources :revisions
 
-    root to: 'agencies#index'
+    resources :departments
+    resources :general_contents
+    resources :ministers
+    resources :news_articles
+    resources :nodes
+    resources :requests
+    resources :revisions
+    resources :roles
+    resources :sections
+    resources :submissions
+    resources :topics
+    resources :users
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
