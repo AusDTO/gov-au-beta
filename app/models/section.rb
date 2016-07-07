@@ -25,7 +25,7 @@ class Section < ApplicationRecord
   # Finds a node via path from this Section.
   def find_node!(path)
     path.split('/').reduce(self) do |node,slug|
-      node.children.find_by! slug: slug
+      node.children.published.find_by! slug: slug
     end
   end
 

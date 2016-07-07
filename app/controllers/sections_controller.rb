@@ -11,8 +11,8 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find_by!(slug: params[:section])
     layout = @section.layout.presence
-    @root_nodes = @section.nodes.without_parent
-    
+    @root_nodes = @section.nodes.published.without_parent
+
     if layout
       render layout: layout
     else

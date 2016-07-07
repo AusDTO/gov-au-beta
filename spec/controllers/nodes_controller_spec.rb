@@ -4,7 +4,7 @@ RSpec.describe NodesController, :type => :controller do
   describe 'GET #show' do
 
     describe 'finding a node' do
-      render_views  
+      render_views
 
       let(:root) { Fabricate(:section, name: "root")}
       let(:zero) { Fabricate(:node, name: "zero", section: root) }
@@ -41,6 +41,15 @@ RSpec.describe NodesController, :type => :controller do
         it "should return the page successfully" do
           get :show, params: { section: "root", path: "one" }
           expect(response.status).to eq(200)
+        end
+      end
+
+      context "given an unpublished node with a valid section" do
+        let!(:one) { Fabricate(:node, name: 'one', state: 'draft', section: root) }
+        it "should return a 404 page" do
+          expect {
+            get :show, params: { section: "root", path: "one" }
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
@@ -83,11 +92,11 @@ RSpec.describe NodesController, :type => :controller do
       end
     end
 
-    describe 'layout' do 
+    describe 'layout' do
       let(:node) { Fabricate(:node, section: section) }
       subject { get :show, params: {section: section.slug, path: node.path} }
 
-      context 'with a custom layout' do 
+      context 'with a custom layout' do
         let(:section) { Fabricate(:section, layout: 'communications')}
 
         it { is_expected.to render_with_layout 'communications'}
@@ -125,7 +134,7 @@ RSpec.describe NodesController, :type => :controller do
       end
     end
 
-    describe 'previews' do    
+    describe 'previews' do
       shared_examples_for 'node preview' do
         it { is_expected.to assign_to(:node).with node }
         it { is_expected.to render_with_layout node.section.layout }

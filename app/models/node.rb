@@ -20,6 +20,8 @@ class Node < ApplicationRecord
 
   scope :without_parent, -> { where(:parent => nil) }
 
+  scope :published, -> { where(:state => 'published') }
+
   def to_s
     self.name
   end
