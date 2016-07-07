@@ -1,7 +1,6 @@
 module Editorial
   class Editorial::SubmissionsController < Editorial::SectionsController
     include ::EditorialHelper
-    include ::NodesHelper
 
     before_action :find_node, only: [:new, :create]
     before_action :check_submission_validity, only: [:new, :create]
@@ -14,7 +13,7 @@ module Editorial
     end
 
     def create
-      @submission = SubmissionCreator.new(@node, params).create_submission
+      @submission = SubmissionCreator.new(@node, params, current_user).create_submission
 
       if @submission.submit! current_user
         flash[:notice] = "Your changes have been submitted to #{@node.name}"
@@ -64,7 +63,7 @@ module Editorial
 
     def check_submission_validity
 
-      submission_svc = SubmissionCreator.new(@node, params)
+      submission_svc = SubmissionCreator.new(@node, params, current_user)
 
       if submission_svc.already_exists?
         submission = submission_svc.open_submission
