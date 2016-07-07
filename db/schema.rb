@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707005947) do
+ActiveRecord::Schema.define(version: 20160707014136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -41,9 +40,9 @@ ActiveRecord::Schema.define(version: 20160707005947) do
     t.jsonb    "data"
     t.string   "state",       default: "draft", null: false
     t.string   "token"
-    t.hstore   "content"
     t.string   "cms_url"
     t.string   "cms_api_url"
+    t.jsonb    "content"
     t.index ["parent_id", "slug"], name: "index_nodes_on_parent_id_and_slug", unique: true, using: :btree
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
