@@ -129,7 +129,7 @@ that is bound to them.
   run the necessary migrations, and SCP the file back.
 * If the target RDS instance is on a different subnet from the source, you will need
   to SCP the db dump to a jump-box on that subnet.
-* With the target file: `psql -h TARGET_RDS_HOST -U TARGET_RDS_USERNAME -W -d TARGET_RDS_NAME`
+* With the target file: `psql -h TARGET_RDS_HOST -U TARGET_RDS_USERNAME -W -d TARGET_RDS_NAME < db.sql`
   * YOu will need to provide the TARGET_RDS_PASSWORD
 
 
