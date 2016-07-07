@@ -13,9 +13,5 @@ module NodesHelper
   def self.states
     %w{draft published}
   end
-
-  def submission_exists?(node, user)
-    !node.submissions.open_submissions_for(user).empty?
-  end
   
 end

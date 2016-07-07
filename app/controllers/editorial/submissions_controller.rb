@@ -4,7 +4,7 @@ module Editorial
     include ::NodesHelper
 
     before_action :find_node, only: [:new, :create]
-    before_action :check_existing_submissions, only: [:new, :create]
+    before_action :check_submission_validity, only: [:new, :create]
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
@@ -14,7 +14,7 @@ module Editorial
     end
 
     def create
-      @submission = Submission.new(revision: @node.revise!(params[:node]))
+      @submission = SubmissionCreator.new(@node, params).create_submission
 
       if @submission.submit! current_user
         flash[:notice] = "Your changes have been submitted to #{@node.name}"
@@ -23,6 +23,7 @@ module Editorial
     end
 
     def new
+
       @editor = params[:editor] || 'simple'
     end
 
@@ -60,13 +61,16 @@ module Editorial
       end
     end
 
-    def check_existing_submissions
-      if submission_exists?(@node, current_user)
-        submission = @node.submissions.open_submissions_for(current_user).last
-        section = submission.section
-        redirect_to editorial_section_submission_path(section, submission)
-      end
-    end
 
+    def check_submission_validity
+
+      submission_svc = SubmissionCreator.new(@node, params)
+
+      if submission_svc.already_exists?
+        submission = submission_svc.open_submission
+        redirect_to editorial_section_submission_path(submission.section, submission)
+      end
+
+    end
   end
 end
