@@ -7,6 +7,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
   gem 'rails-assets-editor.md'
+  gem 'rails-assets-webfontloader'
 end
 
 # Core gems
