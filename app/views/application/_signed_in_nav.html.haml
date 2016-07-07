@@ -4,15 +4,12 @@
       .wrapper
         %ul.show
           %li
-            %span
-              %i.fa.fa-home
             = link_to('Editorial', editorial_root_path)
           = yield :toolbar_actions
     %div.navigation-tools
       %ul
         %li #{current_user.full_name}
         %li.more
-          %i.fa-user.fa
           %ul
             %li= link_to('Sign out', destroy_user_session_path, method: :delete)
 

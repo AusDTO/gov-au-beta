@@ -1,12 +1,11 @@
 - if show_new_page_link?
   %li
-    %span
-      %i.fa.fa-file-text
     = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
 
 -if show_edit_page_link?
   %li
-    %span
-      %i.fa.fa-pencil
-    = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
+    - if @node.submission_exists_for?(current_user)
+      = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
+    - else
+      = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
 
