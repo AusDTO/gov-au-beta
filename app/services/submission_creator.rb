@@ -2,24 +2,21 @@ class SubmissionCreator
 
   def initialize(node, params, user)
     @node = node
-    @submission = params[:node]
+    @sub_params = params[:node]
     @user = user
   end
 
-  def already_exists?
-    @node.submissions.open_submissions_for(@user).present?
-  end
 
-  def create_submission
+  def create!
 
-    unless already_exists?
-      return Submission.new(revision: @node.revise!(@submission))
+    unless @node.submission_exists_for?(@user)
+      return Submission.new(revision: @node.revise!(@sub_params))
     end
 
   end
 
   def open_submission
-    @node.submissions.open_submissions_for(@user).last
+    @node.submissions.open.for(@user).last
   end
 
 end
