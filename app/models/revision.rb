@@ -11,6 +11,10 @@ class Revision < ApplicationRecord
 
   delegate :section, to: :revisable, allow_nil: true
 
+  before_create do
+    self.id = SecureRandom.uuid
+  end
+
   def applied?
     applied_at.present?
   end

@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630093116) do
+ActiveRecord::Schema.define(version: 20160707005947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "uuid-ossp"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -51,19 +50,6 @@ ActiveRecord::Schema.define(version: 20160630093116) do
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
   end
 
-  create_table "pages", force: :cascade do |t|
-    t.integer  "position"
-    t.jsonb    "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "path",        null: false
-    t.text     "title"
-    t.string   "source_name", null: false
-    t.string   "cms_ref"
-    t.index ["path"], name: "index_pages_on_path", unique: true, using: :btree
-    t.index ["source_name"], name: "index_pages_on_source_name", using: :btree
-  end
-
   create_table "requests", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "user_id"
@@ -77,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160630093116) do
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
   end
 
-  create_table "revisions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+  create_table "revisions", id: :uuid, default: nil, force: :cascade do |t|
     t.string   "revisable_type"
     t.integer  "revisable_id"
     t.jsonb    "diffs"
