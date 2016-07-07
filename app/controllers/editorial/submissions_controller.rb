@@ -1,8 +1,10 @@
 module Editorial
   class Editorial::SubmissionsController < Editorial::SectionsController
     include ::EditorialHelper
+    include ::NodesHelper
 
     before_action :find_node, only: [:new, :create]
+    before_action :check_existing_submissions, only: [:new, :create]
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
@@ -57,5 +59,14 @@ module Editorial
         Submission
       end
     end
+
+    def check_existing_submissions
+      if submission_exists?(@node, current_user)
+        submission = @node.submissions.open_submissions_for(current_user).last
+        section = submission.section
+        redirect_to editorial_section_submission_path(section, submission)
+      end
+    end
+
   end
 end

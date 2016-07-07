@@ -23,6 +23,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
       subject { get :show, section_id: section, id: submission.id }
       it { is_expected.to be_success }
     end
+
   end
 
   describe 'GET #index' do
@@ -83,6 +84,31 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   context 'as an author' do
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }
+
+    context 'with an open submission' do
+      let(:node) { Fabricate(:node) }
+      let(:revision) { Fabricate(:revision, revisable: node)}
+      let!(:submission) { Fabricate(:submission, revision: revision, submitter: user) }
+
+
+      describe 'GET #new' do
+        before { get :new, section_id: node.section, node_id: node.id }
+
+        it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+      end
+
+      describe 'POST #create' do
+        before { post :create, section_id: node.section, node_id: node.id, node: {content_body: 'Some change'}}
+
+        it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+
+        it 'should not create a submission' do
+          sub = Submission.last
+          expect(sub).to eq submission
+        end
+      end
+
+    end
 
     describe 'GET #new' do
       before { get :new, section_id: node.section, node_id: node.id }
