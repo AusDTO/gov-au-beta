@@ -63,9 +63,7 @@ module Editorial
 
     def check_submission_validity
 
-      submission_svc = SubmissionCreator.new(@node, params, current_user)
-
-      if submission_svc.already_exists?
+      if (submission_svc = SubmissionCreator.new(@node, params, current_user)).already_exists?
         submission = submission_svc.open_submission
         redirect_to editorial_section_submission_path(submission.section, submission)
       end

@@ -7,7 +7,7 @@ class SubmissionCreator
   end
 
   def already_exists?
-    !@node.submissions.open_submissions_for(@user).empty?
+    @node.submissions.open_submissions_for(@user).present?
   end
 
   def create_submission
