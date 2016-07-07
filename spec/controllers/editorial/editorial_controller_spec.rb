@@ -7,22 +7,39 @@ RSpec.describe Editorial::EditorialController, type: :controller do
     let(:authenticated_request) { get :index }
 
     context 'when user is logged in' do
-      before do
+      before(:each) do
         sign_in(user)
         authenticated_request
       end
 
-      after do
+      after(:each) do
         sign_out(user)
       end
 
-      let! (:section_b) { Fabricate(:section, name: "b") }
-      let! (:section_a) { Fabricate(:section, name: "a") }
+      describe "they can see the sections they collaborate on" do
+        let! (:section_b) { Fabricate(:section, name: "b") }
+        let! (:section_a) { Fabricate(:section, name: "a") }
+        let! (:section_c) { Fabricate(:section, name: "c") }
+        let! (:section_d) { Fabricate(:section, name: "d") }
 
-      it { is_expected.not_to set_flash[:alert] }
+        let! (:role_on_section_b) { Role.create!(:name => :author, :resource => section_b) }
+        let! (:role_on_section_a) { Role.create!(:name => :reviewer, :resource => section_a) }
+        let! (:role_on_section_d) { Role.create!(:name => :owner, :resource => section_d) }
 
-      it "should assign @sections" do
-        expect(assigns(:sections)).to eq([section_a, section_b])
+        let(:user) do
+          user = Fabricate(:user)
+          user.roles << role_on_section_b
+          user.roles << role_on_section_a
+          user.roles << role_on_section_d
+          user.save!
+          user
+        end
+
+        it { is_expected.not_to set_flash[:alert] }
+
+        it "should assign @sections" do
+          expect(assigns(:sections)).to eq([section_a, section_b, section_d])
+        end
       end
     end
 
@@ -32,7 +49,6 @@ RSpec.describe Editorial::EditorialController, type: :controller do
       end
 
       it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
-
     end
   end
 
