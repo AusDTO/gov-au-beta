@@ -1,0 +1,7 @@
+-# locals: content : RevisionContent
+- if content.blank? || content.content_body.blank?
+  %div
+    none
+- else
+  %div.content-block
+    != markdown_to_html content.content_body

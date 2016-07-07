@@ -46,6 +46,16 @@ RSpec.describe Editorial::NodesController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    let(:node) { Fabricate(:general_content, section: section) }
+    before do
+      sign_in(author)
+      get :show, params: { section_id: section, id: node.id }
+    end
+
+    it { is_expected.to assign_to(:node).with node }
+  end
+
   describe 'POST #create' do
     # before do
     #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')

@@ -8,7 +8,7 @@
     %span= node.name
     %span
       %strong= node.state
-    %span= node.updated_at
+    %span= l(node.updated_at)
     %span
       =link_to 'View', editorial_section_node_path(node.section, node)
     -if node.state.draft?
