@@ -11,7 +11,7 @@ class NodesController < ApplicationController
     if !can?(:read, @node)
       raise ActiveRecord::RecordNotFound
     end
-    @root_nodes = @section.nodes.without_parent
+    @root_nodes = @section.nodes.published.without_parent
     render_node node, @section
   end
 
