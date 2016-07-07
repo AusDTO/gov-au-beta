@@ -9,11 +9,11 @@ module Editorial
 
 
     def index
-      @submissions = scope.open_submissions_for(current_user)
+      @submissions = scope.open.for(current_user)
     end
 
     def create
-      @submission = SubmissionCreator.new(@node, params, current_user).create_submission
+      @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
         flash[:notice] = "Your changes have been submitted to #{@node.name}"
@@ -63,8 +63,8 @@ module Editorial
 
     def check_submission_validity
 
-      if (submission_svc = SubmissionCreator.new(@node, params, current_user)).already_exists?
-        submission = submission_svc.open_submission
+      if (@node.submission_exists_for?(current_user))
+        submission = @node.submissions.open.for(current_user).last
         redirect_to editorial_section_submission_path(submission.section, submission)
       end
 
