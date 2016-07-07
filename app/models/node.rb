@@ -34,6 +34,10 @@ class Node < ApplicationRecord
     self_and_ancestors.reverse.collect(&:slug)
   end
 
+  def submission_exists_for?(user)
+    self.submissions.open.for(user).present?
+  end
+
   private
 
   def ensure_order_num_present
