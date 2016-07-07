@@ -3,16 +3,17 @@ module Editorial
     include ::EditorialHelper
 
     before_action :find_node, only: [:new, :create]
+    before_action :check_submission_validity, only: [:new, :create]
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
 
     def index
-      @submissions = scope.open_submissions_for(current_user)
+      @submissions = scope.open.for(current_user)
     end
 
     def create
-      @submission = Submission.new(revision: @node.revise!(params[:node]))
+      @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
         flash[:notice] = "Your changes have been submitted to #{@node.name}"
@@ -21,6 +22,7 @@ module Editorial
     end
 
     def new
+
       @editor = params[:editor] || 'simple'
     end
 
@@ -56,6 +58,16 @@ module Editorial
       else
         Submission
       end
+    end
+
+
+    def check_submission_validity
+
+      if @node.submission_exists_for? current_user
+        submission = @node.submissions.open.for(current_user).last
+        redirect_to editorial_section_submission_path(submission.section, submission)
+      end
+
     end
   end
 end
