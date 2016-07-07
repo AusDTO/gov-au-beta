@@ -7,11 +7,11 @@ set -e
 set -x
 
 # Update the blue app
-cf unmap-route platform-staging-blue apps.staging.digital.gov.au -n staging
-cf push platform-staging-blue
-cf map-route platform-staging-blue apps.staging.digital.gov.au -n staging
+cf unmap-route gov-au-beta-blue apps.staging.digital.gov.au -n gov-au-beta
+cf push gov-au-beta-blue
+cf map-route gov-au-beta-blue apps.staging.digital.gov.au -n gov-au-beta
 
 # Update the green app
-cf unmap-route platform-staging-green apps.staging.digital.gov.au -n staging
-cf push platform-staging-green
-cf map-route platform-staging-green apps.staging.digital.gov.au -n staging
+cf unmap-route gov-au-beta-green apps.staging.digital.gov.au -n gov-au-beta
+cf push gov-au-beta-green
+cf map-route gov-au-beta-green apps.staging.digital.gov.au -n gov-au-beta
