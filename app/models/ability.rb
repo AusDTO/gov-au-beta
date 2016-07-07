@@ -35,6 +35,13 @@ class Ability
         user.has_role?(:author, section) &&
             section.cms_type == CmsTypeField::COLLABORATE
       end
+      can :read, Section do |section|
+        (
+          user.has_role?(:author, section)   ||
+          user.has_role?(:reviewer, section) ||
+          user.has_role?(:owner, section)
+        ) && section.cms_type == CmsTypeField::COLLABORATE
+      end
       can :review, Submission do |submission|
         user.has_role?(:reviewer, submission.section)
       end
