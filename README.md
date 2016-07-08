@@ -132,6 +132,25 @@ that is bound to them.
 * With the target file: `psql -h TARGET_RDS_HOST -U TARGET_RDS_USERNAME -W -d TARGET_RDS_NAME < db.sql`
   * YOu will need to provide the TARGET_RDS_PASSWORD
 
+## Blue / Green deploys
+
+Deployments occur to two applications that run off the same RDS instance - blue and
+green. They are deployed one at a time so that there is always at least one
+application that is routable, in order to minimize downtime for the end-user.
+
+There is an issue when binding multiple apps to the one RDS instance, whereby
+the second app to be bound has permissions issues and cannot access the data
+necessary to successfully start. As such, the secondary app must be started
+without a bound service, and must instead reference the absolute URL of the
+database manually using the `DATABASE_URL` environment variable. This environment
+variable can be obtained from the environment variable list of the application
+already bound to the service (there must be one).
+
+Given this, the manifest.yml file does not need to declare a service for the
+application (as this would cause both applications to bind to the service during
+a push, which breaks for one). This must be done manually when creating a new
+environment for the first time, and will not happen automatically as part of 
+any push command.
 
 
 ## Development Process
