@@ -77,7 +77,7 @@ RSpec.describe Submission, type: :model do
 
   describe 'reviewing' do
     let(:reviewer) { Fabricate(:user, reviewer_of: revision.section) }
-    let(:revision) { Fabricate(:node, state: 'draft').revise! content_body: 'Revised content' }
+    let(:revision) { Fabricate(:node, state: 'draft').revise! name: 'Revised name', content_body: 'Revised content' }
     subject { Fabricate(:submission, revision: revision, submitted_at: 3.days.ago, state: :submitted) }
 
     before do
@@ -90,6 +90,7 @@ RSpec.describe Submission, type: :model do
       it { expect(subject).to be_rejected }
       it { expect(subject.reviewed_at).to be_present }
       it { expect(revision.revisable.content_body).not_to eq 'Revised content' }
+      it { expect(revision.revisable.name).not_to eq 'Revised name' }
       it { expect(revision.revisable.state).to eq 'draft' }
     end
 
@@ -99,7 +100,10 @@ RSpec.describe Submission, type: :model do
       it { expect(subject).to be_accepted }
       it { expect(subject.reviewed_at).to be_present }
       it { expect(revision.revisable.content_body).to eq 'Revised content' }
+      it { expect(revision.revisable.name).to eq 'Revised name' }
       it { expect(revision.revisable.state).to eq 'published' }
     end
+
+
   end
 end
