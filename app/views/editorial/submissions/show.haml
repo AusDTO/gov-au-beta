@@ -1,6 +1,6 @@
 - breadcrumb :editorial_submission, submission
 
-%h2 Submission to #{submission.revisable.name}
+%h2 New Submission
 %h3 Submitted by: #{submission.submitter_full_name}
 %h3 Submitted at: #{submission.submitted_at}
 
@@ -18,12 +18,18 @@
   %p Unknown
 
 %h3 Original content
-%p
-  = submission.revisable.content_body
+%dl
+  %dt Name
+  %dd= submission.revisable.name
+  %dt Body
+  %dd= submission.revisable.content_body
 
 %h3 Submitted content
-%p
-  = submission.submitted_content.content_body
+%dl
+  %dt Name
+  %dd= submission.submitted_content.name
+  %dt Body
+  %dd= submission.submitted_content.content_body
 
 - if can_review?
   = simple_form_for @submission, url: editorial_section_submission_path(@section, submission) do |f|
