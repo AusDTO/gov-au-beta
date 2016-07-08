@@ -21,7 +21,7 @@ deployment:
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
-      - cf push gov-au-beta || cf push gov-au-beta || cf push gov-au-beta
+      - ./bin/deploy-staging.sh
   production:
     tag: /v.*/
     owner: AusDTO

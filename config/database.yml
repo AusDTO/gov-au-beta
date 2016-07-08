@@ -27,7 +27,7 @@ staging:
 
 production:
   database: <%= ENV['DB_NAME'] || 'govau_beta' %>
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['BLUE_GREEN_URL'] || ENV['DATABASE_URL'] %>
   adapter:  postgresql
   encoding: unicode
   pool:     <%= ENV['DB_CONCURRENCY'] || 10 %>
