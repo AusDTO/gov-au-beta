@@ -2,10 +2,13 @@
 
 %h2 Editorial
 
-
-%ul
-  - @sections.each do |section|
-    %li
-      = link_to(section.name, editorial_section_path(section))
-      - if can? :create_in, section
-        =link_to('Create new page', prepare_editorial_section_nodes_path(section))
+- if @sections.count == 0
+  %p.callout
+    You are not registered as a collaborator on any sections.
+- else
+  %ul
+    - @sections.each do |section|
+      %li
+        = link_to(section.name, editorial_section_path(section))
+        - if can? :create_in, section
+          = link_to('Create new page', prepare_editorial_section_nodes_path(section))

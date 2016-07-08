@@ -10,7 +10,7 @@ module Editorial
 
     def index
       authorize! :view, :editorial_page
-      @sections = Section.all.order(:name)
+      @sections = Section.all.order(:name).select{ |section| can? :read, section }
     end
   end
 end
