@@ -38,16 +38,42 @@ RSpec.describe Submission, type: :model do
   end
 
   describe '#submit!' do
-    let(:author) { Fabricate(:user, reviewer_of: revision.section) }
-    let(:revision) { Fabricate(:node).revise! content_body: 'Revised content' }
-    subject { Fabricate(:submission, revision: revision) }
-    before do
-      subject.submit! author
+    context 'editing body' do
+      let(:author) { Fabricate(:user, reviewer_of: revision.section) }
+      let(:revision) { Fabricate(:node).revise! content_body: 'Revised content' }
+      subject { Fabricate(:submission, revision: revision) }
+      before do
+        subject.submit! author
+      end
+      it { is_expected.to be_submitted }
+      it { expect(subject.submitted_at).to be_present }
+      it { expect(revision.revisable.content_body).not_to eq 'Revised content' }
     end
-    it { is_expected.to be_submitted }
-    it { expect(subject.submitted_at).to be_present }
-    it { expect(revision.revisable.content_body).not_to eq 'Revised content' }
+    context 'editing title' do
+      let(:author) { Fabricate(:user, reviewer_of: revision.section) }
+      let(:revision) { Fabricate(:node).revise! name: 'Revised name' }
+      subject { Fabricate(:submission, revision: revision) }
+      before do
+        subject.submit!(author)
+      end
+      it { is_expected.to be_submitted }
+      it { expect(subject.submitted_at).to be_present }
+      it { expect(revision.revisable.name).not_to eq 'Revised name' }
+    end
+    context 'editing title and content' do
+      let(:author) { Fabricate(:user, reviewer_of: revision.section) }
+      let(:revision) { Fabricate(:node).revise!(name: 'Revised name', content_body: 'Revised content') }
+      subject { Fabricate(:submission, revision: revision) }
+      before do
+        subject.submit!(author)
+      end
+      it { is_expected.to be_submitted }
+      it { expect(subject.submitted_at).to be_present }
+      it { expect(revision.revisable.content_body).not_to eq 'Revised content' }
+      it { expect(revision.revisable.name).not_to eq 'Revised name' }
+    end
   end
+
 
   describe 'reviewing' do
     let(:reviewer) { Fabricate(:user, reviewer_of: revision.section) }

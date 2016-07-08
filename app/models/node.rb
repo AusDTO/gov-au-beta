@@ -17,6 +17,7 @@ class Node < ApplicationRecord
 
   # store_attribute :content, :content_body, String
   content_attribute :content_body
+  content_attribute :name
 
   scope :without_parent, -> { where(:parent => nil) }
 
