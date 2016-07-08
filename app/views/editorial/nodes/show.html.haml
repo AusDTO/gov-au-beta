@@ -5,7 +5,9 @@
 %h2 Preview
 
 %div.content-block
-  = render template: "templates/#{node.template}"
+  -# render the template in its own breadcrumb context so it can't override this page's breadcrumb
+  - with_breadcrumb(nil) do
+    = render template: "templates/#{node.template}"
 
 %h2 Metadata
 %table.content-table
