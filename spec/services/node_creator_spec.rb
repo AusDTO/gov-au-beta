@@ -9,8 +9,8 @@ RSpec.describe NodeCreator, type: :service do
   let(:params)       { { name: name, content_body: content_body } }
   let(:node_class)   { Node }
   let(:form)         { NodeForm.new(node_class.new(params)) }
-  
-  subject(:creator)  { described_class.new(section, form) }
+
+  subject(:creator)  { NodeCreator.new(section, form) }
 
   it 'creates a new node' do
     expect { subject.perform!(user) }.to change(Node, :count).by(1)
@@ -40,12 +40,17 @@ RSpec.describe NodeCreator, type: :service do
         expect(RevisionContent.new(revision).all_content[:content_body]).to eq(content_body)
       end
 
+      specify 'that the revision content matches the name' do
+        expect(RevisionContent.new(revision).all_content[:name]).to eq(name)
+      end
+
       describe 'the created node' do
         subject(:node) { revision.revisable }
         it { is_expected.to be_a(Node) }
 
         specify { expect(subject.section).to eq(section) }
-        specify { expect(subject.name).to eq(name) }
+        specify { expect(subject.name).to_not eq(name) }
+        specify { expect(subject.content_body).to_not eq(content_body) }
 
         context 'when a parent is specified' do
           before { params.merge!(parent_id: parent.id) }
