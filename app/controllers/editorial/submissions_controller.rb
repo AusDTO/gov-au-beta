@@ -16,7 +16,7 @@ module Editorial
       @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
-        flash[:notice] = "Your changes have been submitted to #{@node.name}"
+        flash[:notice] = "Your changes have been submitted"
         redirect_to editorial_section_submission_path(@section, @submission)
       end
     end
