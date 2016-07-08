@@ -106,6 +106,31 @@ To deploy to Production, tag the desired branch with a version number and push.
 CircleCI will run the test suite and deploy to production on pass.
 
 
+## Migrating data between RDS instances
+
+There may occasionally be a need to migrate data from one RDS instance to another.
+In these instanes, you will require:
+
+* CF access to the environments the RDS instances run on
+* Access to a jumpbox  to connect directly to the amazon RDS instances
+
+The latter can be set up by the webops team, but needs to be performed behind
+a whitelisted IP (typicaly the office).
+
+As CloudFoundry picks owner and database names for the RDS instances, we need to
+produce an export that has no ownership or privileges. We can find the CF
+credentials for these instances in the environment variables for an application
+that is bound to them.
+
+* SSH into the jump-box that has access to the source RDS instance
+* `pg_dump --no-owner --no-acl -h SRC_RDS_HOST -U SRC_RDS_USERNAME -W SRC_RDS_NAME  > db.sql`
+  * You will need to provide the SRC_RDS_PASSWORD
+* If local migrations need to be run on this, SCP the file to your local machine,
+  run the necessary migrations, and SCP the file back.
+* If the target RDS instance is on a different subnet from the source, you will need
+  to SCP the db dump to a jump-box on that subnet.
+* With the target file: `psql -h TARGET_RDS_HOST -U TARGET_RDS_USERNAME -W -d TARGET_RDS_NAME < db.sql`
+  * YOu will need to provide the TARGET_RDS_PASSWORD
 
 
 
