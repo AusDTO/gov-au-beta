@@ -29,6 +29,24 @@ RSpec.describe 'editing content', type: :feature do
       visit "/#{node.section.slug}/#{node.slug}"
       expect(page).to have_link('Edit')
     end
+
+    context 'as a user with an open submission' do
+      let(:user_b) { Fabricate(:user, author_of: section)}
+      let(:revision) { Fabricate(:revision, revisable: node) }
+      let!(:submission) { Fabricate(:submission, revision: revision, submitter: author)}
+
+      it 'should show a link to view the existing submission' do
+        visit "/#{node.section.slug}/#{node.slug}"
+        expect(page).to have_link('View submission')
+      end
+
+      it 'should show an edit link for a user without an open submission' do
+        logout(author)
+        login_as(user_b)
+        visit "/#{node.section.slug}/#{node.slug}"
+        expect(page).to have_link('Edit')
+      end
+    end
   end
 
   context 'when editing content' do

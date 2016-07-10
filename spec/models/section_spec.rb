@@ -23,5 +23,20 @@ RSpec.describe Section, type: :model do
         expect(section.users).to eq [author]
       end
     end
+
+    context 'find node' do
+      let(:section) { Fabricate(:section) }
+      let!(:published) { Fabricate(:node, name: 'blah', state: 'published', section: section) }
+      let!(:draft)     { Fabricate(:node, name: 'vtha', state: 'draft', section: section) }
+
+      it 'finds a published node based on path' do
+        expect(section.find_node!('blah')).to eq(published)
+      end
+
+      it 'cannot find an unpublished node' do
+        expect{ section.find_node!('vtha') }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
   end
 end

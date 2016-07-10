@@ -20,6 +20,8 @@ class Node < ApplicationRecord
 
   scope :without_parent, -> { where(:parent => nil) }
 
+  scope :published, -> { where(:state => 'published') }
+
   def to_s
     self.name
   end
@@ -30,6 +32,10 @@ class Node < ApplicationRecord
 
   def path_elements
     self_and_ancestors.reverse.collect(&:slug)
+  end
+
+  def submission_exists_for?(user)
+    self.submissions.open.for(user).present?
   end
 
   private

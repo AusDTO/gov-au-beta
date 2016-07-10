@@ -30,6 +30,14 @@ class Submission < ApplicationRecord
     where(submitter: user).without_state(:accepted, :rejected).order(updated_at: :desc)
   }
 
+  scope :open, -> {
+    without_state(:accepted, :rejected)
+  }
+
+  scope :for, -> (user) {
+    where(submitter: user).order(updated_at: :desc)
+  }
+
   validates_presence_of :revision
   validates_presence_of :submitter
 
@@ -69,6 +77,9 @@ class Submission < ApplicationRecord
     transaction do
       review! by_reviewer, 'accepted'
       revision.apply!
+      # For now, as soon as a submission is accepted, the node is published
+      # This is subject to change as we update workflow
+      revisable.update(state: 'published')
     end
   end
 

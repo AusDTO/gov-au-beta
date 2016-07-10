@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Container do
   with_model :Song do
     table do |t|
-      t.hstore :content
+      t.jsonb :content
     end
 
     model do
