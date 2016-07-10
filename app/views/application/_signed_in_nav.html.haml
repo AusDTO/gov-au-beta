@@ -1,16 +1,16 @@
-%div.controls
+%div.controls--contrast
   %div.wrapper
-    %nav{role: 'navigation'}
-      .wrapper
+    %section
+      %nav.breadcrumbs--inverted
         %ul.show
           %li
             = link_to('Editorial', editorial_root_path)
           = yield :toolbar_actions
-    %div.navigation-tools
-      %ul
-        %li #{current_user.full_name}
-        %li.more
-          %ul
-            %li= link_to('Sign out', destroy_user_session_path, method: :delete)
+    %section.right
+      %ul.inline-links--inverted
+        %li
+          %i.fa-user.fa
+          = #{current_user.full_name}
+        %li= link_to('Sign out', destroy_user_session_path, method: :delete)
 
 
