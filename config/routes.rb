@@ -33,7 +33,8 @@ Rails.application.routes.draw do
     resources :requests
     resources :revisions
     resources :roles
-    resources :sections
+    resources :sections 
+    resources :section_indexes
     resources :submissions
     resources :topics
     resources :users

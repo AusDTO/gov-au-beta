@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.uncountable 'general content'
+  inflect.irregular 'section_index', 'section_indexes'
 end

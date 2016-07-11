@@ -1,0 +1,2 @@
+class SectionIndexForm < NodeForm
+end
