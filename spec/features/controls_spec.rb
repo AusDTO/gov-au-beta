@@ -11,7 +11,7 @@ RSpec.describe "controls", :type => :feature do
       visit section_path(section)
     end
     it 'should not show controls' do
-      expect(page).to have_no_css('.controls')
+      expect(page).to have_no_css('.controls--contrast')
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "controls", :type => :feature do
     end
 
     def controls
-      find('.controls')
+      find('.controls--contrast')
     end
 
     shared_examples_for 'has New page link' do
