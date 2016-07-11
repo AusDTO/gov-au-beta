@@ -1,0 +1,12 @@
+- breadcrumb :public_node, node
+
+%h2
+  =node.name
+
+= render partial: 'templates/content_body', object: node.content_body
+
+- if @section.topics.any?
+  %h2 Related Topics
+  %ul
+    - @section.topics.each do |topic|
+      %li= topic.name

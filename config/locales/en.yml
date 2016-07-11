@@ -23,6 +23,8 @@ en:
   domain_model:
     nodes:
       general_content: General content
-      news_article: News article
       general_content_form: General content
+      news_article: News article
       news_article_form: News article
+      section_index: Section index
+      section_index_form: Section index

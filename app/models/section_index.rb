@@ -1,0 +1,2 @@
+class SectionIndex < Node
+end
