@@ -9,14 +9,20 @@ class RevisionContent
   end
 
   def all_content
-    node.all_content.collect {|key, _value|
-      [key, get_content(key)]
-    }.to_h
+    node.all_content.inject({}) do |hash, key_value|
+      key = key_value[0]
+      content = get_content(key)
+      unless content.nil?
+        hash[key] = content
+      end
+      hash
+    end
   end
 
   def get_content(content_key)
-    value = ''
+    return nil unless traversal_sequence.any? { |rev| rev.diffs[content_key].present? }
 
+    value = ''
     traversal_sequence.each do |rev|
       if rev.diffs[content_key].present?
         diff = JSON.parse(rev.diffs[content_key])
