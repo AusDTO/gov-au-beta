@@ -1,14 +1,14 @@
 - breadcrumb :editorial_section_submissions, @section
-%h2 Submissions
+%h1 Submissions
 
-%h3 New Pages
+%h2 New Pages
 
 - if @submissions.with_unpublished_node.empty?
   No new pages
 - else
   = render partial: 'submissions', locals: {submissions: @submissions.with_unpublished_node.decorate}
 
-%h3 Existing page revisions
+%h2 Existing page revisions
 
 - if @submissions.with_published_node.empty?
   No revisions to existing pages

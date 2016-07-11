@@ -16,6 +16,9 @@ module Editorial
       @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
+
+        MetricsRecorder.instance.revisions_submitted.increment()
+
         flash[:notice] = "Your changes have been submitted"
         redirect_to editorial_section_submission_path(@section, @submission)
       end

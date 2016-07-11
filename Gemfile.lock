@@ -233,6 +233,8 @@ GEM
     orm_adapter (0.5.0)
     pg (0.19.0.pre20160409114042)
     pkg-config (1.1.7)
+    prometheus-client (0.5.0)
+      quantile (~> 0.2.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -241,6 +243,7 @@ GEM
       byebug (~> 9.0)
       pry (~> 0.10)
     puma (3.4.0)
+    quantile (0.2.0)
     rack (2.0.0.rc1)
       json
     rack-test (0.6.3)
@@ -437,6 +440,7 @@ DEPENDENCIES
   odyssey
   oj (~> 2.12.14)
   pg (>= 0.19.0.beta)
+  prometheus-client
   pry-byebug
   puma (~> 3.0)
   rails (>= 5.0.0.beta4, < 5.1)

@@ -1,6 +1,6 @@
 - breadcrumb :editorial_section, @section
 
-%h3 Pages
+%h1 Pages
 
 - if can? :create_in, @section
   %p= link_to 'Add Page', prepare_editorial_section_nodes_path(@section)
