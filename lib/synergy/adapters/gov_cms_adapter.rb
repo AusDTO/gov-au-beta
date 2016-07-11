@@ -11,7 +11,6 @@ module Synergy
 
       def initialize(section)
         @section = section
-        # @url = "#{section.cms_url}/node.json?field_current_revision_state=published"
         @url = "#{section.cms_url}/node.json?type=policy&status=1"
         @image_base_href = URI.parse(section.cms_url)
       end
@@ -55,10 +54,6 @@ module Synergy
       end
 
       def extract_content(govcms_node)
-        # NOTE: GovCMS can return a hash, or an array (always empty for some reason) or nil
-        # for field content. Only the hash version is useful.
-        # (govcms_node["body"].andand["value"] rescue nil) ||
-        # (govcms_node["field_content_extra"].andand["value"] rescue nil)
         govcms_node["body"].andand["value"]
       end
 
