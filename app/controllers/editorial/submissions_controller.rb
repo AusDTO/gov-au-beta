@@ -66,8 +66,11 @@ module Editorial
 
     def check_submission_validity
 
-      if @node.submission_exists_for? current_user
-        submission = @node.submissions.open.for(current_user).last
+      # Will need to revert back to the below at some point
+      # However, for now, we only want one Submission per Node...
+      #if @node.submission_exists_for? current_user
+      if @node.submissions.open.present?
+        submission = @node.submissions.open.last
         redirect_to editorial_section_submission_path(submission.section, submission)
       end
 
