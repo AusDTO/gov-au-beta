@@ -35,7 +35,8 @@ RSpec.describe 'creating content:', type: :feature do
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
         click_button('Create')
-        expect(page).to have_content(/Submission to test name/i)
+        expect(page).to have_content(name)
+        expect(page).to have_content(/Good Content/i)
       end
     end
 
@@ -122,8 +123,7 @@ RSpec.describe 'creating content:', type: :feature do
       click_button 'New page'
       fill_in 'Name', with: 'foo'
       fill_in 'Body', with: 'Random content'
-      click_button 'Create page'
-      expect(page).to have_content 'Submission to foo'
+      click_button 'Create page'    
       expect(page).to have_content 'Random content'
     end
   end

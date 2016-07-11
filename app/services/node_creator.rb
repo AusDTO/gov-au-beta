@@ -7,7 +7,7 @@ class NodeCreator
 
   def perform!(user)
     @form.save do |params|
-      content = content_from_params params
+      content = content_from_params(params)
       node = @klass.new params.delete_if {|k, _v| content.has_key?(k) }
       node.section = @section
       node.save!
