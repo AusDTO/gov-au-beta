@@ -32,7 +32,7 @@ module Synergy
           clear_existing_nodes
           @adapter.run do |node_data|
             parts = node_data[:path].split("/").select{|p| !p.blank?}
-            leaf = build_path_to_leaf_node(parts, node_data) 
+            leaf = build_path_to_leaf_node(parts, node_data)
             write_leaf_content(leaf, node_data)
           end
         end
@@ -88,7 +88,7 @@ module Synergy
       html.search("a").each do |node|
         href = node["href"]
         unless href.empty?
-          if href =~ /^\// 
+          if href =~ /^\//
             node["href"] = "/#{@adapter.section.slug}#{href.to_s}"
           end
         end
