@@ -108,6 +108,29 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
         end
       end
 
+      context 'as another author' do
+        let(:user_b) { Fabricate(:user, author_of: node.section) }
+        before { sign_in(user_b) }
+
+        describe 'GET #new' do
+          before { get :new, section_id: node.section, node_id: node.id }
+
+          it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+
+        end
+
+        describe 'POST #create' do
+          before { post :create, section_id: node.section, node_id: node.id, node: {content_body: 'Some change'} }
+
+          it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+
+          it 'should not create a submission' do
+            sub = Submission.last
+            expect(sub).to eq submission
+          end
+        end
+      end
+
     end
 
     describe 'GET #new' do
