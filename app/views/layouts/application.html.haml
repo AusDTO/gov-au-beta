@@ -23,10 +23,10 @@
       .wrapper
         = breadcrumbs style: :ul, class: nil
 
-    %main#content{class: "content-main"}
+    %main
       - if content_for?(:navbar)
         = yield :navbar
-      %article
+      %article#content{class: "content-main"}
         = render 'application/alerts'
         = yield
     %footer{role: "contentinfo"}
