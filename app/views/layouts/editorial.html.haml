@@ -25,7 +25,7 @@
         %aside.sidebar
           %nav.primary-nav{'aria-label' => 'main navigation'}
             = yield :navbar
-      %article
+      %article#content{class: "content-main"}
         = render 'alerts'
         = yield
     %footer{role: "contentinfo"}
