@@ -15,10 +15,8 @@ module Editorial
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end
 
-    # TODO: show useful editorial things here rather than just showing the published version
     def show
       @node = Node.find(params[:id])
-      render_node node, @section
     end
 
     def prepare
