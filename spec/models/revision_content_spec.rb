@@ -22,4 +22,25 @@ RSpec.describe RevisionContent, type: :model do
 
     it { is_expected.to eq variant_two }
   end
+
+  describe '#all_content' do
+    let(:clean_node) { Fabricate(:general_content) }
+    let(:missing_name) { clean_node.revise!(content_body: variant_one) }
+
+    # remove all 'name' diffs to simulate a revision set that doesn't set the name
+    before do
+      missing_name.self_and_ancestors.each do |rev|
+        d = rev.diffs
+        d.delete(:name)
+        rev.diffs = d
+        rev.save!
+      end
+    end
+    it 'includes attributes with diffs' do
+      expect(RevisionContent.new(revision_one).all_content.keys).to include(:name)
+    end
+    it 'does not include attributes without diffs' do
+      expect(RevisionContent.new(missing_name).all_content.keys).not_to include(:name)
+    end
+  end
 end
