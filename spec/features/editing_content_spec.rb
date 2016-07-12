@@ -72,36 +72,29 @@ RSpec.describe 'editing content', type: :feature do
     end
 
     context 'creating a submission' do
-      before do
-        visit new_editorial_section_submission_path(node1.section, node_id: node1)
-        fill_in 'Body', with: 'Brand new content'
-        click_button 'Submit for review'
+      context 'with good content' do
+        before do
+          visit new_editorial_section_submission_path(node1.section, node_id: node1)
+          fill_in 'Body', with: 'Brand new content'
+          click_button 'Submit for review'
+        end
+
+        it 'should take the user to the created submission view' do
+          expect(current_path).to match /editorial\/#{node1.section.slug}\/submissions\/\d+/
+        end
+
+        it 'should not update the record directly' do
+          visit "/#{node1.path}"
+          expect(page).not_to have_content 'Brand new content'
+        end
       end
 
-      it 'should take the user to the created submission view' do
-        expect(current_path).to match /editorial\/#{node1.section.id}\/submissions\/\d+/
+      it_behaves_like 'robust to XSS' do
+        before { visit new_editorial_section_submission_path(node1.section, node_id: node1) }
       end
-
-      it 'should not update the record directly' do
-        visit "/#{node1.path}"
-        expect(page).not_to have_content 'Brand new content'
+      it_behaves_like 'robust to XSS' do
+        before { visit new_editorial_section_submission_path(node2.section, node_id: node2) }
       end
-    end
-
-    context 'with bad content' do
-      it 'should return to the edit form' do
-        visit edit_editorial_section_node_path(node1.section, node1.id)
-        fill_in('Body', with: 'Bad Content')
-        click_button('Submit for review')
-        expect(page).to have_content(/Your changes have been submitted/i)
-      end
-    end
-
-    it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_section_node_path(node1.section, node1) }
-    end
-    it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_section_node_path(node2.section, node2) }
     end
   end
 

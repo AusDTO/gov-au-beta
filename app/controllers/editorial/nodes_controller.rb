@@ -59,22 +59,17 @@ module Editorial
     end
 
     def edit
-
       @node = Node.find(params[:id])
       authorize! :update, @node
-      @type_name = @node.class.name.underscore
-      @form = "#{@node.class.name}Form".constantize.new(@node)
-      @editor = params[:editor]
-      redirect_to new_editorial_section_submission_path(@section, node_id: @node, editor: @editor)
+      @form = NodeMetadataForm.new(@node)
     end
 
     def update
       @node = Node.find(params[:id])
       authorize! :update, @node
-      @form = new_form(@node)
-
+      @form = NodeMetadataForm.new(@node)
       if try_save
-        redirect_to editorial_node_path(@form)
+        redirect_to editorial_section_node_path(@section, @node)
       else
         render :edit
       end
@@ -103,8 +98,7 @@ module Editorial
 
     def try_save
       return false unless @form.validate(params.require(:node).permit!)
-      @form.sync
-      @form.model.save
+      @form.save
     end
   end
 end
