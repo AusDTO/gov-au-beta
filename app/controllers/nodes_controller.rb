@@ -18,12 +18,4 @@ class NodesController < ApplicationController
     set_menu_nodes
     render_node node
   end
-
-  private
-
-  def set_menu_nodes
-    if @section.present? && @section.home_node.present?
-      @menu_nodes = @section.home_node.children.published
-    end
-  end
 end

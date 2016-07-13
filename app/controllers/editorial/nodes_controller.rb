@@ -2,6 +2,7 @@ module Editorial
   class NodesController < Editorial::SectionsController
     include ::NodesHelper, ::EditorialHelper
     decorates_assigned :node
+    decorates_assigned :menu_nodes, with: NodeDecorator
 
     before_action :derive_type, except: [:show, :prepare]
 
@@ -17,6 +18,7 @@ module Editorial
 
     def show
       @node = Node.find(params[:id])
+      set_menu_nodes
     end
 
     def prepare
