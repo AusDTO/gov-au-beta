@@ -16,4 +16,10 @@ module NodesHelper
     end
   end
 
+  def set_menu_nodes
+    if @section.present? && @section.home_node.present?
+      @menu_nodes = @section.home_node.children.published
+    end
+  end
+
 end
