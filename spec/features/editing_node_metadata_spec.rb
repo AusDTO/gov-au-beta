@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'editing node metadata:', type: :feature do
 
   Warden.test_mode!
-  let!(:section) { Fabricate(:section) }
+  let!(:section) { Fabricate(:section, with_home: true) }
   let!(:author) { Fabricate(:user, author_of: section) }
-  let!(:parent) { Fabricate(:general_content, section: section) }
-  let!(:child1) { Fabricate(:general_content, section: section, parent: parent) }
-  let!(:child2) { Fabricate(:general_content, section: section, parent: parent) }
-  let!(:child3) { Fabricate(:general_content, section: section, parent: parent) }
+  let!(:parent) { Fabricate(:general_content, parent: section.home_node) }
+  let!(:child1) { Fabricate(:general_content, parent: parent) }
+  let!(:child2) { Fabricate(:general_content, parent: parent) }
+  let!(:child3) { Fabricate(:general_content, parent: parent) }
 
   before :each do
     login_as(author, scope: :user)
@@ -21,6 +21,10 @@ RSpec.describe 'editing node metadata:', type: :feature do
   context 'editing a parent node' do
     before do
       visit edit_editorial_section_node_path(section, parent)
+    end
+
+    it 'prefills the parent' do
+      expect(page).to have_select('Parent', selected: section.home_node.name)
     end
 
     it 'shows the children order form' do

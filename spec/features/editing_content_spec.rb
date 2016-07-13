@@ -51,12 +51,12 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'when editing content' do
-    let!(:section1) { Fabricate(:section) }
-    let!(:section2) { Fabricate(:section) }
+    let!(:section1) { Fabricate(:section, with_home: true) }
+    let!(:section2) { Fabricate(:section, with_home: true) }
     let!(:node1) { Fabricate(:general_content, state: 'published',
-      parent: root_node, section: section1) }
+      parent: section1.home_node) }
     let!(:node2) { Fabricate(:news_article, state: 'published',
-      parent: root_node, section: section2) }
+      parent: section2.home_node) }
 
     before :each do
       author.add_role(:author, section1)
@@ -80,7 +80,7 @@ RSpec.describe 'editing content', type: :feature do
         end
 
         it 'should take the user to the created submission view' do
-          expect(current_path).to match /editorial\/#{node1.section.slug}\/submissions\/\d+/
+          expect(current_path).to match /editorial\/#{node1.section.id}\/submissions\/\d+/
         end
 
         it 'should not update the record directly' do
