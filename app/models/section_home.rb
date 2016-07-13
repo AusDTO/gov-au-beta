@@ -8,7 +8,7 @@ class SectionHome < Node
 
   def child_of_root
     if parent.present? && parent.parent.present?
-      errors.add :parent, 'Too deep'
+      errors.add :parent, 'Home page of sections must be children of the root node'
     end
   end
 
