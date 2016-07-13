@@ -3,4 +3,5 @@
 %h1
   =node.name
 
+= render partial: 'templates/toc', locals: {content_body: node.content_body, depth: node.options.toc}
 = render partial: 'templates/content_body', object: node.content_body

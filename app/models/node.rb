@@ -20,6 +20,8 @@ class Node < ApplicationRecord
   enumerize :state, in: STATES, scope: true
   content_attribute :content_body
   content_attribute :name
+  # options is not currently versioned but could be in the future
+  store_attribute :content, :options
 
   around_create :spawn_initial_revision
   before_validation :generate_token
@@ -46,6 +48,29 @@ class Node < ApplicationRecord
 
   def submission_exists_for?(user)
     self.submissions.open.for(user).present?
+  end
+
+  # Override in subclasses to add options
+  # Format is {option: :default_value}
+  def available_options
+    {}
+  end
+
+  # 1) reform requires options to be an object with attributes
+  # 2) activerecord wants it to be a hash
+  # 3) Storext's default type coercion doesn't work properly with OpenStruct
+  # so for now, we just do the conversion by hand
+  def options
+    hash = super
+    if hash
+      OpenStruct.new(hash)
+    else
+      OpenStruct.new(available_options)
+    end
+  end
+
+  def options=(value)
+    super(value.to_h)
   end
 
   private

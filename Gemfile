@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'simple_form', github: 'kesha-antonov/simple_form', branch: 'rails-5-0'
 gem 'reform'
 gem 'reform-rails'
+gem 'dry-types'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
 gem 'cf-app-utils' # cloudfoundry utils

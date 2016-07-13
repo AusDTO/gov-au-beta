@@ -12,9 +12,10 @@ module GovAuBeta
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Allow tables and telephone contact protocol links through the sanitizer
+    # Allow additional data through the sanitizer
     config.after_initialize do
       ActionView::Base.sanitized_allowed_tags.merge(%w{table th tr td thead tbody})
+      ActionView::Base.sanitized_allowed_attributes.merge(%w{id})
       Loofah::HTML5::WhiteList::ALLOWED_PROTOCOLS.add('tel')
     end
 
