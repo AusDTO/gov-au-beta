@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe Editorial::SubmissionsController, type: :controller do
   render_views
 
-  let(:node) { Fabricate(:node) }
-
   describe 'GET #show' do
     context 'as an authorised author' do
       before { sign_in(author) }
@@ -30,8 +28,9 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     # Yes I hate the usage of all of these fabricators...
     let(:user_a) { Fabricate(:user) }
     let(:user_b) { Fabricate(:user) }
-    let(:section) { Fabricate(:section) }
-    let(:section_b) { Fabricate(:section) }
+    let!(:root_node) { Fabricate(:root_node) }
+    let(:section) { Fabricate(:section, with_home: true) }
+    let(:section_b) { Fabricate(:section, with_home: true) }
     let(:node_a) { Fabricate(:node, section: section) }
     let(:node_b) { Fabricate(:node, section: section) }
     let(:node_c) { Fabricate(:node, section: section_b ) }
@@ -82,6 +81,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   end
 
   context 'as an author' do
+    let(:node) { Fabricate(:node) }
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }
 

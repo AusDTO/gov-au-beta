@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   layout 'section'
 
-  decorates_assigned :root_nodes, with: NodeDecorator
+  decorates_assigned :menu_nodes, with: NodeDecorator
 
   def index
     @sections = Section.all.order(:name)
@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find_by!(slug: params[:section])
     layout = @section.layout.presence
-    @root_nodes = @section.nodes.published.without_parent
+    @menu_nodes = @section.nodes.published.without_parent
 
     if layout
       render layout: layout

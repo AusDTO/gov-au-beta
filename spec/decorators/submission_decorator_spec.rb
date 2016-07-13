@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SubmissionDecorator, type: :decorator do
 
+  let!(:root_node) { Fabricate(:root_node) }
+
   describe '#submitted_content' do
     subject { Fabricate(:submission).decorate.submitted_content }
     it { is_expected.to be_a(RevisionContent) }

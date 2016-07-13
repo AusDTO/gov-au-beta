@@ -11,7 +11,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
   describe 'GET #index' do
     let(:reviewer) { Fabricate(:user, reviewer_of: section) }
     let(:nodes) { Fabricate.times(3, :node, section: section) }
-    let(:authenticated_request) { get :index, params: { section_id: section } }
+    let(:authenticated_request) { get :index, params: { section_id: section.id } }
 
     context 'when user is authorised' do
       before do

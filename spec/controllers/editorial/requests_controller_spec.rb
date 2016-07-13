@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Editorial::RequestsController, type: :controller do
   include ActiveJob::TestHelper
-  render_views
+
+  let!(:root_node) { Fabricate(:root_node) }
 
   describe '#new' do
-
-    let!(:section) { Fabricate(:section) }
+    let!(:section) { Fabricate(:section, with_home: true) }
     let(:author) { Fabricate(:user, author_of: section) }
-    let(:alt_section) { Fabricate(:section) }
+    let(:alt_section) { Fabricate(:section, with_home: true) }
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested')}
 
     describe 'creating a new request' do
@@ -52,10 +52,10 @@ RSpec.describe Editorial::RequestsController, type: :controller do
 
   describe '#create' do
 
-    let(:section) { Fabricate(:section) }
+    let(:section) { Fabricate(:section, with_home: true) }
     let(:author) { Fabricate(:user, author_of: section) }
     let!(:owner) { Fabricate(:user, owner_of: section) }
-    let(:alt_section) { Fabricate(:section)}
+    let(:alt_section) { Fabricate(:section, with_home: true)}
     let!(:request) { Fabricate(:request, user: author, section: alt_section, state: 'requested') }
 
     context 'when section doesn\'t exist' do
@@ -107,7 +107,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
   end
 
   describe '#show' do
-    let(:section) { Fabricate(:section) }
+    let(:section) { Fabricate(:section, with_home: true) }
     let(:author) { Fabricate(:user, author_of: section) }
     let!(:request) { Fabricate(:request, user: author, section: section, state: 'requested') }
     
@@ -128,7 +128,7 @@ RSpec.describe Editorial::RequestsController, type: :controller do
   end
 
   describe '#update' do
-    let(:section) { Fabricate(:section) }
+    let(:section) { Fabricate(:section, with_home: true) }
     let(:owner) { Fabricate(:user, owner_of: section) }
     let(:non_author) { Fabricate(:user) }
     let!(:new_request) { Fabricate(:request, user: non_author, section: section, state: 'requested') }

@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do
       resources :submissions
@@ -33,6 +32,8 @@ Rails.application.routes.draw do
     resources :requests
     resources :revisions
     resources :roles
+    resources :root_nodes
+    resources :section_homes
     resources :sections
     resources :submissions
     resources :topics
@@ -48,11 +49,7 @@ Rails.application.routes.draw do
 
   resources :departments, only: :index
 
-  get root 'sections#index'
+  get root 'nodes#show'
   get '/preview/:token' => 'nodes#preview', as: :previews
-  get '/:section' => 'sections#show', as: :section
-  get '/:section(/*path)' => 'nodes#show', as: :nodes
-
-
-
+  get '/*path' => 'nodes#show', as: :nodes
 end

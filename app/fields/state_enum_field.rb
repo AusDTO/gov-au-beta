@@ -7,7 +7,7 @@ class StateEnumField < Administrate::Field::Base
   end
 
   def select_options
-    NodesHelper.states.map do |state|
+    Node::STATES.map do |state|
       [state, state]
     end
   end
