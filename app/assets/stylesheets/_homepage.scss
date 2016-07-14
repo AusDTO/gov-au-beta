@@ -1,0 +1,143 @@
+$desktop: (min-width 1000px);
+
+.home {
+  .govau--logo {
+    a {
+      display: none;
+    }
+  }
+}
+
+.home-header {
+  background-color: $darker-aqua;
+  padding: 0 0 4rem;
+
+  h1 {
+    font-size: rem(80);
+    margin: 0;
+    color: $white;
+  }
+
+  p {
+    margin: 0;
+    font-size: rem(22);
+    max-width: 25em;
+    color: $white;
+  }
+
+  section {
+
+
+  }
+}
+
+.home {
+
+  .govt {
+    @include span-columns(12);
+
+    @include media($desktop) {
+      @include span-columns(4);
+    }
+
+    ul {
+      padding-left: 0;
+      list-style-type: none;
+
+      li a {
+        font-size: rem(36);
+        font-weight: 700;
+      }
+
+      li span {
+        display: block;
+        font-size: rem(56);
+        line-height: 1.5;
+      }
+
+      li {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  .consultations {
+    @include span-columns(12);
+
+    @include media($desktop) {
+      @include span-columns(8);
+    }
+  }
+
+  .about-australia {
+    overflow: hidden;
+    figure {
+      background-color: $lighterer-grey;
+      padding: 3rem;
+    }
+  }
+
+  .population {
+    @include span-columns(12);
+    figure {
+      text-align: center;
+    }
+
+    @include media($desktop) {
+      @include span-columns(8);
+    }
+
+    img {
+      margin-left: .5rem;
+    }
+  }
+  .public-holiday {
+    @include span-columns(12);
+
+    @include media($desktop) {
+      @include span-columns(4);
+    }
+
+    figure {
+      text-align: center;
+    }
+
+
+  }
+
+  .home-heading {
+    border-bottom: 6px solid $light-aqua;
+    padding-bottom: 1.6rem;
+  }
+
+  .list-vertical--fourths {
+    border-top: none;
+
+    li {
+      border-top: 1px solid $border-colour;
+      border-bottom: none;
+    }
+  }
+
+  .list-vertical--thirds {
+    border-top: none;
+
+    h2,
+    h3,
+    h4 {
+      min-height: auto;
+    }
+
+    li {
+      border-bottom: none;
+      border-top: none;
+      border-left: 1px solid $border-colour;
+      padding: .5em 2em;
+      margin: 2.4em 0;
+
+      a {
+        color: $aqua;
+      }
+    }
+  }
+}
