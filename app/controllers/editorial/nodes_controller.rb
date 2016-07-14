@@ -27,8 +27,8 @@ module Editorial
       configure_defaults!
       authorize! :create_in, @section
 
-      @node_types = Node.descendants.select {|klass|
-        ![RootNode, SectionHome].include? klass
+      @node_types = Node.descendants.reject {|klass|
+        [RootNode, SectionHome].include? klass
       }.map do |klass|
         name = klass.name.underscore
         [I18n.t("domain_model.nodes.#{name}"), name]
