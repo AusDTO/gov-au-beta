@@ -60,7 +60,7 @@ class Node < ApplicationRecord
   def ensure_order_num_present
     unless order_num.present?
       if parent.present? && parent.children.any?
-        self.order_num = parent.children.maximum(:order_num) + 1
+        self.order_num = (parent.children.maximum(:order_num) || 0) + 1
       else
         self.order_num = 0
       end
