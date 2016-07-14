@@ -49,37 +49,9 @@ RSpec.describe Node, type: :model do
       end
     end
 
-    describe 'section inheritance' do
-      it 'is expected to inherit its section from its parent' do
-        expect(gamma.section).to eq beta.section
-      end
-    end
-
     describe 'validations' do
       describe 'root node protection' do
         subject { Fabricate.build(:root_node) }
-        it { should_not be_valid }
-      end
-
-      describe 'section home protection' do
-        subject { node = Fabricate.build(:node, parent: root_node,
-          section: alpha.section) }
-        it { should_not be_valid }
-      end
-
-      describe 'section heritage' do
-        subject { Fabricate.build(:node, parent: beta,
-          section: Fabricate(:section)) }
-        it { should_not be_valid }
-      end
-
-      describe 'section presence' do
-        subject {
-          # Have to do this manually as fabricator adds a section by default
-          node = Fabricate.build(:node, parent: root_node)
-          node.section = nil
-          node }
-
         it { should_not be_valid }
       end
     end

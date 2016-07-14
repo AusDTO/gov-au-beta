@@ -7,10 +7,10 @@ RSpec.describe 'admin features', type: :feature do
   let!(:root_node) { Fabricate(:root_node)}
 
   context 'an admin user' do
-    let!(:agency) { Fabricate(:agency) }
-    let!(:topic) { Fabricate(:topic) }
-    let!(:news_article) { Fabricate(:news_article, parent: root_node) }
-    let!(:general_content) { Fabricate(:general_content, parent: root_node) }
+    let!(:agency) { Fabricate(:agency, with_home: true) }
+    let!(:topic) { Fabricate(:topic, with_home: true) }
+    let(:news_article) { Fabricate(:news_article, section: agency, parent: agency.home_node) }
+    let(:general_content) { Fabricate(:general_content, section: agency, parent: agency.home_node) }
 
     before do
       login_as(admin_user, scope: :user)
@@ -34,7 +34,7 @@ RSpec.describe 'admin features', type: :feature do
       end
 
       it 'should show links to administer users' do
-      expect(sidebar.find_link('Users')[:href]).to eq admin_users_path
+        expect(sidebar.find_link('Users')[:href]).to eq admin_users_path
       end
 
       it 'should not show a link to administer sections en masse' do
