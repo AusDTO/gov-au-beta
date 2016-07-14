@@ -1,6 +1,8 @@
 class Section < ApplicationRecord
   has_many :nodes
   has_many :requests
+  has_many :news_distributions, as: :distribution
+  has_many :news_articles, through: :news_distributions
 
   has_and_belongs_to_many :sections,
         class_name: 'Section',
