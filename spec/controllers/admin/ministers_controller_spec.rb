@@ -6,7 +6,7 @@ RSpec.describe Admin::MinistersController, type: :controller do
 
     let(:minister) { Fabricate(:minister) }
 
-    subject { Admin::MinistersController.new.find_resource(minister.slug) }
+    subject { Admin::MinistersController.new.find_resource(minister.id) }
 
     it { is_expected.to eq(minister) }
 
