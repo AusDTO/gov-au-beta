@@ -30,5 +30,11 @@ RSpec.describe MarkdownHelper do
       subject { markdown_to_html(nil) }
       it { is_expected.to be_blank }
     end
+
+    context 'handles tel: telephone links' do
+      subject { markdown_to_html('<a href="tel:133 677">National Relay Service - TTY/voice calls</a>')}
+      it {is_expected.to have_link('National Relay Service - TTY/voice calls',
+                                   :href => "tel:133%20677")}
+    end
   end
 end
