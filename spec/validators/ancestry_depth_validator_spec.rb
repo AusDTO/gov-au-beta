@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-class Validatable
+class AncestryDepthValidatable
   include ActiveModel::Validations
   attr_reader :parent
 
@@ -9,19 +9,19 @@ class Validatable
   end
 end
 
-class MinimumOne < Validatable
+class MinimumOne < AncestryDepthValidatable
   validates :parent, ancestry_depth: { minimum: 1 }
 end
 
-class MaximumOne < Validatable
+class MaximumOne < AncestryDepthValidatable
   validates :parent, ancestry_depth: { maximum: 1 }
 end
 
-class EqualsOne < Validatable
+class EqualsOne < AncestryDepthValidatable
   validates :parent, ancestry_depth: { equals: 1 }
 end
 
-class RangeOneToTwo < Validatable
+class RangeOneToTwo < AncestryDepthValidatable
   validates :parent, ancestry_depth: { minimum: 1, maximum: 2 }
 end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-class Validatable
+class NonRecursiveAncestryValidatable
   include ActiveModel::Validations
   attr_accessor :parent
   validates_with NonRecursiveAncestryValidator
@@ -11,8 +11,8 @@ class Validatable
 end
 
 describe NonRecursiveAncestryValidator do
-  let(:parent) { Validatable.new nil }
-  subject { Validatable.new parent }
+  let(:parent) { NonRecursiveAncestryValidatable.new nil }
+  subject { NonRecursiveAncestryValidatable.new parent }
 
   context 'sensible ancestry' do
     it { is_expected.to be_valid }
