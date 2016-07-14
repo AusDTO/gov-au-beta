@@ -17,7 +17,7 @@ module Admin
     # for more information
 
     def find_resource(param)
-      Topic.find_by! slug: param
+      Topic.find param
     end
   end
 end
