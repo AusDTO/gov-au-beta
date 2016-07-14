@@ -3,7 +3,10 @@
 %html.js
   = render 'application/head', title: 'GovAuBeta'
   %body
-    %header{role: 'banner', class: 'navigation'}
+    %div.skip-to
+      %a{href: "#content"}
+        Skip to main content
+    %header{role: 'banner'}
       = render 'application/signed_in_nav' if user_signed_in?
       %section.govau--header
         .wrapper
@@ -23,7 +26,7 @@
     %main
       - if content_for?(:navbar)
         = yield :navbar
-      %article
+      %article#content{class: "content-main"}
         = render 'application/alerts'
         = yield
     %footer{role: "contentinfo"}

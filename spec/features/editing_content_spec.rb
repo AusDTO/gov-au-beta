@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'editing content', type: :feature do
 
   Warden.test_mode!
+  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
 
@@ -23,10 +24,10 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'on a node page' do
-    let!(:node) { Fabricate(:node, section: section) }
+    let!(:node) { Fabricate(:node, section: section, parent: root_node) }
 
     it 'should show a link to edit the content in the CMS' do
-      visit "/#{node.section.slug}/#{node.slug}"
+      visit "/#{node.slug}"
       expect(page).to have_link('Edit')
     end
 
@@ -36,7 +37,7 @@ RSpec.describe 'editing content', type: :feature do
       let!(:submission) { Fabricate(:submission, revision: revision, submitter: author)}
 
       it 'should show a link to view the existing submission' do
-        visit "/#{node.section.slug}/#{node.slug}"
+        visit "/#{node.slug}"
         expect(page).to have_link('View submission')
       end
 
@@ -50,10 +51,12 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'when editing content' do
-    let!(:section1) { Fabricate(:section) }
-    let!(:section2) { Fabricate(:section) }
-    let!(:node1) { Fabricate(:general_content, section: section1, state: 'published') }
-    let!(:node2) { Fabricate(:news_article, section: section2, state: 'published') }
+    let!(:section1) { Fabricate(:section, with_home: true) }
+    let!(:section2) { Fabricate(:section, with_home: true) }
+    let!(:node1) { Fabricate(:general_content, state: 'published',
+      parent: section1.home_node) }
+    let!(:node2) { Fabricate(:news_article, state: 'published',
+      parent: section2.home_node) }
 
     before :each do
       author.add_role(:author, section1)
@@ -62,43 +65,36 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit nodes_path section: node.section.slug, path: node.path
+        visit nodes_path path: node.path
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
       end
     end
 
     context 'creating a submission' do
-      before do
-        visit new_editorial_section_submission_path(node1.section, node_id: node1)
-        fill_in 'Body', with: 'Brand new content'
-        click_button 'Submit for review'
+      context 'with good content' do
+        before do
+          visit new_editorial_section_submission_path(node1.section, node_id: node1)
+          fill_in 'Body', with: 'Brand new content'
+          click_button 'Submit for review'
+        end
+
+        it 'should take the user to the created submission view' do
+          expect(current_path).to match /editorial\/#{node1.section.id}\/submissions\/\d+/
+        end
+
+        it 'should not update the record directly' do
+          visit "/#{node1.path}"
+          expect(page).not_to have_content 'Brand new content'
+        end
       end
 
-      it 'should take the user to the created submission view' do
-        expect(current_path).to match /editorial\/#{node1.section.slug}\/submissions\/\d+/
+      it_behaves_like 'robust to XSS' do
+        before { visit new_editorial_section_submission_path(node1.section, node_id: node1) }
       end
-
-      it 'should not update the record directly' do
-        visit nodes_path section: node1.section.slug, path: node1.path
-        expect(page).not_to have_content 'Brand new content'
+      it_behaves_like 'robust to XSS' do
+        before { visit new_editorial_section_submission_path(node2.section, node_id: node2) }
       end
-    end
-
-    context 'with bad content' do
-      it 'should return to the edit form' do
-        visit edit_editorial_section_node_path(node1.section, node1.id)
-        fill_in('Body', with: 'Bad Content')
-        click_button('Submit for review')
-        expect(page).to have_content(/Your changes have been submitted/i)
-      end
-    end
-
-    it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_section_node_path(node1.section, node1) }
-    end
-    it_behaves_like 'robust to XSS' do
-      before { visit edit_editorial_section_node_path(node2.section, node2) }
     end
   end
 

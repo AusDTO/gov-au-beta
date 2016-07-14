@@ -1,4 +1,4 @@
--# locals: root_nodes, active
+-# locals: menu_nodes, active
 
 %aside.sidebar
   %nav.primary-nav{'aria-label' => 'main navigation'}
@@ -6,5 +6,6 @@
             'aria-expanded' => true, 'aria-controls' => 'primary-nav-panel'}
       %span Show menu
       %i.chevron.bottom
-    %ul#primary-nav-panel{'aria-labelledby' => 'primary-nav-heading'}
-      = render partial: 'navbar_part', locals: { nodes: root_nodes, depth: 3, active: active }
+    -if menu_nodes.present?
+      %ul#primary-nav-panel{'aria-labelledby' => 'primary-nav-heading'}
+        = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }

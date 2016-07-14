@@ -1,0 +1,68 @@
+- breadcrumb :editorial_node, node
+
+%h1= node.name
+
+%h2 Preview
+
+%div.content-block
+  -# render the template in its own breadcrumb context so it can't override this page's breadcrumb
+  - with_breadcrumb(nil) do
+    = render template: "templates/#{node.template}"
+
+%h2 Metadata
+%table.content-table#metadata-table
+  %thead
+    %tr
+      %th Name
+      %th Value
+  %tbody
+    %tr
+      %td Section
+      %td= link_to(node.section.name, editorial_section_path(node.section))
+    %tr
+      %td Parent
+      %td
+        - if node.parent
+          = link_to(node.parent.name, editorial_section_node_path(@section, node.parent))
+        - else
+          none
+    %tr
+      %td Children
+      %td
+        - if @node.children.count > 0
+          - @node.children.each do |child|
+            = link_to(child.name, editorial_section_node_path(@section, child))
+            %br/
+        - else
+          none
+    %tr
+      %td Menu order
+      %td= node.order_num
+    %tr
+      %td Slug
+      %td= node.slug
+    %tr
+      %td Page type
+      %td= node.type_display_name
+    %tr
+      %td State
+      %td= node.state
+
+%h2 Content history
+%table.content-table#history-table
+  %thead
+    %tr
+      %th Submission
+      %th Author
+      %th Reviewer
+      %th State
+      %th Last changed
+  %tbody
+    -# Note: can't use #order because we are dealing with decorated objects
+    - node.submissions.sort_by{|s| s.updated_at}.reverse.each do |submission|
+      %tr
+        %td= link_to('View', editorial_section_submission_path(@section, submission))
+        %td= submission.submitter_full_name
+        %td= submission.reviewer_full_name
+        %td= t("submission.state.#{submission.state}")
+        %td= l(submission.updated_at)

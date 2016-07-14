@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Revision, type: :model do
+  let(:root_node) { Fabricate(:root_node) }
+
   describe 'scopes' do
-    let(:node) { Fabricate(:node, content_body: nil) }
+    let(:node) { Fabricate(:node, parent: root_node, content_body: nil, name: nil) }
     let!(:first_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
     let!(:second_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
-    let!(:first_pending_revision) { Fabricate(:revision, revisable: node,created_at: 2.days.ago) }
+    let!(:first_pending_revision) { Fabricate(:revision, revisable: node, created_at: 2.days.ago) }
     let!(:second_pending_revision) { Fabricate(:revision, revisable: node, created_at: 1.day.ago) }
 
     it 'should flag instances' do
@@ -50,7 +52,7 @@ RSpec.describe Revision, type: :model do
   end
 
   describe '#apply!' do
-    let(:node) { Fabricate(:node, content_body: 'initial content') }
+    let(:node) { Fabricate(:node, parent: root_node, content_body: 'initial content') }
     let(:revision) { node.revise! content_body: 'changed content' }
 
     context 'before applying revision' do
@@ -61,6 +63,7 @@ RSpec.describe Revision, type: :model do
 
     context 'after applying revision' do
       before do
+        node.reload
         revision.apply!
       end
 
@@ -76,7 +79,7 @@ RSpec.describe Revision, type: :model do
   end
 
   describe 'patching' do
-    let(:node) { Fabricate(:node, content_body: nil) }
+    let(:node) { Fabricate(:node, parent: root_node, content_body: nil) }
     let(:basic_content) { "a\n\nb\n\nc" }
     let(:revised_content) { "a#{"\n" * 20}b\nc" }
 

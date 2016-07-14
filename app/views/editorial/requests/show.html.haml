@@ -1,6 +1,6 @@
 - breadcrumb :editorial_request, @rqst
 
-%h2 #{requestor.full_name} wants to join #{rqst.section_name}
+%h1 #{requestor.full_name} wants to join #{rqst.section_name}
 
 - if current_user.in?(@owners)
   %p
@@ -17,7 +17,7 @@
       #{rqst.message}
 
 
-%h3 Owners
+%h2 Owners
 %ul
   - owners.each do |owner|
     %li #{owner.full_name}
@@ -29,4 +29,4 @@
       =f.submit 'Approve membership'
 #{rqst.actioned_status}
 
-=link_to 'Back to topic', section_path(@rqst.section)
+=link_to 'Back to topic', nodes_path(@rqst.section.home_node.path)

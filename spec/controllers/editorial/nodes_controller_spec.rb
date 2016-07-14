@@ -11,7 +11,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
   describe 'GET #index' do
     let(:reviewer) { Fabricate(:user, reviewer_of: section) }
     let(:nodes) { Fabricate.times(3, :node, section: section) }
-    let(:authenticated_request) { get :index, params: { section_id: section } }
+    let(:authenticated_request) { get :index, params: { section_id: section.id } }
 
     context 'when user is authorised' do
       before do
@@ -44,6 +44,16 @@ RSpec.describe Editorial::NodesController, type: :controller do
 
       it { is_expected.not_to set_flash[:alert] }
     end
+  end
+
+  describe 'GET #show' do
+    let(:node) { Fabricate(:general_content, section: section) }
+    before do
+      sign_in(author)
+      get :show, params: { section_id: section, id: node.id }
+    end
+
+    it { is_expected.to assign_to(:node).with node }
   end
 
   describe 'POST #create' do

@@ -26,3 +26,14 @@ en:
       news_article: News article
       general_content_form: General content
       news_article_form: News article
+      root_node: Root node
+      section_home: Section home
+  submission:
+    state:
+      draft: draft
+      submitted: awaiting review
+      accepted: applied
+      rejected: rejected
+  time:
+    formats:
+      default: '%d %b %Y, %I:%M%P %z'

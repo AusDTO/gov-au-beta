@@ -1,0 +1,19 @@
+-# locals: content : RevisionContent, defaults : Hash
+- if content.blank?
+  %div
+    none
+- else
+  %dl
+    %dt Name
+    %dd
+      - if content.name.nil?
+        = defaults[:name]
+      - else
+        = content.name
+    %dt Body
+    %dd
+      - if content.content_body.nil?
+        none
+      - else
+        %div.content-block
+          != markdown_to_html content.content_body

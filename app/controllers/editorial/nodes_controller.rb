@@ -2,6 +2,7 @@ module Editorial
   class NodesController < Editorial::SectionsController
     include ::NodesHelper, ::EditorialHelper
     decorates_assigned :node
+    decorates_assigned :menu_nodes, with: NodeDecorator
 
     before_action :derive_type, except: [:show, :prepare]
 
@@ -15,10 +16,9 @@ module Editorial
       @nodes = @section.nodes.order(updated_at: :desc).decorate
     end
 
-    # TODO: show useful editorial things here rather than just showing the published version
     def show
       @node = Node.find(params[:id])
-      render_node node, @section
+      set_menu_nodes
     end
 
     def prepare
@@ -27,7 +27,9 @@ module Editorial
       configure_defaults!
       authorize! :create_in, @section
 
-      @node_types = Node.descendants.map do |klass|
+      @node_types = Node.descendants.reject {|klass|
+        [RootNode, SectionHome].include? klass
+      }.map do |klass|
         name = klass.name.underscore
         [I18n.t("domain_model.nodes.#{name}"), name]
       end
@@ -59,22 +61,17 @@ module Editorial
     end
 
     def edit
-
       @node = Node.find(params[:id])
       authorize! :update, @node
-      @type_name = @node.class.name.underscore
-      @form = "#{@node.class.name}Form".constantize.new(@node)
-      @editor = params[:editor]
-      redirect_to new_editorial_section_submission_path(@section, node_id: @node, editor: @editor)
+      @form = NodeMetadataForm.new(@node)
     end
 
     def update
       @node = Node.find(params[:id])
       authorize! :update, @node
-      @form = new_form(@node)
-
+      @form = NodeMetadataForm.new(@node)
       if try_save
-        redirect_to editorial_node_path(@form)
+        redirect_to editorial_section_node_path(@section, @node)
       else
         render :edit
       end
@@ -103,8 +100,7 @@ module Editorial
 
     def try_save
       return false unless @form.validate(params.require(:node).permit!)
-      @form.sync
-      @form.model.save
+      @form.save
     end
   end
 end

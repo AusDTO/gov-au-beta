@@ -2,27 +2,17 @@
 # (a) crumb names should match path helpers unless there's a good reason otherwise
 # (b) Qualifying public routes is a good enough reason to break (a)
 
-# Don't use :root because :root will always be displayed and we want to hide it in editorial mode
-crumb :public_root do
-  link 'Home', root_path
-end
-
-crumb :public_section do |section|
-  link section.name, section_path(section)
-  parent :public_root
-end
-
 crumb :departments do
   link 'Departments', departments_path
-  parent :public_root
+  parent :public_node, Node.root
 end
 
 crumb :public_node do |node|
-  link node.name, nodes_path(section: node.section, path: node.path)
-  if node.parent
+  if node.parent.present?
+    link node.name, nodes_path(path: node.path)
     parent :public_node, node.parent
   else
-    parent :public_section, node.section
+    link 'Home', root_path
   end
 end
 
@@ -59,6 +49,11 @@ end
 crumb :new_editorial_node do |section, parent_node, type|
   link 'New', new_editorial_section_node_path(section, parent: parent_node.andand.id, type: type)
   parent :prepare_editorial_nodes, section, parent_node
+end
+
+crumb :edit_editorial_node do |node|
+  link 'Edit', edit_editorial_section_node_path(node.section, node)
+  parent :editorial_node, node
 end
 
 crumb :editorial_section_submissions do |section|

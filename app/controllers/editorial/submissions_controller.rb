@@ -16,7 +16,10 @@ module Editorial
       @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
-        flash[:notice] = "Your changes have been submitted to #{@node.name}"
+
+        MetricsRecorder.instance.revisions_submitted.increment()
+
+        flash[:notice] = "Your changes have been submitted"
         redirect_to editorial_section_submission_path(@section, @submission)
       end
     end
@@ -31,7 +34,7 @@ module Editorial
       authorize! :review, @submission
       if params[:accept]
         @submission.accept!(current_user)
-        redirect_to nodes_path(section: @submission.section, path: @submission.revisable.path)
+        redirect_to nodes_path(@submission.revisable.path)
       elsif params[:reject]
         @submission.reject!(current_user)
         redirect_to editorial_section_submission_path(@section, @submission)
@@ -63,8 +66,11 @@ module Editorial
 
     def check_submission_validity
 
-      if @node.submission_exists_for? current_user
-        submission = @node.submissions.open.for(current_user).last
+      # Will need to revert back to the below at some point
+      # However, for now, we only want one Submission per Node...
+      #if @node.submission_exists_for? current_user
+      if @node.submissions.open.present?
+        submission = @node.submissions.open.last
         redirect_to editorial_section_submission_path(submission.section, submission)
       end
 

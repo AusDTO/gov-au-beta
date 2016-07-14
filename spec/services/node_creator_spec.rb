@@ -1,16 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe NodeCreator, type: :service do
+  let!(:root_node)   { Fabricate(:root_node) }
   let(:user)         { Fabricate(:user) }
   let!(:section)     { Fabricate(:section) }
-  let!(:parent)      { Fabricate(:node) }
+  let!(:parent)      { Fabricate(:node, section: section, parent: root_node) }
   let(:name)         { 'Node Name' }
   let(:content_body) { 'This is the first revision' }
-  let(:params)       { { name: name, content_body: content_body } }
   let(:node_class)   { Node }
   let(:form)         { NodeForm.new(node_class.new(params)) }
-  
-  subject(:creator)  { described_class.new(section, form) }
+  let(:params)       { { name: name, content_body: content_body,
+                         parent_id: parent.id } }
+
+  subject(:creator)  { NodeCreator.new(section, form) }
 
   it 'creates a new node' do
     expect { subject.perform!(user) }.to change(Node, :count).by(1)
@@ -40,17 +42,16 @@ RSpec.describe NodeCreator, type: :service do
         expect(RevisionContent.new(revision).all_content[:content_body]).to eq(content_body)
       end
 
+      specify 'that the revision content matches the name' do
+        expect(RevisionContent.new(revision).all_content[:name]).to eq(name)
+      end
+
       describe 'the created node' do
         subject(:node) { revision.revisable }
         it { is_expected.to be_a(Node) }
 
         specify { expect(subject.section).to eq(section) }
-        specify { expect(subject.name).to eq(name) }
-
-        context 'when a parent is specified' do
-          before { params.merge!(parent_id: parent.id) }
-          specify { expect(subject.parent).to eq(parent) }
-        end
+        specify { expect(subject.parent).to eq(parent) }
 
         context 'when node class is General Content' do
           let(:node_class) { GeneralContent }

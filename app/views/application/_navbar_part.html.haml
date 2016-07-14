@@ -4,7 +4,7 @@
   - nodes.each do |node|
     %li
       - klass = 'is-active' if node == active
-      %a{ href: nodes_path(section: node.section, path: node.path), class: klass }
+      %a{ href: nodes_path(node.path), class: klass }
         = node.name
       - if depth > 1
         %ul

@@ -1,5 +1,5 @@
 - breadcrumb :public_section, @section
 
-%h2
+%h1
   =@section.name
-= render partial: "menu", locals: {nodes: (@root_nodes), depth: 1, section: @section}
+= render partial: "menu", locals: {nodes: (@menu_nodes), depth: 1, section: @section}

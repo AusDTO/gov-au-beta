@@ -6,7 +6,7 @@ RSpec.describe Admin::TopicsController, type: :controller do
 
     let(:topic) { Fabricate :topic }
 
-    subject { Admin::TopicsController.new.find_resource topic.slug }
+    subject { Admin::TopicsController.new.find_resource topic.id }
 
     it { is_expected.to eq topic }
 

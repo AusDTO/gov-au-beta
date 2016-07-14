@@ -11,7 +11,7 @@ module Synergy
 
       def initialize(section)
         @section = section
-        @url = "#{section.cms_url}/node.json?field_current_revision_state=published"
+        @url = "#{section.cms_url}/node.json?type=policy&status=1"
         @image_base_href = URI.parse(section.cms_url)
       end
 
@@ -48,16 +48,13 @@ module Synergy
           cms_ref: govcms_node["url"],
           cms_api_url: "#{@section.cms_url}/node/#{govcms_node["nid"]}.json",
           path: url.path,
-          title: govcms_node["field_title"],
+          title: govcms_node["title"],
           content: extract_content(govcms_node)
         }
       end
 
       def extract_content(govcms_node)
-        # NOTE: GovCMS can return a hash, or an array (always empty for some reason) or nil
-        # for field content. Only the hash version is useful.
-        (govcms_node["field_content_main"].andand["value"] rescue nil) ||
-        (govcms_node["field_content_extra"].andand["value"] rescue nil)
+        govcms_node["body"].andand["value"]
       end
 
       def load_nodes
@@ -84,12 +81,13 @@ module Synergy
       def nodes_by_url(nodes)
         nodes.reduce({}) do |by_url, node|
           by_url[node["url"]] = node
-          by_url 
+          by_url
         end
       end
 
       def next_page(response)
-        response["next"].gsub(/\/node/, "/node.json")
+        page = response["next"] || response["last"]
+        page.gsub(/\/node/, "/node.json")
       end
 
       def fetch(url)
@@ -103,7 +101,7 @@ module Synergy
             JSON.parse(cache(path, fetch_uncached(url)))
           end
         else
-          JSON.parse(fetch_uncached(url)) 
+          JSON.parse(fetch_uncached(url))
         end
       end
 

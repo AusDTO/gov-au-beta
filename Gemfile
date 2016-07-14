@@ -7,6 +7,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
   gem 'rails-assets-editor.md'
+  gem 'rails-assets-webfontloader'
 end
 
 # Core gems
@@ -48,11 +49,14 @@ gem 'redcarpet'
 gem 'andand'
 gem 'diff-lcs', '~> 1.2.5'
 gem 'gretel'
+gem 'prometheus-client'
+gem 'html2haml'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
 # - https://github.com/thoughtbot/administrate/pull/575 # Rails 5
-gem 'administrate', github: 'micapam/administrate', branch: 'govau'
+# - https://github.com/thoughtbot/administrate/pull/522/files # has_many field
+gem 'administrate', github: 'micapam/administrate', ref: '34492932'
 # Administrate depends on bourbon but doesn't include its own dependency yet
 # https://github.com/thoughtbot/administrate/pull/614
 gem 'bourbon'
@@ -90,5 +94,3 @@ platforms :mingw, :mswin do
   gem 'tzinfo-data'
   gem 'wdm'
 end
-
-gem 'html2haml'

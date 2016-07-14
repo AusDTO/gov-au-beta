@@ -1,31 +1,46 @@
 - breadcrumb :editorial_submission, submission
 
-%h2 Submission to #{submission.revisable.name}
-%h3 Submitted by: #{submission.submitter_full_name}
-%h3 Submitted at: #{submission.submitted_at}
+%h1 Submission
 
-%h3 Status
--# TODO: this should probably use locales
-- if submission.draft?
-  %p This submission is in draft
-- elsif submission.submitted?
-  %p This submission is awaiting review
-- elsif submission.accepted?
-  %p This submission has been accepted
-- elsif submission.rejected?
-  %p This submission has been rejected
-- else
-  %p Unknown
+%h2 Metadata
 
-%h3 Original content
-%p
-  = submission.revisable.content_body
+-# TODO: consider translating some of this to an event log
+%table.content-table
+  %thead
+    %tr
+      %th Name
+      %th Value
+  %tbody
+    %tr
+      %td Revises
+      %td= link_to(submission.revisable.name, editorial_section_node_path(@section, submission.revisable))
+    %tr
+      %td State
+      %td= t("submission.state.#{submission.state}")
+    %tr
+      %td Submitted by
+      %td= submission.submitter_full_name
+    %tr
+      %td Submitted at
+      %td= l(submission.submitted_at) unless submission.submitted_at.blank?
+    %tr
+      %td Reviewed by
+      %td= submission.reviewer_full_name
+    %tr
+      %td Reviewed at
+      %td= l(submission.reviewed_at) unless submission.reviewed_at.blank?
 
-%h3 Submitted content
-%p
-  = submission.submitted_content.content_body
+-# default to the published name if no name is set
+- locals = {defaults: {name: submission.revisable.name}}
+
+%h2 Original content
+= render partial: 'content', object: submission.original_content, locals: locals
+
+%h2 Submitted content
+= render partial: 'content', object: submission.submitted_content, locals: locals
 
 - if can_review?
+  %h2 Review
   = simple_form_for @submission, url: editorial_section_submission_path(@section, submission) do |f|
     = f.button :button, 'Publish change', name: 'accept'
     = f.button :button, 'Reject change', name: 'reject'

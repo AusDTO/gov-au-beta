@@ -1,6 +1,6 @@
 - breadcrumb :editorial_collaborators, @section
 
-%h2
+%h1
   Collaborators
 
 -if @pending.present?
@@ -10,7 +10,7 @@
       %li
         =link_to "#{p.user.decorate.full_name} (#{p.user.email})", editorial_section_request_path(@section, p)
 
-%table.table-alternating
+%table.content-table
   %thead
     %tr
       %th Full name

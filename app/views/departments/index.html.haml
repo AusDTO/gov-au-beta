@@ -1,12 +1,12 @@
 - breadcrumb :departments
 
-%h2
+%h1
   Departments
 %ul
   - departments.each do |department|
     %li
-      = link_to(department.name, section_path(department))
+      = link_to(department.name, nodes_path(path: department.root_node.path))
       - if department.agencies.any?
         %ul
           - department.agencies.each do |agency|
-            %li= link_to(agency.name, section_path(agency))
+            %li= link_to(agency.name, nodes_path(path: agency.root_node.path))

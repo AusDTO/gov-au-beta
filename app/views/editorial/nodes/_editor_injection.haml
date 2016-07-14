@@ -1,6 +1,6 @@
 - if @editor == 'simple'
   :javascript
-    $('#node_content_body').after('<div id="editor-preview" style="display: none; border-color: black; border-style: solid; border-width: 1px;"></div>');
+    $('#node_content_body').after('<div id="editor-preview" class="content-block" style="display: none;"></div>');
 
     function previewMarkdown(){
       var text = $('#node_content_body')[0].value,

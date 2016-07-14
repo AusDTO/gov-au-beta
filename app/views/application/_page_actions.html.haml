@@ -1,11 +1,17 @@
+%li
+  = link_to @section.name, editorial_section_path(@section)
 - if show_new_page_link?
   %li
     = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
 
 -if show_edit_page_link?
   %li
-    - if @node.submission_exists_for?(current_user)
-      = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
+    - if @node.submissions.open.present?
+      - if @node.submission_exists_for?(current_user)
+        = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
+      - else
+        = link_to "Open submission (#{@node.submissions.last.submitter.email})", editorial_section_submission_path(@section, @node.submissions.open.last)
     - else
       = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
-
+  %li
+    = link_to 'Edit metadata', edit_editorial_section_node_path(@section, @node)

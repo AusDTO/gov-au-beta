@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe Editorial::SubmissionsController, type: :controller do
   render_views
 
-  let(:node) { Fabricate(:node) }
-
   describe 'GET #show' do
     context 'as an authorised author' do
       before { sign_in(author) }
@@ -30,8 +28,9 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     # Yes I hate the usage of all of these fabricators...
     let(:user_a) { Fabricate(:user) }
     let(:user_b) { Fabricate(:user) }
-    let(:section) { Fabricate(:section) }
-    let(:section_b) { Fabricate(:section) }
+    let!(:root_node) { Fabricate(:root_node) }
+    let(:section) { Fabricate(:section, with_home: true) }
+    let(:section_b) { Fabricate(:section, with_home: true) }
     let(:node_a) { Fabricate(:node, section: section) }
     let(:node_b) { Fabricate(:node, section: section) }
     let(:node_c) { Fabricate(:node, section: section_b ) }
@@ -82,6 +81,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   end
 
   context 'as an author' do
+    let(:node) { Fabricate(:node) }
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }
 
@@ -105,6 +105,29 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
         it 'should not create a submission' do
           sub = Submission.last
           expect(sub).to eq submission
+        end
+      end
+
+      context 'as another author' do
+        let(:user_b) { Fabricate(:user, author_of: node.section) }
+        before { sign_in(user_b) }
+
+        describe 'GET #new' do
+          before { get :new, section_id: node.section, node_id: node.id }
+
+          it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+
+        end
+
+        describe 'POST #create' do
+          before { post :create, section_id: node.section, node_id: node.id, node: {content_body: 'Some change'} }
+
+          it { is_expected.to redirect_to editorial_section_submission_path(node.section, submission) }
+
+          it 'should not create a submission' do
+            sub = Submission.last
+            expect(sub).to eq submission
+          end
         end
       end
 
@@ -144,7 +167,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
       context '(:accept)' do
         subject { post :update, section_id: submission.section, id: submission.id, accept: true }
-        it { is_expected.to redirect_to nodes_path(section: submission.section, path: submission.revisable.path) }
+        it { is_expected.to redirect_to nodes_path(submission.revisable.path) }
         it 'change to accepted' do
           expect { subject }.to change { submission.reload.accepted? }.from(false).to(true)
         end

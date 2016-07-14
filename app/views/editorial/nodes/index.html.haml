@@ -1,6 +1,6 @@
 - breadcrumb :editorial_section, @section
 
-%h2
+%h1
   All pages in #{@section.name}
 
 -@nodes.each do |node|
@@ -8,7 +8,7 @@
     %span= node.name
     %span
       %strong= node.state
-    %span= node.updated_at
+    %span= l(node.updated_at)
     %span
       =link_to 'View', editorial_section_node_path(node.section, node)
     -if node.state.draft?
@@ -17,7 +17,6 @@
     %span
       -if node.state.published?
         =link_to 'View on website',                            |
-          nodes_path(section: @section.slug, path: node.path), |
-          target: 'GOVAU_PREVIEW'                              |
+          nodes_path(node.path), target: 'GOVAU_PREVIEW'                              |
       -else
         =link_to 'Preview', previews_path(token: node.token), target: '_blank'
