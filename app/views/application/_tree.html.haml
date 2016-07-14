@@ -1,6 +1,0 @@
-- if depth <= NodesHelper::MAX_MENU_DEPTH
-  %ul
-    - nodes.each do |node|
-      %li
-        = link_to(node, nodes_path(path: node.path))
-        = render partial: "tree", locals: {nodes: node.published_children, depth: depth += 1}
