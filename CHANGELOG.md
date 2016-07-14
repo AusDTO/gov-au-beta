@@ -1,11 +1,11 @@
-# Change log (as per http://keepachangelog.com/)
+# Change log 
 All notable changes to this product will be documented below. 
 This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 - 
 
-## [0.3.4] - 2016-07-14
+## [0.4.0] - 2016-07-14
 ### Added
 
 - Add editorial view of a page to display history
