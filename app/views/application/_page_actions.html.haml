@@ -13,3 +13,5 @@
         = link_to "Open submission (#{@node.submissions.last.submitter.email})", editorial_section_submission_path(@section, @node.submissions.open.last)
     - else
       = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
+  %li
+    = link_to 'Edit metadata', edit_editorial_section_node_path(@section, @node)

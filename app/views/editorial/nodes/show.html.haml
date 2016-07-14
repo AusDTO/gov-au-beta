@@ -10,7 +10,7 @@
     = render template: "templates/#{node.template}"
 
 %h2 Metadata
-%table.content-table
+%table.content-table#metadata-table
   %thead
     %tr
       %th Name
@@ -36,7 +36,7 @@
         - else
           none
     %tr
-      %td Sibling order
+      %td Menu order
       %td= node.order_num
     %tr
       %td Slug
@@ -49,7 +49,7 @@
       %td= node.state
 
 %h2 Content history
-%table.content-table
+%table.content-table#history-table
   %thead
     %tr
       %th Submission

@@ -51,6 +51,11 @@ crumb :new_editorial_node do |section, parent_node, type|
   parent :prepare_editorial_nodes, section, parent_node
 end
 
+crumb :edit_editorial_node do |node|
+  link 'Edit', edit_editorial_section_node_path(node.section, node)
+  parent :editorial_node, node
+end
+
 crumb :editorial_section_submissions do |section|
   link 'Submissions', editorial_section_submissions_path(section)
   parent :editorial_section, section
