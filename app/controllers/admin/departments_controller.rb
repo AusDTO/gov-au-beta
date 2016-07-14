@@ -17,7 +17,7 @@ module Admin
     # for more information
 
     def find_resource(param)
-      Department.find_by! slug: param
+      Department.find param
     end
   end
 end

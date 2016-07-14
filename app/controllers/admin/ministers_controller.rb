@@ -17,7 +17,7 @@ module Admin
     # for more information
 
     def find_resource(param)
-      Minister.find_by! slug: param
+      Minister.find param
     end
   end
 end
