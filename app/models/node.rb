@@ -17,20 +17,17 @@ class Node < ApplicationRecord
   belongs_to :section
   has_many :submissions, through: :revisions
 
-  around_create :spawn_initial_revision
-
-  before_validation :inherit_section, :generate_token
-
-  before_save :ensure_order_num_present
-
   enumerize :state, in: STATES, scope: true
-
-  validates_uniqueness_of :token
-  validate :section_heritage, :protect_root, :protect_section_home,
-    :ensure_section_presence
-
   content_attribute :content_body
   content_attribute :name
+
+  around_create :spawn_initial_revision
+  before_validation :generate_token
+  before_save :ensure_order_num_present
+
+  validates_with RootProtectionValidator
+  validates_with NonRecursiveAncestryValidator
+  validates_uniqueness_of :token
 
   def self.find_by_path!(path)
     path.split('/').reject(&:empty?).reduce(Node.root) do |node, slug|
@@ -82,41 +79,6 @@ class Node < ApplicationRecord
       revision.save
     else
       yield
-    end
-  end
-
-  def inherit_section
-    if section.nil? && parent.present? && parent.section.present?
-      self.section = parent.section
-    end
-  end
-
-  def section_heritage
-    if parent.present? && parent.section.present?
-      unless section == parent.section
-        errors.add :section, 'Section does not match parent\'s section'
-      end
-    end
-  end
-
-  def protect_root
-    if parent.nil? && Node.roots.any?
-      errors.add :parent, 'There can only be one root node'
-    end
-  end
-
-  def protect_section_home
-    if section.try(:home_node).present? &&
-        parent.present? &&
-        parent.section.nil? &&
-        section.home_node != self
-      errors.add :section, 'A section can only have one home node'
-    end
-  end
-
-  def ensure_section_presence
-    if parent.present? && section.nil?
-      errors.add :section, 'All nodes except root should have a section'
     end
   end
 end
