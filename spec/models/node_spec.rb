@@ -22,7 +22,6 @@ RSpec.describe Node, type: :model do
 
     it 'should automatically set an order number if necessary' do
       [one, two, three, new_one]
-      puts root_node.children.as_json
       expect(new_one.order_num).to eq 4
     end
   end
