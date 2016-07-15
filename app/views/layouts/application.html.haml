@@ -1,6 +1,6 @@
 !!! 5
 
-%html.js
+%html.js{lang: "en-au"}
   = render 'application/head', title: 'GovAuBeta'
   %body
     %div.skip-to
@@ -28,11 +28,6 @@
         = yield :navbar
       %article#content{class: "content-main"}
         = render 'application/alerts'
-        - if user_signed_in? and node.section
-          %nav.page-controls
-            %a.badge--default{href: editorial_section_node_path(node.section, node)}
-              %i.fa.fa-level-up
-              View editorial page
         = yield
     %footer{role: "contentinfo"}
       .wrapper
