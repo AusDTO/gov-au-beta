@@ -39,13 +39,15 @@ class Section < ApplicationRecord
   end
 
   def generate_home_node
-    SectionHome.create do |node|
-      node.name = name
-      node.slug = name.try(:parameterize)
-      node.content_body = ''
-      node.section = self
-      node.state = 'published'
-      node.parent = Node.root
+    unless home_node.present?
+      SectionHome.create do |node|
+        node.name = name
+        node.slug = name.try(:parameterize)
+        node.content_body = ''
+        node.section = self
+        node.state = 'published'
+        node.parent = Node.root
+      end
     end
   end
 end

@@ -7,8 +7,8 @@ RSpec.describe 'admin features', type: :feature do
   let!(:root_node) { Fabricate(:root_node)}
 
   context 'an admin user' do
-    let!(:agency) { Fabricate(:agency, with_home: true) }
-    let!(:topic) { Fabricate(:topic, with_home: true) }
+    let!(:agency) { Fabricate(:agency) }
+    let!(:topic) { Fabricate(:topic) }
     let(:news_article) { Fabricate(:news_article, section: agency, parent: agency.home_node) }
     let(:general_content) { Fabricate(:general_content, section: agency, parent: agency.home_node) }
 

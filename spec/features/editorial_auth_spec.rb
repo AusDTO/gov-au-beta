@@ -4,7 +4,7 @@ describe 'editorial authorisation' do
   Warden.test_mode!
 
   let!(:root_node) { Fabricate(:root_node) }
-  let!(:section) { Fabricate(:section, with_home: true) }
+  let!(:section) { Fabricate(:section) }
   let!(:author_user) { Fabricate(:user, author_of: section) }
   let!(:reviewer_user) { Fabricate(:user, reviewer_of: section) }
   let!(:admin_user) { Fabricate(:user, is_admin: true) }

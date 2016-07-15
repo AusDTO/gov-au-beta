@@ -16,7 +16,7 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   let!(:root_node) { Fabricate(:root_node) }
-  let(:section) { root_node; Fabricate(:section, with_home: true) }
+  let(:section) { root_node; Fabricate(:section) }
   let(:author_user) { Fabricate(:user, author_of: section) }
   let(:name) {'test name'}
   let(:slug) {'test-name'}
