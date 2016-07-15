@@ -29,8 +29,8 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
     let(:user_a) { Fabricate(:user) }
     let(:user_b) { Fabricate(:user) }
     let!(:root_node) { Fabricate(:root_node) }
-    let(:section) { Fabricate(:section, with_home: true) }
-    let(:section_b) { Fabricate(:section, with_home: true) }
+    let(:section) { Fabricate(:section) }
+    let(:section_b) { Fabricate(:section) }
     let(:node_a) { Fabricate(:node, section: section) }
     let(:node_b) { Fabricate(:node, section: section) }
     let(:node_c) { Fabricate(:node, section: section_b ) }

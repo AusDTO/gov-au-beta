@@ -51,8 +51,8 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'when editing content' do
-    let!(:section1) { Fabricate(:section, with_home: true) }
-    let!(:section2) { Fabricate(:section, with_home: true) }
+    let!(:section1) { Fabricate(:section) }
+    let!(:section2) { Fabricate(:section) }
     let!(:node1) { Fabricate(:general_content, state: 'published',
       parent: section1.home_node, section: section1) }
     let!(:node2) { Fabricate(:news_article, state: 'published',

@@ -6,7 +6,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
   render_views
 
   let!(:root_node) { Fabricate(:root_node) }
-  let!(:section) { Fabricate(:section, with_home: true) }
+  let!(:section) { Fabricate(:section) }
   let(:author) { Fabricate(:user, author_of: section) }
 
   describe 'GET #index' do

@@ -5,8 +5,8 @@ RSpec.describe 'editorial navigation:', type: :feature do
   Warden.test_mode!
 
   let!(:root_node) { Fabricate(:root_node) }
-  let!(:section1) { Fabricate(:section, with_home: true) }
-  let!(:section2) { Fabricate(:section, with_home: true) }
+  let!(:section1) { Fabricate(:section) }
+  let!(:section2) { Fabricate(:section) }
   let!(:node1) { Fabricate(:general_content, section: section1, parent: section1.home_node) }
   let!(:node2) { Fabricate(:news_article, section: section2, parent: section2.home_node) }
 

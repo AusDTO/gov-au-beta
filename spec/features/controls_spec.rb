@@ -4,7 +4,7 @@ RSpec.describe "controls", :type => :feature do
   Warden.test_mode!
 
   let!(:root_node) { Fabricate(:root_node) }
-  let(:section) { Fabricate(:section, with_home: true) }
+  let(:section) { Fabricate(:section) }
   let!(:node) { section.home_node }
 
   context 'not signed in' do
@@ -119,7 +119,7 @@ RSpec.describe "controls", :type => :feature do
       let (:user) { Fabricate(:user, is_admin: true) }
 
       context 'when visiting govcms section' do
-        let(:section) { Fabricate(:section, cms_type: "govcms", with_home: true) }
+        let(:section) { Fabricate(:section, cms_type: "govcms") }
 
         before do
           visit nodes_path(path: section.home_node.path)

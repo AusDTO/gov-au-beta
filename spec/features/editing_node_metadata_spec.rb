@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'editing node metadata:', type: :feature do
 
   Warden.test_mode!
-  let!(:section) { Fabricate(:section, with_home: true) }
+  let!(:root_node) { Fabricate(:root_node) }
+  let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
   let!(:parent) { Fabricate(:general_content, parent: section.home_node) }
   let!(:child1) { Fabricate(:general_content, parent: parent) }

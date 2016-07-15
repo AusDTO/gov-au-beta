@@ -13,9 +13,9 @@ RSpec.describe SectionHome, type: :model do
   end
 
   describe 'uniqueness' do
-    let(:section_home) { Fabricate(:section_home, parent: root_node) }
+    let(:section) { Fabricate(:section) } # SectionHome is automatically generated
     subject { Fabricate.build(:section_home, parent: root_node,
-      section: section_home.section) }
+      section: section) }
     it { is_expected.not_to be_valid }
   end
 

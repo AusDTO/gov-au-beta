@@ -5,7 +5,7 @@ RSpec.describe NodesController, :type => :controller do
     let!(:root_node) { Fabricate(:root_node) }
 
     describe 'finding a node' do
-      let(:foo) { Fabricate(:section, name: 'foo', with_home: true)}
+      let(:foo) { Fabricate(:section, name: 'foo')}
       let(:zero) { Fabricate(:node, name: 'zero', section: foo) }
 
       %w(one two).each do |num|
@@ -64,13 +64,13 @@ RSpec.describe NodesController, :type => :controller do
       subject { get :show, params: { path: node.path} }
 
       context 'with a custom layout' do
-        let(:section) { Fabricate(:section, with_home: true, layout: 'communications')}
+        let(:section) { Fabricate(:section, layout: 'communications')}
 
         it { is_expected.to render_with_layout 'communications'}
       end
 
       context 'without a custom layout' do
-        let(:section) { Fabricate(:section, with_home: true)}
+        let(:section) { Fabricate(:section)}
 
         it { is_expected.not_to render_with_layout 'communications' }
       end
