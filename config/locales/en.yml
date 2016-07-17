@@ -28,6 +28,12 @@ en:
       news_article_form: News article
       root_node: Root node
       section_home: Section home
+  options:
+    toc:
+      # entries must start with a letter
+      x0: none
+      x1: one level
+      x2: two levels
   submission:
     state:
       draft: draft

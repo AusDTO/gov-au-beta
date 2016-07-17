@@ -29,7 +29,7 @@ RSpec.describe 'editing node metadata:', type: :feature do
     end
 
     it 'shows the children order form' do
-      expect(page).to have_css('fieldset')
+      expect(page).to have_content('Child menu order')
       parent.children.each do |child|
         expect(page).to have_content(child.name)
       end
@@ -64,7 +64,7 @@ RSpec.describe 'editing node metadata:', type: :feature do
     end
 
     it 'does not show children order form' do
-      expect(page).not_to have_css('fieldset')
+      expect(page).not_to have_content('Child menu order')
     end
 
     context 'setting the parent' do

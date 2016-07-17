@@ -1,0 +1,8 @@
+-# locals: f
+
+- unless f.object.model.available_options.empty?
+  %fieldset
+    %legend Options
+    = f.fields_for :options do |options_f|
+      - f.object.model.available_options.keys.each do |option|
+        = render partial: "editorial/nodes/options/#{option}", locals: {f: options_f}
