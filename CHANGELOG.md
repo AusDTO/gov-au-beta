@@ -1,5 +1,5 @@
-# Change log 
-All notable changes to this product will be documented below. 
+# Change log
+All notable changes to this product will be documented below.
 This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
@@ -7,18 +7,19 @@ This file is influenced by http://keepachangelog.com/.
 
 - Option for adding a table of contents on a general content page
 - Links between editorial and public views of pages and section
-
+- Added initial home page layout based on prototype
 ### Changed
 
-
 ### Fixed
+
+
 
 ## [0.4.0] - 2016-07-14
 ### Added
 
 - Add editorial view of a page to display history
 - Config to support blue/green deployment
-- Prometheus metrics 
+- Prometheus metrics
 - Add instructions for migrating data between prod and staging
 - Import govCMS data from admin
 - Added table support for content
@@ -44,4 +45,3 @@ This file is influenced by http://keepachangelog.com/.
 - User details can be updated without supplying a new password in admin
 - Make page titles a H1
 - Display tel: protocol links to telephone numbers correctly
-
