@@ -1,18 +1,18 @@
-@media screen and (min-width: 75em) {
 [class^='controls'] {
+  padding: 0 !important;
+}
+@media screen and (min-width: 75em) {
+  [class^='controls'] {
   section.left {
-    width: 75% !important;
+    width: 75% ;
   }
   section.right {
-    width: 20% !important;
+    width: 20% ;
   }
 }
 }
 nav.controls {
   background: none;
-  a,a:visited {
-    color: white;
-  }
 
   .secondary-controls {
     padding-left: 0;
