@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :editorial do
     get '/news' => 'news#index', as: :news_articles
-    get '/news/new' => 'news#new', as: :news_articles_new
+    get '/news/new' => 'news#new', as: :new_news_article
     get '/news/:article_slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'
