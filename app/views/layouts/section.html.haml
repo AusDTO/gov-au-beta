@@ -9,12 +9,6 @@
 
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
 
-    - if show_request_controls?
-      - if current_user.pending_request_for?(@section)
-        %li= link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
-      - else
-        %li= link_to 'Request membership', new_editorial_section_request_path(@section)
-
 
 
   = content_for :navbar do

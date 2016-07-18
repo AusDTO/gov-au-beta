@@ -1,0 +1,43 @@
+[class^='controls'] {
+  padding: 0 !important;
+}
+@media screen and (min-width: 75em) {
+  [class^='controls'] {
+  section.left {
+    width: 75% ;
+  }
+  section.right {
+    width: 20% ;
+  }
+}
+}
+nav.controls {
+  background: none;
+
+  .secondary-controls {
+    padding-left: 0;
+    list-style: none;
+    li {
+      display: inline-block;
+      padding-right: 0.3em;
+    }
+    a {
+// was .badge-default
+        display: inline-block;
+        background-color: #6e6e6e;
+        border-radius: 12px;
+        padding: 0.4em 0.8em;
+        line-height: 1;
+        letter-spacing: 1px;
+        color: white;
+        font-size: 0.875rem;
+    }
+  }
+}
+.page-controls {
+  float:right;
+  a,a:visited {
+    color: white;
+    background-color: #710c3c;
+  }
+}

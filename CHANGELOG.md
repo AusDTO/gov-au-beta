@@ -2,8 +2,16 @@
 All notable changes to this product will be documented below. 
 This file is influenced by http://keepachangelog.com/.
 
-## [Unreleased]
-- 
+## [Unreleased] -
+### Added
+
+- Links between editorial and public views of pages and section
+
+### Changed
+
+
+### Fixed
+
 
 ## [0.4.0] - 2016-07-14
 ### Added
