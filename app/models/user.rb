@@ -11,6 +11,11 @@ class User < ApplicationRecord
   end
 
   def member_in_sections
-    roles.map { |role| role.resource }.reject(&:nil?).uniq
+    # Admins are implicit members of all sections
+    if has_role? :admin
+      Section.all
+    else
+      roles.map { |role| role.resource }.reject(&:nil?).uniq
+    end
   end
 end
