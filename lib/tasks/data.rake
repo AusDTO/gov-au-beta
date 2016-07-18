@@ -1,12 +1,6 @@
 namespace :data do
   desc "Creates departments and agencies"
   task create_depts: :environment do
-    Department.all.each{ |d| d.home_node && d.home_node.delete }
-    Agency.all.each{ |a| a.home_node && a.home_node.delete }
-
-    Agency.delete_all
-    Department.delete_all
-
     departments = {
       'Agriculture And Water Resources' => [
         'Australian Fisheries Management Authority',
