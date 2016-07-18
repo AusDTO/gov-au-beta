@@ -91,4 +91,9 @@ names.keys.each do |key|
   names[key][0].save!
 end
 
+# Create news section & home_node
+unless Section.find_by(name: 'news').present?
+  Section.create!(name: 'news')
+end
+
 Synergy::CMSImport.import_from_all_sections
