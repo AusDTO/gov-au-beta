@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
 
     context 'as an admin' do
       it 'should have all memberships' do
-        expect(admin.member_in_sections).to eq(Section.all)
+        expect(admin.member_in_sections).to eq(Section.where.not(name: 'news'))
       end
     end
   end
