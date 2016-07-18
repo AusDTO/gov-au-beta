@@ -16,12 +16,20 @@ end
 
 Fabricator(:news_article, from: :node, class_name: :news_article) do
   name { Fabricate.sequence(:news_name) { |i| "news-#{i}" } }
+  short_summary 'foo'
+  summary 'foobar'
 end
 
 Fabricator(:root_node, class_name: :root_node) do
   # name { '' }
   state 'published'
   content_body 'Welcome to gov.au'
+end
+
+Fabricator(:news_home_node, class_name: :node) do
+  state 'published'
+  name 'news'
+  section { Fabricate(:section, name: 'news') }
 end
 
 Fabricator(:section_home, class_name: :section_home, from: :node) do
