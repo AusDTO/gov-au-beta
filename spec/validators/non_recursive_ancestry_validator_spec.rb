@@ -3,7 +3,7 @@ require 'rails_helper'
 class NonRecursiveAncestryValidatable
   include ActiveModel::Validations
   attr_accessor :parent
-  validates_with NonRecursiveAncestryValidator
+  validates :parent, non_recursive_ancestry: true
 
   def initialize(parent)
     @parent = parent

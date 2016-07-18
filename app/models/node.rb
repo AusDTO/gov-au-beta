@@ -27,8 +27,8 @@ class Node < ApplicationRecord
   before_validation :generate_token
   before_save :ensure_order_num_present
 
+  validates :parent, non_recursive_ancestry: true
   validates_with RootProtectionValidator
-  validates_with NonRecursiveAncestryValidator
   validates_uniqueness_of :token
 
   def self.find_by_path!(path)

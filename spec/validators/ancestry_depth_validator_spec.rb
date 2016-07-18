@@ -2,7 +2,7 @@ require 'rails_helper'
 
 class AncestryDepthValidatable
   include ActiveModel::Validations
-  attr_reader :parent
+  attr_accessor :parent
 
   def initialize(parent)
     @parent = parent
@@ -23,6 +23,17 @@ end
 
 class RangeOneToTwo < AncestryDepthValidatable
   validates :parent, ancestry_depth: { minimum: 1, maximum: 2 }
+end
+
+class ParentInvalidator < ActiveModel::Validator
+  def validate(record)
+    record.errors.add :parent, 'is no good'
+  end
+end
+
+class PreInvalidated < AncestryDepthValidatable
+  validates_with ParentInvalidator
+  validates :parent, ancestry_depth: { minimum: 10 }
 end
 
 describe AncestryDepthValidator do
@@ -99,6 +110,20 @@ describe AncestryDepthValidator do
     context 'greatgrandchild' do
       subject { greatgrandchild }
       it { is_expected.not_to be_valid }
+    end
+  end
+
+  describe 'when other errors are found on attribute' do
+    let(:clazz) { PreInvalidated }
+    subject { orphan }
+
+    before do
+      subject.valid? # Trigger validation
+    end
+
+    it 'should not add any more errors' do
+      expect(subject.errors.count).to eq 1
+      expect(subject.errors.full_messages.first).to eq 'Parent is no good'
     end
   end
 end
