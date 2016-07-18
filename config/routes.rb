@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   end
 
   resources :departments, only: :index
+  resources :ministers, only: :index
 
   get root 'nodes#show'
   get '/preview/:token' => 'nodes#preview', as: :previews

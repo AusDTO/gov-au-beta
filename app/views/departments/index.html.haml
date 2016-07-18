@@ -5,8 +5,8 @@
 %ul
   - departments.each do |department|
     %li
-      = link_to(department.name, nodes_path(path: department.root_node.path))
+      = link_to(department.name, nodes_path(path: department.home_node.path))
       - if department.agencies.any?
         %ul
           - department.agencies.each do |agency|
-            %li= link_to(agency.name, nodes_path(path: agency.root_node.path))
+            %li= link_to(agency.name, nodes_path(path: agency.home_node.path))

@@ -7,6 +7,11 @@ crumb :departments do
   parent :public_node, Node.root
 end
 
+crumb :ministers do
+  link 'Ministers', ministers_path
+  parent :public_node, Node.root
+end
+
 crumb :public_node do |node|
   if node.parent.present?
     link node.name, nodes_path(path: node.path)
