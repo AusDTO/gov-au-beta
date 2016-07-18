@@ -210,13 +210,11 @@ namespace :data do
       puts "** #{dept_name} **"
 
       dept = Department.find_or_create_by!(name: dept_name)
-      node = SectionHome.find_or_create_by!(section: dept, parent: Node.root, order_num: 0)
 
       agencies.each do |agency_name|
         puts "** #{agency_name} **"
         agency = Agency.find_or_create_by!(name: agency_name)
         dept.sections << agency
-        SectionHome.find_or_create_by!(name: agency_name, section: agency, parent: Node.root, order_num: 0)
       end
 
       dept.save!
