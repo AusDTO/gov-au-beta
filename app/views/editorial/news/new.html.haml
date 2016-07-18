@@ -1,0 +1,13 @@
+.fieldset
+  = simple_form_for [:editorial, @form], as: :node do |f|
+    = f.input :section_id, collection: @sections, label: 'Publisher'
+    = f.input :name, label: 'Title'
+    = f.input :short_summary
+    = f.input :summary, as: :text, input_html: {rows: 5}
+    = f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
+    = render partial: '/editorial/nodes/news_article', locals: {f: f}
+    Distributions
+    = f.collection_check_boxes :section_ids, @sections, :id, :name
+    = f.submit 'Create news article', role: 'button'
+
+= render 'editorial/nodes/editor_injection'

@@ -9,4 +9,8 @@ class User < ApplicationRecord
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end
+
+  def member_sections
+    roles.map { |role| role.resource }.reject(&:nil?)
+  end
 end
