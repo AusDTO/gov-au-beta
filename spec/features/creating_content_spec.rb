@@ -90,7 +90,7 @@ RSpec.describe 'creating content:', type: :feature do
 
   context 'when creating a news article' do
     let!(:root_node) { Fabricate(:root_node) }
-    let!(:news_section) { Fabricate(:news_home_node, parent_id: root_node.id) }
+    let!(:news_section) { Fabricate(:section, name: 'news') }
     before do
       visit editorial_new_news_article_path(section, type: :news_article)
     end

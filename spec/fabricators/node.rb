@@ -26,11 +26,5 @@ Fabricator(:root_node, class_name: :root_node) do
   content_body 'Welcome to gov.au'
 end
 
-Fabricator(:news_home_node, class_name: :node) do
-  state 'published'
-  name 'news'
-  section { Fabricate(:section, name: 'news') }
-end
-
 Fabricator(:section_home, class_name: :section_home, from: :node) do
 end

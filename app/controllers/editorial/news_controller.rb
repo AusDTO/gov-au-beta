@@ -36,9 +36,7 @@ module Editorial
     private
 
     # A list of sections should be provided to create 'distributions',
-    # which should be formed based on the user's membership access. Selecting
-    # one of these sections would create a distribution, which would ensure
-    # that the news item was displayed on its news section as well.
+    # which should be formed based on the user's membership access.
     def set_sections_by_membership
       @sections = current_user.member_in_sections
       @news_home = Section.find_by(name: 'news').home_node
