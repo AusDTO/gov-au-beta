@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
+    get '/news' => 'news#index', as: :news_articles
+    get '/news/new' => 'news#new', as: :news_articles_new
+    get '/news/:article_slug' => 'news#show', as: :news_article
+
+    post '/news' => 'news#create'
+
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do
       resources :submissions
