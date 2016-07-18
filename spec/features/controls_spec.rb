@@ -37,6 +37,18 @@ RSpec.describe "controls", :type => :feature do
       end
     end
 
+    shared_examples_for 'has New news article link' do
+      it 'should have a New news article link' do
+        expect(controls).to have_link('New news article')
+      end
+    end
+
+    shared_examples_for 'no New news article link' do
+      it 'should not have a New news article link' do
+        expect(controls).not_to have_link('New news article')
+      end
+    end
+
     shared_examples_for 'has Edit page link' do
       it 'should have Edit page link' do
         expect(controls).to have_link('Edit')
@@ -99,6 +111,7 @@ RSpec.describe "controls", :type => :feature do
         end
 
         include_examples 'no New page link'
+        include_examples 'no New news article link'
         include_examples 'no Edit page link'
       end
     end
@@ -111,6 +124,7 @@ RSpec.describe "controls", :type => :feature do
           visit "/#{node.slug}"
         end
         include_examples 'has New page link'
+        include_examples 'has New news article link'
         include_examples 'has Edit page link'
       end
     end
@@ -125,6 +139,7 @@ RSpec.describe "controls", :type => :feature do
           visit nodes_path(path: section.home_node.path)
         end
         include_examples 'no New page link'
+        include_examples 'no New news article link'
         include_examples 'no Edit page link'
       end
     end

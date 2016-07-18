@@ -13,6 +13,9 @@ module Editorial
     def new
       @editor = 'simple'
       @form = NewsArticleForm.new(NewsArticle.new)
+      if params[:publisher].present?
+        @form.section_id = params[:publisher]
+      end
     end
 
     def create
