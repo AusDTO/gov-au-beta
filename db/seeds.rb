@@ -10,32 +10,41 @@ require 'synergy/cms_import'
 
 RootNode.create state: 'published'
 
+news = Section.find_or_create_by!(name: "news")
+
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
 
+news1 = NewsArticle.find_or_create_by!({
+                                           name: "Business News",
+                                           section: topic,
+                                           parent: news.home_node,
+                                           state: :published,
+                                       })
+news1.revise!(content_body: 'foobar')
 node1 = GeneralContent.find_or_create_by!({
-  name: "Starting a Business",
-  section: topic,
-  state: :published,
-  parent: topic.home_node
-})
+                                              name: "Starting a Business",
+                                              section: topic,
+                                              state: :published,
+                                              parent: topic.home_node
+                                          })
 
 node2 = node1.children.find_or_create_by!({
-  name: "Finding Staff",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+                                              name: "Finding Staff",
+                                              section: topic,
+                                              type: GeneralContent,
+                                              state: :published
+                                          })
 
 node2.revise!(content_body: 'Lorem ipsum').apply!
 
 node3 = node2.children.find_or_create_by!({
-  name: "Types of Employment",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+                                              name: "Types of Employment",
+                                              section: topic,
+                                              type: GeneralContent,
+                                              state: :published
+                                          })
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
@@ -70,7 +79,7 @@ if node3.submissions.blank?
 end
 
 names = {
-    admin: [admin,  %w(Joe Bloggs)],
+    admin: [admin, %w(Joe Bloggs)],
     author: [author, %w(Jane Doe)],
     reviewer: [reviewer, %w(John Smith)],
     owner: [owner, %w(Sarah Jones)]
