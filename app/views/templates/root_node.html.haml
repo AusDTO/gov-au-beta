@@ -1,11 +1,64 @@
 - breadcrumb :public_node, node
 
-%h2
-  =node.name
+.home
 
-= render partial: 'templates/content_body', object: node.content_body
+  %h2 Information and services
 
-%ul
-  - node.published_children.each do |section_home_node|
+  %ul.list-vertical--thirds.home
+    - Topic.all.order(:name).each do |topic|
+      %li
+        %article
+          %h3
+            = link_to(topic.name, nodes_path(section: topic, path: topic.home_node.path))
+          %p
+            = topic.summary
+
+  %h2.home-heading About Australia
+
+  %section.about-australia
+    .population
+      %h3 Population
+      %figure
+        = image_tag 'home/map.png', alt: 'Map of Australia displaying population of 29,924,836'
+        = image_tag 'home/more-females.png', alt: '99,604 more females than males in Australia'
+
+    .public-holiday
+      %h3 Upcoming public holiday
+      %figure
+        = image_tag 'home/calendar.png', alt: 'Friday December 25'
+
+
+  %h2.home-heading News
+
+  %ul.list-vertical--fourths
     %li
-      = link_to(section_home_node.name, nodes_path(path: section_home_node.path))
+      %article
+        %h3 News Article
+        .meta
+
+
+  %section.bottom-section
+    .govt
+      %h2.home-heading About Government
+      %ul
+        %li
+          %a{href: '/departments'}
+            %span= Department.all.count
+            Departments
+        %li
+          %a{href: '/agencies'}
+            %span= Agency.all.count
+            Agencies
+        %li
+          %a{href: '/ministers'}
+            %span 18
+            Ministers
+
+    .consultations
+      %h2.home-heading Public consultations
+      %ul.list-small
+        %li
+          %a
+          .meta
+            %time{datetime:'2016-05-08 00:00'} Close date 08 May 2016
+          %h3 Proposed LAP variations: Bendigo, Horsham and Shepparton radio

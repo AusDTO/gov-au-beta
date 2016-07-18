@@ -1,14 +1,15 @@
-- breadcrumb :public_node, node
+%article#content{class: "content-main"}
+  - breadcrumb :public_node, node
 
-%h1
-  =node.name
+  %h1
+    =node.name
 
-- if node.release_date
+  - if node.release_date
+    %p
+      Release Date:
+      = node.release_date
+
+  = render partial: 'templates/content_body', object: node.content_body
+
   %p
-    Release Date:
-    = node.release_date
-
-= render partial: 'templates/content_body', object: node.content_body
-
-%p
-  =@hierarchy
+    =@hierarchy
