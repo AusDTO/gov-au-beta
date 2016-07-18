@@ -1,0 +1,10 @@
+<%- if field.data.cms_type == 'GovCMS' %>
+    <%= form_for [:import, namespace, field.data], html: {
+        method: "post",
+        data: {
+            confirm: t("administrate.actions.confirm"),
+            disable_with: "Importing, please wait..."
+        }} do |form| %>
+        <%= form.submit("Import from CMS") %>
+    <% end %>
+<% end %>

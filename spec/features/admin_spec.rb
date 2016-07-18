@@ -135,6 +135,49 @@ RSpec.describe 'admin features', type: :feature do
         expect(page).to have_content('Collaborate agency')
       end
     end
+
+    context 'viewing an agency' do
+      context 'for govcms' do
+        let(:agency) { Fabricate(:agency, cms_type: 'GovCMS') }
+        context 'on #show' do
+          it 'shows the import button' do
+            visit admin_agency_path(agency)
+            expect(page).to have_css('form')
+            expect(find('form')['method']).to eq('post')
+            expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+          end
+        end
+
+        context 'on #index' do
+          it 'shows the import button on #index' do
+            visit admin_agencies_path
+            within('table') do
+              expect(page).to have_css('form')
+              expect(find('form')['method']).to eq('post')
+              expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+            end
+          end
+        end
+      end
+
+      context 'for collaborate' do
+        let(:agency) { Fabricate(:agency, cms_type: 'Collaborate') }
+        context 'on #show' do
+          it 'does not show the import button' do
+            visit admin_agency_path(agency)
+            expect(page).not_to have_css('form')
+          end
+        end
+        context 'on #index' do
+          it 'does not show the import button' do
+            visit admin_agencies_path
+            within('table') do
+              expect(page).not_to have_css('form')
+            end
+          end
+        end
+      end
+    end
   end
 
   context 'a non-admin user' do

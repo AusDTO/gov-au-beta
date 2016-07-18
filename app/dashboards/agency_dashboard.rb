@@ -2,20 +2,19 @@ require "administrate/base_dashboard"
 
 class AgencyDashboard < SectionDashboard
 
-  # SHOW_PAGE_ATTRIBUTES
-  # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :name,
-    :summary,
-    :slug,
-    :created_at,
-    :updated_at,
-    :layout,
-    :cms_type,
-    :cms_url,
-    :cms_path,
-  ].freeze
+  ATTRIBUTE_TYPES = {
+      # The import govcms button needs to know the CMS type and the object id
+      # We use #itself here so the views can see the entire object
+      itself: ImportGovcmsField,
+  }.update(self.superclass::ATTRIBUTE_TYPES).freeze
+
+  COLLECTION_ATTRIBUTES = (self.superclass::COLLECTION_ATTRIBUTES + [
+      :itself,
+  ]).freeze
+
+  SHOW_PAGE_ATTRIBUTES = (self.superclass::SHOW_PAGE_ATTRIBUTES + [
+      :itself,
+  ]).reject{|a| a == :node}.freeze
 
   def show_in_sidebar?
     true
