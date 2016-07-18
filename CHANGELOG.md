@@ -5,13 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Option for adding a table of contents on a general content page
 - Links between editorial and public views of pages and section
 
 ### Changed
 
 
 ### Fixed
-
 
 ## [0.4.0] - 2016-07-14
 ### Added
