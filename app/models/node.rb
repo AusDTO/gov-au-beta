@@ -73,6 +73,11 @@ class Node < ApplicationRecord
     super(value.to_h)
   end
 
+  def should_generate_new_friendly_id?
+    # Note: x_changed? refers to the column x not the accessor method
+    name.present? && (content_changed? || parent_id_changed? || super)
+  end
+
   private
 
   def path_elements
