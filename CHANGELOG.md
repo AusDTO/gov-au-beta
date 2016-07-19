@@ -3,6 +3,9 @@ All notable changes to this product will be documented below.
 This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
+
+
+## [0.5.0] - 2016-07-19
 ### Added
 
 - Option for adding a table of contents on a general content page
