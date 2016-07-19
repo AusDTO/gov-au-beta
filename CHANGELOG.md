@@ -4,6 +4,10 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 
+## [0.5.1] - 2016-07-19
+### Fixed
+
+- Included necessary imports to fix styling
 
 ## [0.5.0] - 2016-07-19
 ### Added
