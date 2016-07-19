@@ -8,14 +8,20 @@ This file is influenced by http://keepachangelog.com/.
 - Option for adding a table of contents on a general content page
 - Links between editorial and public views of pages and section
 - Added initial home page layout based on prototype
+- Added section home pages
+- Added gov.au home page
 
 ### Changed
 
+- Update ui kit to v1.2.0
+- Improvements to node validators
+
 ### Fixed
 
-- node slugs only need to be unique within a parent
+- Node slugs only need to be unique within a parent
 - Update node slugs when updating the name or parent
-- Fixed NoMethodError exception on admin agency page 
+- Fixed NoMethodError exception on admin agency page
+- Fixed NameError exception on editorial node show page
 
 ## [0.4.0] - 2016-07-14
 ### Added
