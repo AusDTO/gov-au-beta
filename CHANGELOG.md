@@ -14,7 +14,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 - node slugs only need to be unique within a parent
-- update node slugs when updating the name or parent
+- Update node slugs when updating the name or parent
 - Fixed NoMethodError exception on admin agency page 
 
 ## [0.4.0] - 2016-07-14
