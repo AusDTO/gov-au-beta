@@ -1,7 +1,7 @@
 class Node < ApplicationRecord
   extend FriendlyId, Enumerize
   include Container, Revisable
-  friendly_id :name, use: :slugged, routes: :default
+  friendly_id :name, use: [:slugged, :scoped], routes: :default, scope: :parent
 
   STATES = %w{draft published}
 

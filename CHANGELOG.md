@@ -8,11 +8,12 @@ This file is influenced by http://keepachangelog.com/.
 - Option for adding a table of contents on a general content page
 - Links between editorial and public views of pages and section
 - Added initial home page layout based on prototype
+
 ### Changed
 
 ### Fixed
 
-
+- node slugs only need to be unique within a parent
 
 ## [0.4.0] - 2016-07-14
 ### Added

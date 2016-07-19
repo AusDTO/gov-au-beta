@@ -125,4 +125,16 @@ RSpec.describe Node, type: :model do
       })
     end
   end
+
+  describe 'slugs' do
+    let!(:parent) { Fabricate(:node, parent: root_node, name: 'foo') }
+    let!(:child1) { Fabricate(:node, parent: parent, name: 'foo') }
+    let!(:child2) { Fabricate(:node, parent: parent, name: 'foo') }
+    it 'can be the same as a node with a different parent' do
+      expect(parent.slug).to eq(child1.slug)
+    end
+    it 'are unique within a parent' do
+      expect(child1.slug).not_to eq(child2.slug)
+    end
+  end
 end
