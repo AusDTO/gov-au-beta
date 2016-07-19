@@ -20,6 +20,9 @@ class Node < ApplicationRecord
   enumerize :state, in: STATES, scope: true
   content_attribute :content_body
   content_attribute :name
+  content_attribute :short_summary
+  content_attribute :summary
+
   # options is not currently versioned but could be in the future
   store_attribute :content, :options
 

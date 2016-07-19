@@ -17,34 +17,36 @@ topic.summary = 'The business section covers a range of business-related topics.
 topic.save
 
 news1 = NewsArticle.find_or_create_by!({
-                                           name: "Business News",
-                                           section: topic,
-                                           parent: news.home_node,
-                                           state: :published,
-                                       })
-news1.revise!(content_body: 'foobar')
+ name: "Business News",
+ section: topic,
+ parent: news.home_node,
+ state: :published,
+}) do |news_article|
+  news_article.revise! content_body: 'foobar'
+end
+
 node1 = GeneralContent.find_or_create_by!({
-                                              name: "Starting a Business",
-                                              section: topic,
-                                              state: :published,
-                                              parent: topic.home_node
-                                          })
+  name: "Starting a Business",
+  section: topic,
+  state: :published,
+  parent: topic.home_node
+})
 
 node2 = node1.children.find_or_create_by!({
-                                              name: "Finding Staff",
-                                              section: topic,
-                                              type: GeneralContent,
-                                              state: :published
-                                          })
-
-node2.revise!(content_body: 'Lorem ipsum').apply!
+  name: "Finding Staff",
+  section: topic,
+  type: GeneralContent,
+  state: :published
+}) do |node|
+  node.revise!(content_body: 'lorem ipsum').apply!
+end
 
 node3 = node2.children.find_or_create_by!({
-                                              name: "Types of Employment",
-                                              section: topic,
-                                              type: GeneralContent,
-                                              state: :published
-                                          })
+  name: "Types of Employment",
+  section: topic,
+  type: GeneralContent,
+  state: :published
+})
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
@@ -92,8 +94,6 @@ names.keys.each do |key|
 end
 
 # Create news section & home_node
-unless Section.find_by(name: 'news').present?
-  Section.create!(name: 'news')
-end
+Section.find_or_create_by name: 'news'
 
 Synergy::CMSImport.import_from_all_sections

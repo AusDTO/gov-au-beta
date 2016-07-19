@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Editorial::NewsController, type: :controller do
+  render_views
 
   let!(:root_node) { Fabricate(:root_node) }
   let!(:news) { Fabricate(:section, name: 'news') }
@@ -11,17 +12,16 @@ RSpec.describe Editorial::NewsController, type: :controller do
 
   describe 'GET #new' do
     context 'when a user is authorised' do
-      before do
-        sign_in(user)
-        get :new
-      end
+      before { sign_in(user) }
+      subject { get :new }
 
-      it { expect(assigns(:sections)).to eq([section_a, section_b]) }
+      it { is_expected.to be_success }
     end
 
     context 'when a user is not authorised' do
       before { get :new }
 
+      it { is_expected.to redirect_to(root_path) }
       it { is_expected.to set_flash[:alert].to('You are not authorized to access this page.') }
     end
   end
@@ -54,6 +54,7 @@ RSpec.describe Editorial::NewsController, type: :controller do
       end
 
       it { is_expected.to set_flash[:notice].to('Your changes have been submitted') }
+      it { is_expected.to redirect_to(editorial_section_submission_path(section_a.id, Submission.last)) }
     end
 
     context 'when a user is not authorised' do
@@ -63,6 +64,7 @@ RSpec.describe Editorial::NewsController, type: :controller do
       end
 
       it { is_expected.to set_flash[:alert].to('You are not authorized to access this page.') }
+      it { is_expected.to redirect_to(root_path) }
 
       it 'should not create a submission' do
         expect {

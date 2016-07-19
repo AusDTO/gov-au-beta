@@ -10,7 +10,7 @@ class User < ApplicationRecord
     !persisted? || password.present? || password_confirmation.present?
   end
 
-  def member_in_sections
+  def member_of_sections
     # Admins are implicit members of all sections
     if has_role? :admin
       Section.where.not(name: 'news')

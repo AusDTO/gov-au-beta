@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
-    get '/news' => 'news#index', as: :news_articles
-    get '/news/new' => 'news#new', as: :new_news_article
+    resources :news, only: [:index, :new]
     get '/news/:article_slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'

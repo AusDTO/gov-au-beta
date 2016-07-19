@@ -2,7 +2,7 @@
 
 %h1 Editorial
 
-= link_to('News', editorial_news_articles_path)
+= link_to('News', editorial_news_path)
 
 - if @sections.count == 0
   %p.callout
@@ -10,7 +10,7 @@
 - else
   %ul
     - @sections.each do |section|
-      - if section.name != 'news'
+      - unless section.news?
         %li
           = link_to(section.name, editorial_section_path(section))
           - if can? :create_in, section

@@ -92,7 +92,7 @@ RSpec.describe 'creating content:', type: :feature do
     let!(:root_node) { Fabricate(:root_node) }
     let!(:news_section) { Fabricate(:section, name: 'news') }
     before do
-      visit editorial_new_news_article_path(section, type: :news_article)
+      visit new_editorial_news_path(section, type: :news_article)
     end
 
     it 'show the correct form' do

@@ -41,7 +41,7 @@ module Editorial
     # A list of sections should be provided to create 'distributions',
     # which should be formed based on the user's membership access.
     def set_sections_by_membership
-      @sections = current_user.member_in_sections
+      @sections = current_user.member_of_sections
       @news_home = Section.find_by(name: 'news').home_node
     end
   end

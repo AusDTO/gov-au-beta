@@ -7,9 +7,6 @@ class NewsArticle < Node
 
   store_attribute :data, :release_date, Date
 
-  content_attribute :short_summary
-  content_attribute :summary
-
   validates_presence_of :section, :parent
   validates :parent, ancestry_depth: { minimum: 2 }
 end
