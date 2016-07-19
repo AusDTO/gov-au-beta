@@ -1,5 +1,4 @@
-$desktop: (min-width 1000px);
-
+$lighterer-grey: #f0f0f0;
 .home {
   .govau--logo {
     a {
@@ -37,7 +36,7 @@ $desktop: (min-width 1000px);
     @include span-columns(12);
 
     @include media($desktop) {
-      @include span-columns(4);
+      @include span-columns(6);
     }
 
     ul {
@@ -65,7 +64,7 @@ $desktop: (min-width 1000px);
     @include span-columns(12);
 
     @include media($desktop) {
-      @include span-columns(8);
+      @include span-columns(10);
     }
   }
 
@@ -84,7 +83,7 @@ $desktop: (min-width 1000px);
     }
 
     @include media($desktop) {
-      @include span-columns(8);
+      @include span-columns(11);
     }
 
     img {
@@ -95,7 +94,7 @@ $desktop: (min-width 1000px);
     @include span-columns(12);
 
     @include media($desktop) {
-      @include span-columns(4);
+      @include span-columns(5);
     }
 
     figure {
