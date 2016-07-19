@@ -73,6 +73,12 @@ class Node < ApplicationRecord
     super(value.to_h)
   end
 
+  # See http://norman.github.io/friendly_id/file.Guide.html#Deciding_When_to_Generate_New_Slugs
+  def should_generate_new_friendly_id?
+    # Note: x_changed? refers to the column x not the accessor method
+    name.present? && (content_changed? || parent_id_changed? || super)
+  end
+
   private
 
   def path_elements

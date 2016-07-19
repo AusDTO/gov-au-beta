@@ -130,11 +130,28 @@ RSpec.describe Node, type: :model do
     let!(:parent) { Fabricate(:node, parent: root_node, name: 'foo') }
     let!(:child1) { Fabricate(:node, parent: parent, name: 'foo') }
     let!(:child2) { Fabricate(:node, parent: parent, name: 'foo') }
+    let!(:other) { Fabricate(:node, parent: root_node, name: 'not a clash') }
+
     it 'can be the same as a node with a different parent' do
       expect(parent.slug).to eq(child1.slug)
     end
+
     it 'are unique within a parent' do
       expect(child1.slug).not_to eq(child2.slug)
+    end
+
+    context 'update' do
+      it 'when the name is changed' do
+        expect(child1.slug).to eq('foo')
+        child1.update(name: 'bar')
+        expect(child1.slug).to eq('bar')
+      end
+
+      it 'when the parent is changed' do
+        expect(child2.slug).to match('foo-')
+        child2.update(parent: other)
+        expect(child2.slug).to eq('foo')
+      end
     end
   end
 end
