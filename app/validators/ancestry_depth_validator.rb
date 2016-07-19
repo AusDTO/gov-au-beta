@@ -17,6 +17,9 @@ validates :parent, ancestry_depth: { minimum: 1, maximum: 3 }
 
 =end
 class AncestryDepthValidator < ActiveModel::EachValidator
+
+  MAX_DEPTH = 100
+
   def validate_each(record, attribute, value)
     return if record.errors.include? attribute
 
@@ -47,8 +50,10 @@ class AncestryDepthValidator < ActiveModel::EachValidator
   private
 
   def get_depth(record, attribute, depth)
-    if record.send(attribute).present?
-      depth += 1 + get_depth(record.send(attribute), attribute, depth)
+    if depth < MAX_DEPTH
+      if record.send(attribute).present?
+        depth += 1 + get_depth(record.send(attribute), attribute, depth)
+      end
     end
 
     depth
