@@ -3,6 +3,14 @@ All notable changes to this product will be documented below.
 This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
+### Added
+
+- Add ability to add news articles from /editorial/news
+- Provide link to add news to control bar
+
+### Changed
+
+### Fixed
 
 ## [0.5.1] - 2016-07-19
 ### Fixed

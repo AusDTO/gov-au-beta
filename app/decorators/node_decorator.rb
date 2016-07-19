@@ -14,4 +14,12 @@ class NodeDecorator < Draper::Decorator
   def published_children
     object.children.with_state(:published).order(:name).decorate
   end
+
+  def name
+    if object.name.blank?
+      '[no name]'
+    else
+      "#{object.name}"
+    end
+  end
 end

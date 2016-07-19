@@ -6,6 +6,8 @@
   - if show_new_page_link?
     %li
       = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
+    %li
+      = link_to 'New news article', new_editorial_news_path(publisher: @section.id)
 
   -if show_edit_page_link?
     %li

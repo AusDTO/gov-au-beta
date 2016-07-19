@@ -10,9 +10,20 @@ require 'synergy/cms_import'
 
 RootNode.create state: 'published'
 
+news = Section.find_or_create_by!(name: "news")
+
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
+
+news1 = NewsArticle.find_or_create_by!({
+ name: "Business News",
+ section: topic,
+ parent: news.home_node,
+ state: :published,
+}) do |news_article|
+  news_article.revise! content_body: 'foobar'
+end
 
 node1 = GeneralContent.find_or_create_by!({
   name: "Starting a Business",
@@ -26,9 +37,9 @@ node2 = node1.children.find_or_create_by!({
   section: topic,
   type: GeneralContent,
   state: :published
-})
-
-node2.revise!(content_body: 'Lorem ipsum').apply!
+}) do |node|
+  node.revise!(content_body: 'lorem ipsum').apply!
+end
 
 node3 = node2.children.find_or_create_by!({
   name: "Types of Employment",
@@ -70,7 +81,7 @@ if node3.submissions.blank?
 end
 
 names = {
-    admin: [admin,  %w(Joe Bloggs)],
+    admin: [admin, %w(Joe Bloggs)],
     author: [author, %w(Jane Doe)],
     reviewer: [reviewer, %w(John Smith)],
     owner: [owner, %w(Sarah Jones)]
@@ -81,5 +92,8 @@ names.keys.each do |key|
   names[key][0].last_name = names[key][1][1]
   names[key][0].save!
 end
+
+# Create news section & home_node
+Section.find_or_create_by name: 'news'
 
 Synergy::CMSImport.import_from_all_sections

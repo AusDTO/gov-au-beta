@@ -9,4 +9,13 @@ class User < ApplicationRecord
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end
+
+  def member_of_sections
+    # Admins are implicit members of all sections
+    if has_role? :admin
+      Section.where.not(name: 'news')
+    else
+      roles.map { |role| role.resource }.reject(&:nil?).uniq
+    end
+  end
 end

@@ -24,7 +24,7 @@
     - @section.nodes.order(updated_at: :desc).each do |page|
       %tr
         %td
-          =link_to "#{page.name}", editorial_section_node_path(@section, page.id)
+          =link_to page.name, editorial_section_node_path(@section, page.id)
         %td #{page.type}
         %td #{page.state}
         %td Author

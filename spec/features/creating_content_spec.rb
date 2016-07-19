@@ -89,8 +89,10 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   context 'when creating a news article' do
+    let!(:root_node) { Fabricate(:root_node) }
+    let!(:news_section) { Fabricate(:section, name: 'news') }
     before do
-      visit new_editorial_section_node_path(section, type: :news_article)
+      visit new_editorial_news_path(section, type: :news_article)
     end
 
     it 'show the correct form' do
@@ -99,7 +101,7 @@ RSpec.describe 'creating content:', type: :feature do
 
     context 'with valid data' do
       it 'create the correct type of content' do
-        fill_in('Name', with: name)
+        fill_in('Title', with: name)
         fill_in('Body', with: 'Good Content')
         select('2017', from: 'Release date')
         click_button('Create')
@@ -107,7 +109,23 @@ RSpec.describe 'creating content:', type: :feature do
       end
     end
 
-    it_behaves_like 'robust to XSS'
+    # TODO: DRY this up - the shared example is no longer really shared
+    # as news article has fields of its own (as will other content types)
+    it 'strip the script tags' do
+      # FIXME: Really, we should test all of the fields in the content type
+      # Right now when we create a revision we can only change body & name (DD 20160625)
+      fill_in('Title', with: 'Good Name<script>alert()</script>')
+      fill_in('Body', with: 'Good Content<script>alert()</script>')
+      fill_in('Summary', with: 'Good summary<script>alert()</script>')
+      fill_in('Short summary', with: 'Good short summary<script>alert()</script>')
+      select(section.name, from: 'Publisher')
+      click_button('')
+      within('article') do
+        expect(page).not_to have_css('script', text: 'alert', visible: false)
+        expect(page).to have_content('Good Name')
+        expect(page).to have_content('Good Content')
+      end
+    end
   end
 
   context 'when no type is specified' do
