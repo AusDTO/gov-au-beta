@@ -8,6 +8,8 @@
 
 require 'synergy/cms_import'
 
+RootNode.create state: 'published'
+
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
@@ -15,7 +17,8 @@ topic.save
 node1 = GeneralContent.find_or_create_by!({
   name: "Starting a Business",
   section: topic,
-  state: :published
+  state: :published,
+  parent: topic.home_node
 })
 
 node2 = node1.children.find_or_create_by!({

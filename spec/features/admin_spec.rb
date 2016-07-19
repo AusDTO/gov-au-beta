@@ -9,8 +9,8 @@ RSpec.describe 'admin features', type: :feature do
   context 'an admin user' do
     let!(:agency) { Fabricate(:agency) }
     let!(:topic) { Fabricate(:topic) }
-    let!(:news_article) { Fabricate(:news_article, parent: root_node) }
-    let!(:general_content) { Fabricate(:general_content, parent: root_node) }
+    let(:news_article) { Fabricate(:news_article, section: agency, parent: agency.home_node) }
+    let(:general_content) { Fabricate(:general_content, section: agency, parent: agency.home_node) }
 
     before do
       login_as(admin_user, scope: :user)
@@ -34,7 +34,7 @@ RSpec.describe 'admin features', type: :feature do
       end
 
       it 'should show links to administer users' do
-      expect(sidebar.find_link('Users')[:href]).to eq admin_users_path
+        expect(sidebar.find_link('Users')[:href]).to eq admin_users_path
       end
 
       it 'should not show a link to administer sections en masse' do
@@ -133,6 +133,49 @@ RSpec.describe 'admin features', type: :feature do
         select('Collaborate', from: 'Cms type')
         click_button('Create')
         expect(page).to have_content('Collaborate agency')
+      end
+    end
+
+    context 'viewing an agency' do
+      context 'for govcms' do
+        let(:agency) { Fabricate(:agency, cms_type: 'GovCMS') }
+        context 'on #show' do
+          it 'shows the import button' do
+            visit admin_agency_path(agency)
+            expect(page).to have_css('form')
+            expect(find('form')['method']).to eq('post')
+            expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+          end
+        end
+
+        context 'on #index' do
+          it 'shows the import button on #index' do
+            visit admin_agencies_path
+            within('table') do
+              expect(page).to have_css('form')
+              expect(find('form')['method']).to eq('post')
+              expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+            end
+          end
+        end
+      end
+
+      context 'for collaborate' do
+        let(:agency) { Fabricate(:agency, cms_type: 'Collaborate') }
+        context 'on #show' do
+          it 'does not show the import button' do
+            visit admin_agency_path(agency)
+            expect(page).not_to have_css('form')
+          end
+        end
+        context 'on #index' do
+          it 'does not show the import button' do
+            visit admin_agencies_path
+            within('table') do
+              expect(page).not_to have_css('form')
+            end
+          end
+        end
       end
     end
   end

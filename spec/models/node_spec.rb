@@ -8,7 +8,8 @@ RSpec.describe Node, type: :model do
 
   describe 'Sibling order' do
     %w(zero one two three four five).each_with_index do |num, idx|
-      let(num.to_sym) { Fabricate(:node, parent: root_node, order_num: idx) }
+      let(num.to_sym) { Fabricate(:node, section: nil, parent: root_node,
+        order_num: idx) }
     end
 
     it 'should find the siblings in the right order' do
@@ -17,7 +18,7 @@ RSpec.describe Node, type: :model do
       expect(root_node.children).to eq [zero, one, two, three, four, five]
     end
 
-    let(:new_one) { Fabricate(:node, parent: root_node ) } # No explicit order num
+    let(:new_one) { Fabricate(:node, section: nil, parent: root_node ) } # No explicit order num
 
     it 'should automatically set an order number if necessary' do
       [one, two, three, new_one]
@@ -49,37 +50,9 @@ RSpec.describe Node, type: :model do
       end
     end
 
-    describe 'section inheritance' do
-      it 'is expected to inherit its section from its parent' do
-        expect(gamma.section).to eq beta.section
-      end
-    end
-
     describe 'validations' do
       describe 'root node protection' do
         subject { Fabricate.build(:root_node) }
-        it { should_not be_valid }
-      end
-
-      describe 'section home protection' do
-        subject { node = Fabricate.build(:node, parent: root_node,
-          section: alpha.section) }
-        it { should_not be_valid }
-      end
-
-      describe 'section heritage' do
-        subject { Fabricate.build(:node, parent: beta,
-          section: Fabricate(:section)) }
-        it { should_not be_valid }
-      end
-
-      describe 'section presence' do
-        subject {
-          # Have to do this manually as fabricator adds a section by default
-          node = Fabricate.build(:node, parent: root_node)
-          node.section = nil
-          node }
-
         it { should_not be_valid }
       end
     end
@@ -150,6 +123,35 @@ RSpec.describe Node, type: :model do
           'foo', 'foo bar'
         ).to_json
       })
+    end
+  end
+
+  describe 'slugs' do
+    let!(:parent) { Fabricate(:node, parent: root_node, name: 'foo') }
+    let!(:child1) { Fabricate(:node, parent: parent, name: 'foo') }
+    let!(:child2) { Fabricate(:node, parent: parent, name: 'foo') }
+    let!(:other) { Fabricate(:node, parent: root_node, name: 'not a clash') }
+
+    it 'can be the same as a node with a different parent' do
+      expect(parent.slug).to eq(child1.slug)
+    end
+
+    it 'are unique within a parent' do
+      expect(child1.slug).not_to eq(child2.slug)
+    end
+
+    context 'update' do
+      it 'when the name is changed' do
+        expect(child1.slug).to eq('foo')
+        child1.update(name: 'bar')
+        expect(child1.slug).to eq('bar')
+      end
+
+      it 'when the parent is changed' do
+        expect(child2.slug).to match('foo-')
+        child2.update(parent: other)
+        expect(child2.slug).to eq('foo')
+      end
     end
   end
 end

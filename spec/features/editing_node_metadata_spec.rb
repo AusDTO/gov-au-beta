@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'editing node metadata:', type: :feature do
 
   Warden.test_mode!
-  let!(:section) { Fabricate(:section, with_home: true) }
+  let!(:root_node) { Fabricate(:root_node) }
+  let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
   let!(:parent) { Fabricate(:general_content, parent: section.home_node) }
   let!(:child1) { Fabricate(:general_content, parent: parent) }
@@ -28,7 +29,7 @@ RSpec.describe 'editing node metadata:', type: :feature do
     end
 
     it 'shows the children order form' do
-      expect(page).to have_css('fieldset')
+      expect(page).to have_content('Child menu order')
       parent.children.each do |child|
         expect(page).to have_content(child.name)
       end
@@ -63,7 +64,7 @@ RSpec.describe 'editing node metadata:', type: :feature do
     end
 
     it 'does not show children order form' do
-      expect(page).not_to have_css('fieldset')
+      expect(page).not_to have_content('Child menu order')
     end
 
     context 'setting the parent' do

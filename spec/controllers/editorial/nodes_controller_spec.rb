@@ -5,8 +5,9 @@ require 'rails_helper'
 RSpec.describe Editorial::NodesController, type: :controller do
   render_views
 
+  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
-  let!(:author) { Fabricate(:user, author_of: section) }
+  let(:author) { Fabricate(:user, author_of: section) }
 
   describe 'GET #index' do
     let(:reviewer) { Fabricate(:user, reviewer_of: section) }
@@ -47,7 +48,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:node) { Fabricate(:general_content, section: section) }
+    let(:node) { Fabricate(:general_content, section: section, parent: section.home_node) }
     before do
       sign_in(author)
       get :show, params: { section_id: section, id: node.id }
@@ -67,7 +68,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
       let(:submission) { Fabricate(:submission) }
 
       subject do
-        post :create, section_id: section, node: { name: 'Test Node' }
+        post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id }
         response
       end
 
@@ -90,7 +91,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
         let(:submission) { Fabricate(:submission) }
 
         subject do
-          post :create, section_id: section, node: { name: 'Test Node' }
+          post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id }
           response
         end
 
@@ -109,7 +110,8 @@ RSpec.describe Editorial::NodesController, type: :controller do
 
         it "does not save the new node" do
           expect{
-            post :create, section_id: section, node: { name: 'Test Node' }
+            post :create, section_id: section, node: { name: 'Test Node',
+              parent_id: section.home_node.id }
           }.to_not change(Node,:count)
         end
       end

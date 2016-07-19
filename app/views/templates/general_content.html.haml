@@ -1,6 +1,8 @@
-- breadcrumb :public_node, node
+%article#content{class: "content-main"}
+  - breadcrumb :public_node, node
 
-%h1
-  =node.name
+  %h1
+    =node.name
 
-= render partial: 'templates/content_body', object: node.content_body
+  = render partial: 'templates/toc', locals: {content_body: node.content_body, depth: node.options.toc}
+  = render partial: 'templates/content_body', object: node.content_body

@@ -1,7 +1,7 @@
 class Node < ApplicationRecord
   extend FriendlyId, Enumerize
   include Container, Revisable
-  friendly_id :name, use: :slugged, routes: :default
+  friendly_id :name, use: [:slugged, :scoped], routes: :default, scope: :parent
 
   STATES = %w{draft published}
 
@@ -17,20 +17,19 @@ class Node < ApplicationRecord
   belongs_to :section
   has_many :submissions, through: :revisions
 
-  around_create :spawn_initial_revision
-
-  before_validation :inherit_section, :generate_token
-
-  before_save :ensure_order_num_present
-
   enumerize :state, in: STATES, scope: true
-
-  validates_uniqueness_of :token
-  validate :section_heritage, :protect_root, :protect_section_home,
-    :ensure_section_presence
-
   content_attribute :content_body
   content_attribute :name
+  # options is not currently versioned but could be in the future
+  store_attribute :content, :options
+
+  around_create :spawn_initial_revision
+  before_validation :generate_token
+  before_save :ensure_order_num_present
+
+  validates :parent, non_recursive_ancestry: true
+  validates_with RootProtectionValidator
+  validates_uniqueness_of :token
 
   def self.find_by_path!(path)
     path.split('/').reject(&:empty?).reduce(Node.root) do |node, slug|
@@ -49,6 +48,35 @@ class Node < ApplicationRecord
 
   def submission_exists_for?(user)
     self.submissions.open.for(user).present?
+  end
+
+  # Override in subclasses to add options
+  # Format is {option: :default_value}
+  def available_options
+    {}
+  end
+
+  # 1) reform requires options to be an object with attributes
+  # 2) activerecord wants it to be a hash
+  # 3) Storext's default type coercion doesn't work properly with OpenStruct
+  # so for now, we just do the conversion by hand
+  def options
+    hash = super
+    if hash
+      OpenStruct.new(hash)
+    else
+      OpenStruct.new(available_options)
+    end
+  end
+
+  def options=(value)
+    super(value.to_h)
+  end
+
+  # See http://norman.github.io/friendly_id/file.Guide.html#Deciding_When_to_Generate_New_Slugs
+  def should_generate_new_friendly_id?
+    # Note: x_changed? refers to the column x not the accessor method
+    name.present? && (content_changed? || parent_id_changed? || super)
   end
 
   private
@@ -82,41 +110,6 @@ class Node < ApplicationRecord
       revision.save
     else
       yield
-    end
-  end
-
-  def inherit_section
-    if section.nil? && parent.present? && parent.section.present?
-      self.section = parent.section
-    end
-  end
-
-  def section_heritage
-    if parent.present? && parent.section.present?
-      unless section == parent.section
-        errors.add :section, 'Section does not match parent\'s section'
-      end
-    end
-  end
-
-  def protect_root
-    if parent.nil? && Node.roots.any?
-      errors.add :parent, 'There can only be one root node'
-    end
-  end
-
-  def protect_section_home
-    if section.try(:home_node).present? &&
-        parent.present? &&
-        parent.section.nil? &&
-        section.home_node != self
-      errors.add :section, 'A section can only have one home node'
-    end
-  end
-
-  def ensure_section_presence
-    if parent.present? && section.nil?
-      errors.add :section, 'All nodes except root should have a section'
     end
   end
 end

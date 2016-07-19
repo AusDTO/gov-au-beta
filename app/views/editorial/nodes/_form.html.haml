@@ -8,6 +8,7 @@
     = f.input :name
     ~ f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
     = render partial: @type_name, locals: {f: f}
+    = render partial: 'options_form', locals: {f: f}
     = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page", role: 'button'
 = render 'editor_injection'

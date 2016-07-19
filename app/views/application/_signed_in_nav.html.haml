@@ -1,11 +1,14 @@
 %div.controls--contrast
   %div.wrapper
-    %section
-      %nav.breadcrumbs--inverted
-        %ul.show
-          %li
-            = link_to('Editorial', editorial_root_path)
-          = yield :toolbar_actions
+    %section.left
+      %nav.controls
+        %p.inline-links--inverted
+          = link_to('Editorial', editorial_root_path)
+          - if @section
+            %b  /
+            = link_to @section.name, editorial_section_path(@section)
+        = yield :toolbar_actions
+
     %section.right
       %ul.inline-links--inverted
         %li

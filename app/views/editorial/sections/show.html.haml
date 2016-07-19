@@ -2,8 +2,15 @@
 
 %h1 Pages
 
+-if @section.home_node
+  %nav.page-controls
+    %a.badge--default{href: nodes_path(@section.home_node.path)}
+      %i.fa.fa-level-up
+      View published section
+
 - if can? :create_in, @section
   %p= link_to 'Add Page', prepare_editorial_section_nodes_path(@section)
+
 
 %table.content-table
   %thead

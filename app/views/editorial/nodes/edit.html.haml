@@ -11,5 +11,5 @@
         Child menu order
       = f.fields_for :children do |child|
         = child.input :order_num, label: "#{child.object.name}", as: :integer
+  = render partial: 'options_form', locals: {f: f}
   = f.button :button, 'Edit metadata'
-

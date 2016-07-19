@@ -2,6 +2,11 @@
 
 %h1= node.name
 
+%nav.page-controls
+  %a.badge--default{href: '/'+node.path}
+    %i.fa.fa-level-up
+    View published page
+
 %h2 Preview
 
 %div.content-block
@@ -47,6 +52,11 @@
     %tr
       %td State
       %td= node.state
+    -# TODO: refactor this to properly handle different options per Node subclass
+    - if node.options.respond_to?(:toc)
+      %tr
+        %td Table of contents
+        %td= t("options.toc.x#{node.options.toc}")
 
 %h2 Content history
 %table.content-table#history-table

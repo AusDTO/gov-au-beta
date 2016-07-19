@@ -1,6 +1,6 @@
 !!! 5
 
-%html.js
+%html.js{lang: "en-au"}
   = render 'application/head', title: 'GovAuBeta'
   %body
     %div.skip-to
@@ -23,12 +23,11 @@
       .wrapper
         = breadcrumbs style: :ul, class: nil
 
-    %main
+    %main.wrapper
       - if content_for?(:navbar)
-        = yield :navbar
-      %article#content{class: "content-main"}
-        = render 'application/alerts'
-        = yield
+        = yield :navbar      
+      = render 'application/alerts'
+      = yield
     %footer{role: "contentinfo"}
       .wrapper
         %span

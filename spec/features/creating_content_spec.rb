@@ -16,8 +16,8 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   let!(:root_node) { Fabricate(:root_node) }
-  let(:section) { root_node; Fabricate(:section, with_home: true) }
-  let(:author_user) { Fabricate(:user, author_of: section) }
+  let(:section) { root_node; Fabricate(:section) }
+  let(:author_user) { Fabricate(:user, author_of: section, reviewer_of: section) }
   let(:name) {'test name'}
   let(:slug) {'test-name'}
 
@@ -37,6 +37,41 @@ RSpec.describe 'creating content:', type: :feature do
         click_button('Create')
         expect(page).to have_content(name)
         expect(page).to have_content(/Good Content/i)
+      end
+    end
+
+    context 'can set table of contents' do
+      def set_toc(value)
+        fill_in('Name', with: name)
+        fill_in('Body', with: "## heading 1\nGood Content\n### heading 2\n## heading 3")
+        select(I18n.t("options.toc.x#{value}"), from: 'Table of contents')
+        click_button('Create')
+        click_button('Publish')
+      end
+
+      it 'to zero' do
+        set_toc(0)
+        expect(page).not_to have_css('nav.index-links')
+      end
+
+      it 'to one' do
+        set_toc(1)
+        expect(page).to have_css('nav.index-links')
+        within 'nav.index-links' do
+          expect(page).to have_link('heading 1')
+          expect(page).not_to have_link('heading 2')
+          expect(page).to have_link('heading 3')
+        end
+      end
+
+      it 'to two' do
+        set_toc(2)
+        expect(page).to have_css('nav.index-links')
+        within 'nav.index-links' do
+          expect(page).to have_content('heading 1')
+          expect(page).to have_content('heading 2')
+          expect(page).to have_content('heading 3')
+        end
       end
     end
 

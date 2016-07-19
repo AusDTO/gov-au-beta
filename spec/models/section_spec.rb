@@ -24,4 +24,20 @@ RSpec.describe Section, type: :model do
       end
     end
   end
+
+  describe 'home node' do
+    let!(:section) { Fabricate(:section) }
+    subject { section.home_node }
+
+    it { is_expected.to be_present }
+    it { is_expected.to be_a SectionHome }
+
+    it 'should have an appropriate slug' do
+      expect(subject.slug).to eq section.name.parameterize
+    end
+
+    it 'should be a child of the root node' do
+      expect(subject.parent).to eq Node.root
+    end
+  end
 end

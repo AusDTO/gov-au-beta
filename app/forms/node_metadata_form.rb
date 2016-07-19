@@ -4,4 +4,5 @@ class NodeMetadataForm < Reform::Form
     property :name, writable: false
     property :order_num, validates: {presence: true}
   end
+  property :options, form: OptionsForm
 end
