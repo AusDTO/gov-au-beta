@@ -10,7 +10,11 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 
+- Used ui kit via SCSS include for greater customisation
+
 ### Fixed
+
+- Skip links work correctly in Chrome
 
 ## [0.5.1] - 2016-07-19
 ### Fixed
