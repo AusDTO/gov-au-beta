@@ -29,10 +29,10 @@
 
 
   %h2.home-heading News
-  - if NewsArticle.published.all.empty?
+  - if RootNode.news.empty?
     %p No current news articles
   %ul.list-vertical--fourths
-    - NewsArticle.published.all.each do |news|
+    - RootNode.news.all.each do |news|
       %li
         %article
           %h3= news.name
@@ -45,13 +45,13 @@
       %ul
         %li
           %a{href: '/departments'}
-            %span= Department.all.count
+            %span= RootNode.departments.count
             Departments
         %li
           %a{href: '/agencies'}
-            %span= Agency.all.count
+            %span= RootNode.agencies.count
             Agencies
         %li
           %a{href: '/ministers'}
-            %span= Minister.all.count
+            %span= RootNode.ministers.count
             Ministers

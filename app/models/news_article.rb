@@ -9,4 +9,6 @@ class NewsArticle < Node
 
   validates_presence_of :section, :parent
   validates :parent, ancestry_depth: { minimum: 2 }
+
+  scope :published, -> { where state: 'published' }
 end
