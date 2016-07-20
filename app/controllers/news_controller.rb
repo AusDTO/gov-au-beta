@@ -13,7 +13,7 @@ class NewsController < ApplicationController
   # of :release_date-:slug, to ensure that we avoid clashes of news articles
   # between sections as well as within a section over time.
   def show
-    @node = NewsArticle.find_by(
+    @node = NewsArticle.find_by!(
       slug: params[:slug],
       section: @section
     )
