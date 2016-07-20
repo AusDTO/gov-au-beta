@@ -28,7 +28,7 @@ end
 
 crumb :editorial_root do
   link 'Editorial Home', editorial_root_path
-end
+end``
 
 crumb :editorial_section do |section|
   link section.name, editorial_section_path(section)
@@ -43,6 +43,16 @@ end
 crumb :editorial_node do |node|
   link node.name, editorial_section_node_path(node.section, node)
   parent :editorial_section, node.section
+end
+
+crumb :public_news_articles do |section|
+  link 'News', news_articles_path(section.slug)
+  parent :public_node, section.home_node
+end
+
+crumb :public_news_article do |node|
+  link node.name, news_article_path(node.section.slug, node.release_date, node.slug)
+  parent :public_news_articles, node.section
 end
 
 crumb :prepare_editorial_nodes do |section, parent_node|
