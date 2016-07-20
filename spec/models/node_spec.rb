@@ -172,4 +172,21 @@ RSpec.describe Node, type: :model do
       expect(Node.with_name('three')).to match_array([])
     end
   end
+
+  describe 'full path' do
+    let!(:article) { Fabricate(:news_article) }
+    let!(:node) { Fabricate(:node) }
+
+    context 'for a news article' do
+      it 'matches its url helper' do
+        expect(article.full_path).to eq(Rails.application.routes.url_helpers.news_article_path(article.section.home_node.slug, article.slug))
+      end
+    end
+
+    context 'for a general node' do
+      it 'matches its url helper' do
+        expect(node.full_path).to eq(Rails.application.routes.url_helpers.nodes_path(node.path))
+      end
+    end
+  end
 end
