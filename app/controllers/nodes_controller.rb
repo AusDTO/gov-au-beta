@@ -12,6 +12,18 @@ class NodesController < ApplicationController
     render_node node
   end
 
+  def home
+    @news = NewsArticle.published.limit(8).all
+
+    @ministers = Minister.all
+
+    @departments = Department.all
+
+    @agencies = Agency.all
+
+    show
+  end
+
   def preview
     @node = Node.find_by_token!(params[:token])
     @section = @node.section

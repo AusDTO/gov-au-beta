@@ -29,12 +29,14 @@
 
 
   %h2.home-heading News
-
+  - if @news.empty?
+    %p No current news articles
   %ul.list-vertical--fourths
-    %li
-      %article
-        %h3 News Article
-        .meta
+    - @news.all.each do |news|
+      %li
+        %article
+          %h3= news.name
+          .meta= news.release_date
 
 
   %section.bottom-section
@@ -43,22 +45,13 @@
       %ul
         %li
           %a{href: '/departments'}
-            %span= Department.all.count
+            %span= @departments.count
             Departments
         %li
           %a{href: '/agencies'}
-            %span= Agency.all.count
+            %span= @agencies.count
             Agencies
         %li
           %a{href: '/ministers'}
-            %span 18
+            %span= @ministers.count
             Ministers
-
-    .consultations
-      %h2.home-heading Public consultations
-      %ul.list-small
-        %li
-          %a
-          .meta
-            %time{datetime:'2016-05-08 00:00'} Close date 08 May 2016
-          %h3 Proposed LAP variations: Bendigo, Horsham and Shepparton radio
