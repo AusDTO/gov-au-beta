@@ -7,6 +7,7 @@ This file is influenced by http://keepachangelog.com/.
 
 - Add ability to add news articles from /editorial/news
 - Provide link to add news to control bar
+- Added scopes to query nodes based on json items
 
 ### Changed
 

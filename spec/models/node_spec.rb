@@ -154,4 +154,22 @@ RSpec.describe Node, type: :model do
       end
     end
   end
+
+  describe '#with_name' do
+    let!(:node1) { Fabricate(:node, name: 'one') }
+    let!(:node2) { Fabricate(:node, name: 'two') }
+    let!(:node3) { Fabricate(:node, name: 'two') }
+
+    it 'returns one element if name is unique' do
+      expect(Node.with_name('one')).to match_array([node1])
+    end
+
+    it 'returns all elements if name is not unique' do
+      expect(Node.with_name('two')).to match_array([node2, node3])
+    end
+
+    it 'returns no elements if name is unknown' do
+      expect(Node.with_name('three')).to match_array([])
+    end
+  end
 end
