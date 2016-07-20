@@ -28,7 +28,7 @@ end
 
 crumb :editorial_root do
   link 'Editorial Home', editorial_root_path
-end``
+end
 
 crumb :editorial_section do |section|
   link section.name, editorial_section_path(section)

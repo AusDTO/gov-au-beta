@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :editorial do
     resources :news, only: [:index, :new]
-    get '/news/:release_date/:article_slug' => 'news#show', as: :news_article
+    get '/:section/news/:slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'
 
