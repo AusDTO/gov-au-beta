@@ -21,6 +21,11 @@ crumb :public_node do |node|
   end
 end
 
+crumb :category do |name|
+  link name, nil #TODO: change this once we have Category model
+  parent :public_node, Node.root
+end
+
 crumb :editorial_root do
   link 'Editorial Home', editorial_root_path
 end
