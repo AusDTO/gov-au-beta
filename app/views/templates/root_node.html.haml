@@ -28,7 +28,8 @@
         = image_tag 'home/calendar.png', alt: 'Friday December 25'
 
 
-  %h2.home-heading News
+  %h2.home-heading
+    =link_to 'News', news_articles_path
   - if @news.empty?
     %p No current news articles
   %ul.list-vertical--fourths
