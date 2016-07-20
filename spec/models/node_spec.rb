@@ -179,7 +179,9 @@ RSpec.describe Node, type: :model do
 
     context 'for a news article' do
       it 'matches its url helper' do
-        expect(article.full_path).to eq(Rails.application.routes.url_helpers.news_article_path(article.section.home_node.slug, article.slug))
+        expect(article.full_path).to eq(Rails.application.routes.url_helpers.news_article_path(
+          article.section.home_node.slug, article.slug
+        ))
       end
     end
 

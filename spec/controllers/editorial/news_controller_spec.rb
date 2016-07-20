@@ -13,9 +13,12 @@ RSpec.describe Editorial::NewsController, type: :controller do
   describe 'GET #new' do
     context 'when a user is authorised' do
       before { sign_in(user) }
-      subject { get :new }
 
-      it { is_expected.to be_success }
+      context 'with a blank form' do
+        subject { get :new }
+
+        it { is_expected.to be_success }
+      end
     end
 
     context 'when a user is not authorised' do
