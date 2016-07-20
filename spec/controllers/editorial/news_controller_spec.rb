@@ -45,8 +45,8 @@ RSpec.describe Editorial::NewsController, type: :controller do
         post_action
       end
 
-      it 'should link to news_home_node as parent' do
-        expect(Node.last.parent).to eq(news.home_node)
+      it 'should link to no node as parent' do
+        expect(Node.last.parent).to eq(nil)
       end
 
       it 'should have the publisher section as node section' do
