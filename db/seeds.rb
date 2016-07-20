@@ -37,9 +37,8 @@ node2 = node1.children.find_or_create_by!({
   section: topic,
   type: GeneralContent,
   state: :published
-}) do |node|
-  node.revise!(content_body: 'lorem ipsum').apply!
-end
+})
+node2.revise!(content_body: 'lorem ipsum').apply!
 
 node3 = node2.children.find_or_create_by!({
   name: "Types of Employment",
