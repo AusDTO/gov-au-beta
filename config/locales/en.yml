@@ -28,6 +28,7 @@ en:
       news_article_form: News article
       root_node: Root node
       section_home: Section home
+      custom_template_node: Custom template node
   options:
     toc:
       # entries must start with a letter

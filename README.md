@@ -207,3 +207,21 @@ The application uses nested layouts (using the inside_layout method inside Appli
   / Your markup
   = yield
 ```
+
+## Node types
+
+To create a new node type, do the following:
+
+* Create a model class that extends `Node`
+* Update `node.rb` to require the new model file
+* Add any versioned attributes as `content_attributes` and other attributes as `store_attributes`
+* Run `rails g administrate:dashboard <node_class>`
+* Update the dashboard to extend `NodeDashboard` (see `NewsArticleDashboard` as an example)
+* Update `routes.rb` with a resource for the admin namespace
+* Add a locale entry for `domain_model.nodes.<node_class>`
+* Update the new node, new submission and edit node forms for any new fields
+* Add the node type to list in `Editorial::NodeController#prepare`
+* Create a template in `views/templates/<node_class>`
+* If required, create a subclass of `NodeDecorator` with class specific decorator logic
+* If required, update `seeds.rb` to have examples of the node type
+* Create tests to verify subclass specific logic

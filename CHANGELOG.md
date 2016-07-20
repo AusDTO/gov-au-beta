@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added scopes to query nodes based on json items
 - Ministers index page
 - Infrastructure and Telecommunications category (static)
+- Added a node type for nodes with custom templates
 
 ### Changed
 
@@ -18,6 +19,7 @@ This file is influenced by http://keepachangelog.com/.
 - News articles slugs are now a combination of release dates and article names
 - News articles can now be created without a parent
 - Nodes can now specify a layout to override with
+- Removed news article from the node creation prepare select box
 
 ### Fixed
 

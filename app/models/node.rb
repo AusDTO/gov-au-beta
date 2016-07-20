@@ -160,6 +160,6 @@ end
 # In order for Node.descendants to work, we need to preload the STI classes.
 # `require_dependency` is used instead of `require` as it participates in
 # hot reloading a development time.
-%w(general_content news_article root_node section_home).each do |clazz_file|
+%w(general_content news_article root_node section_home custom_template_node).each do |clazz_file|
   require_dependency clazz_file
 end

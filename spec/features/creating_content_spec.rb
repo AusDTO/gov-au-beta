@@ -154,9 +154,9 @@ RSpec.describe 'creating content:', type: :feature do
       visit nodes_path path: node.path
       click_link 'New page'
       expect(page).to have_content 'Create a new page'
-      select 'News article', from: 'Page type'
+      select 'General content', from: 'Page type'
       click_button 'New page'
-      expect(page).to have_content 'Release date'
+      expect(page).to have_content 'General content'
     end
 
     it 'should prefill the section and parent' do
