@@ -29,12 +29,14 @@
 
 
   %h2.home-heading News
-
+  - if NewsArticle.published.all.empty?
+    %p No current news articles
   %ul.list-vertical--fourths
-    %li
-      %article
-        %h3 News Article
-        .meta
+    - NewsArticle.published.all.each do |news|
+      %li
+        %article
+          %h3= news.name
+          .meta= news.release_date
 
 
   %section.bottom-section
