@@ -7,7 +7,11 @@ module Editorial
     end
 
     def show
-      @article = NewsArticle.find_by(slug: params[:article_slug])
+      @article = NewsArticle.find_by(
+        section: params[:section],
+        slug: params[:slug]
+      )
+
     end
 
     def new
@@ -44,7 +48,7 @@ module Editorial
       @sections = current_user.member_of_sections.reject do |section|
         section.news?
       end
-      @news_home = Section.find_by(name: 'news').home_node
+      @news_home = Section.find_by(name: 'News').home_node
     end
   end
 end
