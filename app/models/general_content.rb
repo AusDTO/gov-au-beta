@@ -2,6 +2,7 @@ class GeneralContent < Node
   include SectionHeritage
 
   validates_with SectionHeritageValidator
+  validates_with OrphanedNodeValidator
   validates_presence_of :section
   validates :parent, ancestry_depth: { minimum: 2 }
 

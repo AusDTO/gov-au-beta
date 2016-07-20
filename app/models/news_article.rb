@@ -8,8 +8,7 @@ class NewsArticle < Node
 
   friendly_id :date_and_name, use: [:slugged, :scoped], routes: :default, scope: :section
 
-  validates_presence_of :section, :parent
-  validates :parent, ancestry_depth: { minimum: 2 }
+  validates_presence_of :section
 
   scope :published, -> { where state: 'published' }
 
@@ -22,7 +21,7 @@ class NewsArticle < Node
   # wrapper around the url helpers, to allow this model to override the default
   # redirect action.
   def full_path
-    Rails.application.routes.url_helpers.news_article_path(section.slug, slug)
+    Rails.application.routes.url_helpers.news_article_path(section.home_node.slug, slug)
   end
 
 

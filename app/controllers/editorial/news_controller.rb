@@ -29,7 +29,6 @@ module Editorial
       # TODO: Handle draft submissions with no sections.
       # This could be handled via a user's context under /editorial/submissions.
       if @form.validate(params.require(:node).permit!)
-        @form.parent_id = @news_home.id
         section = Section.find(@form.section_id)
         submission = NodeCreator.new(section, @form).perform!(current_user)
 
@@ -45,10 +44,7 @@ module Editorial
     # A list of sections should be provided to create 'distributions',
     # which should be formed based on the user's membership access.
     def set_sections_by_membership
-      @sections = current_user.member_of_sections.reject do |section|
-        section.news?
-      end
-      @news_home = Section.find_by(name: 'News').home_node
+      @sections = current_user.member_of_sections
     end
   end
 end
