@@ -51,7 +51,7 @@ crumb :public_news_articles do |section|
 end
 
 crumb :public_news_article do |node|
-  link node.name, news_article_path(node.section.slug, node.release_date, node.slug)
+  link node.name, news_article_path(node.section.home_node.slug, node.slug)
   parent :public_news_articles, node.section
 end
 
