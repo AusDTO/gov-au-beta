@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 - Add ability to add news articles from /editorial/news
 - Provide link to add news to control bar
 - Added scopes to query nodes based on json items
+- Display section topics on section home page
 
 ### Changed
 
@@ -16,6 +17,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 - Skip links work correctly in Chrome
+- Made Agencies Departments
 
 ## [0.5.1] - 2016-07-19
 ### Fixed
