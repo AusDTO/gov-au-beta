@@ -14,6 +14,23 @@ class Node < ApplicationRecord
 
   scope :published, -> { where state: 'published' }
 
+  # These methods aren't DRY to avoid inserting
+  # unescaped strings directly into a PG query.
+  #
+  # This type of query requires the store column to be
+  # unescaped.
+  scope :with_content_value, -> (field, value) {
+    where("content ->> ? = ?", field, value)
+  }
+
+  scope :with_data_value, -> (field, value) {
+    where("data ->> ? = ?", field, value)
+  }
+
+  scope :with_name, -> (name) {
+    with_content_value(:name, name)
+  }
+
   belongs_to :section
   has_many :submissions, through: :revisions
 

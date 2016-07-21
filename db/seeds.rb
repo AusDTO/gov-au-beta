@@ -16,36 +16,36 @@ topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
 
-news1 = NewsArticle.find_or_create_by!({
- name: "Business News",
- section: topic,
- parent: news.home_node,
- state: :published,
-}) do |news_article|
-  news_article.revise! content_body: 'foobar'
+news1 = NewsArticle.with_name(
+    "Business News"
+  ).find_or_create_by!(
+    {
+      section: topic,
+      parent: news.home_node,
+      state: :published,
+    }
+  ) do |news_article|
+    news_article.name = "Business News"
+  end
+news1.revise!(content_body: 'foobar').apply!
+
+def make_node(parent, name)
+  # Note: you cannot find_by with :name because it's in the content jsonb field
+  GeneralContent.with_name(name)
+    .find_or_create_by!(
+      {
+        state: :published,
+        parent: parent
+      }
+    ) do |node|
+      node.name = name
+    end
 end
 
-node1 = GeneralContent.find_or_create_by!({
-  name: "Starting a Business",
-  section: topic,
-  state: :published,
-  parent: topic.home_node
-})
-
-node2 = node1.children.find_or_create_by!({
-  name: "Finding Staff",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+node1 = make_node(topic.home_node, "Starting a Business")
+node2 = make_node(node1, "Finding Staff")
 node2.revise!(content_body: 'lorem ipsum').apply!
-
-node3 = node2.children.find_or_create_by!({
-  name: "Types of Employment",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+node3 = make_node(node2, "Types of Employment")
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
