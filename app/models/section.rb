@@ -34,10 +34,6 @@ class Section < ApplicationRecord
     nodes.with_sectionless_parent.first
   end
 
-  def news?
-    name == 'news'
-  end
-
   private
 
   def set_default_cms_type

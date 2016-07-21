@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :editorial do
     resources :news, only: [:index, :new]
-    get '/news/:article_slug' => 'news#show', as: :news_article
+    get '/:section/news/:slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'
 
@@ -60,5 +60,10 @@ Rails.application.routes.draw do
 
   get root 'nodes#home'
   get '/preview/:token' => 'nodes#preview', as: :previews
+
+  get '/news' => 'news#index', as: :news_articles
+  get '/:section/news' => 'news#index', as: :section_news_articles
+  get '/:section/news/:slug' => 'news#show', as: :news_article
+
   get '/*path' => 'nodes#show', as: :nodes
 end

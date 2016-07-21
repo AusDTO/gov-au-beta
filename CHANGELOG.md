@@ -7,11 +7,17 @@ This file is influenced by http://keepachangelog.com/.
 
 - Add ability to add news articles from /editorial/news
 - Provide link to add news to control bar
+- Published news articles now viewable from /:section/news/:slug
 - Added scopes to query nodes based on json items
+- Ministers index page
+- Infrastructure and Telecommunications category (static)
 
 ### Changed
 
 - Used ui kit via SCSS include for greater customisation
+- News articles slugs are now a combination of release dates and article names
+- News articles can now be created without a parent
+- Nodes can now specify a layout to override with
 
 ### Fixed
 
@@ -58,8 +64,6 @@ This file is influenced by http://keepachangelog.com/.
 - Support for PaaS instance of govCMS
 - Ability to edit page order
 - Give user option to update page parent
-- Ministers index page
-- Infrastructure and Telecommunications category (static)
 
 ### Changed
 

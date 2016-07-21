@@ -34,7 +34,7 @@ module Editorial
       authorize! :review, @submission
       if params[:accept]
         @submission.accept!(current_user)
-        redirect_to nodes_path(@submission.revisable.path)
+        redirect_to @submission.revisable.full_path
       elsif params[:reject]
         @submission.reject!(current_user)
         redirect_to editorial_section_submission_path(@section, @submission)

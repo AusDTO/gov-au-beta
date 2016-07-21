@@ -48,7 +48,6 @@ class Node < ApplicationRecord
   before_save :ensure_order_num_present
 
   validates :parent, non_recursive_ancestry: true
-  validates_with RootProtectionValidator
   validates_uniqueness_of :token
 
   def self.find_by_path!(path)
@@ -99,11 +98,35 @@ class Node < ApplicationRecord
     name.present? && (content_changed? || parent_id_changed? || super)
   end
 
+  def layout
+    if section.present?
+
+      if section.layout.present?
+        section.layout
+      else
+        return 'section'
+      end
+
+    end
+  end
+
+  # This is a convenience wrapper around the url helper which defaults to
+  # routing based on the node hierarchy. Other models which inherit from this
+  # may need to define their own route that is not based on this.
+  def full_path
+    Rails.application.routes.url_helpers.nodes_path(path)
+  end
+
+  def root
+    return RootNode.first
+  end
+
   private
 
   def path_elements
     self_and_ancestors.reverse.collect(&:slug)
   end
+
 
   def ensure_order_num_present
     unless order_num.present?

@@ -56,7 +56,7 @@ RSpec.describe 'editing content', type: :feature do
     let!(:node1) { Fabricate(:general_content, state: 'published',
       parent: section1.home_node, section: section1) }
     let!(:node2) { Fabricate(:news_article, state: 'published',
-      parent: section2.home_node, section: section2) }
+      section: section2) }
 
     before :each do
       author.add_role(:author, section1)
@@ -65,7 +65,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit nodes_path path: node.path
+        visit node.full_path
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
       end

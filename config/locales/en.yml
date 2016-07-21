@@ -43,3 +43,6 @@ en:
   time:
     formats:
       default: '%d %b %Y, %I:%M%P %z'
+  date:
+    formats:
+      news: '%d %B %Y'

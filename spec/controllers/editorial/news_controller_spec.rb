@@ -13,9 +13,12 @@ RSpec.describe Editorial::NewsController, type: :controller do
   describe 'GET #new' do
     context 'when a user is authorised' do
       before { sign_in(user) }
-      subject { get :new }
 
-      it { is_expected.to be_success }
+      context 'with a blank form' do
+        subject { get :new }
+
+        it { is_expected.to be_success }
+      end
     end
 
     context 'when a user is not authorised' do
@@ -45,8 +48,8 @@ RSpec.describe Editorial::NewsController, type: :controller do
         post_action
       end
 
-      it 'should link to news_home_node as parent' do
-        expect(Node.last.parent).to eq(news.home_node)
+      it 'should not have a parent' do
+        expect(Node.last.parent).to eq(nil)
       end
 
       it 'should have the publisher section as node section' do
