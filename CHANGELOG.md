@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added scopes to query nodes based on json items
 - Ministers index page
 - Infrastructure and Telecommunications category (static)
+- Categories (static) shown on the homepage
 
 ### Changed
 
