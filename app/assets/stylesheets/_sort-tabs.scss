@@ -1,0 +1,42 @@
+.sort-container {
+  border-bottom: 1px solid $aqua;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  font-size: rem(14);
+
+  @include media($mobile) {
+    margin-bottom: 1rem;
+  }
+
+  span {
+    color: $grey;
+    margin-right: 1rem;
+  }
+
+  ul {
+    display: inline;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    li {
+      display: inline;
+    //  margin-left: .25 * $small-spacing;
+    margin-left: 0;
+      margin-bottom: 0;
+      padding-left: 0;
+    }
+
+    a {
+      color: $grey;
+      border-bottom: none;
+      padding:0 1 * $small-spacing 1.07rem;
+      font-size: rem(14);
+    }
+
+    .active {
+      color: $aqua;
+      font-weight: 700;
+      border-bottom: 4px solid;
+    }
+  }
+}
