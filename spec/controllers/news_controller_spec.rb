@@ -12,9 +12,10 @@ RSpec.describe NewsController, type: :controller do
   describe 'GET #show' do
     context 'when a user is not authorised' do
       context 'for a published page' do
-        subject { get :show, section: section_a.home_node.slug, slug: article_published.slug }
+        before { get :show, section: section_a.home_node.slug, slug: article_published.slug }
 
-        it { is_expected.to be_success }
+        it { expect(response).to be_success }
+        it { expect(assigns(:node)).to eq(article_published) }
       end
 
       context 'for a draft page' do

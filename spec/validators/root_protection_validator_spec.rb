@@ -13,28 +13,28 @@ end
 describe RootProtectionValidator do
   subject { RootProtectionValidatable.new type }
 
-  context 'A root node exists' do
+  context 'with an existing root node' do
     let!(:root_node) { Fabricate(:root_node) }
 
-    context 'with a root node' do
+    context 'creating a new root node' do
       let(:type) { 'RootNode' }
       it { is_expected.not_to be_valid }
     end
 
-    context 'without a root node' do
+    context 'creating a non-root node' do
       let(:type) { 'something' }
       it { is_expected.to be_valid }
     end
   end
 
-  context 'No root node exists' do
-    context 'with a root node' do
+  context 'without an existing root node' do
+    context 'creating a root node' do
       let(:type) { 'RootNode' }
       it { is_expected.to be_valid }
     end
 
-    context 'without a parent' do
-      let(:type) { nil }
+    context 'creating a non-root node' do
+      let(:type) { 'something' }
       it { is_expected.to be_valid }
     end
   end
