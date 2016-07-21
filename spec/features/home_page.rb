@@ -12,6 +12,6 @@ RSpec.describe 'home page', type: :feature do
 
   describe 'categories' do
     it { expect(page).to have_link('Infrastructure and telecommunications',
-      href: '/infrastructure-and-telecommunications') }
+      href: '/categories/infrastructure-and-telecommunications') }
   end
 end
