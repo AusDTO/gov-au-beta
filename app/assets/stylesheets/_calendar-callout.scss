@@ -1,0 +1,29 @@
+.callout--calendar-event {
+  background-color: $lighter-aqua;
+  padding: $small-spacing $base-spacing $base-spacing;
+  margin: 2 * $base-spacing 0;
+
+  time,
+  .event-name {
+    @extend h2;
+    margin: 0;
+  }
+
+  time {
+    display: block;
+    font-weight: 700;
+  }
+
+  .event-name {
+    font-weight: 300;
+  }
+
+  .next-event {
+    font-size: rem(16);
+    font-weight: 300;
+  }
+
+  p {
+    margin-top: 0;
+  }
+}
