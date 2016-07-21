@@ -93,11 +93,11 @@ crumb :new_editorial_request do |section|
 end
 
 crumb :public_news_articles do |section|
-  link 'News', news_articles_path(section.slug)
+  link 'News', section_news_articles_path(section.slug)
   parent :public_node, section.home_node
 end
 
 crumb :public_news_article do |node|
-  link node.name, news_article_path(node.section.home_node.slug, node.slug)
+  link node.name, node.full_path
   parent :public_news_articles, node.section
 end

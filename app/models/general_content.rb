@@ -3,7 +3,6 @@ class GeneralContent < Node
 
   validates_with SectionHeritageValidator
   validates_presence_of :section
-  validates :parent, presence: true
   validates :parent, ancestry_depth: { minimum: 2 }
 
   def available_options
