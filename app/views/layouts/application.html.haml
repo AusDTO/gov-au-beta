@@ -23,9 +23,9 @@
       .wrapper
         = breadcrumbs style: :ul, class: nil
 
-    %main.wrapper
+    %main
       - if content_for?(:navbar)
-        = yield :navbar      
+        = yield :navbar
       = render 'application/alerts'
       = yield
     %footer{role: "contentinfo"}
