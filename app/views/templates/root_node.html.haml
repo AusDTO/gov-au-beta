@@ -5,13 +5,13 @@
   %h2 Information and services
 
   %ul.list-vertical--thirds.home
-    - Topic.all.order(:name).each do |topic|
+    - @categories.each do |category|
       %li
         %article
           %h3
-            = link_to(topic.name, nodes_path(section: topic, path: topic.home_node.path))
+            = link_to(category.name, category.path || 'javascript:void(0)')
           %p
-            = topic.summary
+            = category.summary
 
   %h2.home-heading About Australia
 
@@ -28,7 +28,8 @@
         = image_tag 'home/calendar.png', alt: 'Friday December 25'
 
 
-  %h2.home-heading News
+  %h2.home-heading
+    =link_to 'News', news_articles_path
   - if @news.empty?
     %p No current news articles
   %ul.list-vertical--fourths

@@ -1,0 +1,66 @@
+- name: Business and industry
+  summary: >
+    ABNs, grants, non-profit and small business, primary industry, import and
+    export, tenders.
+- name: Crime, justice and the law
+  summary: >
+    Consumer protection, fraud, online safety, scams, emergency services,
+    legislation, police, rights.
+- name: Culture, sport and the arts
+  summary: >
+    Indigenous heritage and history, arts grants, cultural institutions, honours
+    and awards, family history.
+- name: Education
+  summary: >
+    Early childhood, school, higher education, international students,
+    skills recognition, scholarships, VET.
+- name: Emergencies and disasters
+  summary: >
+    Triple Zero (000), natural disasters, search and rescue, disaster
+    assistance, health emergencies.
+- name: Environment and agriculture
+  summary: >
+    Energy efficiency, environmental management and protection, biodiversity,
+    grants, natural resources.
+- name: Health and family
+  summary: >
+    Workplace health and safety, drug and alcohol use, health insurance,
+    children's health, mental health, sport.
+- name: Immigration, visas and citizenship
+  summary: >
+    Australian citizenship, customs, work, study and short-term visas, migration
+    and tourism.
+- name: Infrastructure and telecommunications
+  summary: >
+    Regional development, transport safety, Television (TV) reception, internet,
+    telecommunications.
+  path: /categories/infrastructure-and-telecommunications
+- name: Jobs and work
+  summary: >
+    Careers, government jobs, employment services, disability employment,
+    working conditions.
+- name: Money, tax and super
+  summary: >
+    Tax returns, ABNs, superannuation, personal finance, financial regulation.
+- name: Science
+  summary: >
+    Science grants and awards, Chief Scientist, National Measurement Institute,
+    radioactive waste, space.
+- name: Security and defence
+  summary: >
+    National security, cyber security, ADF, military history, commemoration.
+- name: Trade and international
+  summary: >
+    Importing, exporting, free trade agreements, wildlife trade, economic
+    diplomacy, foreign investment, foreign aid.
+- name: Travelling overseas
+  summary: >
+    Customs and quarantine, embassies and consulates, travelling overseas.
+- name: About Australia
+  summary: >
+    Intergenerational report, currency, National archives collection, Australian
+    honours, the constitution.
+- name: About Government
+  summary: >
+    Government structure, freedom of information, elections and voting, Budget,
+    Australian Public Service.

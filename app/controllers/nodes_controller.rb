@@ -14,13 +14,10 @@ class NodesController < ApplicationController
 
   def home
     @news = NewsArticle.published.limit(8).all
-
     @ministers = Minister.all
-
     @departments = Department.all
-
     @agencies = Agency.all
-
+    @categories = STATIC_CATEGORIES #TODO Replace once categories are proper data
     show
   end
 

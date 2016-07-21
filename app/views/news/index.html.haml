@@ -1,1 +1,21 @@
-Coming soon - News index
+%h1 News
+
+Announcements, media releases, interviews, speeches and more from the Australian Government.
+
+%article#content
+  %ul.list-horizontal
+    - @articles.each do |article|
+      %li
+        %article
+          %h2= link_to article.name, article.full_path
+          %div.meta
+            %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
+            = link_to article.section.name, article.section.home_node.full_path, { rel: :author }
+          %p
+            #{article.short_summary}
+          %footer.tags
+            %dl
+              %dt
+                Topics:
+                - article.sections.each do |section|
+                  %dd= link_to section.name, section.home_node.full_path
