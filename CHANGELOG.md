@@ -64,6 +64,9 @@ This file is influenced by http://keepachangelog.com/.
 - Support for PaaS instance of govCMS
 - Ability to edit page order
 - Give user option to update page parent
+- Ministers index page
+- Infrastructure and Telecommunications category (static)
+- Categories (static) shown on the homepage
 
 ### Changed
 
