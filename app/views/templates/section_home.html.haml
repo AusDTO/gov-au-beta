@@ -6,7 +6,7 @@
   - if @section.topics.any?
     %h4 Popular now
     %ul.list-vertical--thirds
-    - @section.topics.alphabetically.each do |topic|
+    - @section.topics.by_name.each do |topic|
       %li
         %figure
         %article

@@ -19,7 +19,7 @@ class Section < ApplicationRecord
 
   after_create :generate_home_node
 
-  scope :alphabetically, ->  { order(:name => 'ASC') }
+  scope :by_name, ->  { order(:name => 'ASC') }
 
   # Finds the users with a role on this Section
   def users
