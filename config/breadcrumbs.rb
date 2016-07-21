@@ -45,16 +45,6 @@ crumb :editorial_node do |node|
   parent :editorial_section, node.section
 end
 
-crumb :public_news_articles do |section|
-  link 'News', news_articles_path(section.slug)
-  parent :public_node, section.home_node
-end
-
-crumb :public_news_article do |node|
-  link node.name, news_article_path(node.section.slug, node.release_date, node.slug)
-  parent :public_news_articles, node.section
-end
-
 crumb :prepare_editorial_nodes do |section, parent_node|
   link 'Prepare', prepare_editorial_section_nodes_path(section: section.andand.id, parent: parent_node.andand.id)
   if parent_node
