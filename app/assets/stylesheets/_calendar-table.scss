@@ -3,7 +3,8 @@
   margin-top: 2 * $base-spacing;
 
   caption {
-    @extend h3;
+    font-size: rem(24);
+    font-weight: 700;
     margin: 0 0 $small-spacing;
     text-align: left;
   }
@@ -46,7 +47,7 @@
     }
 
     .date-info {
-      @extend p;
+      font-size: rem(16);
       display: block;
       font-weight: 300;
       margin-top: 0;
