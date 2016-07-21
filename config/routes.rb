@@ -55,6 +55,9 @@ Rails.application.routes.draw do
   resources :departments, only: :index
   resources :ministers, only: :index
 
+  #FIXME Hard-coded category routes - static content
+  get 'categories/infrastructure-and-telecommunications' => 'categories#infrastructure_and_telecommunications'
+
   get root 'nodes#home'
   get '/preview/:token' => 'nodes#preview', as: :previews
   get '/*path' => 'nodes#show', as: :nodes
