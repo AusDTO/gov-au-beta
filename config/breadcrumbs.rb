@@ -14,7 +14,7 @@ end
 
 crumb :public_node do |node|
   if node.parent.present?
-    link node.name, node.full_path #nodes_path(path: node.path)
+    link node.name, node.full_path
     parent :public_node, node.parent
   else
     link 'Home', root_path
@@ -43,16 +43,6 @@ end
 crumb :editorial_node do |node|
   link node.name, editorial_section_node_path(node.section, node)
   parent :editorial_section, node.section
-end
-
-crumb :public_news_articles do |section|
-  link 'News', news_articles_path(section.slug)
-  parent :public_node, section.home_node
-end
-
-crumb :public_news_article do |node|
-  link node.name, news_article_path(node.section.home_node.slug, node.slug)
-  parent :public_news_articles, node.section
 end
 
 crumb :prepare_editorial_nodes do |section, parent_node|
@@ -100,4 +90,14 @@ end
 crumb :new_editorial_request do |section|
   link 'Request Membership', new_editorial_section_request_path(section)
   parent :editorial_root
+end
+
+crumb :public_news_articles do |section|
+  link 'News', news_articles_path(section.slug)
+  parent :public_node, section.home_node
+end
+
+crumb :public_news_article do |node|
+  link node.name, news_article_path(node.section.home_node.slug, node.slug)
+  parent :public_news_articles, node.section
 end
