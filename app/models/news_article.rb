@@ -16,6 +16,8 @@ class NewsArticle < Node
     order("content ->> 'name' ASC")
   }
 
+  scope :published, -> { where state: 'published' }
+
   validates_presence_of :section
 
   scope :published, -> { where state: 'published' }

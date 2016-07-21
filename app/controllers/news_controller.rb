@@ -5,7 +5,7 @@ class NewsController < ApplicationController
 
 
   def index
-    @articles = NewsArticle.all.by_release_date.by_name
+    @articles = NewsArticle.published.by_release_date.by_name
   end
 
 
