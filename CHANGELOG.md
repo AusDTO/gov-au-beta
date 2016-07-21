@@ -12,6 +12,7 @@ This file is influenced by http://keepachangelog.com/.
 - Ministers index page
 - Infrastructure and Telecommunications category (static)
 - Categories (static) shown on the homepage
+- Provided aggregate list of news from `/news`
 
 ### Changed
 
