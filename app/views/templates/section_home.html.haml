@@ -2,3 +2,12 @@
   - breadcrumb :public_node, node
 
   = render partial: 'templates/content_body', object: node.content_body
+
+  - if @section.topics.any?
+    %h4 Popular now
+    %ul.list-vertical--thirds
+    - @section.topics.alphabetically.each do |topic|
+      %li
+        %figure
+        %article
+          %h3= link_to(topic.name, nodes_path(section: topic, path: topic.home_node.path))
