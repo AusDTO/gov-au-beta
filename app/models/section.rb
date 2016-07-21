@@ -42,9 +42,8 @@ class Section < ApplicationRecord
 
   def generate_home_node
     unless home_node.present?
-      SectionHome.create do |node|
+      SectionHome.create! do |node|
         node.name = name
-        node.slug = name.try(:parameterize)
         node.content_body = ''
         node.section = self
         node.state = 'published'

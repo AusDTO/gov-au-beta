@@ -29,9 +29,9 @@ news1 = NewsArticle.with_name(
   end
 news1.revise!(content_body: 'foobar').apply!
 
-def make_node(parent, name)
+def make_node(parent, name, klass = GeneralContent)
   # Note: you cannot find_by with :name because it's in the content jsonb field
-  GeneralContent.with_name(name)
+  klass.with_name(name)
     .find_or_create_by!(
       {
         state: :published,
@@ -46,6 +46,17 @@ node1 = make_node(topic.home_node, "Starting a Business")
 node2 = make_node(node1, "Finding Staff")
 node2.revise!(content_body: 'lorem ipsum').apply!
 node3 = make_node(node2, "Types of Employment")
+
+times = Topic.find_or_create_by!(name: 'Times and dates') do |topic|
+  topic.summary = 'Australian times and dates'
+end
+
+public_hols = make_node(times.home_node, 'Australian public holidays', CustomTemplateNode)
+public_hols.update(template: 'custom/public_holidays_tas')
+public_hols_tas = make_node(public_hols, 'Tasmania', CustomTemplateNode)
+public_hols_tas.update(template: 'custom/public_holidays_tas')
+public_hols_qld = make_node(public_hols, 'Queensland', CustomTemplateNode)
+public_hols_qld.update(template: 'custom/public_holidays_qld')
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?

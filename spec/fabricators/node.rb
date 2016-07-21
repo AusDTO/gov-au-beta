@@ -29,3 +29,8 @@ end
 
 Fabricator(:section_home, class_name: :section_home, from: :node) do
 end
+
+Fabricator(:custom_template_node, class_name: :custom_template_node, from: :node) do
+  name { Fabricate.sequence(:custom_template_node_name) { |i| "custom-template-node-#{i}" } }
+  template 'custom_template'
+end

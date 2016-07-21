@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :ministers
     resources :news_articles
     resources :nodes
+    resources :custom_template_nodes
     resources :requests
     resources :revisions
     resources :roles
