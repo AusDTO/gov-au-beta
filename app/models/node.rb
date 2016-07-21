@@ -48,7 +48,6 @@ class Node < ApplicationRecord
   before_save :ensure_order_num_present
 
   validates :parent, non_recursive_ancestry: true
-  validates_with RootProtectionValidator
   validates_uniqueness_of :token
 
   def self.find_by_path!(path)
@@ -116,6 +115,10 @@ class Node < ApplicationRecord
   # may need to define their own route that is not based on this.
   def full_path
     Rails.application.routes.url_helpers.nodes_path(path)
+  end
+
+  def root
+    return RootNode.first
   end
 
   private

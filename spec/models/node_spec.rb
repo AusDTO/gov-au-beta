@@ -49,13 +49,6 @@ RSpec.describe Node, type: :model do
         it { is_expected.to eq 'alpha/beta/gamma' }
       end
     end
-
-    describe 'validations' do
-      describe 'root node protection' do
-        subject { Fabricate.build(:root_node) }
-        it { should_not be_valid }
-      end
-    end
   end
 
   describe 'state' do
