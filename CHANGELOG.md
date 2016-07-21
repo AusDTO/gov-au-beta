@@ -12,11 +12,12 @@ This file is influenced by http://keepachangelog.com/.
 - Ministers index page
 - Infrastructure and Telecommunications category (static)
 
-
 ### Changed
 
 - Used ui kit via SCSS include for greater customisation
 - News articles slugs are now a combination of release dates and article names
+- News articles can now be created without a parent
+- Nodes can now specify a layout to override with
 
 ### Fixed
 
