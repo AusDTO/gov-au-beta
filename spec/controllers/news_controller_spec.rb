@@ -6,10 +6,11 @@ RSpec.describe NewsController, type: :controller do
   let!(:root_node) { Fabricate(:root_node) }
   let!(:section_a) { Fabricate(:section) }
   let!(:user) { Fabricate(:user, author_of: section_a) }
-  let!(:article_published) { Fabricate(:news_article, section: section_a, state: 'published') }
-  let!(:article_draft) { Fabricate(:news_article, section: section_a, state: 'draft') }
 
   describe 'GET #show' do
+    let!(:article_published) { Fabricate(:news_article, section: section_a, state: 'published') }
+    let!(:article_draft) { Fabricate(:news_article, section: section_a, state: 'draft') }
+
     context 'when a user is not authorised' do
       context 'for a published page' do
         before { get :show, section: section_a.home_node.slug, slug: article_published.slug }
@@ -24,6 +25,31 @@ RSpec.describe NewsController, type: :controller do
              get :show, section: section_a.home_node.slug, slug: article_draft.slug
           }.to raise_error ActiveRecord::RecordNotFound
         end
+      end
+    end
+  end
+
+  describe 'GET #index' do
+    let!(:article_unpub) { Fabricate(:news_article, state: 'draft') }
+    let!(:article_today_a) {
+      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'A')
+    }
+    let!(:article_today_b) {
+      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'B')
+    }
+    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday) }
+
+    context 'when a user is not authorised' do
+      before { get :index }
+
+      it { expect(response).to be_success }
+
+      it 'should not return draft articles' do
+        expect(assigns(:articles)).to_not include(article_unpub)
+      end
+
+      it 'should return a list ordered by date and name' do
+        expect(assigns(:articles).to_a).to eq([article_today_a, article_today_b, article_yesterday])
       end
     end
   end

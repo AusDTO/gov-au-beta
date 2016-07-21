@@ -8,9 +8,15 @@ class NewsArticle < Node
 
   friendly_id :date_and_name, use: [:slugged, :scoped], routes: :default, scope: :section
 
-  validates_presence_of :section
+  scope :by_release_date, -> {
+    order("data ->> 'release_date' DESC")
+  }
 
-  scope :published, -> { where state: 'published' }
+  scope :by_name, -> {
+    order("content ->> 'name' ASC")
+  }
+
+  validates_presence_of :section
 
   def layout
     'news_article'
