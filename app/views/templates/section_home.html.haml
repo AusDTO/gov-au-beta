@@ -4,7 +4,6 @@
   = render partial: 'templates/content_body', object: node.content_body
 
   - if @section.topics.any?
-    %h4 Popular now
     %ul.list-vertical--thirds
     - @section.topics.by_name.each do |topic|
       %li
