@@ -12,6 +12,10 @@ class NewsArticle < Node
     order("data ->> 'release_date' DESC")
   }
 
+  scope :by_published_at, -> {
+    order(published_at: :desc)
+  }
+
   scope :by_name, -> {
     order("content ->> 'name' ASC")
   }
