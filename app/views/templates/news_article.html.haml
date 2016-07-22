@@ -1,9 +1,10 @@
 %article#content{class: "content-main", tabindex: "-1"}
   - breadcrumb :public_news_article, node
 
-  %ul.tags
-    - node.sections.each do |distribution|
-      %li= distribution.name
+  %dl.list-horizontal
+    %div.tags
+      - node.sections.each do |distribution|
+        %dd= link_to distribution.name, distribution.home_node.full_path
 
   %h1
     =node.name
