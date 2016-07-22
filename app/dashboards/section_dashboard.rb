@@ -1,4 +1,5 @@
 require "administrate/base_dashboard"
+require 'synergy/cms_import'
 
 class SectionDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -17,7 +18,9 @@ class SectionDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     layout: Field::String,
-    cms_type: CmsTypeField,
+    cms_type: Field::Select.with_options(
+        collection: ['Collaborate'] + ::Synergy::CMSImport::ADAPTERS.keys
+    ),
     cms_url: Field::String,
     cms_path: Field::String,
   }.freeze

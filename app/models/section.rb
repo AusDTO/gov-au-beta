@@ -1,4 +1,7 @@
 class Section < ApplicationRecord
+
+  COLLABORATE_CMS = 'Collaborate'
+
   has_many :nodes
   has_many :requests
   has_many :news_distributions, as: :distribution
@@ -37,7 +40,7 @@ class Section < ApplicationRecord
   private
 
   def set_default_cms_type
-    self.cms_type ||= "Collaborate"
+    self.cms_type ||= COLLABORATE_CMS
   end
 
   def generate_home_node
