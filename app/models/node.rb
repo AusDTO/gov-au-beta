@@ -52,7 +52,7 @@ class Node < ApplicationRecord
 
   def self.find_by_path!(path)
     if path.blank?
-      return RootNode.first
+      return Node.root_node
     end
 
     path.split('/').reject(&:empty?).reduce(Node.root_node) do |node, slug|
@@ -122,7 +122,7 @@ class Node < ApplicationRecord
   end
 
   def self.root_node
-    return RootNode.first
+    return Node.find_by(type: 'RootNode')
   end
 
   private
