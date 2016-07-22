@@ -51,7 +51,7 @@ module Synergy
     end
 
     def build_path_to_leaf_node(parts, node_data)
-      section_node = SectionHome.find_or_create_by!(section: @adapter.section, parent: Node.root)
+      section_node = SectionHome.find_or_create_by!(section: @adapter.section, parent: Node.root_node)
       parts.reduce(section_node) do |node,part|
         node.children.find_or_create_by!(
           section: @adapter.section,

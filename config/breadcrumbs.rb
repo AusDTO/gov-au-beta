@@ -4,12 +4,12 @@
 
 crumb :departments do
   link 'Departments', departments_path
-  parent :public_node, Node.root
+  parent :public_node, Node.root_node
 end
 
 crumb :ministers do
   link 'Ministers', ministers_path
-  parent :public_node, Node.root
+  parent :public_node, Node.root_node
 end
 
 crumb :public_node do |node|
@@ -23,7 +23,7 @@ end
 
 crumb :category do |name|
   link name, nil #TODO: change this once we have Category model
-  parent :public_node, Node.root
+  parent :public_node, Node.root_node
 end
 
 crumb :editorial_root do

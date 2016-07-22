@@ -29,6 +29,13 @@ module Editorial
       # TODO: Handle draft submissions with no sections.
       # This could be handled via a user's context under /editorial/submissions.
       if @form.validate(params.require(:node).permit!)
+
+        # TODO: move this into a form validator
+        # Prevents distribution list being created for publisher
+        @form.section_ids.reject! do |s_id|
+          s_id == @form.section_id
+        end
+
         section = Section.find(@form.section_id)
         submission = NodeCreator.new(section, @form).perform!(current_user)
 
