@@ -10,8 +10,6 @@ require 'synergy/cms_import'
 
 RootNode.create state: 'published'
 
-news = Section.find_or_create_by!(name: "news")
-
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save

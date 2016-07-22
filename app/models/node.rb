@@ -51,7 +51,11 @@ class Node < ApplicationRecord
   validates_uniqueness_of :token
 
   def self.find_by_path!(path)
-    path.split('/').reject(&:empty?).reduce(Node.root) do |node, slug|
+    if path.blank?
+      return Node.root_node
+    end
+
+    path.split('/').reject(&:empty?).reduce(Node.root_node) do |node, slug|
       node.children.find_by! slug: slug
     end
   end
@@ -117,8 +121,8 @@ class Node < ApplicationRecord
     Rails.application.routes.url_helpers.nodes_path(path)
   end
 
-  def root
-    return RootNode.first
+  def self.root_node
+    return Node.find_by(type: 'RootNode')
   end
 
   private

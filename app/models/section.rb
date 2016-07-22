@@ -47,7 +47,7 @@ class Section < ApplicationRecord
         node.content_body = ''
         node.section = self
         node.state = 'published'
-        node.parent = Node.root
+        node.parent = Node.root_node
       end
     end
   end
