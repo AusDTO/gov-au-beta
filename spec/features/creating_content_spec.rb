@@ -34,6 +34,7 @@ RSpec.describe 'creating content:', type: :feature do
       it 'create the correct type of content' do
         fill_in('Name', with: name)
         fill_in('Body', with: 'Good Content')
+        fill_in('Short summary', with: 'Good summary')
         click_button('Create')
         expect(page).to have_content(name)
         expect(page).to have_content(/Good Content/i)
@@ -44,6 +45,7 @@ RSpec.describe 'creating content:', type: :feature do
       def set_toc(value)
         fill_in('Name', with: name)
         fill_in('Body', with: "## heading 1\nGood Content\n### heading 2\n## heading 3")
+        fill_in('Short summary', with: 'good summary')
         select(I18n.t("options.toc.x#{value}"), from: 'Table of contents')
         click_button('Create')
         click_button('Publish')

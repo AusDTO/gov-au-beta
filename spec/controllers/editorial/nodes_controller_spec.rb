@@ -68,7 +68,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
       let(:submission) { Fabricate(:submission) }
 
       subject do
-        post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id }
+        post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
         response
       end
 
@@ -91,7 +91,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
         let(:submission) { Fabricate(:submission) }
 
         subject do
-          post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id }
+          post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
           response
         end
 
