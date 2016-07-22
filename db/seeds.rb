@@ -19,7 +19,6 @@ news1 = NewsArticle.with_name(
   ).find_or_create_by!(
     {
       section: topic,
-      parent: news.home_node,
       state: :published,
     }
   ) do |news_article|
