@@ -79,7 +79,7 @@ class Submission < ApplicationRecord
       revision.apply!
       # For now, as soon as a submission is accepted, the node is published
       # This is subject to change as we update workflow
-      revisable.update(state: 'published')
+      revisable.update(state: 'published', published_at: Time.now.utc)
     end
   end
 

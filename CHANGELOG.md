@@ -12,8 +12,11 @@ This file is influenced by http://keepachangelog.com/.
 - Ministers index page
 - Infrastructure and Telecommunications category (static)
 - Categories (static) shown on the homepage
-- Provided aggregate list of news from `/news`
+- Provided aggregate list of news from /news
 - Added a node type for nodes with custom templates
+- Added list of available custom template files when creating a custom template node
+- Added published_at field to all pages
+
 
 ### Changed
 
@@ -22,6 +25,9 @@ This file is influenced by http://keepachangelog.com/.
 - News articles can now be created without a parent
 - Nodes can now specify a layout to override with
 - Removed news article from the node creation prepare select box
+- Moved breadcrumbs above hero banner
+- Changed Table of Contents heading to 'On this page'
+- News Articles get sorted by published_at date
 
 ### Fixed
 

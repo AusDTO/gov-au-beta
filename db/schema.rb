@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721055810) do
+ActiveRecord::Schema.define(version: 20160722043604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,15 +44,16 @@ ActiveRecord::Schema.define(version: 20160721055810) do
     t.string   "name"
     t.string   "slug"
     t.integer  "order_num"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.text     "type"
     t.jsonb    "data"
-    t.string   "state",       default: "draft", null: false
+    t.string   "state",        default: "draft", null: false
     t.string   "token"
     t.string   "cms_url"
     t.string   "cms_api_url"
     t.jsonb    "content"
+    t.datetime "published_at"
     t.index ["parent_id", "slug"], name: "index_nodes_on_parent_id_and_slug", unique: true, using: :btree
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree

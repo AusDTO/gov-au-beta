@@ -31,11 +31,15 @@ RSpec.describe NewsController, type: :controller do
 
   describe 'GET #index' do
     let!(:article_unpub) { Fabricate(:news_article, state: 'draft') }
+    let(:in_the_past) { 10.minutes.ago }
     let!(:article_today_a) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'A')
+      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'A', published_at: in_the_past)
     }
     let!(:article_today_b) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'B')
+      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'B', published_at: in_the_past)
+    }
+    let!(:article_today_c) {
+      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'C', published_at: Time.now.utc)
     }
     let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday) }
 
@@ -49,7 +53,7 @@ RSpec.describe NewsController, type: :controller do
       end
 
       it 'should return a list ordered by date and name' do
-        expect(assigns(:articles).to_a).to eq([article_today_a, article_today_b, article_yesterday])
+        expect(assigns(:articles).to_a).to eq([article_today_c, article_today_a, article_today_b, article_yesterday])
       end
     end
   end
