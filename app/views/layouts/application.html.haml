@@ -14,14 +14,12 @@
             %a.logo{href: root_path}
               gov.au
             %span.badge--beta beta
-
+      %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
+        .wrapper
+          = breadcrumbs style: :ul, class: nil
       - if content_for?(:header)
         %section.hero
           .wrapper= yield(:header)
-
-    %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
-      .wrapper
-        = breadcrumbs style: :ul, class: nil
 
     %main
       - if content_for?(:navbar)
