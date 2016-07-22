@@ -8,7 +8,7 @@
 
 require 'synergy/cms_import'
 
-RootNode.create state: 'published'
+RootNode.create state 'published'
 
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
