@@ -2,6 +2,7 @@
 
 - if depth > 0
   %nav.index-links
+    %h2 On this page
     -# Add one to depth because nesting_level refers to the markdown heading level
     -# and content should start at h2
     != markdown_toc(content_body, depth + 1)
