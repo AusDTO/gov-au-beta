@@ -37,7 +37,7 @@ RSpec.describe Section, type: :model do
     end
 
     it 'should be a child of the root node' do
-      expect(subject.parent).to eq Node.root
+      expect(subject.parent).to eq Node.root_node
     end
   end
 end
