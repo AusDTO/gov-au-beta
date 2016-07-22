@@ -122,7 +122,7 @@ class Node < ApplicationRecord
   end
 
   def self.root_node
-    return Node.find_by(type: 'RootNode')
+    return RootNode.first
   end
 
   private

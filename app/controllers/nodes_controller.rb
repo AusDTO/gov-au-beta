@@ -6,7 +6,7 @@ class NodesController < ApplicationController
 
   def show
 
-    @node = Node.published.find_by_path! params[:path] || ''
+    @node = Node.find_by_path! params[:path] || ''
 
     raise ActiveRecord::RecordNotFound unless can? :read, @node
     @section = @node.section
