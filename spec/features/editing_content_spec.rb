@@ -68,6 +68,9 @@ RSpec.describe 'editing content', type: :feature do
         visit node.full_path
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
+        expect(find_field('Name').value).to eq node.name
+        expect(find_field('Short summary').value).to eq node.short_summary
+        expect(find_field('Summary').value).to eq node.summary
       end
     end
 
