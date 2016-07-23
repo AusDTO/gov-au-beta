@@ -65,6 +65,7 @@ module Editorial
         @form.save do |params|
           @node.section_ids = params[:section_ids]
           @node.release_date = params[:release_date]
+          @node.section_id = params[:section_id]
           @node.save!
         end
 
