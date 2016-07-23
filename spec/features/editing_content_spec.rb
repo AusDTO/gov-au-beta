@@ -74,6 +74,17 @@ RSpec.describe 'editing content', type: :feature do
       end
     end
 
+    context 'for a news article' do
+      it 'should prefill the form' do
+        visit node2.full_path
+        click_link 'Edit metadata'
+        field = 'node_release_date'
+        expect(find_field("#{field}_1i").value).to eq node2.release_date.year.to_s
+        expect(find_field("#{field}_2i").value).to eq node2.release_date.month.to_s
+        expect(find_field("#{field}_3i").value).to eq node2.release_date.day.to_s
+      end
+    end
+
     context 'creating a submission' do
       context 'with good content' do
         before do

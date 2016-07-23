@@ -1,6 +1,6 @@
 module Editorial
   class NewsController < EditorialController
-    before_action :set_sections_by_membership, only: [:index, :new, :create]
+    before_action :set_sections_by_membership, only: [:index, :new, :create, :edit]
 
     def index
       # TODO: return news editorial index
@@ -43,6 +43,32 @@ module Editorial
         redirect_to editorial_section_submission_path(section, submission)
       else
         render :new
+      end
+    end
+
+    def edit
+      @node = Node.find(params[:id])
+      authorize! :update, @node
+      @form = NewsArticleMetadataForm.new(@node)
+    end
+
+    def update
+      @node = Node.find(params[:id])
+      authorize! :update, @node
+      @form = NewsArticleMetadataForm.new(@node)
+
+      if @form.validate(params.require(:node))
+        @form.section_ids.reject! do |s|
+          s == @form.section_id.to_s
+        end
+
+        @form.save do |params|
+          @node.section_ids = params[:section_ids]
+          @node.release_date = params[:release_date]
+          @node.save!
+        end
+
+        redirect_to @node.full_path
       end
     end
 

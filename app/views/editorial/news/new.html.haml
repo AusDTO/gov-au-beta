@@ -1,7 +1,7 @@
 %h1 News article
 
 .fieldset
-  = simple_form_for [:editorial, @form], as: :node, url: editorial_news_path do |f|
+  = simple_form_for [:editorial, @form], as: :node, url: editorial_news_index_path do |f|
     = f.input :section_id, collection: @sections, label: 'Publisher'
     = f.input :name, label: 'Title'
     = f.input :short_summary

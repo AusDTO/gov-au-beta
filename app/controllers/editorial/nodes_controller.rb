@@ -60,6 +60,10 @@ module Editorial
 
     def edit
       @node = Node.find(params[:id])
+
+      # TODO: find a better way to handle this when a pattern is more evident
+      redirect_to edit_editorial_news_path(@node) if @node.type == 'NewsArticle'
+
       authorize! :update, @node
       @form = NodeMetadataForm.new(@node)
     end
