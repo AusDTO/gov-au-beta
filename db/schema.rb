@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160722043604) do
     t.string   "cms_type",   default: "Collaborate", null: false
     t.string   "cms_url"
     t.string   "cms_path"
+    t.text     "image_url"
   end
 
   create_table "submissions", force: :cascade do |t|
