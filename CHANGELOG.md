@@ -17,7 +17,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added list of available custom template files when creating a custom template node
 - Added published_at field to all pages
 - All pages now have short_summary fields
-- News aritcle metadata can be edited
+- News article metadata can be edited
 
 ### Changed
 
