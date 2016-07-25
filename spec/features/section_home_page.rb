@@ -4,7 +4,6 @@ RSpec.describe 'home page', type: :feature do
 
   Warden.test_mode!
 
-  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
   let!(:published) { Fabricate(:news_article, section: section, state: 'published') }
   let!(:draft) { Fabricate(:news_article, section: section, state: 'draft') }
