@@ -20,8 +20,12 @@ class NewsArticle < Node
     order("content ->> 'name' ASC")
   }
 
-  validates_presence_of :section
+  scope :by_section, -> (section) {
+    where(:section_id => section.id)
+  }
 
+  validates_presence_of :section
+  
   def layout
     'news_article'
   end

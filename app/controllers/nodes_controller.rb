@@ -10,6 +10,7 @@ class NodesController < ApplicationController
 
     raise ActiveRecord::RecordNotFound unless can? :read, @node
     @section = @node.section
+    @news = NewsArticle.by_section(@section).by_release_date.by_published_at.published.limit(3)
     set_menu_nodes
     render_node node
   end
