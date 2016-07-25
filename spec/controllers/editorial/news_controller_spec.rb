@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Editorial::NewsController, type: :controller do
+  include ::NodesHelper
   render_views
 
   let!(:root_node) { Fabricate(:root_node) }
@@ -131,7 +132,7 @@ RSpec.describe Editorial::NewsController, type: :controller do
           }
         }
 
-        it { is_expected.to redirect_to NewsArticle.find(article.id).full_path }
+        it { is_expected.to redirect_to public_node_path(NewsArticle.find(article.id)) }
 
         it 'should update the news article' do
           news = NewsArticle.find(article.id)
@@ -157,7 +158,7 @@ RSpec.describe Editorial::NewsController, type: :controller do
           }
         }
 
-        it { is_expected.to redirect_to article.full_path }
+        it { is_expected.to redirect_to public_node_path(article) }
 
         it 'should reject sections without membership' do
           news = NewsArticle.find(article.id)

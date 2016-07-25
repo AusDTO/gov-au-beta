@@ -29,4 +29,4 @@
       =f.submit 'Approve membership'
 #{rqst.actioned_status}
 
-=link_to 'Back to topic', nodes_path(@rqst.section.home_node.path)
+=link_to 'Back to topic', public_node_path(@rqst.section.home_node)

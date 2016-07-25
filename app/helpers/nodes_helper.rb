@@ -12,4 +12,7 @@ module NodesHelper
     end
   end
 
+  def public_node_path(node)
+    Rails.application.routes.url_helpers.nodes_path(path: node.path)
+  end
 end

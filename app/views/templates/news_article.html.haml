@@ -4,7 +4,7 @@
   %dl.list-horizontal
     %div.tags
       - node.sections.each do |distribution|
-        %dd= link_to distribution.name, distribution.home_node.full_path
+        %dd= link_to distribution.name, public_node_path(distribution.home_node)
 
   %h1
     =node.name
@@ -17,7 +17,7 @@
       %li Published date: #{l(node.release_date, format: :news)}
     %li
       Published by:
-      %a= link_to(node.section.name, nodes_path(node.section.home_node.slug))
+      %a= link_to(node.section.name, public_node_path(node.section.home_node))
 
 
   = render partial: 'templates/content_body', object: node.content_body

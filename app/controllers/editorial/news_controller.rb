@@ -1,5 +1,6 @@
 module Editorial
   class NewsController < EditorialController
+    include ::NodesHelper
     before_action :set_sections_by_membership, only: [:index, :new, :create, :edit]
 
     def index
@@ -79,7 +80,7 @@ module Editorial
             @node.save!
           end
 
-          redirect_to @node.full_path
+          redirect_to public_node_path(@node)
           return
         end
       end

@@ -13,5 +13,5 @@
     - @news.each do |news|
       %li
         %article
-          %h3= link_to news.name, news.full_path
+          %h3= link_to news.name, public_node_path(news)
           .meta= news.release_date

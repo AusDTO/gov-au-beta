@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'creating content:', type: :feature do
+  include ::NodesHelper
   Warden.test_mode!
 
   before :each do
@@ -153,7 +154,7 @@ RSpec.describe 'creating content:', type: :feature do
     let(:node) { Fabricate(:node, section: section) }
 
     it 'should allow a user to create a child of a specific type' do
-      visit nodes_path path: node.path
+      visit public_node_path(node)
       click_link 'New page'
       expect(page).to have_content 'Create a new page'
       select 'General content', from: 'Page type'
@@ -162,7 +163,7 @@ RSpec.describe 'creating content:', type: :feature do
     end
 
     it 'should prefill the section and parent' do
-      visit nodes_path path: node.path
+      visit public_node_path(node)
       click_link 'New page'
       expect(page).to have_content 'Create a new page'
       click_button 'New page'

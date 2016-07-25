@@ -2,5 +2,5 @@
   %ul
     - nodes.each do |node|
       %li
-        = link_to(node, nodes_path(node.path))
+        = link_to(node, public_node_path(node))
         = render partial: "menu", locals: {nodes: node.children.published, depth: depth += 1, section: section}

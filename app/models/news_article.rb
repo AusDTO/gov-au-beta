@@ -38,10 +38,9 @@ class NewsArticle < Node
   # is not defined by node hierarchy. As such, this method is a convenience
   # wrapper around the url helpers, to allow this model to override the default
   # redirect action.
-  def full_path
-    Rails.application.routes.url_helpers.news_article_path(section.home_node.slug, slug)
+  def path_elements
+    [section.home_node.slug, 'news', slug]
   end
-
 
   # http://norman.github.io/friendly_id/file.Guide.html#Column_or_Method_
   # As we want to scope the friendly_ids to both section and release_date,
