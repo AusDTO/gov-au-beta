@@ -22,6 +22,7 @@ class NodeDashboard < Administrate::BaseDashboard
       type: Field::Text,
       data: Field::String.with_options(searchable: false),
       token: Field::String,
+      options: StructField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -49,6 +50,7 @@ class NodeDashboard < Administrate::BaseDashboard
     :slug,
     :order_num,
     :data,
+    :options,
     :created_at,
     :updated_at,
   ].freeze
@@ -61,6 +63,7 @@ class NodeDashboard < Administrate::BaseDashboard
     :section,
     :parent,
     :state,
+    :options,
   ].freeze
 
   # Overwrite this method to customize how nodes are displayed

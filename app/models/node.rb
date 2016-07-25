@@ -76,7 +76,7 @@ class Node < ApplicationRecord
   # Override in subclasses to add options
   # Format is {option: :default_value}
   def available_options
-    {}
+    {suppress_in_nav: false}
   end
 
   # 1) reform requires options to be an object with attributes
@@ -92,8 +92,16 @@ class Node < ApplicationRecord
     end
   end
 
+  # OpenStruct used by Reform
+  # String used by administrate
+  # Hash used by seeds
   def options=(value)
-    super(value.to_h)
+    case value
+      when Hash       then super(value)
+      when OpenStruct then super(value.to_h)
+      when String     then super(JSON.parse(value))
+      else raise "Cannot set options to a #{value.class}"
+    end
   end
 
   # See http://norman.github.io/friendly_id/file.Guide.html#Deciding_When_to_Generate_New_Slugs
