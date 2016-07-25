@@ -40,6 +40,7 @@ This file is influenced by http://keepachangelog.com/.
 - Changed Table of Contents heading to 'On this page'
 - News Articles get sorted by published_at date
 - News Articles short summary field can be edited
+- Short/long summary fields for all nodes sit beneath page abstract
 
 ### Fixed
 
