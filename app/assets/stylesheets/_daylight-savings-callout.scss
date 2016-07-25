@@ -1,0 +1,44 @@
+//daylight savings
+.callout--icon-left {
+  margin-bottom: 1.5 * $base-spacing;
+  padding-left: 0;
+  position: relative;
+
+  @include media($mobile) {
+    padding-left: 2.5 * $base-spacing;
+
+    h2,
+    h3,
+    h4 {
+      margin-top: $small-spacing;
+    }
+  }
+
+  &:before {
+    background-image: url('/images/savings-forward.svg');
+    background-repeat: no-repeat;
+    content: ' ';
+    left: 0;
+    margin-right: $base-spacing;
+    top: $tiny-spacing;
+    display: block;
+    height: 1.5 * $base-spacing;
+    position: relative;
+    width: 1.5 * $base-spacing;
+
+    @include media($mobile) {
+      height: 2 * $base-spacing;
+      position: absolute;
+      width: 2 * $base-spacing;
+    }
+  }
+
+  &.back:before {
+    background-image: url('/images/savings-back.svg');
+  }
+
+  strong {
+    color: $aqua;
+    display: block;
+  }
+}
