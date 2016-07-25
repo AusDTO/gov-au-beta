@@ -18,4 +18,8 @@ class User < ApplicationRecord
       roles.map { |role| role.resource }.reject(&:nil?).uniq
     end
   end
+
+  def is_member?(section)
+    member_of_sections.include? section
+  end
 end
