@@ -54,6 +54,12 @@ public_hols_tas = make_node(public_hols, 'Tasmania', CustomTemplateNode)
 public_hols_tas.update(template: 'custom/public_holidays_tas')
 public_hols_qld = make_node(public_hols, 'Queensland', CustomTemplateNode)
 public_hols_qld.update(template: 'custom/public_holidays_qld')
+school_hols = make_node(times.home_node, 'School holidays and term dates', CustomTemplateNode)
+school_hols.update(template: 'custom/school_holidays_tas')
+school_hols_tas = make_node(school_hols, 'Tasmania', CustomTemplateNode)
+school_hols_tas.update(template: 'custom/school_holidays_tas')
+school_hols_qld = make_node(school_hols, 'Queensland', CustomTemplateNode)
+school_hols_qld.update(template: 'custom/school_holidays_qld')
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
