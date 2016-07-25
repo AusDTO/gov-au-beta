@@ -5,7 +5,6 @@ RSpec.describe NewsArticle, type: :model do
   it { is_expected.to respond_to :release_date }
 
   describe '#published_for_section' do
-    let!(:root_node) { Fabricate(:root_node) }
     let!(:section) { Fabricate(:section) }
     let!(:other_section) { Fabricate(:section) }
     let!(:published) { Fabricate(:news_article, section: section, state: 'published') }
@@ -16,7 +15,7 @@ RSpec.describe NewsArticle, type: :model do
       result = NewsArticle.published_for_section(section).all
 
       expect(result).to include(published)
-      
+
       expect(result).to_not include(draft)
       expect(result).to_not include(other_published)
     end
