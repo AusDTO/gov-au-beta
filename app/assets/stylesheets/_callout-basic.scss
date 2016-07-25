@@ -1,0 +1,9 @@
+.callout--basic {
+  background-color: $lighter-aqua;
+  padding: $base-spacing;
+  margin: 2 * $base-spacing 0;
+
+  .callout-title {
+    margin-top: 0;
+  }
+}
