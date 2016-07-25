@@ -14,7 +14,7 @@ end
 
 crumb :public_node do |node|
   if node.parent.present?
-    link node.name, node.full_path
+    link node.name, public_node_path(node)
     parent :public_node, node.parent
   else
     link 'Home', root_path
@@ -98,6 +98,6 @@ crumb :public_news_articles do |section|
 end
 
 crumb :public_news_article do |node|
-  link node.name, node.full_path
+  link node.name, public_node_path(node)
   parent :public_news_articles, node.section
 end

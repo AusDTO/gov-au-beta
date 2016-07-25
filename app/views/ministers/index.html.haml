@@ -9,7 +9,7 @@
 %ul.list-highlighted
   - ministers.each do |minister|
     %li
-      %a{href: nodes_path(path: minister.home_node.path)}
+      %a{href: public_node_path(minister.home_node)}
         -if minister.prefix.present?
           %span
             = minister.prefix

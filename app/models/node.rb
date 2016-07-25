@@ -114,23 +114,16 @@ class Node < ApplicationRecord
     end
   end
 
-  # This is a convenience wrapper around the url helper which defaults to
-  # routing based on the node hierarchy. Other models which inherit from this
-  # may need to define their own route that is not based on this.
-  def full_path
-    Rails.application.routes.url_helpers.nodes_path(path)
-  end
-
   def self.root_node
     return RootNode.first
   end
 
   private
 
+  # Override this method in subclasses to have different routes per subclass.
   def path_elements
     self_and_ancestors.reverse.collect(&:slug)
   end
-
 
   def ensure_order_num_present
     unless order_num.present?

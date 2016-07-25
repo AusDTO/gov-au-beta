@@ -1,0 +1,52 @@
+//daylight savings
+.callout--icon-left {
+  margin-bottom: 1.5 * $base-spacing;
+  margin-top: $base-spacing;
+  padding-left: 0;
+  position: relative;
+
+  @include media($mobile) {
+    padding-left: 2.5 * $base-spacing;
+
+    h2,
+    h3,
+    h4 {
+      margin-top: $small-spacing;
+    }
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin-top: $tiny-spacing;
+  }
+
+  &:before {
+    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-forward.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: ' ';
+    margin-right: $base-spacing;
+    top: $tiny-spacing;
+    display: block;
+    height: 1.5 * $base-spacing;
+    left: 0;
+    position: relative;
+    width: 1.5 * $base-spacing;
+
+    @include media($mobile) {
+      height: 2 * $base-spacing;
+      position: absolute;
+      width: 2 * $base-spacing;
+    }
+  }
+
+  &.icon-back:before {
+    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-back.png');
+  }
+
+  strong {
+    color: $aqua;
+    display: block;
+  }
+}
