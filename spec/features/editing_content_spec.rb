@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'editing content', type: :feature do
+  include ::NodesHelper
 
   Warden.test_mode!
   let!(:root_node) { Fabricate(:root_node) }
@@ -65,7 +66,7 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit node.full_path
+        visit public_node_path(node)
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
         expect(find_field('Name').value).to eq node.name
@@ -76,7 +77,7 @@ RSpec.describe 'editing content', type: :feature do
 
     context 'for a news article' do
       it 'should prefill the form' do
-        visit node2.full_path
+        visit public_node_path(node2)
         click_link 'Edit metadata'
         field = 'node_release_date'
         expect(find_field("#{field}_1i").value).to eq node2.release_date.year.to_s

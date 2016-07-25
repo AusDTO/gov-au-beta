@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Node, type: :model do
+  include ::NodesHelper
+
   it { is_expected.to belong_to :section }
   it { is_expected.to belong_to :parent }
   it { is_expected.to have_many :children }
@@ -172,7 +174,7 @@ RSpec.describe Node, type: :model do
 
     context 'for a news article' do
       it 'matches its url helper' do
-        expect(article.full_path).to eq(Rails.application.routes.url_helpers.news_article_path(
+        expect(public_node_path(article)).to eq(Rails.application.routes.url_helpers.news_article_path(
           article.section.home_node.slug, article.slug
         ))
       end
@@ -180,7 +182,7 @@ RSpec.describe Node, type: :model do
 
     context 'for a general node' do
       it 'matches its url helper' do
-        expect(node.full_path).to eq(Rails.application.routes.url_helpers.nodes_path(node.path))
+        expect(public_node_path(node)).to eq(Rails.application.routes.url_helpers.nodes_path(node.path))
       end
     end
   end

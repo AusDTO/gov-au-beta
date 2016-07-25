@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "controls", :type => :feature do
+  include ::NodesHelper
   Warden.test_mode!
 
   let!(:root_node) { Fabricate(:root_node) }
@@ -9,7 +10,7 @@ RSpec.describe "controls", :type => :feature do
 
   context 'not signed in' do
     before do
-      visit nodes_path(node.path)
+      visit public_node_path(node)
     end
     it 'should not show controls' do
       expect(page).to have_no_css('.controls--contrast')
@@ -68,7 +69,7 @@ RSpec.describe "controls", :type => :feature do
 
       context 'when visiting section' do
         before do
-          visit nodes_path(section.home_node.path)
+          visit public_node_path(section.home_node)
         end
 
         include_examples 'no New page link'
@@ -93,7 +94,7 @@ RSpec.describe "controls", :type => :feature do
         let(:agency_home) { Fabricate(:node, parent: root_node, section: agency) }
 
         before do
-          visit nodes_path(agency_home.path)
+          visit public_node_path(agency_home)
         end
 
         it 'does not show request membership link' do
@@ -136,7 +137,7 @@ RSpec.describe "controls", :type => :feature do
         let(:section) { Fabricate(:section, cms_type: "govcms") }
 
         before do
-          visit nodes_path(path: section.home_node.path)
+          visit public_node_path(section.home_node)
         end
         include_examples 'no New page link'
         include_examples 'no New news article link'
