@@ -22,7 +22,7 @@
   }
 
   &:before {
-    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-back.png');
+    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-forward.png');
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
@@ -42,7 +42,7 @@
   }
 
   &.icon-back:before {
-    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-forward.png');
+    background-image: url('https://cdn.rawgit.com/AusDTO/gov-au-images/master/savings-back.png');
   }
 
   strong {
