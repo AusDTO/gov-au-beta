@@ -18,8 +18,8 @@ module Editorial
 
     def show
       @node = Node.find(params[:id])
-      @section = @node.section
-      @news = NewsArticle.by_section(@section).by_release_date.by_published_at.published.limit(3)
+      @section = @node.section      
+      @news = NewsArticle.published_for_section(@section).limit(3)
       set_menu_nodes
     end
 

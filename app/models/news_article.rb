@@ -25,7 +25,11 @@ class NewsArticle < Node
   }
 
   validates_presence_of :section
-  
+
+  def self.published_for_section(section)
+    NewsArticle.by_section(section).by_release_date.by_published_at.published
+  end
+
   def layout
     'news_article'
   end
