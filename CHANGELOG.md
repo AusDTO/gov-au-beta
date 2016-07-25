@@ -19,6 +19,7 @@ This file is influenced by http://keepachangelog.com/.
 - All pages now have short_summary fields
 - News article metadata can be edited
 - Added public holiday and daylight saving pages (static)
+- Section home displays most recent published news
 
 ### Changed
 
