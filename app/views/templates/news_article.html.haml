@@ -1,3 +1,7 @@
+- if node.short_summary
+  = content_for :meta_description do
+    = node.short_summary
+
 %article#content{class: "content-main", tabindex: "-1"}
   - breadcrumb :public_news_article, node
 
