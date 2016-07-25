@@ -15,7 +15,7 @@ class NodesController < ApplicationController
   end
 
   def home
-    @news = NewsArticle.published.limit(8).all
+    @news = NewsArticle.by_release_date.by_published_at.published.limit(8)
     @ministers = Minister.all
     @departments = Department.all
     @agencies = Agency.all

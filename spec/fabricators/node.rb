@@ -2,6 +2,8 @@ Fabricator(:node) do
   name { Fabricate.sequence(:node_name) { |i| "node-#{i}" } }
   section {|attrs| Fabricate(:section) unless attrs[:parent].try(:section).present? }
   state 'published'
+  short_summary 'A single sentence'
+  summary 'A paragraph'
   content_body { Fabricate.sequence(:content_body) { |i| "Random content #{i}" } }
 
   after_build {|node, _transients|

@@ -6,11 +6,13 @@ RSpec.shared_examples 'robust to XSS' do
     # Right now when we create a revision we can only change body & name (DD 20160625)
     fill_in('Name', with: 'Good Name<script>alert()</script>')
     fill_in('Body', with: 'Good Content<script>alert()</script>')
+    fill_in('Short summary', with: 'Good summary<script>alert()</script>')
     click_button('')
     within('article') do
       expect(page).not_to have_css('script', text: 'alert', visible: false)
       expect(page).to have_content('Good Name')
       expect(page).to have_content('Good Content')
+      # TODO: include summary and other fields
     end
   end
 end

@@ -1,0 +1,10 @@
+- breadcrumb :edit_editorial_node, @node
+
+%h1
+  Edit #{@form.model.name} metadata
+
+= simple_form_for [:editorial, @form], as: :node, url: editorial_news_path(@node.id)  do |f|
+  = f.input :section_id, collection: @sections, label: 'Publisher'
+  = f.input :release_date, as: :date
+  = f.collection_check_boxes :section_ids, current_user.member_of_sections, :id, :name
+  = f.button :button, 'Edit metadata'

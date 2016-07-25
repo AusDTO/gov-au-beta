@@ -6,9 +6,10 @@
   = simple_form_for [:editorial, @form], as: :node, url: url  do |f|
     = f.input :parent_id, collection: [@section], as: :grouped_select, include_blank: false, group_method: :nodes, required: true, selected: @form.parent_id
     = f.input :name
-    ~ f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
-    = render partial: @type_name, locals: {f: f}
+    = f.input :short_summary
+    = f.input :summary, required: false
     = render partial: 'options_form', locals: {f: f}
+    ~ f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
     = f.hidden_field :type, value: @type_name, name: :type
     = f.submit "#{verb} page", role: 'button'
 = render 'editor_injection'

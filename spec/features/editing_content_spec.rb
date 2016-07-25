@@ -68,6 +68,20 @@ RSpec.describe 'editing content', type: :feature do
         visit node.full_path
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
+        expect(find_field('Name').value).to eq node.name
+        expect(find_field('Short summary').value).to eq node.short_summary
+        expect(find_field('Summary').value).to eq node.summary
+      end
+    end
+
+    context 'for a news article' do
+      it 'should prefill the form' do
+        visit node2.full_path
+        click_link 'Edit metadata'
+        field = 'node_release_date'
+        expect(find_field("#{field}_1i").value).to eq node2.release_date.year.to_s
+        expect(find_field("#{field}_2i").value).to eq node2.release_date.month.to_s
+        expect(find_field("#{field}_3i").value).to eq node2.release_date.day.to_s
       end
     end
 

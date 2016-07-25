@@ -16,7 +16,8 @@ This file is influenced by http://keepachangelog.com/.
 - Added a node type for nodes with custom templates
 - Added list of available custom template files when creating a custom template node
 - Added published_at field to all pages
-
+- All pages now have short_summary fields
+- News article metadata can be edited
 
 ### Changed
 
@@ -28,6 +29,7 @@ This file is influenced by http://keepachangelog.com/.
 - Moved breadcrumbs above hero banner
 - Changed Table of Contents heading to 'On this page'
 - News Articles get sorted by published_at date
+- News Articles short summary field can be edited
 
 ### Fixed
 
