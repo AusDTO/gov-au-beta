@@ -4,6 +4,11 @@
   %h1
     =node.name
 
+  %div.abstract
+    =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
+
   = render partial: 'templates/content_body', object: node.content_body
 
   %p
