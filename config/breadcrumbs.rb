@@ -14,7 +14,9 @@ end
 
 crumb :public_node do |node|
   if node.parent.present?
-    link node.name, public_node_path(node)
+    unless node.options.suppress_in_nav
+      link node.name, public_node_path(node)
+    end
     parent :public_node, node.parent
   else
     link 'Home', root_path
