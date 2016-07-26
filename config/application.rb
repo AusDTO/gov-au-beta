@@ -26,5 +26,7 @@ module GovAuBeta
       g.view_specs false
       g.decorator false
     end
+
+    config.time_zone = "Sydney"
   end
 end

@@ -9,8 +9,10 @@
   %h1
     =node.name
 
-  %p.abstract
+  %div.abstract
     =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
 
   %ul.announcement-info
     - if node.release_date

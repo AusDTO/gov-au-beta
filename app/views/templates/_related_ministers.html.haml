@@ -1,0 +1,13 @@
+- if related_ministers.present?
+  %h2 Our ministers
+  %ul.list-horizontal
+    - related_ministers.each do |minister|
+      %li
+        %figure
+          %img{src: minister.image_url}
+        %article
+          %h3
+            =link_to(minister.name, public_node_path(minister.home_node))
+          %p
+            %strong
+              -#TODO minister's name

@@ -39,7 +39,7 @@
 %h2 Submitted content
 = render partial: 'content', object: submission.submitted_content, locals: locals
 
-- if can_review?
+- if can?(:review, @submission)
   %h2 Review
   = simple_form_for @submission, url: editorial_section_submission_path(@section, submission) do |f|
     = f.button :button, 'Publish change', name: 'accept'
