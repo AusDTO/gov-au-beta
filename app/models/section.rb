@@ -44,6 +44,10 @@ class Section < ApplicationRecord
     end
   end
 
+  def news_node
+    nodes.with_name('News')
+  end
+
   private
 
   def set_default_cms_type
@@ -59,6 +63,13 @@ class Section < ApplicationRecord
         node.state = 'published'
         node.parent = Node.root_node
       end
+    end
+  end
+
+
+  def generate_news_node
+    unless news_node.present?
+      # TODO: Create NewsNode
     end
   end
 end
