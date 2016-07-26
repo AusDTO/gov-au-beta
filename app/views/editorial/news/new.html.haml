@@ -5,7 +5,7 @@
     = f.input :section_id, collection: @sections, label: 'Publisher'
     = f.input :name, label: 'Title'
     = f.input :short_summary
-    = f.input :summary, as: :text, input_html: {rows: 5}, label: 'Long summary'
+    = f.input :summary, as: :text, input_html: {rows: 5}, label: 'Long summary', required: false
     = f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
     = f.input :release_date, as: :date
     Distributions
