@@ -4,7 +4,7 @@ RSpec.describe Revision, type: :model do
   let(:root_node) { Fabricate(:root_node) }
 
   describe 'scopes' do
-    let(:node) { Fabricate(:node, parent: root_node, content_body: nil, name: nil) }
+    let(:node) { Fabricate(:node, parent: root_node, content_body: nil, name: nil, short_summary: nil, summary: nil) }
     let!(:first_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
     let!(:second_applied_revision) { Fabricate(:revision, revisable: node, applied_at: 4.days.ago) }
     let!(:first_pending_revision) { Fabricate(:revision, revisable: node, created_at: 2.days.ago) }

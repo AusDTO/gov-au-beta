@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'editing content', type: :feature do
+  include ::NodesHelper
 
   Warden.test_mode!
   let!(:root_node) { Fabricate(:root_node) }
@@ -56,7 +57,7 @@ RSpec.describe 'editing content', type: :feature do
     let!(:node1) { Fabricate(:general_content, state: 'published',
       parent: section1.home_node, section: section1) }
     let!(:node2) { Fabricate(:news_article, state: 'published',
-      parent: section2.home_node, section: section2) }
+      section: section2) }
 
     before :each do
       author.add_role(:author, section1)
@@ -65,9 +66,23 @@ RSpec.describe 'editing content', type: :feature do
 
     it 'should prefill the form' do
       [node1, node2].each do |node|
-        visit nodes_path path: node.path
+        visit public_node_path(node)
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
+        expect(find_field('Name').value).to eq node.name
+        expect(find_field('Short summary').value).to eq node.short_summary
+        expect(find_field('Summary').value).to eq node.summary
+      end
+    end
+
+    context 'for a news article' do
+      it 'should prefill the form' do
+        visit public_node_path(node2)
+        click_link 'Edit metadata'
+        field = 'node_release_date'
+        expect(find_field("#{field}_1i").value).to eq node2.release_date.year.to_s
+        expect(find_field("#{field}_2i").value).to eq node2.release_date.month.to_s
+        expect(find_field("#{field}_3i").value).to eq node2.release_date.day.to_s
       end
     end
 

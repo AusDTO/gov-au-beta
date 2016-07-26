@@ -5,13 +5,13 @@
   %h2 Information and services
 
   %ul.list-vertical--thirds.home
-    - Topic.all.order(:name).each do |topic|
+    - @categories.each do |category|
       %li
         %article
           %h3
-            = link_to(topic.name, nodes_path(section: topic, path: topic.home_node.path))
+            = link_to(category.name, category.path || 'javascript:void(0)')
           %p
-            = topic.summary
+            = category.summary
 
   %h2.home-heading About Australia
 
@@ -28,14 +28,16 @@
         = image_tag 'home/calendar.png', alt: 'Friday December 25'
 
 
-  %h2.home-heading News
-
+  %h2.home-heading
+    =link_to 'News', news_articles_path
+  - if @news.empty?
+    %p No current news articles
   %ul.list-vertical--fourths
-    %li
-      %article
-        %h3 News Article
-        .meta
-
+    - @news.all.each do |news|
+      %li
+        %article
+          %h3= link_to news.name, public_node_path(news)
+          .meta= news.release_date
 
   %section.bottom-section
     .govt
@@ -43,22 +45,13 @@
       %ul
         %li
           %a{href: '/departments'}
-            %span= Department.all.count
+            %span= @departments.count
             Departments
         %li
           %a{href: '/agencies'}
-            %span= Agency.all.count
+            %span= @agencies.count
             Agencies
         %li
           %a{href: '/ministers'}
-            %span 18
+            %span= @ministers.count
             Ministers
-
-    .consultations
-      %h2.home-heading Public consultations
-      %ul.list-small
-        %li
-          %a
-          .meta
-            %time{datetime:'2016-05-08 00:00'} Close date 08 May 2016
-          %h3 Proposed LAP variations: Bendigo, Horsham and Shepparton radio

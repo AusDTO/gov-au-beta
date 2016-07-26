@@ -1,0 +1,9 @@
+= inside_layout :application do
+  = yield
+
+  = content_for :header do
+    %a.site-title{href: public_node_path(@section.home_node)}= @section.name
+
+  = content_for :toolbar_actions do
+
+    = render partial: 'application/page_actions', locals: {section: @section, node: @node}

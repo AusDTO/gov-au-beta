@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711035640) do
+ActiveRecord::Schema.define(version: 20160722043604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20160711035640) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
+  create_table "news_distributions", force: :cascade do |t|
+    t.string   "distribution_type"
+    t.integer  "distribution_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.boolean  "acknowledged"
+    t.integer  "news_article_id"
+    t.index ["distribution_type", "distribution_id"], name: "index_news_distro_on_type_and_id", using: :btree
+  end
+
   create_table "nodes", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "parent_id"
@@ -34,15 +44,16 @@ ActiveRecord::Schema.define(version: 20160711035640) do
     t.string   "name"
     t.string   "slug"
     t.integer  "order_num"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.text     "type"
     t.jsonb    "data"
-    t.string   "state",       default: "draft", null: false
+    t.string   "state",        default: "draft", null: false
     t.string   "token"
     t.string   "cms_url"
     t.string   "cms_api_url"
     t.jsonb    "content"
+    t.datetime "published_at"
     t.index ["parent_id", "slug"], name: "index_nodes_on_parent_id_and_slug", unique: true, using: :btree
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
@@ -99,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160711035640) do
     t.string   "cms_type",   default: "Collaborate", null: false
     t.string   "cms_url"
     t.string   "cms_path"
+    t.text     "image_url"
   end
 
   create_table "submissions", force: :cascade do |t|

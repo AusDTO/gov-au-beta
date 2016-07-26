@@ -4,7 +4,7 @@
 
 -if @section.home_node
   %nav.page-controls
-    %a.badge--default{href: nodes_path(@section.home_node.path)}
+    %a.badge--default{href: public_node_path(@section.home_node)}
       %i.fa.fa-level-up
       View published section
 
@@ -24,7 +24,7 @@
     - @section.nodes.order(updated_at: :desc).each do |page|
       %tr
         %td
-          =link_to "#{page.name}", editorial_section_node_path(@section, page.id)
+          =link_to page.name, editorial_section_node_path(@section, page.id)
         %td #{page.type}
         %td #{page.state}
         %td Author

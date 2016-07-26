@@ -4,16 +4,26 @@
 
 crumb :departments do
   link 'Departments', departments_path
-  parent :public_node, Node.root
+  parent :public_node, Node.root_node
+end
+
+crumb :ministers do
+  link 'Ministers', ministers_path
+  parent :public_node, Node.root_node
 end
 
 crumb :public_node do |node|
   if node.parent.present?
-    link node.name, nodes_path(path: node.path)
+    link node.name, public_node_path(node)
     parent :public_node, node.parent
   else
     link 'Home', root_path
   end
+end
+
+crumb :category do |name|
+  link name, nil #TODO: change this once we have Category model
+  parent :public_node, Node.root_node
 end
 
 crumb :editorial_root do
@@ -80,4 +90,14 @@ end
 crumb :new_editorial_request do |section|
   link 'Request Membership', new_editorial_section_request_path(section)
   parent :editorial_root
+end
+
+crumb :public_news_articles do |section|
+  link 'News', section_news_articles_path(section.home_node.slug)
+  parent :public_node, section.home_node
+end
+
+crumb :public_news_article do |node|
+  link node.name, public_node_path(node)
+  parent :public_news_articles, node.section
 end

@@ -10,16 +10,22 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require "ui-kit"
  *= require "simplemde.min"
  *= require "trumbowyg.min"
  *= require "editor.md/scss/editormd"
  */
- @import "bourbon";
- @import "neat";
+ @import "../../../vendor/assets/stylesheets/ui-kit";
+ @import "../../../vendor/assets/stylesheets/ui-kit-icons";
 
- @import "colours";
  @import "content_block";
  @import "page_controls";
  @import "tab";
  @import "homepage";
+
+ //all of the below sass will need to be removed once it is added to UI Kit
+ @import "calendar-table"; //merged - ready to be removed on next release
+ @import "calendar-list"; //not yet merged
+ @import "calendar-callout"; //not yet merged
+ @import "callout-basic"; //not sent to ui kit yet
+ @import "daylight-savings-callout"; //not sent to ui kit yet
+ @import "sort-tabs"; //merged - ready to be removed on next release

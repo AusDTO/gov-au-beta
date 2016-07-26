@@ -3,17 +3,7 @@ module NodesHelper
   MAX_MENU_DEPTH = 4
 
   def render_node(node)
-    section = node.section
-
-    if section.present?
-      if section.layout.present?
-        render "templates/#{node.template}", layout: section.layout
-      else
-        render "templates/#{node.template}", layout: 'section'
-      end
-    else
-      render "templates/#{node.template}"
-    end
+    render "templates/#{node.template}", layout: node.layout
   end
 
   def set_menu_nodes
@@ -22,4 +12,7 @@ module NodesHelper
     end
   end
 
+  def public_node_path(node)
+    Rails.application.routes.url_helpers.nodes_path(path: node.path)
+  end
 end

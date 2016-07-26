@@ -3,6 +3,46 @@ All notable changes to this product will be documented below.
 This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
+### Added
+
+### Changed
+
+### Fixed
+
+## [0.6.0] - 2016-07-26
+### Added
+
+- Add ability to add news articles from /editorial/news
+- Provide link to add news to control bar
+- Published news articles now viewable from /:section/news/:slug
+- Added scopes to query nodes based on json items
+- Ministers index page
+- Infrastructure and Telecommunications category (static)
+- Categories (static) shown on the homepage
+- Provided aggregate list of news from /news
+- Added a node type for nodes with custom templates
+- Added list of available custom template files when creating a custom template node
+- Added published_at field to all pages
+- All pages now have short_summary fields
+- News article metadata can be edited
+- Section home displays most recent published news
+- Added public holiday, school holidays and daylight saving pages (static)
+
+### Changed
+
+- Used ui kit via SCSS include for greater customisation
+- News articles slugs are now a combination of release dates and article names
+- News articles can now be created without a parent
+- Nodes can now specify a layout to override with
+- Removed news article from the node creation prepare select box
+- Moved breadcrumbs above hero banner
+- Changed Table of Contents heading to 'On this page'
+- News Articles get sorted by published_at date
+- News Articles short summary field can be edited
+
+### Fixed
+
+- Skip links work correctly in Chrome
 
 ## [0.5.1] - 2016-07-19
 ### Fixed
@@ -45,7 +85,6 @@ This file is influenced by http://keepachangelog.com/.
 - Support for PaaS instance of govCMS
 - Ability to edit page order
 - Give user option to update page parent
-
 
 ### Changed
 

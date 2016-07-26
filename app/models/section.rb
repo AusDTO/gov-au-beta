@@ -1,6 +1,11 @@
 class Section < ApplicationRecord
+
+  COLLABORATE_CMS = 'Collaborate'
+
   has_many :nodes
   has_many :requests
+  has_many :news_distributions, as: :distribution
+  has_many :news_articles, through: :news_distributions
 
   has_and_belongs_to_many :sections,
         class_name: 'Section',
@@ -35,18 +40,17 @@ class Section < ApplicationRecord
   private
 
   def set_default_cms_type
-    self.cms_type ||= "Collaborate"
+    self.cms_type ||= COLLABORATE_CMS
   end
 
   def generate_home_node
     unless home_node.present?
-      SectionHome.create do |node|
+      SectionHome.create! do |node|
         node.name = name
-        node.slug = name.try(:parameterize)
         node.content_body = ''
         node.section = self
         node.state = 'published'
-        node.parent = Node.root
+        node.parent = Node.root_node
       end
     end
   end

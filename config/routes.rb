@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :editorial do
+    resources :news, only: [:index, :new, :edit, :update]
+    get '/:section/news/:slug' => 'news#show', as: :news_article
+
+    post '/news' => 'news#create'
+
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do
       resources :submissions
@@ -29,6 +34,7 @@ Rails.application.routes.draw do
     resources :ministers
     resources :news_articles
     resources :nodes
+    resources :custom_template_nodes
     resources :requests
     resources :revisions
     resources :roles
@@ -48,8 +54,17 @@ Rails.application.routes.draw do
   end
 
   resources :departments, only: :index
+  resources :ministers, only: :index
 
-  get root 'nodes#show'
+  #FIXME Hard-coded category routes - static content
+  get 'categories/infrastructure-and-telecommunications' => 'categories#infrastructure_and_telecommunications'
+
+  get root 'nodes#home'
   get '/preview/:token' => 'nodes#preview', as: :previews
+
+  get '/news' => 'news#index', as: :news_articles
+  get '/:section/news' => 'news#index', as: :section_news_articles
+  get '/:section/news/:slug' => 'news#show', as: :news_article
+
   get '/*path' => 'nodes#show', as: :nodes
 end

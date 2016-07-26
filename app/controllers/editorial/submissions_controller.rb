@@ -1,6 +1,7 @@
 module Editorial
   class Editorial::SubmissionsController < Editorial::SectionsController
     include ::EditorialHelper
+    include ::NodesHelper
 
     before_action :find_node, only: [:new, :create]
     before_action :check_submission_validity, only: [:new, :create]
@@ -34,7 +35,7 @@ module Editorial
       authorize! :review, @submission
       if params[:accept]
         @submission.accept!(current_user)
-        redirect_to nodes_path(@submission.revisable.path)
+        redirect_to public_node_path(@submission.revisable)
       elsif params[:reject]
         @submission.reject!(current_user)
         redirect_to editorial_section_submission_path(@section, @submission)

@@ -1,0 +1,38 @@
+.list-horizontal.basic {
+
+  li {
+    background-color: $lighterer-grey;
+    border: 0;
+    margin-bottom: $tiny-spacing;
+    padding: 1.5 * $small-spacing;
+
+    h2,
+    h3,
+    h4 {
+      font-size: rem(18);
+
+      + p {
+        margin-top: 0;
+      }
+    }
+
+    span {
+      display: block;
+      font-size: 87.5%;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    &.highlighted {
+      background-color: $lighter-aqua;
+
+      h2,
+      h3,
+      h4 {
+        color: $darker-aqua;
+      }
+    }
+  }
+}

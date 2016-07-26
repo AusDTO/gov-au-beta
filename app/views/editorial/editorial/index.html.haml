@@ -2,6 +2,8 @@
 
 %h1 Editorial
 
+= link_to('News', editorial_news_index_path)
+
 - if @sections.count == 0
   %p.callout
     You are not registered as a collaborator on any sections.

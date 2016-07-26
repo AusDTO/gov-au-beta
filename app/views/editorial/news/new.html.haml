@@ -1,0 +1,15 @@
+%h1 News article
+
+.fieldset
+  = simple_form_for [:editorial, @form], as: :node, url: editorial_news_index_path do |f|
+    = f.input :section_id, collection: @sections, label: 'Publisher'
+    = f.input :name, label: 'Title'
+    = f.input :short_summary
+    = f.input :summary, as: :text, input_html: {rows: 5}
+    = f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
+    = f.input :release_date, as: :date
+    Distributions
+    = f.collection_check_boxes :section_ids, @sections, :id, :name
+    = f.submit 'Create news article', role: 'button'
+
+= render 'editorial/nodes/editor_injection'

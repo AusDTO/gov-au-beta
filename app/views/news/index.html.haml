@@ -1,0 +1,19 @@
+%h1 News
+
+Announcements, media releases, interviews, speeches and more from the Australian Government.
+
+%article#content
+  %ul.list-horizontal
+    - @articles.each do |article|
+      %li
+        %article
+          %h2= link_to article.name, public_node_path(article)
+          %div.meta
+            %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
+            = link_to article.section.name, public_node_path(article.section.home_node), { rel: :author }
+          %p
+            #{article.short_summary}
+          %footer.tags
+            %dl
+              - article.sections.each do |section|
+                %dd= link_to section.name, public_node_path(section.home_node)

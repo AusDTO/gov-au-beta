@@ -3,7 +3,7 @@
 %h1= node.name
 
 %nav.page-controls
-  %a.badge--default{href: '/'+node.path}
+  %a.badge--default{href: public_node_path(node)}
     %i.fa.fa-level-up
     View published page
 
@@ -55,7 +55,7 @@
     -# TODO: refactor this to properly handle different options per Node subclass
     - if node.options.respond_to?(:toc)
       %tr
-        %td Table of contents
+        %td On this page
         %td= t("options.toc.x#{node.options.toc}")
 
 %h2 Content history

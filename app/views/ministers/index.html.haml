@@ -1,0 +1,16 @@
+- breadcrumb :ministers
+
+%h1
+  Ministers
+%p.abstract
+  The Australian Government's ministers include Cabinet ministers, outer
+  ministers, assistant ministers, ministers assisting and parliamentary
+  secretaries.
+%ul.list-highlighted
+  - ministers.each do |minister|
+    %li
+      %a{href: public_node_path(minister.home_node)}
+        -if minister.prefix.present?
+          %span
+            = minister.prefix
+        = minister.ministry_or_title

@@ -8,34 +8,64 @@
 
 require 'synergy/cms_import'
 
-RootNode.create state: 'published'
+RootNode.find_or_create_by!(state: 'published')
 
 topic = Topic.find_or_create_by!(name: "Business")
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.save
 
-node1 = GeneralContent.find_or_create_by!({
-  name: "Starting a Business",
-  section: topic,
-  state: :published,
-  parent: topic.home_node
-})
+news1 = NewsArticle.with_name(
+    "Business News"
+  ).find_or_create_by!(
+    {
+      section: topic,
+      state: :published,
+    }
+  ) do |news_article|
+    news_article.name = "Business News"
+  end
+news1.revise!(content_body: 'foobar').apply!
 
-node2 = node1.children.find_or_create_by!({
-  name: "Finding Staff",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+def make_node(parent, name, klass = GeneralContent)
+  # Note: you cannot find_by with :name because it's in the content jsonb field
+  klass.with_name(name)
+    .find_or_create_by!(
+      {
+        state: :published,
+        parent: parent
+      }
+    ) do |node|
+      node.name = name
+    end
+end
 
-node2.revise!(content_body: 'Lorem ipsum').apply!
+node1 = make_node(topic.home_node, "Starting a Business")
+node2 = make_node(node1, "Finding Staff")
+node2.revise!(content_body: 'lorem ipsum').apply!
+node3 = make_node(node2, "Types of Employment")
 
-node3 = node2.children.find_or_create_by!({
-  name: "Types of Employment",
-  section: topic,
-  type: GeneralContent,
-  state: :published
-})
+times = Topic.find_or_create_by!(name: 'Times and dates') do |topic|
+  topic.summary = 'Australian times and dates'
+end
+
+public_hols = make_node(times.home_node, 'Australian public holidays', CustomTemplateNode)
+public_hols.update(template: 'custom/public_holidays_tas')
+public_hols_tas = make_node(public_hols, 'Tasmania', CustomTemplateNode)
+public_hols_tas.update(template: 'custom/public_holidays_tas')
+public_hols_qld = make_node(public_hols, 'Queensland', CustomTemplateNode)
+public_hols_qld.update(template: 'custom/public_holidays_qld')
+daylight_saving = make_node(times.home_node, 'Australian daylight saving', CustomTemplateNode)
+daylight_saving.update(template: 'custom/daylight_savings_tas')
+daylight_saving_tas = make_node(daylight_saving, 'Tasmania', CustomTemplateNode)
+daylight_saving_tas.update(template: 'custom/daylight_savings_tas')
+daylight_saving_qld = make_node(daylight_saving, 'Queensland', CustomTemplateNode)
+daylight_saving_qld.update(template: 'custom/daylight_savings_qld')
+school_hols = make_node(times.home_node, 'School holidays and term dates', CustomTemplateNode)
+school_hols.update(template: 'custom/school_holidays_tas')
+school_hols_tas = make_node(school_hols, 'Tasmania', CustomTemplateNode)
+school_hols_tas.update(template: 'custom/school_holidays_tas')
+school_hols_qld = make_node(school_hols, 'Queensland', CustomTemplateNode)
+school_hols_qld.update(template: 'custom/school_holidays_qld')
 
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
@@ -70,7 +100,7 @@ if node3.submissions.blank?
 end
 
 names = {
-    admin: [admin,  %w(Joe Bloggs)],
+    admin: [admin, %w(Joe Bloggs)],
     author: [author, %w(Jane Doe)],
     reviewer: [reviewer, %w(John Smith)],
     owner: [owner, %w(Sarah Jones)]

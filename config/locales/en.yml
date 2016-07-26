@@ -28,6 +28,7 @@ en:
       news_article_form: News article
       root_node: Root node
       section_home: Section home
+      custom_template_node: Custom template node
   options:
     toc:
       # entries must start with a letter
@@ -43,3 +44,6 @@ en:
   time:
     formats:
       default: '%d %b %Y, %I:%M%P %z'
+  date:
+    formats:
+      news: '%d %B %Y'

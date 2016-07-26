@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Node, type: :model do
+  include ::NodesHelper
+
   it { is_expected.to belong_to :section }
   it { is_expected.to belong_to :parent }
   it { is_expected.to have_many :children }
@@ -47,13 +49,6 @@ RSpec.describe Node, type: :model do
       context 'for third level node' do
         let(:node) { gamma }
         it { is_expected.to eq 'alpha/beta/gamma' }
-      end
-    end
-
-    describe 'validations' do
-      describe 'root node protection' do
-        subject { Fabricate.build(:root_node) }
-        it { should_not be_valid }
       end
     end
   end
@@ -151,6 +146,43 @@ RSpec.describe Node, type: :model do
         expect(child2.slug).to match('foo-')
         child2.update(parent: other)
         expect(child2.slug).to eq('foo')
+      end
+    end
+  end
+
+  describe '#with_name' do
+    let!(:node1) { Fabricate(:node, name: 'one') }
+    let!(:node2) { Fabricate(:node, name: 'two') }
+    let!(:node3) { Fabricate(:node, name: 'two') }
+
+    it 'returns one element if name is unique' do
+      expect(Node.with_name('one')).to match_array([node1])
+    end
+
+    it 'returns all elements if name is not unique' do
+      expect(Node.with_name('two')).to match_array([node2, node3])
+    end
+
+    it 'returns no elements if name is unknown' do
+      expect(Node.with_name('three')).to match_array([])
+    end
+  end
+
+  describe 'full path' do
+    let!(:article) { Fabricate(:news_article) }
+    let!(:node) { Fabricate(:node) }
+
+    context 'for a news article' do
+      it 'matches its url helper' do
+        expect(public_node_path(article)).to eq(Rails.application.routes.url_helpers.news_article_path(
+          article.section.home_node.slug, article.slug
+        ))
+      end
+    end
+
+    context 'for a general node' do
+      it 'matches its url helper' do
+        expect(public_node_path(node)).to eq(Rails.application.routes.url_helpers.nodes_path(node.path))
       end
     end
   end

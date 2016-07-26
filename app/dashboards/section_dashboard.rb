@@ -1,4 +1,5 @@
 require "administrate/base_dashboard"
+require 'synergy/cms_import'
 
 class SectionDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -17,9 +18,12 @@ class SectionDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     layout: Field::String,
-    cms_type: CmsTypeField,
+    cms_type: Field::Select.with_options(
+        collection: ['Collaborate'] + ::Synergy::CMSImport::ADAPTERS.keys
+    ),
     cms_url: Field::String,
     cms_path: Field::String,
+    image_url: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -47,6 +51,7 @@ class SectionDashboard < Administrate::BaseDashboard
     :cms_type,
     :cms_url,
     :cms_path,
+    :image_url
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -59,6 +64,7 @@ class SectionDashboard < Administrate::BaseDashboard
     :cms_type,
     :cms_url,
     :cms_path,
+    :image_url
   ].freeze
 
   # Overwrite this method to customize how sections are displayed

@@ -1,15 +1,25 @@
-%article#content{class: "content-main"}
-  - breadcrumb :public_node, node
+%article#content{class: "content-main", tabindex: "-1"}
+  - breadcrumb :public_news_article, node
+
+  %dl.list-horizontal
+    %div.tags
+      - node.sections.each do |distribution|
+        %dd= link_to distribution.name, public_node_path(distribution.home_node)
 
   %h1
     =node.name
 
-  - if node.release_date
-    %p
-      Release Date:
-      = node.release_date
+  %p.abstract
+    =node.short_summary
+
+  %ul.announcement-info
+    - if node.release_date
+      %li Published date: #{l(node.release_date, format: :news)}
+    %li
+      Published by:
+      %a= link_to(node.section.name, public_node_path(node.section.home_node))
+
 
   = render partial: 'templates/content_body', object: node.content_body
 
-  %p
-    =@hierarchy
+  =@hierarchy

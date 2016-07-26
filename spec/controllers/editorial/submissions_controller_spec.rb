@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Editorial::SubmissionsController, type: :controller do
+  include ::NodesHelper
   render_views
 
   describe 'GET #show' do
@@ -167,7 +168,7 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
       context '(:accept)' do
         subject { post :update, section_id: submission.section, id: submission.id, accept: true }
-        it { is_expected.to redirect_to nodes_path(submission.revisable.path) }
+        it { is_expected.to redirect_to public_node_path(submission.revisable) }
         it 'change to accepted' do
           expect { subject }.to change { submission.reload.accepted? }.from(false).to(true)
         end

@@ -14,22 +14,20 @@
             %a.logo{href: root_path}
               gov.au
             %span.badge--beta beta
-
+      %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
+        .wrapper
+          = breadcrumbs style: :ul, class: nil
       - if content_for?(:header)
         %section.hero
           .wrapper= yield(:header)
 
-    %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
-      .wrapper
-        = breadcrumbs style: :ul, class: nil
-
-    %main.wrapper
+    %main
       - if content_for?(:navbar)
-        = yield :navbar      
+        = yield :navbar
       = render 'application/alerts'
       = yield
     %footer{role: "contentinfo"}
       .wrapper
         %span
           - unless user_signed_in?
-            = link_to('Sign in', new_user_session_path, style: 'color:#fff;') # TODO: No styles for links in footer in UI Kit yet
+            = link_to('Sign in', new_user_session_path)

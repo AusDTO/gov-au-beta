@@ -18,6 +18,10 @@ module Editorial
 
     def show
       @node = Node.find(params[:id])
+      @section = @node.section
+      if @section
+        @news = NewsArticle.published_for_section(@section).limit(3)
+      end
       set_menu_nodes
     end
 
@@ -27,9 +31,7 @@ module Editorial
       configure_defaults!
       authorize! :create_in, @section
 
-      @node_types = Node.descendants.reject {|klass|
-        [RootNode, SectionHome].include? klass
-      }.map do |klass|
+      @node_types = [GeneralContent].map do |klass|
         name = klass.name.underscore
         [I18n.t("domain_model.nodes.#{name}"), name]
       end
@@ -62,6 +64,10 @@ module Editorial
 
     def edit
       @node = Node.find(params[:id])
+
+      # TODO: find a better way to handle this when a pattern is more evident
+      redirect_to edit_editorial_news_path(@node) if @node.type == 'NewsArticle'
+
       authorize! :update, @node
       @form = NodeMetadataForm.new(@node)
     end

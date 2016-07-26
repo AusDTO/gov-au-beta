@@ -14,12 +14,32 @@ class Node < ApplicationRecord
 
   scope :published, -> { where state: 'published' }
 
+  # These methods aren't DRY to avoid inserting
+  # unescaped strings directly into a PG query.
+  #
+  # This type of query requires the store column to be
+  # unescaped.
+  scope :with_content_value, -> (field, value) {
+    where("content ->> ? = ?", field, value)
+  }
+
+  scope :with_data_value, -> (field, value) {
+    where("data ->> ? = ?", field, value)
+  }
+
+  scope :with_name, -> (name) {
+    with_content_value(:name, name)
+  }
+
   belongs_to :section
   has_many :submissions, through: :revisions
 
   enumerize :state, in: STATES, scope: true
   content_attribute :content_body
   content_attribute :name
+  content_attribute :short_summary
+  content_attribute :summary
+
   # options is not currently versioned but could be in the future
   store_attribute :content, :options
 
@@ -28,11 +48,14 @@ class Node < ApplicationRecord
   before_save :ensure_order_num_present
 
   validates :parent, non_recursive_ancestry: true
-  validates_with RootProtectionValidator
   validates_uniqueness_of :token
 
   def self.find_by_path!(path)
-    path.split('/').reject(&:empty?).reduce(Node.root) do |node, slug|
+    if path.blank?
+      return Node.root_node
+    end
+
+    path.split('/').reject(&:empty?).reduce(Node.root_node) do |node, slug|
       node.children.find_by! slug: slug
     end
   end
@@ -79,8 +102,25 @@ class Node < ApplicationRecord
     name.present? && (content_changed? || parent_id_changed? || super)
   end
 
+  def layout
+    if section.present?
+
+      if section.layout.present?
+        section.layout
+      else
+        return 'section'
+      end
+
+    end
+  end
+
+  def self.root_node
+    return RootNode.first
+  end
+
   private
 
+  # Override this method in subclasses to have different routes per subclass.
   def path_elements
     self_and_ancestors.reverse.collect(&:slug)
   end
@@ -117,6 +157,6 @@ end
 # In order for Node.descendants to work, we need to preload the STI classes.
 # `require_dependency` is used instead of `require` as it participates in
 # hot reloading a development time.
-%w(general_content news_article root_node section_home).each do |clazz_file|
+%w(general_content news_article root_node section_home custom_template_node).each do |clazz_file|
   require_dependency clazz_file
 end

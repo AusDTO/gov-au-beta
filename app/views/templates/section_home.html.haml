@@ -1,4 +1,17 @@
-%article#content{class: "content-main"}
+%article#content{class: "content-main", tabindex: "-1"}
   - breadcrumb :public_node, node
 
   = render partial: 'templates/content_body', object: node.content_body
+
+  %h2=link_to 'News', news_articles_path
+  %p Announcements, media releases, interviews, speeches and more.
+
+  - if @news.empty?
+    %p No current news articles
+
+  %ul.list-vertical--thirds
+    - @news.each do |news|
+      %li
+        %article
+          %h3= link_to news.name, public_node_path(news)
+          .meta= news.release_date

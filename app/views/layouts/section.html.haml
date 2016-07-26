@@ -2,11 +2,9 @@
   = yield
 
   = content_for :header do
-    %a.site-title{href: nodes_path(@section.home_node.path)}= @section.name
+    %a.site-title{href: public_node_path(@section.home_node)}= @section.name
 
   = content_for :toolbar_actions do
-    / TODO: Cleanup (perhaps in https://govausites.atlassian.net/browse/SITES-168)
-
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
 
 
