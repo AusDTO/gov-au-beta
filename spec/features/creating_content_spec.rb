@@ -119,7 +119,7 @@ RSpec.describe 'creating content:', type: :feature do
       # Right now when we create a revision we can only change body & name (DD 20160625)
       fill_in('Title', with: 'Good Name<script>alert()</script>')
       fill_in('Body', with: 'Good Content<script>alert()</script>')
-      fill_in('Summary', with: 'Good summary<script>alert()</script>')
+      fill_in('Long summary', with: 'Good summary<script>alert()</script>')
       fill_in('Short summary', with: 'Good short summary<script>alert()</script>')
       select(section.name, from: 'Publisher')
       click_button('')
