@@ -4,6 +4,11 @@
   = content_for :header do
     %a.site-title{href: public_node_path(@section.home_node)}= @section.name
 
+  = content_for :meta_description do
+    - if node.short_summary
+      = content_for :meta_description do
+        = node.short_summary
+
   = content_for :toolbar_actions do
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
 
