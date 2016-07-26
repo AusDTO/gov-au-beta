@@ -74,7 +74,7 @@ group :test, :development do
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
   gem 'faker', '~> 1.6.3'
-  gem 'webmock', '~> 2.0.1'
+  #gem 'webmock', '~> 2.0.1'
   gem 'simplecov', '~> 0.11.2'
   gem 'capybara', '~> 2.7'
   gem 'dotenv-rails'
@@ -89,6 +89,8 @@ group :test do
   gem 'launchy'
   gem 'codeclimate-test-reporter', require: nil
   gem 'with_model', '~> 1.2.1'
+  gem 'axe-matchers', '~> 1.2', '>= 1.2.1'
+  gem 'poltergeist'
 end
 
 platforms :mingw, :mswin do

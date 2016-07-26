@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'axe/rspec'
 
 RSpec.describe 'home page', type: :feature do
 
@@ -11,7 +12,13 @@ RSpec.describe 'home page', type: :feature do
   end
 
   describe 'categories' do
-    it { expect(page).to have_link('Infrastructure and telecommunications',
-      href: '/categories/infrastructure-and-telecommunications') }
+    subject { page }
+
+    it {
+      is_expected.to have_link('Infrastructure and telecommunications',
+      href: '/categories/infrastructure-and-telecommunications')
+    }
+
+    it { is_expected.to be_accessible }
   end
 end

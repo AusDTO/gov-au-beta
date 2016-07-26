@@ -15,6 +15,29 @@ ActiveRecord::Schema.define(version: 20160722043604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "content_blocks", force: :cascade do |t|
+    t.integer  "node_id"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["node_id"], name: "index_content_blocks_on_node_id", using: :btree
+  end
+
+  create_table "data_bundles", force: :cascade do |t|
+    t.integer  "node_id"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["node_id"], name: "index_data_bundles_on_node_id", using: :btree
+  end
+
+  create_table "data_public_holidays", force: :cascade do |t|
+    t.string   "name"
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false

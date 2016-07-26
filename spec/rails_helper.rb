@@ -50,7 +50,16 @@ RSpec.configure do |config|
   end
 
   # Reset so other non-request specs don't have to deal with slow truncation.
-  config.after type: :cms_import  do
+  config.after type: :cms_import do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before type: :feature do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # Reset so other non-request specs don't have to deal with slow truncation.
+  config.after type: :feature do
     DatabaseCleaner.strategy = :transaction
   end
 

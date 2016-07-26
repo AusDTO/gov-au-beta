@@ -16,11 +16,12 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'webmock/rspec'
+#require 'webmock/rspec'
 require 'capybara/rspec'
 require 'simplecov'
 require 'codeclimate-test-reporter'
 require 'with_model'
+require 'capybara/poltergeist'
 
 # save to CircleCI's artifacts directory if we're on CircleCI
 if ENV['CIRCLE_ARTIFACTS']
@@ -29,8 +30,10 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 
 # push test coverage report to codeclimate.com
-WebMock.disable_net_connect!(:allow => "codeclimate.com")
+#WebMock.disable_net_connect!(:allow => "codeclimate.com")
 CodeClimate::TestReporter.start
+
+Capybara.default_driver = :poltergeist
 
 RSpec.configure do |config|
 
