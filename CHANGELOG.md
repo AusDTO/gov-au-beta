@@ -5,9 +5,19 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Added admin-only option to stop a node appearing in breadcrumbs and the menu
+- Added links on department homepages to related ministers
+
 ### Changed
 
+- Short/long summary fields for all nodes sit within page abstract
+- Display dates in Sydney timezone
+
 ### Fixed
+
+- Update link to TV reception page
+- Fix check for whether a user can see the accept/reject buttons on a submission
+- Add breadcrumbs to times and dates custom pages
 
 ## [0.6.0] - 2016-07-26
 ### Added
@@ -27,7 +37,6 @@ This file is influenced by http://keepachangelog.com/.
 - News article metadata can be edited
 - Section home displays most recent published news
 - Added public holiday, school holidays and daylight saving pages (static)
-- Added admin-only option to stop a node appearing in breadcrumbs and the menu
 
 ### Changed
 
@@ -40,7 +49,6 @@ This file is influenced by http://keepachangelog.com/.
 - Changed Table of Contents heading to 'On this page'
 - News Articles get sorted by published_at date
 - News Articles short summary field can be edited
-- Short/long summary fields for all nodes sit within page abstract
 
 ### Fixed
 
