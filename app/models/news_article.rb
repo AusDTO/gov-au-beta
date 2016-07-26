@@ -39,7 +39,7 @@ class NewsArticle < Node
   # wrapper around the url helpers, to allow this model to override the default
   # redirect action.
   def path_elements
-    [section.home_node.slug, 'news', slug]
+    [section.slug, 'news', slug]
   end
 
   # http://norman.github.io/friendly_id/file.Guide.html#Column_or_Method_

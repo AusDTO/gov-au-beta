@@ -13,6 +13,8 @@ class Section < ApplicationRecord
         foreign_key: :section_id,
         association_foreign_key: :connection_id
 
+  delegate :slug, to: :home_node, allow_nil: true
+
   # Note: resourcify must be called in every subclass so rolify will work
   resourcify
 
