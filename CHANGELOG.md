@@ -27,6 +27,7 @@ This file is influenced by http://keepachangelog.com/.
 - News article metadata can be edited
 - Section home displays most recent published news
 - Added public holiday, school holidays and daylight saving pages (static)
+- Added admin-only option to stop a node appearing in breadcrumbs and the menu
 
 ### Changed
 
