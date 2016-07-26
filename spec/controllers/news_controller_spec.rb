@@ -41,7 +41,7 @@ RSpec.describe NewsController, type: :controller do
     let!(:article_today_c) {
       Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'C', published_at: Time.now.utc)
     }
-    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday) }
+    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday, published_at: 24.hours.ago) }
 
     context 'when a user is not authorised' do
       before { get :index }
