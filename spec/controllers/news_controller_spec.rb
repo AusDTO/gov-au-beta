@@ -32,16 +32,18 @@ RSpec.describe NewsController, type: :controller do
   describe 'GET #index' do
     let!(:article_unpub) { Fabricate(:news_article, state: 'draft') }
     let(:in_the_past) { 10.minutes.ago }
+    let(:date_today) { Date.today }
+    let(:date_yesterday) { date_today - 24.hours }
     let!(:article_today_a) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'A', published_at: in_the_past)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'A', published_at: in_the_past)
     }
     let!(:article_today_b) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'B', published_at: in_the_past)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'B', published_at: in_the_past)
     }
     let!(:article_today_c) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'C', published_at: Time.now.utc)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'C', published_at: Time.now.utc)
     }
-    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday, published_at: 24.hours.ago) }
+    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: date_yesterday) }
 
     context 'when a user is not authorised' do
       before { get :index }
