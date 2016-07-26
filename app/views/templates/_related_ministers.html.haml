@@ -7,7 +7,7 @@
           %img{src: minister.image_url}
         %article
           %h3
-            =link_to(minister.name, nodes_path(path: minister.home_node.path))
+            =link_to(minister.name, public_node_path(minister.home_node))
           %p
             %strong
               -#TODO minister's name
