@@ -13,8 +13,6 @@ class Section < ApplicationRecord
         foreign_key: :section_id,
         association_foreign_key: :connection_id
 
-  validates :name, uniqueness: { case_sensitive: false }
-
   # Note: resourcify must be called in every subclass so rolify will work
   resourcify
 
@@ -31,6 +29,17 @@ class Section < ApplicationRecord
 
   def home_node
     nodes.with_sectionless_parent.first
+  end
+
+  # we can't use delegate :name, to home_node because we have to create the Section before the SectionHome
+  # we can't have the SectionHome delegate :name to the section because that doesn't work with the revisable system
+  # So manually override name to delegate to the home_node if it exists
+  def name
+    if home_node
+      home_node.name
+    else
+      super
+    end
   end
 
   private
