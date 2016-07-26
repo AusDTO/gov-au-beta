@@ -43,7 +43,8 @@ class Ability
         ) && section.cms_type == Section::COLLABORATE_CMS
       end
       can :review, Submission do |submission|
-        user.has_role?(:reviewer, submission.section)
+        submission.submitted? && submission.section.present? &&
+          user.has_role?(:reviewer, submission.section)
       end
     end
 
