@@ -5,6 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+### Changed
+
+### Fixed
+
+## [0.6.0] - 2016-07-26
+### Added
+
 - Add ability to add news articles from /editorial/news
 - Provide link to add news to control bar
 - Published news articles now viewable from /:section/news/:slug
