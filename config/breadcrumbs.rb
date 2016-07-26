@@ -12,6 +12,10 @@ crumb :ministers do
   parent :public_node, Node.root_node
 end
 
+crumb :public_root do
+  link 'Home', root_path
+end
+
 crumb :public_node do |node|
   if node.parent.present?
     unless node.options.suppress_in_nav
@@ -102,4 +106,9 @@ end
 crumb :public_news_article do |node|
   link node.name, public_node_path(node)
   parent :public_news_articles, node.section
+end
+
+crumb :public_news_aggregator do
+  link 'News', nil
+  parent :public_root
 end
