@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added admin-only option to stop a node appearing in breadcrumbs and the menu
 - Added links on department homepages to related ministers
 - Added long summary field for section_home form and template
+- Add "popular now" hard coded links to the top of the home page
 
 ### Changed
 

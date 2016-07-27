@@ -1,5 +1,20 @@
 - breadcrumb :public_node, node
 
+%section.popular-links
+  %h2 Popular now
+  %nav
+    %ul
+      %li
+        %a{href:"javascript:void(0)"} Lodge your tax return
+      %li
+        %a{href:"/times-and-dates/school-holidays-and-term-dates"} School holiday dates
+      %li
+        %a{href:"javascript:void(0)"} Work visas
+      %li
+        %a{href:"javascript:void(0)"} Starting a business
+      %li
+        %a{href:"javascript:void(0)"} Youth allowance
+
 .home
 
   %h2 Information and services
@@ -22,7 +37,7 @@
         = image_tag 'home/map.png', alt: 'Map of Australia displaying population of 29,924,836'
         = image_tag 'home/more-females.png', alt: '99,604 more females than males in Australia'
 
-    .public-holiday
+    %a.public-holiday{href:"/times-and-dates/australian-public-holidays"}
       %h3 Upcoming public holiday
       %figure
         = image_tag 'home/calendar.png', alt: 'Friday December 25'
