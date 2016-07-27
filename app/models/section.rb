@@ -29,10 +29,6 @@ class Section < ApplicationRecord
     end.uniq
   end
 
-  def find_by_slug(slug)
-    Section.find_by(slug: slug)
-  end
-
   def home_node
     nodes.with_sectionless_parent.first
   end
