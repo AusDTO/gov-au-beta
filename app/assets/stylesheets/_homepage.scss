@@ -7,6 +7,52 @@ $lighterer-grey: #f0f0f0;
   }
 }
 
+.popular-links {
+  background-color: #00A1BB;
+  color: white;
+  position: relative;
+  bottom: -3em;
+  padding: 1.8em 2.7em;
+  padding-bottom: 3em;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin-bottom: 6em;
+  a,a:visited {
+    color: #fff;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+
+  }
+  h2{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    color: white;
+  }
+}
+
+
+
+.popular-links:last-child {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .popular-links {
+    margin-right: 2.35765%;
+
+    width: 31.76157%;
+    left: 66%;
+  }
+  .popular-links:last-child {
+    margin-right: 0;
+  }
+}
+
+
 .home-header {
   background-color: $darker-aqua;
   padding: 0 0 4rem;
@@ -26,18 +72,14 @@ $lighterer-grey: #f0f0f0;
 
   section {
 
-
   }
+
 }
 
 .home {
 
   .govt {
-    @include span-columns(12);
 
-    @include media($desktop) {
-      @include span-columns(6);
-    }
 
     ul {
       padding-left: 0;
@@ -101,7 +143,6 @@ $lighterer-grey: #f0f0f0;
     figure {
       text-align: center;
     }
-
 
   }
 
