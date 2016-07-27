@@ -24,6 +24,8 @@ class UserDashboard < Administrate::BaseDashboard
     updated_at: Field::DateTime,
     password: PasswordField,
     password_confirmation: PasswordField,
+    first_name: Field::String,
+    last_name: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -41,6 +43,8 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :email,
+    :first_name,
+    :last_name,
     :roles,
     :remember_created_at,
     :sign_in_count,
@@ -57,6 +61,8 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :email,
+    :first_name,
+    :last_name,
     :password,
     :password_confirmation,
     :roles,
