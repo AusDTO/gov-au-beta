@@ -7,7 +7,7 @@ namespace :ui_kit do
       ui_kit_url = "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
       file = File.new "vendor/assets/"+destination, 'wb+'
       file.write  Net::HTTP.get(URI.parse(ui_kit_url+name))
-      puts destination
+      puts destination +" updated"
     end
 
     download_asset("ui-kit.js", "javascripts/ui-kit.js")
