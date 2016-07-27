@@ -19,6 +19,6 @@
       %li
         %article
           %h3= link_to news.name, public_node_path(news)
-          .meta= news.release_date
+          .meta= l(news.release_date, format: :news)
 
   = render partial: 'templates/related_ministers', object: @section.try(:ministers)

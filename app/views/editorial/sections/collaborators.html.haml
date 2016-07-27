@@ -8,7 +8,7 @@
   %ul
     - @pending.each do |p|
       %li
-        =link_to "#{p.user.decorate.full_name} (#{p.user.email})", editorial_section_request_path(@section, p)
+        =link_to "#{p.user.decorate.display_name} (#{p.user.email})", editorial_section_request_path(@section, p)
 
 %table.content-table
   %thead
@@ -19,7 +19,7 @@
   %tbody
     - users.each do |user|
       %tr
-        %td #{user.full_name}
+        %td #{user.display_name}
         %td #{user.email}
         %td
           = user.roles_for(@section).join ', '

@@ -13,7 +13,7 @@ RSpec.describe NewsController, type: :controller do
 
     context 'when a user is not authorised' do
       context 'for a published page' do
-        before { get :show, section: section_a.home_node.slug, slug: article_published.slug }
+        before { get :show, section: section_a.slug, slug: article_published.slug }
 
         it { expect(response).to be_success }
         it { expect(assigns(:node)).to eq(article_published) }
@@ -22,7 +22,7 @@ RSpec.describe NewsController, type: :controller do
       context 'for a draft page' do
         it 'should throw a not found' do
           expect {
-             get :show, section: section_a.home_node.slug, slug: article_draft.slug
+             get :show, section: section_a.slug, slug: article_draft.slug
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end

@@ -4,7 +4,6 @@ RSpec.describe Section, type: :model do
   let!(:root_node) { Fabricate(:root_node) }
 
   it { is_expected.to have_many :nodes }
-  it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
 
   describe '#users' do
     context 'section with no users' do
@@ -38,6 +37,14 @@ RSpec.describe Section, type: :model do
 
     it 'should be a child of the root node' do
       expect(subject.parent).to eq Node.root_node
+    end
+  end
+
+  describe '#name' do
+    let(:section) { Fabricate(:section, name: 'original') }
+    it do
+      expect{ section.home_node.update(name: 'updated') }.to(
+        change{section.reload.name}.from('original').to('updated'))
     end
   end
 end

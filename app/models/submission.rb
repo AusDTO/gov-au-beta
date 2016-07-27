@@ -30,13 +30,11 @@ class Submission < ApplicationRecord
     where(submitter: user).without_state(:accepted, :rejected).order(updated_at: :desc)
   }
 
-  scope :open, -> {
-    without_state(:accepted, :rejected)
-  }
+  scope :open, -> { without_state(:accepted, :rejected) }
 
-  scope :for, -> (user) {
-    where(submitter: user).order(updated_at: :desc)
-  }
+  scope :for, -> (user) { where(submitter: user) }
+
+  scope :recent, -> { order(updated_at: :desc) }
 
   validates_presence_of :revision
   validates_presence_of :submitter

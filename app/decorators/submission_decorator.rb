@@ -3,8 +3,8 @@ class SubmissionDecorator < Draper::Decorator
   decorates_association :submitter
   decorates_association :reviewer
   decorates_association :revisable
-  delegate :full_name, to: :submitter, prefix: true, allow_nil: true
-  delegate :full_name, to: :reviewer, prefix: true, allow_nil: true
+  delegate :display_name, to: :submitter, prefix: true, allow_nil: true
+  delegate :display_name, to: :reviewer, prefix: true, allow_nil: true
 
   def submitted_content
     RevisionContent.new(revision)
