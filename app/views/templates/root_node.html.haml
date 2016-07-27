@@ -2,20 +2,20 @@
 
 .home
 
-  %h2 Information and services
+  %section.home-category-list
+    %h2 Information and services
 
-  %ul.list-vertical--thirds.home
-    - @categories.each do |category|
-      %li
-        %article
-          %h3
-            = link_to(category.name, category.path || 'javascript:void(0)')
-          %p
-            = category.summary
-
-  %h2.home-heading About Australia
+    %ul.list-vertical--thirds
+      - @categories.each do |category|
+        %li
+          %article
+            %h3
+              = link_to(category.name, category.path || 'javascript:void(0)')
+            %p
+              = category.summary
 
   %section.about-australia
+    %h2.home-heading About Australia
     .population
       %h3 Population
       %figure
@@ -27,31 +27,30 @@
       %figure
         = image_tag 'home/calendar.png', alt: 'Friday December 25'
 
+  %section.home-news-list
+    %h2.home-heading News
+    - if @news.empty?
+      %p No current news articles
+    %ul.list-vertical--fourths
+      - @news.all.each do |news|
+        %li
+          %article
+            %h3= link_to news.name, public_node_path(news)
+            .meta= news.release_date
+    =link_to 'All news', news_articles_path, :class => "see-more"
 
-  %h2.home-heading
-    =link_to 'News', news_articles_path
-  - if @news.empty?
-    %p No current news articles
-  %ul.list-vertical--fourths
-    - @news.all.each do |news|
+  %section.about-governemnt
+    %h2.home-heading About Government
+    %ul
       %li
-        %article
-          %h3= link_to news.name, public_node_path(news)
-          .meta= l(news.release_date, format: :news)
-
-  %section.bottom-section
-    .govt
-      %h2.home-heading About Government
-      %ul
-        %li
-          %a{href: '/departments'}
-            %span= @departments.count
-            Departments
-        %li
-          %a{href: '/agencies'}
-            %span= @agencies.count
-            Agencies
-        %li
-          %a{href: '/ministers'}
-            %span= @ministers.count
-            Ministers
+        %a{href: '/departments'}
+          %span= @departments.count
+          Departments
+      %li
+        %a{href: '/agencies'}
+          %span= @agencies.count
+          Agencies
+      %li
+        %a{href: '/ministers'}
+          %span= @ministers.count
+          Ministers
