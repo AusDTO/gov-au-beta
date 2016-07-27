@@ -105,11 +105,7 @@ crumb :public_news_article do |node|
 end
 
 crumb :section_news_articles do |section|
-  link 'News', nil
+  link 'News', section_news_articles_path(section)
   parent :public_node, section.home_node
 end
 
-crumb :public_news_aggregator do
-  link 'News', nil
-  parent :public_node, Node.root_node
-end
