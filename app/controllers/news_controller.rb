@@ -6,6 +6,11 @@ class NewsController < ApplicationController
 
   def index
     @articles = NewsArticle.published.by_release_date.by_published_at
+
+    if params[:section].present?
+      set_section
+      @articles = @articles.by_section(@section)
+    end
   end
 
 

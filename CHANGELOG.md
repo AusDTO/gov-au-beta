@@ -8,12 +8,14 @@ This file is influenced by http://keepachangelog.com/.
 - Added admin-only option to stop a node appearing in breadcrumbs and the menu
 - Added links on department homepages to related ministers
 - Added long summary field for section_home form and template
+- Added route for /:section/news to offer section-filtered view of news items
 
 ### Changed
 
 - Short/long summary fields for all nodes sit within page abstract
 - Display dates in Sydney timezone
 - Relabeled 'Summary' field to 'Long summary'
+- Shifted news item breadcrumbs to sit beneath Home > News
 
 ### Fixed
 

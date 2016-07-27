@@ -44,6 +44,12 @@ class Section < ApplicationRecord
     end
   end
 
+  def news_node
+    # There can only be one ...
+    # TODO: select this by NewsAggegator type, once it exists
+    nodes.with_name('News').first
+  end
+
   private
 
   def set_default_cms_type
@@ -59,6 +65,14 @@ class Section < ApplicationRecord
         node.state = 'published'
         node.parent = Node.root_node
       end
+    end
+  end
+
+  # TODO: add a after_create hook for this method
+  # TODO: refactor generate_home_node into this
+  def generate_indispensable_nodes
+    unless news_node.present?
+      # TODO: Create NewsNode
     end
   end
 end
