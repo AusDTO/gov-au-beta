@@ -68,7 +68,7 @@ class Section < ApplicationRecord
     end
   end
 
-
+  # TODO: add a after_create hook for this method
   def generate_news_node
     unless news_node.present?
       # TODO: Create NewsNode
