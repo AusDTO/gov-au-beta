@@ -4,7 +4,7 @@ namespace :ui_kit do
 
   task :update do
     def download_asset(name, destination)
-      ui_kit_url = "http://gov-au-ui-kit-staging.apps.staging.digital.gov.au/latest/"
+      ui_kit_url = "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
       file = File.new "vendor/assets/"+destination, 'wb+'
       file.write  Net::HTTP.get(URI.parse(ui_kit_url+name))
       puts destination +" updated"
