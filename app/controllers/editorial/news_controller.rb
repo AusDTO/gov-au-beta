@@ -33,8 +33,8 @@ module Editorial
         if current_user.is_member?(Section.find(@form.section_id))
           # TODO: move this into a form validator
           # Prevents distribution list being created for publisher
-          @form.section_ids = @form.section_ids.reject(&:blank?).reject! do |s_id|
-            s_id == @form.section_id ||
+          @form.section_ids.reject! do |s_id|
+            s.blank? || s_id == @form.section_id ||
                 !current_user.is_member?(Section.find(s))
           end
 
@@ -68,9 +68,10 @@ module Editorial
 
       if @form.validate(params.require(:node))
         if current_user.is_member?(Section.find(@form.section_id))
-          @form.section_ids = @form.section_ids.reject(&:blank?).reject! do |s|
-            s == @form.section_id.to_s ||
-                !current_user.is_member?(Section.find(s))
+          @form.section_ids.reject! do |s|
+            s.blank? ||
+              s == @form.section_id.to_s ||
+              !current_user.is_member?(Section.find(s))
           end
 
           @form.save do |params|
