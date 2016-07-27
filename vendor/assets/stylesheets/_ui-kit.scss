@@ -3758,7 +3758,11 @@ Avoid mixing this layout with other grid layouts.
 
 <p class="callout"><strong>Grid classes?</strong> There are no non-semantic grid classes with which to set block elements. This is intentional. If you need to add to or customise the grid system see below.</p>
 
+Primary content is always contained in 12 columns. This allows for seamless introduction of a sidebar/side navigation.
+
 The grid unit proportions, gutters and spacing are defined in `_grid-settings.scss`.
+
+If you need an element not defined here you are probably not the only one&mdash;please [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues) so we can provide it for everyone.
 
 <hr />
 
@@ -3767,49 +3771,13 @@ This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.he
 Style guide: Grid
 */
 
-/*
-Extending settings
-
-If you need an element not defined here you are probably not the only one&mdash;please [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues) so we can provide it for everyone.
-
-We define the grid placement for the following elements in `_block-elements.scss`:
-
-- `header[role='banner']`
-- `footer[role='contentinfo']`
-- `main`
-- `article`
-- `aside`.
-
-To create your own element you will need to use the [Neat `span-columns` function](http://thoughtbot.github.io/neat-docs/latest/#span-columns).
-
-For each new element you will need to manually set column properties for the breakpoints, from smallest to largest:
-1. `$mobile`
-2. `$tablet`
-3. `$desktop`
-
-Style guide: Grid.2 Extending settings
-*/
-
-/*
-Margins & gutters
-
-Maximum page width is set to 1200px. Gutters between the columns are a minimum of 32px.
-
-```
-$max-width: em(1200) !global;
-$gutter: em(32);
-```
-
-Style guide: Grid.3 Margins & gutters
-*/
-
 $grid-columns: 4 !global;
 $max-width: em(1200) !global;
 $gutter: em(32);
 
 
 /*
-Breakpoints
+Responsive breakpoints
 
 This framework has a mobile-first default layout of 4 columns, and adds 3 breakpoints for grid layout on larger screens:
 
@@ -3828,7 +3796,7 @@ $tablet: new-breakpoint(min-width 768px 12);
 $desktop: new-breakpoint(min-width $max-width 16);
 ```
 
-Style guide: Grid.4 Breakpoints
+Style guide: Grid.3 Breakpoints
 */
 
 // Functions
@@ -4099,46 +4067,6 @@ $tablet: new-breakpoint(min-width 768px 12);
 $desktop: new-breakpoint(min-width $max-width 16);
 
 /*
-Layout
-
-Primary content is always contained in 12 columns. This allows for seamless introduction of a sidebar/side navigation.
-
-![Diagram of the layout across 16 columns](kss-assets/img_layout.png)
-
-![Diagram of the layout with optional aside nav](kss-assets/img_layoutwithnav.png)
-
-Style guide: Grid.5 Layout
-*/
-
-/*
-Wrapper class
-
-There is a wrapper class (`<div class="wrapper">`) for wrapping the contents of a block within the grid, while allowing its outer container to run the full viewport width.
-
-This is currently used for the page `header` and `footer`, and also for the [breadcrumbs](section-navigation.html#kssref-navigation-2-breadcrumbs).
-
-Style guide: Grid.6 Wrapper class
-*/
-
-/*
-Header & footer
-
-The site header and footer are targeted by their ARIA roles, not a `class` or `id`. Use `banner` and `contentinfo` roles, respectively.
-
-Style guide: Grid.7 Header & footer
-*/
-
-/*
-Accessibility
-
-Long lines reduce legibility. Lines of text should be no longer than 75 characters including spaces. Place text in narrower grid boxes to stop text lines from becoming too wide.
-
-Low-vision users should be able to increase the size of the text by up to 200 per cent without breaking the layout.
-
-Style guide: Grid.8 Accessibility
-*/
-
-/*
 Debugging
 
 Turn on the visual grid to help debugging:
@@ -4149,7 +4077,7 @@ $visual-grid: true;
 
 See the example [Bourbon Neat working grid layout](http://neat.bourbon.io/examples/).
 
-Style guide: Grid.9 Debugging
+Style guide: Grid.4 Debugging
 */
 
 // Toggle visibility of your grid columns for development/debugging.
@@ -4157,9 +4085,6 @@ $visual-grid: false;
 
 $border-box-sizing: true;
 $disable-warnings: true;
-
-// Make sure you set the viewport to the device-width in your head, eg
-// <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 // Neat 1.7.4
 // http://neat.bourbon.io
@@ -5160,7 +5085,7 @@ $layout-direction: LTR !default;
 
 $base-z-index: 0;
 $base-border-radius: 3px;
-$tiny-border-radius: ($base-border-radius / 3);
+$tiny-border-radius: 1px;
 $large-border-radius: ($base-border-radius * 4);
 
 $transition-timing: .2s;
@@ -5247,11 +5172,9 @@ $transition-easing: ease-in-out;
 /*
 Colours
 
-The framework provides a basic palette of colours that are clear and accessible.
+A basic palette of colours that are clear and accessible.
 
-The colours are not finalised.
-
-If you need more guidance please [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues).
+We are finalising the colours&mdash;for help [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues).
 
 Style guide: Colours
 */
@@ -5259,9 +5182,7 @@ Style guide: Colours
 /*
 Colours palette
 
-The framework uses colours for decoration and to distinguish different types of information on a page. This includes lighter and darker versions that are percentage variations of the original colours.
-
-The Sass variables are also provided below, for reference.
+Lighter and darker versions are percentage variations of the original colours (Sass variables are provided for reference).
 
 <div class="guide-colour-examples">
   <div class="guide-colour">
@@ -5432,9 +5353,9 @@ $blue:          #00bfe9;
 $light-blue:    #e8f5fa;
 
 /*
-Colour contrast
+Accessibility
 
-The colour contrast ratio for text and interactive elements should be at least 4.5:1 as [recommended by the W3C](http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html).
+The [recommended colour contrast ratio](http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) for text and interactive elements should be at least 4.5:1.
 
 ### Accessible combinations
 <p class="guide-colour-block bg-non-black">non-white on non-black<span class="invert">AAA</span></p>
@@ -5456,7 +5377,7 @@ The colour contrast ratio for text and interactive elements should be at least 4
 <p class="guide-colour-block bg-light-yellow">non-black on light-yellow <span class="invert">AA</span></p>
 <p class="guide-colour-block bg-light-blue">non-black on light-blue <span class="invert">AA</span></p>
 
-Style guide: Colours.3 Colour contrast
+Style guide: Colours.3 Accessibility
 */
 
 // Colour variables
@@ -5483,6 +5404,8 @@ $error-colour:                  $red;
 $success-colour:                $green;
 $warning-colour:                $yellow;
 $info-colour:                   $blue;
+
+$callout-bg-light-colour:       $lighter-aqua;
 
 $border-colour:                 $light-grey;
 $border-soft-colour:            rgba($light-grey, 0.5);
@@ -5611,6 +5534,7 @@ Style guide: Typography.3 Spacing
 $base-leading: 1.6;
 $base-heading-leading: 1.4;
 $small-leading: 1.2;
+$double-leading: 2;
 
 // Base spacing, relative to leading.
 $base-spacing: $base-leading * 1em;
@@ -5715,28 +5639,31 @@ Markup: templates/heading-body-styles.hbs
 Style guide: Typography.2 Headings & body copy
 */
 
+// Styling for headings
+//
+// Note that we don't style h5 and h6.
+
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
+h4 {
   line-height: $base-heading-leading;
-  font-weight: $heading-font-weight;
-  margin-bottom: $small-spacing * .5;
+  font-weight: $base-font-weight;
+  margin-bottom: $tiny-spacing;
   margin-top: $base-spacing;
 }
 
 h1 {
-  font-size: rem(32);
-  line-height: $small-leading;
+  // This needs to be changed to live in the 'header', where the breadcrumbs currently are (grey bar).
+  font-size: rem(24);
+  //line-height: $small-leading;
 
   @include media($tablet) {
-    font-size: rem(44);
+    font-size: rem(26);
   }
 
   @include media($desktop) {
-    font-size: rem(40);
+    font-size: rem(32);
   }
 
   &:first-of-type {
@@ -5745,11 +5672,12 @@ h1 {
 }
 
 h2 {
-  font-size: rem(28);
+  font-size: rem(32);
   line-height: $small-leading;
+  margin-top: $base-spacing;
 
   @include media($tablet) {
-    font-size: rem(32);
+    font-size: rem(44);
   }
 }
 
@@ -5763,21 +5691,78 @@ h3 {
 }
 
 h4 {
-  font-size: rem(19);
+  font-size: rem(18);
   font-weight: $heading-font-weight;
+}
 
-  @include media($tablet) {
-    font-size: rem(22);
+
+// Document this later.
+.gov-speak {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: $base-heading-leading;
+    font-weight: $heading-font-weight;
+    margin-bottom: $tiny-spacing;
+    margin-top: $base-spacing;
   }
-}
 
-h5 {
-  font-size: rem(16);
-  font-weight: $heading-font-weight;
-}
+  h1 {
+    font-size: rem(32);
+    line-height: $small-leading;
 
-h6 {
-  @extend h5;
+    @include media($tablet) {
+      font-size: rem(44);
+    }
+
+    @include media($desktop) {
+      font-size: rem(40);
+    }
+
+    &:first-of-type {
+      margin-top: $tiny-spacing;
+    }
+  }
+
+  h2 {
+    font-size: rem(28);
+    line-height: $small-leading;
+
+    @include media($tablet) {
+      font-size: rem(32);
+    }
+  }
+
+  h3 {
+    font-size: rem(24);
+    font-weight: $heading-font-weight;
+
+    @include media($tablet) {
+      font-size: rem(26);
+    }
+  }
+
+  h4 {
+    font-size: rem(19);
+    font-weight: $heading-font-weight;
+
+    @include media($tablet) {
+      font-size: rem(22);
+    }
+  }
+
+  h5 {
+    font-size: rem(17);
+    font-weight: $heading-font-weight;
+  }
+
+  h6 {
+    font-size: rem(17);
+    font-weight: $heading-font-weight;
+  }
 }
 
 a {
@@ -5824,6 +5809,7 @@ kbd {
   background-color: $non-white;
   color: $dark-aqua;
   text-align: center;
+  font-size: $small-font-size;
   padding: 0 $small-spacing;
   margin: 0 $tiny-spacing;
 }
@@ -5838,19 +5824,17 @@ strong {
 
 // For display font sizing.
 .display {
-  @extend h1;
+  @extend h2;
 }
 
 // More specialised typography.
 //
 // For abstracts or page introductory paragraphs.
 .abstract {
-  @extend h4;
-
+  font-size: rem(24);
   font-weight: $base-font-weight;
-  border-bottom: 1px solid;
-  padding-bottom: 1.3 * $base-spacing;
-  margin-bottom: 2 * $base-spacing;
+  border-bottom: 1px solid $border-colour;
+  padding-bottom: $medium-spacing;
 }
 
 hr {
@@ -5896,8 +5880,9 @@ dl,
 p,
 dt,
 dd {
-  margin-bottom: $small-spacing;
-  font-size: rem(16);
+  font-size: rem(17);
+  margin-top: 0; // Check up on where margin-top is coming from...
+  margin-bottom: $medium-spacing;
   line-height: $base-spacing;
 }
 
@@ -5908,14 +5893,15 @@ li {
 
   ul,
   ol {
-    margin-top: ($small-spacing / 2);
+    margin-top: $tiny-spacing;
     margin-bottom: 0;
   }
 }
 
 dt {
+  display: inline-block;
   font-weight: $bold-font-weight;
-  margin-top: $medium-spacing;
+  margin-top: $tiny-spacing;
 
   &:first-of-type {
     margin-top: 0;
@@ -5927,25 +5913,59 @@ Callouts & warnings
 
 **Callouts** and **warning callouts** can be used to draw the user's attention to a specific piece of content.
 
+There is also a **calendar callout** to draw attention to things on specific dates.
+
 Markup: templates/callouts-examples.hbs
 
 Style guide: Typography.6 Callouts & warnings
 */
 
-.callout {
+%base-callout {
   margin: $base-spacing $small-spacing;
   padding: $medium-spacing $medium-spacing $medium-spacing $base-spacing;
   border-radius: $tiny-border-radius;
   box-shadow: 0 0 8px $light-grey;
 }
 
-.callout--warning {
-  @extend .callout;
-
-  border-left: ($small-spacing / 2) solid $red;
-  padding-left: $base-spacing - ($small-spacing / 2);
+.callout {
+  @extend %base-callout;
 }
 
+.callout--warning {
+  @extend %base-callout;
+
+  border-left: $tiny-spacing solid $red;
+  padding-left: $base-spacing - $tiny-spacing;
+}
+
+.callout--calendar-event {
+  @extend %base-callout;
+
+  padding-bottom: $small-spacing; // reset
+  background-color: $callout-bg-light-colour;
+
+  time,
+  .event-name {
+    font-size: rem(32);
+    line-height: $small-leading;
+  }
+
+  time {
+    display: block;
+    font-weight: $heading-font-weight;
+  }
+
+  .event-name {
+    font-weight: $base-font-weight;
+  }
+
+  .next-event {
+    display: block;
+    font-size: rem(17);
+    font-weight: $base-font-weight;
+    margin-bottom: $tiny-spacing;
+  }
+}
 
 /*
 Badges
@@ -6025,10 +6045,6 @@ blockquote {
       text-align: center;
       margin: 0;
     }
-
-    &::after {
-      margin-top: -($tiny-spacing);
-    }
   }
 
   &::before,
@@ -6042,6 +6058,7 @@ blockquote {
 
   &::before {
     margin-left: -($small-spacing * 0.75);
+    padding-bottom: $tiny-spacing;
     content: open-quote;
   }
 
@@ -6055,7 +6072,7 @@ blockquote {
 
   footer {
     margin-top: $medium-spacing;
-    padding-top: ($small-spacing / 2);
+    padding-top: $tiny-spacing;
     border-top: 1px solid $light-grey;
   }
 
@@ -6082,7 +6099,7 @@ blockquote {
 }
 
 q {
-  // Investigate: switching to html entitites?
+  // Investigate: switching to html entities?
   quotes: '“' '”' '‘' '’' '“' '”' '‘' '’';
 }
 
@@ -6097,93 +6114,34 @@ article {
 }
 
 /*
-Content tables
+Tables
 
-Tabular content arranged in rows and columns with column headings.
-An alternating row colour is provided to improve readability.
+Tables make data content easier to scan.
 
-Markup:
-  <table class="content-table">
-      <tr>
-        <th>Date</th>
-        <th>Event</th>
-        <th>Venue</th>
-      </tr>
-      <tr>
-        <td>12 February</td>
-        <td>Waltz with Strauss</td>
-        <td>Main Hall</td>
-      </tr>
-      <tr>
-        <td>24 March</td>
-        <td>The Obelisks</td>
-        <td>West Wing</td>
-      </tr>
-      <tr>
-        <td>14 April</td>
-        <td>The What</td>
-        <td>Main Hall</td>
-      </tr>
-  </table>
+This framework uses striped/zebra tables (alternating row colours).
 
-Style guide: Tables.1 Basic Tables
+***
+
+This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+Style guide: Tables
 */
 
 /*
-Complex Tables
+Basic content tables
 
-Markup:
-  <table class="content-table">
-    <caption>Shelly's Daughters</caption>
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Age</th>
-        <th scope="col">Birthday</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th scope="row">Jackie</th>
-      <td>5</td>
-      <td>April 5</td>
-    </tr>
-    <tr>
-      <th scope="row">Beth</th>
-      <td>8</td>
-      <td>January 14</td>
-    </tr>
-    <tr>
-      <th scope="row">Beth</th>
-      <td>8</td>
-      <td>January 14</td>
-    </tr>
-    </tbody>
-  </table>
+Markup: templates/table-examples.hbs
 
-Style guide: Tables.3 Complex Tables
+Style guide: Tables.1 Basic tables
 */
 
-/*
-Accessibility
-
-The HTML for tables needs to be carefully considered for accessibility.
-* Consider using the [`scope` attribute](https://www.w3.org/TR/html401/struct/tables.html#adef-scope) to associate the header to a row or column
-* Consider using a [`<caption>` element](https://www.w3.org/wiki/HTML/Elements/caption) to title the table
-* Avoid complex tables with multiple levels of headers and spanned cells
-
-[Further guidance on tables at w3.org](https://www.w3.org/WAI/tutorials/tables/)
-
-### Table head, body, and foot
-The [`<thead>`, `<tbody>`, and `<tfoot>` elements](https://www.w3.org/TR/html401/struct/tables.html#h-11.2.3) provide no accessibility functionality but depending on browser support `<thead>` and `<tfoot>` may be repeated across pages when long tables are printed.
-
-Style guide: Tables.2 Accessibility
-*/
-
+table {
+  margin-bottom: $base-spacing;
+}
 
 .content-table {
-  border-collapse: collapse;
   width: 100%;
+  border-collapse: collapse;
 
   tr:nth-child(even) {
     background-color: $non-white;
@@ -6207,7 +6165,120 @@ Style guide: Tables.2 Accessibility
   }
 }
 
-// Describe me so no evil shall be committed in wielding this class!
+/*
+Calendar table variant
+
+Markup: templates/table-calendar.hbs
+
+Style guide: Tables.2 Calendar table variant
+*/
+.calendar-table {
+  width: 100%;
+  margin-top: 2 * $base-spacing;
+
+  caption {
+    margin: 0 0 $small-spacing;
+    font-size: rem(24);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  tr {
+    border-bottom: $tiny-spacing solid $white;
+  }
+
+  th {
+    display: block;
+    width: 100%;
+    padding: $small-spacing $base-spacing;
+    text-transform: uppercase;
+    color: $aqua;
+
+    @include media($mobile) {
+      display: table-cell;
+      width: 6 * $base-spacing;
+    }
+
+    span {
+      font-size: rem(28);
+      font-weight: $heading-font-weight;
+      line-height: $base-heading-leading;
+      display: block;
+      margin: 0;
+    }
+  }
+
+  td {
+    display: block;
+    margin: 0;
+    padding: 0 $base-spacing $small-spacing;
+    font-size: rem(19);
+    font-weight: $heading-font-weight;
+    text-align: center;
+
+    @include media($mobile) {
+      display: table-cell;
+      padding-top: $small-spacing;
+      border-left: $tiny-spacing solid $white;
+      text-align: left;
+    }
+
+    .date-info {
+      display: block;
+      margin-top: 0;
+      font-weight: 300;
+      font-size: rem(16);
+    }
+  }
+
+  th,
+  td {
+    background-color: $background-secondary-colour;
+  }
+}
+
+/*
+Accessibility
+
+Tables should be used for data, never design.
+
+Consider more accessible ways to format content before using a table:
+
+- bullet points lists
+- numbered lists
+- definition lists.
+
+Avoid tables with multiple header levels and spanned cells.
+
+### Headers & captions
+
+Title tables using the [`<caption>` element](https://www.w3.org/wiki/HTML/Elements/caption) inside the `<table>` element.
+
+Row and column headers should be set with the [`scope` attribute](https://www.w3.org/TR/html401/struct/tables.html#adef-scope).
+
+Don't use `<thead>`, `<tbody>` and `<tfoot>`.
+
+***
+
+More [guidance on making accessible tables](https://www.w3.org/WAI/tutorials/tables/) is provided by the W3C.
+
+Style guide: Tables.3 Accessibility
+*/
+
+%wrapper-padding {
+  @include pad(0 $base-spacing);
+  box-sizing: content-box;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @include media($desktop) {
+    width: 100%;
+    min-width: $max-width;
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -6215,12 +6286,8 @@ body {
 }
 
 .wrapper {
+  @extend %wrapper-padding;
   @include outer-container;
-  @include pad(0 $base-spacing);
-
-  @include media($desktop) {
-    @include pad(0);
-  }
 }
 
 header {
@@ -6234,75 +6301,108 @@ header {
 footer {
   &[role='contentinfo'] {
     @include outer-container(100%);
-    min-width: 100%;
-    flex: none;
     @include pad(0 default);
     margin-top: ($base-spacing * 2);
+    min-width: 100%;
+    flex: none;
 
   }
 }
 
 main {
-  width: 100%;
+  @extend %wrapper-padding;
   @include outer-container;
-  @include pad(0 $base-spacing);
 
   // makes flex work in IE10/11 https://thatemil.com/blog/2013/11/03/sticky-footers-flexbox-and-ie10/
   flex: 1 0 auto;
 
   @include media($tablet) {
-    @include pad(($base-spacing * 2) 0 0 0);
-  }
-
-  .content-main {
-    @include span-columns(4 of 4);
-
-    @include media($tablet) {
-      @include span-columns(8 of 12);
-    }
-
-    @include media($desktop) {
-      @include span-columns(9 of 16);
-      @include shift(1);
-    }
-
-    &:first-child {
-      @include media($tablet) {
-        @include span-columns(10 of 12);
-        @include shift(1);
-      }
-
-      @include media($desktop) {
-        @include span-columns(12 of 16);
-        @include shift(2);
-      }
-    }
-
+    padding-top: $base-spacing * 2;
   }
 
   .form-wrapper {
-    @include span-columns(4 of 4);
+    @include fill-parent;
 
     @include media($tablet) {
       @include span-columns(4 of 6);
     }
   }
-}
 
-.sidebar {
-  @include span-columns(4 of 4);
+  @include direction-context(right-to-left) {
+    .sidebar {
+      @include fill-parent;
 
-  @include media($tablet) {
-    @include span-columns(3 of 12);
+      @include media($tablet) {
+        @include span-columns(4 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(4 of 16);
+      }
+    }
+
+    .content-main {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(8 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(10 of 16);
+        @include shift(2);
+      }
+
+      &:first-child {
+
+        @include reset-layout-direction;
+
+        @include fill-parent;
+        @include shift(0);
+
+        @include media($tablet) {
+          @include span-columns(8 of 12);
+          @include shift(0);
+        }
+
+        @include media($desktop) {
+          @include span-columns(10 of 16);
+          @include shift(0);
+        }
+
+      }
+    }
   }
 
-  @include media($desktop) {
-    @include span-columns(3 of 16);
-  }
-}
+  &.sidebar-has-controls {
+    @include reset-layout-direction;
 
-figure {
-  margin: 0;
+    .sidebar {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(4 of 12);
+        margin-left: 0;
+      }
+
+      @include media($desktop) {
+        @include span-columns(4 of 16);
+      }
+    }
+
+    .content-main {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(8 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(9 of 16);
+        @include shift(1);
+      }
+    }
+  }
 }
 
 /*
@@ -6419,99 +6519,23 @@ Keep forms as simple as possible&mdash;only ask what is needed for the transacti
 
 Ask only 1 question per page.
 
-<hr />
+***
 
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) and [GOV.UK design patterns](https://www.gov.uk/service-manual/user-centred-design/resources/patterns/) under [Open Government Licence v2.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/).
 
 Style guide: Forms
 */
 
 /*
-Form controls
-
-Style guide: Forms.0 Form controls
-*/
-
-/*
 Text input
 
-A single line text input. By default users can enter any combination of letters, numbers or symbols.
+Single line text inputs.
 
-Markup:
-<form>
-  <p>
-    <label for="textin">A text input field:</label>
-    <input name="textin" id="textin" type="text" />
-  </p>
-  <p>
-    <label for="numberin">A number input field:</label>
-    <input name="numberin" id="numberin" type="number" pattern="[0-9]*" />
-  </p>
-  <p>
-    <label for="textinvalid">An invalid field:</label>
-    <input name="textinvalid" id="textinvalid" type="text" class="invalid" />
-  </p>
-    <p>
-    <label for="textvalid">An valid field:</label>
-    <input name="textvalid" id="textvalid" type="text" class="valid" />
-  </p>
-  <p>
-    <label for="textdisabled">A disabled field:</label>
-    <input name="textdisabled" id="textdisabled" type="text" disabled />
-  </p>
-</form>
+They can be limited to number input only by setting the `type` attribute to `number`. For telephone numbers set the `type` attribute to `tel`. To trigger the num-pad on iPhones, add a pattern attribute to the input element: `pattern="[0-9]*"`.
 
-<strong>Tip:</strong> To show a number-pad on iPhones, when a number field is focussed, add a pattern attribute to the input element like this: <pre>pattern="[0-9]*"</pre>
-Source: <a href="https://www.gov.uk/service-manual/user-centred-design/resources/patterns/dates.html#memorable-dates">GOV.UK "Dates" design pattern</a>
+Markup: templates/text-input-single-line.hbs
 
-Style guide: Forms.0 Form controls.1 Text input
-*/
-
-/*
-Optional & mandatory fields
-
-Only ask for the information you absolutely need. Don't mark mandatory fields with asterisks.
-
-If you have to ask for optional information, mark the field labels with '(optional)'.
-
-Style guide: Forms.1 Optional & mandatory fields
-*/
-
-/*
-Labels
-
-All forms fields should have labels. Don't hide labels, unless the surrounding context makes them unnecessary.
-
-Tell the user what they need to enter into the field. Label text should be short and direct. Avoid colons at the end of labels.
-
-Align labels above their fields. They should be associated with form fields using the `for` attribute.
-
-Markup:
-<form>
-  <label class="form-label" for="full-name">Full name</label>
-  <input class="form-control" id="full-name" type="text" />
-</form>
-
-Style guide: Forms.2 Labels
-*/
-
-/*
-Hint text
-
-Use hint text to give the user contextual help about how to provide the information.
-
-The hint text should be above the form field and always visible.
-
-Make sure screen readers can read hint text correctly (use the correct ARIA tags).
-
-Markup:
-<form>
-  <label for="name">Full name</label>
-  <span class="hint" id="name-hint">Your name is on your birth certificate.</span>
-  <input type="text" id="name" aria-describedby="name-hint" />
-</form>
-
-Style guide: Forms.3 HintText
+Style guide: Forms.1 Text input
 */
 
 %base-input {
@@ -6554,33 +6578,37 @@ form {
 
   label {
     display: block;
+    margin-bottom: $tiny-spacing;
+    margin-top: $tiny-spacing;
   }
 
   .hint {
     display: block;
-    color: $body-text-colour;
+    margin-bottom: $tiny-spacing;
     font-size: rem(14);
+    color: $body-text-colour;
   }
 
   [type='text'],
   [type='number'],
+  [type='tel'],
   [type='email'],
   [type='password'] {
     @extend %base-input;
   }
 
   /*
-  Textarea input
+  Text area input
 
-  A multi-line text input that can be resized vertically by the user.
+  The `<textarea>` element gives a multi-line text input the user can resize vertically.
 
   Markup:
   <form>
-    <label for="texta">An input for longer responses:</label>
+    <label for="texta">An input for longer responses</label>
     <textarea name="texta" id="texta"></textarea>
   </form>
 
-  Style guide: Forms.TextAreaInput
+  Style guide: Forms.2 Text area input
   */
 
   textarea {
@@ -6640,23 +6668,24 @@ form {
   }
 
   /*
-Radio button input
+  Radio button input
 
-A collection of mutually exclusive options.
+  The `radio` input allows users to see all available choices at once and select exactly 1 option.
 
-Markup:
-<form>
-          <fieldset>
-            <legend>Would you like?</legend>
-            <input id="yes" name="reply" type="radio" value="Yes"/>
-            <label for="yes">Yes</label>
-            <input id="no" name="reply" type="radio" value="No"/>
-            <label for="no">No</label>
-          </fieldset>
-</form>
+  Markup:
+  <form>
+    <fieldset>
+      <legend>Would you like?</legend>
+      <input id="yes" name="reply" type="radio" value="Yes"/>
+      <label for="yes">Yes</label>
+      <input id="no" name="reply" type="radio" value="No"/>
+      <label for="no">No</label>
+    </fieldset>
+  </form>
 
-Style guide: Forms.RadioButtonInput
-*/
+  Style guide: Forms.3 Radio button input
+  */
+
   input[type='radio'] {
     & + label {
       &::before {
@@ -6696,22 +6725,22 @@ Style guide: Forms.RadioButtonInput
   /*
 Checkbox input
 
-A collection of options where any number of options can be chosen.
+The `checkbox` input allows users to select 1 or more options from a visible list.
 
 Markup:
 <form>
-        <fieldset>
-          <legend>Which would you like?</legend>
-          <input id="aaa" name="reply" type="checkbox" value="AAA"/>
-          <label for="aaa">AAA</label>
-          <input id="bbb" name="reply" type="checkbox" value="BBB"/>
-          <label for="bbb">BBB</label>
-           <input id="ccc" name="reply" type="checkbox" value="CCC"/>
-          <label for="ccc">CCC</label>
-        </fieldset>
+  <fieldset>
+    <legend>Which would you like?</legend>
+    <input id="aaa" name="reply" type="checkbox" value="AAA"/>
+    <label for="aaa">AAA</label>
+    <input id="bbb" name="reply" type="checkbox" value="BBB"/>
+    <label for="bbb">BBB</label>
+    <input id="ccc" name="reply" type="checkbox" value="CCC"/>
+    <label for="ccc">CCC</label>
+  </fieldset>
 </form>
 
-Style guide: Forms.CheckboxInput
+Style guide: Forms.4 Checkbox input
 */
   input[type='checkbox'] + label {
     &::before {
@@ -6750,6 +6779,39 @@ Style guide: Forms.CheckboxInput
     }
   }
 }
+
+/*
+Accessibility
+
+### Labels
+
+- All forms fields should have labels.
+- Don't hide labels, unless the surrounding context makes them unnecessary.
+- Tell the user what they need to enter into the field. Label text should be short and direct.
+- Avoid colons at the end of labels.
+- Align labels above their fields. They should be associated with form fields using the `for` and `id` attribute.
+
+### Hint text
+
+- Use hint text to give the user contextual help about how to provide the information.
+- The hint text should be above the form field and always visible.
+- Use ARIA tags to make sure screen readers can read hint text correctly.
+
+Markup:
+<form>
+  <label for="name">Full name</label>
+  <span class="hint" id="name-hint">Your name is on your birth certificate.</span>
+  <input type="text" id="name" aria-describedby="name-hint" />
+</form>
+
+### Optional & mandatory fields
+
+Only ask for the information you absolutely need. Don't mark mandatory fields with asterisks.
+
+If you have to ask for optional information mark the field labels with ‘(optional)’.
+
+Style guide: Forms.5 Accessibility
+*/
 
 /*
 Navigation
@@ -6935,10 +6997,16 @@ Style guide: Navigation.2 Local Navigation
   }
 }
 
+.local-nav {
+  padding-top: 0;
+  @include media($tablet) {
+    padding: $base-spacing 0;
+  }
+}
+
 .primary-nav,
 .local-nav {
   margin: 0 0 $base-spacing;
-  padding: $base-spacing 0;
   overflow: hidden;
   transition: padding ($transition-timing * 2) ease;
 
@@ -6952,6 +7020,15 @@ Style guide: Navigation.2 Local Navigation
       padding: $base-spacing 0;
     }
   }
+
+  h1 {
+    font-size: 1em;
+    font-weight: $base-font-weight;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: $base-leading;
+  }
+
 
   ul {
     margin: 0;
@@ -7008,9 +7085,12 @@ Style guide: Navigation.2 Local Navigation
       background-color: $focus-colour;
     }
 
-    &:active,
     &.active,
     &.is-active {
+      font-weight: $bold-font-weight;
+    }
+
+    &.current {
       background-color: $focus-colour;
     }
 
@@ -7022,6 +7102,8 @@ Style guide: Navigation.2 Local Navigation
 // This class is legacy as of v1.2
 // Marked for removal at 2.0
 .primary-nav {
+  padding: $base-spacing 0;
+
   .nav-heading {
     color: $darker-aqua;
     background: $background-secondary-colour;
@@ -7211,8 +7293,8 @@ Style guide: Navigation.5 Index links
   h4,
   h5,
   h6 {
-    @extend h6;
-    margin: 0 0 $tiny-spacing;
+    font-size: rem(17);
+    margin-top: $base-spacing;
     color: $grey;
     font-weight: $base-font-weight;
   }
@@ -7289,6 +7371,7 @@ Style guide: List styles
     dt,
     dd {
       display: inline-block;
+      line-height: $double-leading;
       margin: 0;
       padding: 0;
     }
@@ -7314,7 +7397,7 @@ Style guide: List styles
 
   .meta {
     font-size: $small-font-size;
-    margin-top: $small-spacing;
+    //margin-top: $small-spacing;
     margin-bottom: $small-spacing;
 
     time {
@@ -7323,7 +7406,7 @@ Style guide: List styles
   }
 
   > li {
-    padding: ($base-spacing * 1.5) 0;
+    padding: $base-spacing 0;
     border-bottom: solid 1px $border-colour;
     margin-bottom: 0;
   }
@@ -7339,6 +7422,10 @@ Style guide: List styles
 
   h3 {
     @extend h4;
+  }
+
+  img {
+    display: block;
   }
 }
 
@@ -7418,7 +7505,6 @@ Style guide: List styles.2 Vertical list
 */
 
 .list-vertical {
-
   @extend %base-list;
 
   &.no-border {
@@ -7434,7 +7520,7 @@ Style guide: List styles.2 Vertical list
 
   > li {
 
-    border-top: 1px solid $border-colour;
+    border-top: 4px solid $border-colour;
     border-bottom: none;
     flex: 0 0 100%;
 
@@ -7649,40 +7735,38 @@ Style guide: List styles.5 See more link
 /*
 Accordions
 
-Accordions are used as a disclosure widget from which the user can retrieve additional information.
+Accordions help users find only the content they need.
 
-Accordions can be useful in reducing the information "overload" of a page and reduce the need to scroll, but they increase the interaction cost by requiring people to decide on topic headings.
+The **expand/collapse all** feature will be provided soon&mdash;this will be mandatory if using a series of accordion elements.
 
-Use succinct, but sufficiently descriptive accordion headings/labels to avoid making both discoverability and navigability of a page more difficult.
+<hr />
 
-<p class="callout"><strong>Note:</strong> Do not use accordions for glossaries&mdash;use <a href="/section-typography.html#guide-typography-5-lists">definition or description lists</a> instead.</p>
+This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+Markup: templates/accordion.hbs
 
 Style guide: Accordions
 */
 
 /*
-Using accordions
+Usability
 
-In our implementation a text/string search for an accordion's content is possible, but note that when the accordion is collapsed the content still remains hidden.
+When designing or writing accordions:
 
-### Behaviour and ARIA
+- Don't use an accordion if the user needs to see all of the information. Structure and rewrite your content instead.
+- Use a succinct but descriptive accordion headings / labels.
+- Use [definition or description lists](section-typography.html#guide-typography-5-lists) for glossaries instead of accordions.
 
-The framework includes JavaScript behaviour to replace the browser default for `<details>`.
+When implementing accordions:
 
-Accordions can be set to be either open or closed initially by adding the `aria-expanded` property with a value of `true` or `false`.
+- Accordions can be set to open or closed initially using `aria-expanded` property set to `true` or `false`.
+- JavaScript behaviour is used to replace the browser default for `<details>`.
+- For multiple accordion elements each `details` element must have its own `data-label` attribute.
+- This framework allows a text/string search of accordion content, even when collapsed (string itself remains hidden until opened).
 
-### Multiple accordions
-
-When multiple accordion elements are used, each `details` element should be given a unique `data-label` attribute.
-
-Additionally, it will be mandatory to provide an expand/collapse all link when building a series of accordions.
-
-<p class="callout--warning"><strong>Missing feature:</strong> we have not yet provided an expand/collapse all feature, but we intend to add in a near-future sprint.</p>
-
-Markup: templates/accordion.hbs
-
-Style guide: Accordions.1 Using accordions
+Style guide: Accordions.1 Usability
 */
+
 details,
 .accordion {
   display: block;
@@ -7750,7 +7834,7 @@ summary {
   top: 0;
   height: auto;
   overflow: hidden;
-  padding: $small-spacing $base-spacing;
+  padding: $base-spacing $base-spacing $small-spacing;
   border: solid $small-spacing $lighter-aqua;
   border-top: none;
   border-bottom-right-radius: $tiny-border-radius;
@@ -7766,25 +7850,37 @@ summary {
   }
 }
 
+figure {
+  margin: 0;
+
+  img {
+    display: block;
+  }
+}
+
 img {
   max-width: 100%;
 }
 
 // Shameless nicked from http://refills.bourbon.io/components/#er-toc-id-17
 
-.video-wrapper {
-  height: 0;
-  overflow: hidden;
-  padding-bottom: 56.25%; // For ratio 16:9. 75% if ratio is 4:3
-  position: relative;
+.video {
+  margin-bottom: $base-spacing;
 
-  embed,
-  object,
-  iframe {
-    @include position(absolute, 0 null null 0);
-    @include size(100%);
+  .video-wrapper {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%; // For ratio 16:9. 75% if ratio is 4:3
+    position: relative;
 
-    border: none;
+    embed,
+    object,
+    iframe {
+      @include position(absolute, 0 null null 0);
+      @include size(100%);
+
+      border: none;
+    }
   }
 }
 
@@ -7849,6 +7945,7 @@ img {
   position: relative;
   padding: $medium-spacing 0 ($base-spacing * 3);
   padding-bottom: $medium-spacing;
+  margin-bottom: 0;
   background-color: $header-bg-colour;
   color: $body-inverted-text-colour;
 
@@ -7911,6 +8008,7 @@ img {
 
 .hero {
   padding: ($base-spacing * 2) 0;
+  margin-bottom: 0;
   background-color: $hero-bg-colour;
   color: $body-inverted-text-colour;
 
@@ -7934,7 +8032,7 @@ img {
 
 footer[role='contentinfo'] {
 
-  @include pad($base-spacing 0);
+  @include pad(( $base-spacing * 2 ) 0);
   background-color: $non-white;
   border-top: 6px solid $border-contrast-colour;
 
@@ -7947,7 +8045,7 @@ footer[role='contentinfo'] {
   }
 
   .footer-logo {
-    margin: 0 0 $base-spacing;
+    //margin: 0 0 $base-spacing;
 
     @include media($tablet) {
       @include span-columns(3 of 12);
@@ -7960,7 +8058,7 @@ footer[role='contentinfo'] {
 
   .footer-links {
 
-    @include media($mobile) {
+    @include media($tablet) {
       @include span-columns(9 of 12);
     }
 
@@ -7972,8 +8070,9 @@ footer[role='contentinfo'] {
 
     li {
       margin-right: $small-spacing;
+      display: block;
 
-      @include media($mobile) {
+      @include media($tablet) {
         display: inline-block;
       }
     }
