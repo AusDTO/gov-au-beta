@@ -20,6 +20,7 @@ This file is influenced by http://keepachangelog.com/.
 - Update link to TV reception page
 - Fix check for whether a user can see the accept/reject buttons on a submission
 - Add breadcrumbs to times and dates custom pages
+- Correctly format news release dates on the root page and section home pages
 
 ## [0.6.0] - 2016-07-26
 ### Added
