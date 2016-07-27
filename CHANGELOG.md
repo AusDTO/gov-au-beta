@@ -5,6 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+### Changed
+
+### Fixed
+
+
+## [v0.7.0] - 2016-07-27
+
 - Added admin-only option to stop a node appearing in breadcrumbs and the menu
 - Added links on department homepages to related ministers
 - Added long summary field for section_home form and template
