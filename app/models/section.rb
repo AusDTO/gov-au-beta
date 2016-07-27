@@ -69,7 +69,8 @@ class Section < ApplicationRecord
   end
 
   # TODO: add a after_create hook for this method
-  def generate_news_node
+  # TODO: refactor generate_home_node into this
+  def generate_indispensable_nodes
     unless news_node.present?
       # TODO: Create NewsNode
     end
