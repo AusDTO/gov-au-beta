@@ -50,32 +50,8 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
         get :index, section_id: section
       end
 
-      it 'should return only their submission for section' do
-        expect(assigns('submissions')).to eq([submission_b])
-      end
-    end
-
-    context 'as user_a on section' do
-
-      before do
-        sign_in(user_a)
-        get :index, section_id: section
-      end
-
-      it 'should return only their submission for section' do
-        expect(assigns('submissions')).to eq([submission_a])
-      end
-    end
-
-    context 'as user_a on a different section' do
-
-      before do
-        sign_in(user_a)
-        get :index, section_id: section_b
-      end
-
-      it 'should return only their submission for that section' do
-        expect(assigns('submissions')).to eq([submission_c])
+      it 'should show all submissions for section' do
+        expect(assigns('submissions')).to include submission_a, submission_b
       end
     end
 
