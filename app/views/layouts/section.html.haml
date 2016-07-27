@@ -2,7 +2,8 @@
   = yield
 
   = content_for :header do
-    %a.site-title{href: public_node_path(@section.home_node)}= @section.name
+    %h1
+      %a.site-title{href: public_node_path(@section.home_node)}= @section.name
 
   = content_for :meta_description do
     - if node.short_summary
