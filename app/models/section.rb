@@ -45,7 +45,9 @@ class Section < ApplicationRecord
   end
 
   def news_node
-    nodes.with_name('News')
+    # There can only be one ...
+    # TODO: select this by NewsAggegator type, once it exists
+    nodes.with_name('News').first
   end
 
   private
