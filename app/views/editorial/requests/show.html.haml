@@ -1,6 +1,6 @@
 - breadcrumb :editorial_request, @rqst
 
-%h1 #{requestor.full_name} wants to join #{rqst.section_name}
+%h1 #{requestor.display_name} wants to join #{rqst.section_name}
 
 - if current_user.in?(@owners)
   %p
@@ -20,7 +20,7 @@
 %h2 Owners
 %ul
   - owners.each do |owner|
-    %li #{owner.full_name}
+    %li #{owner.display_name}
 
 -if current_user.in?(@owners)
   - if rqst.open?
