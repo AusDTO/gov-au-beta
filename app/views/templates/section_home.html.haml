@@ -1,6 +1,11 @@
 %article#content{class: "content-main", tabindex: "-1"}
   - breadcrumb :public_node, node
 
+  %div.abstract
+    =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
+
   = render partial: 'templates/content_body', object: node.content_body
 
   %h2=link_to 'News', news_articles_path
