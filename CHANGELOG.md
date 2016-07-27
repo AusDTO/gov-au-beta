@@ -9,6 +9,28 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+
+## [v0.7.0] - 2016-07-27
+
+- Added admin-only option to stop a node appearing in breadcrumbs and the menu
+- Added links on department homepages to related ministers
+- Added long summary field for section_home form and template
+- Added route for /:section/news to offer section-filtered view of news items
+
+### Changed
+
+- Short/long summary fields for all nodes sit within page abstract
+- Display dates in Sydney timezone
+- Relabeled 'Summary' field to 'Long summary'
+- Shifted news item breadcrumbs to sit beneath Home > News
+
+### Fixed
+
+- Update link to TV reception page
+- Fix check for whether a user can see the accept/reject buttons on a submission
+- Add breadcrumbs to times and dates custom pages
+- Correctly format news release dates on the root page and section home pages
+
 ## [0.6.0] - 2016-07-26
 ### Added
 

@@ -13,7 +13,7 @@ RSpec.describe NewsController, type: :controller do
 
     context 'when a user is not authorised' do
       context 'for a published page' do
-        before { get :show, section: section_a.home_node.slug, slug: article_published.slug }
+        before { get :show, section: section_a.slug, slug: article_published.slug }
 
         it { expect(response).to be_success }
         it { expect(assigns(:node)).to eq(article_published) }
@@ -22,7 +22,7 @@ RSpec.describe NewsController, type: :controller do
       context 'for a draft page' do
         it 'should throw a not found' do
           expect {
-             get :show, section: section_a.home_node.slug, slug: article_draft.slug
+             get :show, section: section_a.slug, slug: article_draft.slug
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -32,16 +32,18 @@ RSpec.describe NewsController, type: :controller do
   describe 'GET #index' do
     let!(:article_unpub) { Fabricate(:news_article, state: 'draft') }
     let(:in_the_past) { 10.minutes.ago }
+    let(:date_today) { Date.today }
+    let(:date_yesterday) { date_today - 24.hours }
     let!(:article_today_a) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'A', published_at: in_the_past)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'A', published_at: in_the_past)
     }
     let!(:article_today_b) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'B', published_at: in_the_past)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'B', published_at: in_the_past)
     }
     let!(:article_today_c) {
-      Fabricate(:news_article, state: 'published', release_date: Date.today, name: 'C', published_at: Time.now.utc)
+      Fabricate(:news_article, state: 'published', release_date: date_today, name: 'C', published_at: Time.now.utc)
     }
-    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: Date.yesterday) }
+    let!(:article_yesterday) { Fabricate(:news_article, state: 'published', release_date: date_yesterday) }
 
     context 'when a user is not authorised' do
       before { get :index }

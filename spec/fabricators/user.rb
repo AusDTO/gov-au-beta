@@ -9,13 +9,16 @@ Fabricator(:user) do
     end
     [:author_of, :reviewer_of, :owner_of].each do |role|
       if transients[role]
-        user.add_role(role[0..-4], transients[role])
+        Array.wrap(transients[role]).each do |section|
+          user.add_role(role[0..-4], section)
+        end
       end
     end
 
     if transients[:owner_of]
-      user.add_role(:owner, transients[:owner_of])
+      Array.wrap(transients[:owner_of]).each do |section|
+        user.add_role(:owner, section)
+      end
     end
   end
 end
-

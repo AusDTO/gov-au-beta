@@ -19,13 +19,13 @@
       %td= t("submission.state.#{submission.state}")
     %tr
       %td Submitted by
-      %td= submission.submitter_full_name
+      %td= submission.submitter_display_name
     %tr
       %td Submitted at
       %td= l(submission.submitted_at) unless submission.submitted_at.blank?
     %tr
       %td Reviewed by
-      %td= submission.reviewer_full_name
+      %td= submission.reviewer_display_name
     %tr
       %td Reviewed at
       %td= l(submission.reviewed_at) unless submission.reviewed_at.blank?
@@ -39,7 +39,7 @@
 %h2 Submitted content
 = render partial: 'content', object: submission.submitted_content, locals: locals
 
-- if can_review?
+- if can?(:review, @submission)
   %h2 Review
   = simple_form_for @submission, url: editorial_section_submission_path(@section, submission) do |f|
     = f.button :button, 'Publish change', name: 'accept'

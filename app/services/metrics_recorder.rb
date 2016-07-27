@@ -1,8 +1,9 @@
 require 'prometheus/client'
-require 'singleton'
 
 class MetricsRecorder
-  include Singleton
+  def self.instance
+    @__instance__ ||= new
+  end
 
   attr_reader :revisions_submitted
 

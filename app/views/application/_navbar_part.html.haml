@@ -1,9 +1,10 @@
 -# locals: nodes, depth, active
 
 - if nodes
-  - nodes.each do |node|
+  - nodes.reject{|n| n.options.suppress_in_nav}.each do |node|
     %li
-      - klass = 'is-active' if node == active
+      -# TODO: Handle nav suppression at any level of the hierarchy (not just leaf nodes)
+      - klass = 'is-active' if node == active || active.options.suppress_in_nav && node == active.parent
       %a{ href: public_node_path(node), class: klass }
         = node.name
       - if depth > 1
