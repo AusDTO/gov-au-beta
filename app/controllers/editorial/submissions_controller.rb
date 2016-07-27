@@ -10,7 +10,12 @@ module Editorial
 
 
     def index
-      @submissions = scope.open
+      @submissions = scope.open.recent
+
+      # Filter submissions to current user's unless s/he is a reviewer
+      unless can? :review_in, @section
+        @submissions = @submissions.for(current_user)
+      end
     end
 
     def create

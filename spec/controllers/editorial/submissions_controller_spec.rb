@@ -27,34 +27,54 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
 
   describe 'GET #index' do
     # Yes I hate the usage of all of these fabricators...
-    let(:user_a) { Fabricate(:user) }
-    let(:user_b) { Fabricate(:user) }
     let!(:root_node) { Fabricate(:root_node) }
-    let(:section) { Fabricate(:section) }
-    let(:section_b) { Fabricate(:section) }
-    let(:node_a) { Fabricate(:node, section: section) }
-    let(:node_b) { Fabricate(:node, section: section) }
-    let(:node_c) { Fabricate(:node, section: section_b ) }
-    let(:revision_a) { Fabricate(:revision, revisable: node_a) }
-    let(:revision_b) { Fabricate(:revision, revisable: node_b) }
-    let(:revision_c) { Fabricate(:revision, revisable: node_c) }
+    let(:flora) { Fabricate(:section) }
+    let(:fauna) { Fabricate(:section) }
+    let(:author) { Fabricate(:user, author_of: [flora, fauna]) }
+    let(:flora_reviewer) { Fabricate(:user, author_of: [flora, fauna], reviewer_of: flora) }
+    let(:tree) { Fabricate(:node, section: flora) }
+    let(:grass) { Fabricate(:node, section: flora) }
+    let(:cow) { Fabricate(:node, section: fauna ) }
+    let(:goat) { Fabricate(:node, section: fauna ) }
+    let(:revision_tree) { Fabricate(:revision, revisable: tree) }
+    let(:revision_grass) { Fabricate(:revision, revisable: grass) }
+    let(:revision_cow) { Fabricate(:revision, revisable: cow) }
+    let(:revision_goat) { Fabricate(:revision, revisable: goat) }
+    let!(:submission_tree) { Fabricate(:submission, submitter: author, revision: revision_tree) }
+    let!(:submission_grass) { Fabricate(:submission, submitter: flora_reviewer, revision: revision_grass) }
+    let!(:submission_cow) { Fabricate(:submission, submitter: author, revision: revision_cow) }
+    let!(:submission_goat) { Fabricate(:submission, submitter: flora_reviewer, revision: revision_goat) }
 
-    let!(:submission_a) { Fabricate(:submission, submitter: user_a, revision: revision_a) }
-    let!(:submission_b) { Fabricate(:submission, submitter: user_b, revision: revision_b) }
-    let!(:submission_c) { Fabricate(:submission, submitter: user_a, revision: revision_c) }
-
-    context 'as user_b on section' do
-
-      before do
-        sign_in(user_b)
-        get :index, section_id: section
-      end
-
-      it 'should show all submissions for section' do
-        expect(assigns('submissions')).to include submission_a, submission_b
-      end
+    before do
+      sign_in user
+      get :index, section_id: section
     end
 
+    subject { assigns 'submissions' }
+
+    context 'as author on flora' do
+      let(:user) { author }
+      let(:section) { flora }
+      it { is_expected.to eq [submission_tree] }
+    end
+
+    context 'as author on fauna' do
+      let(:user) { author }
+      let(:section) { fauna }
+      it { is_expected.to eq [submission_cow] }
+    end
+
+    context 'as flora reviewer on flora' do
+      let(:user) { flora_reviewer }
+      let(:section) { flora }
+      it { is_expected.to eq [submission_grass, submission_tree] }
+    end
+
+    context 'as flora reviewer on fauna' do
+      let(:user) { flora_reviewer }
+      let(:section) { fauna }
+      it { is_expected.to eq [submission_goat] }
+    end
   end
 
   context 'as an author' do
