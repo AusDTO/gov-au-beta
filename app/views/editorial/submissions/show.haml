@@ -19,13 +19,13 @@
       %td= t("submission.state.#{submission.state}")
     %tr
       %td Submitted by
-      %td= submission.submitter_full_name
+      %td= submission.submitter_display_name
     %tr
       %td Submitted at
       %td= l(submission.submitted_at) unless submission.submitted_at.blank?
     %tr
       %td Reviewed by
-      %td= submission.reviewer_full_name
+      %td= submission.reviewer_display_name
     %tr
       %td Reviewed at
       %td= l(submission.reviewed_at) unless submission.reviewed_at.blank?

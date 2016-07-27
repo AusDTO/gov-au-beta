@@ -10,7 +10,7 @@ module Editorial
 
 
     def index
-      @submissions = scope.open.for(current_user)
+      @submissions = scope.open
     end
 
     def create
