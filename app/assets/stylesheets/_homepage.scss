@@ -14,10 +14,10 @@ $lighterer-grey: #f0f0f0;
   bottom: -3em;
   padding: 1.8em 2.7em;
   padding-bottom: 3em;
-
   display: block;
   margin-right: 2.35765%;
   width: 100%;
+  margin-bottom: 6em;
   a,a:visited {
     color: #fff;
   }
@@ -43,6 +43,7 @@ $lighterer-grey: #f0f0f0;
 @media screen and (min-width: 768px) {
   .popular-links {
     margin-right: 2.35765%;
+
     width: 31.76157%;
     left: 66%;
   }
