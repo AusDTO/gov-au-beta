@@ -8,13 +8,13 @@
         Skip to main content
     %header{role: 'banner'}
       = render 'application/signed_in_nav' if user_signed_in?
-      %section.govau--header
+      %section.prerelease-govau--header
         - if content_for?(:header)
           = yield(:header)
         - else
           .wrapper
             .govau--logo
-              logo-govau-full-2x.png width=205
+              = image_tag 'logo-govau-full-2x.png', width: '205'
               .brandbar.default
                 .b1
                 .b2

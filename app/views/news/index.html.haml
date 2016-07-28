@@ -4,12 +4,11 @@
   - breadcrumb :public_news_articles
 
 
-%article.content-listing
-
-  %h1 News
-
-  %div.abstract
-    Announcements, media releases, interviews, speeches and more from the Australian Government.
+= content_for(:after_header) do
+  %div{class: "hero-med"}
+    .wrapper
+      %div.abstract
+        Announcements, media releases, interviews, speeches and more from the Australian Government.
 
   %article#content
     %ul.list-horizontal
