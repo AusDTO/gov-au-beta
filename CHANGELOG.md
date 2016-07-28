@@ -8,6 +8,9 @@ This file is influenced by http://keepachangelog.com/.
 - Static related topics for department homepages
 
 ### Changed
+- Updated to ui-kit v1.5
+- News hero is now conditional on whether it's the root or section news index
+
 
 ### Fixed
 
