@@ -22,7 +22,7 @@ class NodesController < ApplicationController
     @ministers = Minister.all
     @departments = Department.all
     @agencies = Agency.all
-    @categories = STATIC_CATEGORIES #TODO Replace once categories are proper data
+    @categories = STATIC_DATA[:categories] #TODO Replace once categories are proper data
     show
   end
 
