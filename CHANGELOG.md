@@ -9,6 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 - Allow users to specify their name when they sign up
 
 ### Changed
+- Wrapped news summary in abstract block
 
 - Wrapped news summary in abstract block
 - Show currently signed in name in the top right
