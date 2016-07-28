@@ -1,3 +1,9 @@
+/*
+
+UI-Kit version: 1.5.0
+
+*/
+
 /* https://github.com/jeremy-green/entity */
 $entities: (
         '\00A0': (' ', 'nbsp', '00a0', 'a0', 160),
@@ -4062,8 +4068,15 @@ $disable-warnings: false !default;
 }
 
 
-$mobile: new-breakpoint(min-width 420px 8);
-$tablet: new-breakpoint(min-width 768px 12);
+
+$mobile-minwidth: 420px;
+$tablet-minwidth: 768px;
+$desktop-minwidth: 1200px;
+
+$mobile: new-breakpoint(min-width $mobile-minwidth 8);
+$mobile-only: new-breakpoint(min-width #{$mobile-minwidth} max-width #{$tablet-minwidth - 1} 8);
+$tablet: new-breakpoint(min-width $tablet-minwidth 12);
+$tablet-only: new-breakpoint(min-width #{$tablet-minwidth} max-width #{$desktop-minwidth - 1} 12);
 $desktop: new-breakpoint(min-width $max-width 16);
 
 /*
@@ -5433,8 +5446,8 @@ $badge-colour--success:         $green;
 
 $controls-bg-colour:            $dark-navy;
 $controls-contrast-bg-colour:   $maroon;
-$header-bg-colour:              $navy;
-$hero-bg-colour:                $aqua;
+$header-bg-colour:              #134058;
+$hero-bg-colour:                #00a1bb;
 $breadcrumbs-bg-colour:         $non-white;
 
 $input-focus-colour:            $light-aqua;
@@ -7142,6 +7155,10 @@ Style guide: Navigation.6 Footer navigation
       display: none;
     }
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .local-nav-toggle {
@@ -7353,6 +7370,7 @@ Style guide: Navigation.6 Footer navigation
       display: inline-block;
       margin: 0;
       padding: 0;
+      font-size: rem(14);
 
       &:not(:last-child) {
         @extend %icon-arrow-right;
@@ -7482,6 +7500,53 @@ Style guide: Navigation.7 Skip links
     a {
       color: $body-inverted-text-colour;
     }
+  }
+}
+
+/*
+Groups of links
+
+Use groups of links to help users find content elsewhere that will meet their needs.
+
+Groups of links span from 2 columns (`$mobile`) up to 4 columns (`$tablet` and `$desktop`).
+
+You can use groups of links:
+
+- in the header (eg listing popular links across the site)
+- anywhere within an `article` (eg as a list of related topics).
+
+Markup: templates/groups-links.hbs
+
+Style guide: Navigation.8 Group of links
+*/
+
+.links-group {
+  @include outer-container;
+
+  ul {
+    padding: 0;
+    list-style: none;
+
+    li {
+      @include span-columns(4);
+      float: left;
+      margin-top: 0.5em;
+
+      @include media ($mobile-only) {
+        @include span-columns(2 of 4);
+        @include omega(2n);
+        }
+
+      @include media ($tablet-only) {
+        @include span-columns(3 of 12);
+        @include omega(4n);
+        }
+
+      @include media ($desktop) {
+        @include span-columns(4 of 16);
+        @include omega(4n);
+        }
+      }
   }
 }
 
@@ -7986,7 +8051,7 @@ img {
 
 [class^='controls'] {
   @include link-colours($link-inverted-colour, $link-inverted-colour, $controls-bg-colour);
-  @include button-colours($controls-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $controls-bg-colour);
+  @include button-colours(transparent, $body-inverted-text-colour, $body-inverted-text-colour, $controls-bg-colour);
 
   padding: $tiny-spacing 0;
   background-color: $controls-bg-colour;
@@ -8045,6 +8110,24 @@ img {
   }
 }
 
+.govau--header,
+.prerelease-govau--header {
+  .links-group {
+    margin: ($base-spacing * 1.5) 0;
+
+    h2 {
+      font-size: rem(17);
+      font-weight: $bold-font-weight;
+      margin-top: 0;
+      padding: 0;
+    }
+
+    a {
+      color: $white;
+    }
+  }
+}
+
 .govau--header {
   @include link-colours($link-inverted-colour, $link-inverted-colour, $link-colour);
   @include button-colours($header-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $body-inverted-text-colour, $header-bg-colour);
@@ -8085,6 +8168,97 @@ img {
   }
 }
 
+.prerelease-govau--header {
+  @include link-colours($link-inverted-colour, $link-inverted-colour, $link-colour);
+  @include button-colours($header-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $body-inverted-text-colour, $header-bg-colour);
+
+  position: relative;
+  padding: $base-spacing 0 ($base-spacing * 3);
+  padding-bottom: $medium-spacing;
+  margin-bottom: 0;
+  background-color: $header-bg-colour;
+  color: $body-inverted-text-colour;
+
+  background-image: asset-url('header-bg.png');
+  background-position: top right;
+  background-repeat: repeat-y;
+
+  @include media($tablet) {
+    padding-bottom: 0;
+  }
+
+  .govau--logo {
+    display: inline-block;
+    position: relative;
+
+    @include media($tablet) {
+      padding-bottom: 0;
+    }
+
+    .brandbar {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      width: 50px;
+      height: 5px;
+    }
+  }
+
+  .govau--text {
+    display: block;
+    background-image: asset-url('icons/logo-gov-au-2x.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 269px;
+    height: 51px;
+
+    &.dusk {
+      background-image: asset-url('icons/logo-gov-au-2x-dusk.png');
+    }
+
+    &.dawn {
+      background-image: asset-url('icons/logo-gov-au-2x-dawn.png');
+    }
+
+    &.night {
+      background-image: asset-url('icons/logo-gov-au-2x-night.png');
+    }
+  }
+
+  .logo {
+    font-size: rem(24);
+    font-weight: $heading-font-weight;
+    padding-bottom: 2px;
+    border-bottom: 0;
+    color: $body-inverted-text-colour;
+    font-family: $base-sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  [class^='badge'] {
+    vertical-align: text-bottom;
+    margin-left: $tiny-spacing;
+  }
+
+  .breadcrumbs,
+  .breadcrumbs--inverted {
+    margin-top: $medium-spacing;
+  }
+}
+
+//DELETE THIS:
+.visuallyhidden {
+  display: none;
+}
+
+.homeintro {
+  p {
+    font-size: rem(24);
+  }
+}
+
 .feedback {
   display: none;
 
@@ -8108,27 +8282,143 @@ img {
   }
 }
 
-.hero {
-  @include link-colours($link-inverted-colour, $link-inverted-colour, $link-colour);
+.hero,
+.hero-sml,
+.hero-med {
+  @include link-colours($non-black, $light-aqua, $non-black);
+
   padding: ($base-spacing * 2) 0;
   margin-bottom: 0;
-  background-color: $hero-bg-colour;
-  color: $body-inverted-text-colour;
+  background-color: $non-white;
+  color: $navy;
 
+  &.corporate {
+    //^ class name from platforms
+    background-color: $hero-bg-colour;
+    color: $body-inverted-text-colour;
+  }
+
+  h1 {
+    font-size: rem(28);
+    margin-top: 0;
+    max-width: 15em;
+
+    @include media($tablet) {
+      font-size: rem(38);
+    }
+  }
+
+  p {
+    font-size: rem(18);
+    margin-bottom: 0;
+    max-width: 30em;
+
+    @include media($tablet) {
+      font-size: rem(20);
+    }
+  }
+
+  // Should this be deprecated?
   .site-title {
     @extend h1;
 
     margin: $tiny-spacing 0;
-    color: $body-inverted-text-colour;
   }
 
+  // Should this be deprecated?
   .tagline {
     @extend h4;
     font-weight: $base-font-weight;
   }
+}
 
-  code {
-    color: $body-inverted-text-colour;
+.hero-sml {
+  padding: $medium-spacing 0;
+
+  p {
+    font-size: rem(17);
+  }
+}
+
+.hero-med {
+  padding: ($base-spacing * 1.5) 0;
+}
+
+/*
+  Prototype branding bar. Work in progress
+*/
+.brandbar {
+  $bar-noon-1: #00a1bb;
+  $bar-noon-2: #b2e5ff;
+  $bar-noon-3: #44c2ef;
+  background-color: $bar-noon-1;
+  height: 8px;
+  position: relative;
+
+  .b1 {
+    position: absolute;
+    left: 25%;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background-color: $bar-noon-2;
+  }
+
+  .b2 {
+    position: absolute;
+    left: 75%;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    background-color: $bar-noon-3;
+  }
+
+  &.dusk {
+    $bar-dusk-1: #a62355;
+    $bar-dusk-2: #f16a6a;
+    $bar-dusk-3: #9c0009;
+
+    background-color: $bar-dusk-1;
+
+    .b1 {
+      background-color: $bar-dusk-2;
+    }
+
+    .b2 {
+      background-color: $bar-dusk-3;
+    }
+  }
+
+  &.night {
+    $bar-night-1: #005ba8;
+    $bar-night-2: #3e83c5;
+    $bar-night-3: #002a42;
+
+    background-color: $bar-night-1;
+
+    .b1 {
+      background-color: $bar-night-2;
+    }
+
+    .b2 {
+      background-color: $bar-night-3;
+    }
+  }
+
+  &.dawn {
+    $bar-dawn-1: #e63426;
+    $bar-dawn-2: #f38c22;
+    $bar-dawn-3: #fbc515;
+
+    background-color: $bar-dawn-1;
+
+    .b1 {
+      background-color: $bar-dawn-2;
+    }
+
+    .b2 {
+      background-color: $bar-dawn-3;
+    }
   }
 }
 

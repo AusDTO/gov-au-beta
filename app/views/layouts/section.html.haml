@@ -1,9 +1,12 @@
 = inside_layout :application do
   = yield
 
-  = content_for :header do
-    %h1
-      %a.site-title{href: public_node_path(@section.home_node)}= @section.name
+  = content_for :after_header do
+    %div{class: "hero-sml #{hero_class(@section)}"}
+      .wrapper
+        %p
+          = @section.name
+
 
   = content_for :meta_description do
     - if node.short_summary

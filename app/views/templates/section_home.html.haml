@@ -6,6 +6,7 @@
     - if node.summary
       != markdown_content node.summary
 
+  = render partial: 'templates/related_topics'
   = render partial: 'templates/content_body', object: node.content_body
 
   %h2=link_to 'News', news_articles_path

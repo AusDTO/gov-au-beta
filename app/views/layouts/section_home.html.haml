@@ -1,0 +1,24 @@
+= inside_layout :application do
+  = yield
+
+  = content_for :after_header do
+    %div{class: "hero-med #{hero_class(@section)}"}
+      .wrapper
+        %h1
+          = @section.name
+        %p
+          = @section.summary
+
+
+
+  - if node.short_summary
+    = content_for :meta_description do
+      = node.short_summary
+
+  = content_for :toolbar_actions do
+    = render partial: 'application/page_actions', locals: {section: @section, node: @node}
+
+
+
+  = content_for :navbar do
+    = render partial: 'application/navbar', locals: {menu_nodes: @menu_nodes, active: @node}

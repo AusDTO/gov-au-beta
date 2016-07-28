@@ -1,8 +1,10 @@
 - breadcrumb :public_root
 
-%h1
-  Sections
-%ul
-  - @sections.each do |section|
-    %li
-      = link_to(section.name, section_path(section))
+
+%article.content-listing
+  %h1
+    Sections
+  %ul
+    - @sections.each do |section|
+      %li
+        = link_to(section.name, section_path(section))
