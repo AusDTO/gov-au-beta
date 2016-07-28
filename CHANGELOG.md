@@ -5,6 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v0.8.0] - 2016-07-29
+### Added
+
 - Static related topics for department homepages
 
 ### Changed
