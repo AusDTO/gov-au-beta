@@ -1,0 +1,6 @@
+.content-listing {
+  @include outer-container;
+  @include span-columns(12 of 12);
+  @include link-colours($non-black, $light-aqua, $non-black);
+  @include button-colours($button-bg-colour, $button-bg-colour--hover, $button-bg-colour--active, $button-text-colour);
+}

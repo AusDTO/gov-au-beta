@@ -1,12 +1,12 @@
 - breadcrumb :departments
-
-%h1
-  Departments
-%ul
-  - departments.each do |department|
-    %li
-      = link_to(department.name, public_node_path(department.home_node))
-      - if department.agencies.any?
-        %ul
-          - department.agencies.each do |agency|
-            %li= link_to(agency.name, public_node_path(agency.home_node))
+%article.content-listing
+  %h1
+    Departments
+  %ul
+    - departments.each do |department|
+      %li
+        = link_to(department.name, public_node_path(department.home_node))
+        - if department.agencies.any?
+          %ul
+            - department.agencies.each do |agency|
+              %li= link_to(agency.name, public_node_path(agency.home_node))
