@@ -12,6 +12,7 @@ This file is influenced by http://keepachangelog.com/.
 
 - Wrapped news summary in abstract block
 - Show currently signed in name in the top right
+- Submissions now show all content fields other than just the name & body.
 
 ### Fixed
 
