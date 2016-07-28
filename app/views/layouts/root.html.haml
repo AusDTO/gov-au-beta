@@ -34,10 +34,9 @@
             = link_to 'Government Jobs', '#'
 
 
-  = content_for :meta_description do
-    - if node.short_summary
-      = content_for :meta_description do
-        = node.short_summary
+  - if node.short_summary
+    = content_for :meta_description do
+      = node.short_summary
 
   = content_for :after_header do
     .brandbar.default

@@ -10,10 +10,10 @@
           = @section.summary
 
 
-  = content_for :meta_description do
-    - if node.short_summary
-      = content_for :meta_description do
-        = node.short_summary
+
+  - if node.short_summary
+    = content_for :meta_description do
+      = node.short_summary
 
   = content_for :toolbar_actions do
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
