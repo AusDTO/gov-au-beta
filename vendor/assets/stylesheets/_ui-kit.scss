@@ -5089,44 +5089,51 @@ $tiny-border-radius: 1px;
 $large-border-radius: ($base-border-radius * 4);
 
 $transition-timing: .2s;
+$transition-timing-fast: $transition-timing / 2;
 $transition-easing: ease-in-out;
 
 // Spacing is governed by _typography.
 
 
 @mixin inline-background-image($img) {
-  background-image: inline('build/latest/img/icons/' + $img + '.png');
-  background-image: none, inline('assets/img/icons/' + $img + '.svg'),
+  background-image: asset-data-url('icons/' + $img + '.png');
+  background-image: none, asset-data-url('icons/' + $img + '.svg'),
   linear-gradient(transparent, transparent);
 }
 
-.icon-arrow-right {
+// Generic icons
+%icon-arrow-right {
   @include inline-background-image('arrow-right');
 }
 
-.icon-arrow-right-white {
-  @include inline-background-image('arrow-right-white');
+%icon-arrow-right--white {
+  @include inline-background-image('arrow-right--white');
 }
 
-.icon-arrow-right-aqua {
-  @include inline-background-image('arrow-right-aqua');
+%icon-arrow-right--aqua {
+  @include inline-background-image('arrow-right--aqua');
 }
 
-.bars {
+%icon-bars {
   @include inline-background-image('bars');
 }
 
-.close {
+%icon-close {
   @include inline-background-image('close');
 }
 
-.chevron-down-navy {
-  @include inline-background-image('chevron-down-navy');
+%icon-chevron-down--navy {
+  @include inline-background-image('chevron-down--navy');
+}
+
+// Specific functions
+%icon-external-link--aqua {
+  @include inline-background-image('external-link--aqua');
 }
 
 // This class is legacy as of v1.2
 // Marked for removal in v2.0
-.chevron {
+.icon-chevron {
   &::before {
     border-style: solid;
     border-width: 0.25em 0.25em 0 0;
@@ -5386,12 +5393,15 @@ $background-colour:             $white;
 $background-secondary-colour:   $non-white;
 
 $link-colour:                   $non-black;
-$link-hover-colour:             $aqua;
+$link-colour--hover:            $light-aqua;
 
-$button-colour:                 $aqua;
-$button-colour--hover:          $darker-aqua;
-$button-colour--active:         $dark-aqua;
-$button-colour--disabled:       $light-grey;
+$link-inverted-colour:          $white;
+$link-inverted-colour--hover:   $white;
+
+$button-bg-colour:              $aqua;
+$button-bg-colour--hover:       $darker-aqua;
+$button-bg-colour--active:      $dark-aqua;
+$button-bg-colour--disabled:    $light-grey;
 
 $button-inverted-colour:        $white;
 
@@ -5399,7 +5409,6 @@ $button-text-colour:            $white;
 $button-inverted-text-colour:   $navy;
 
 $focus-colour:                  $lighter-aqua;
-
 $error-colour:                  $red;
 $success-colour:                $green;
 $warning-colour:                $yellow;
@@ -5416,17 +5425,19 @@ $box-shadow-colour:             rgba($non-black, 0.5);
 $body-text-colour:              $non-black;
 $body-inverted-text-colour:     $white;
 
-$badge-colour-default:          $grey;
-$badge-colour-alpha:            $non-black;
-$badge-colour-beta:             $maroon;
-$badge-colour-error:            $error-colour;
-$badge-colour-success:          $green;
+$badge-colour--default:         $grey;
+$badge-colour--alpha:           $non-black;
+$badge-colour--beta:            $maroon;
+$badge-colour--error:           $error-colour;
+$badge-colour--success:         $green;
 
 $controls-bg-colour:            $dark-navy;
 $controls-contrast-bg-colour:   $maroon;
 $header-bg-colour:              $navy;
 $hero-bg-colour:                $aqua;
 $breadcrumbs-bg-colour:         $non-white;
+
+$input-focus-colour:            $light-aqua;
 
 /*
 Typography
@@ -5765,21 +5776,21 @@ h4 {
   }
 }
 
-a {
-  color: $link-colour;
-  text-decoration: none;
-  border-bottom: 1px solid;
-
-  &:visited {
-    color: $link-colour;
-  }
-
-  &:hover,
-  &:active {
-    color: $link-hover-colour;
-  }
-
-}
+// a {
+//   color: $link-colour;
+//   text-decoration: none;
+//   border-bottom: 1px solid;
+//
+//   &:visited {
+//     color: $link-colour;
+//   }
+//
+//   &:hover,
+//   &:active {
+//     color: $link-hover-colour;
+//   }
+//
+// }
 
 code,
 pre,
@@ -5978,11 +5989,11 @@ Style guide: Typography.7 Badges
 */
 
 $badges: (
-  'default':  $badge-colour-default,
-  'alpha':    $badge-colour-alpha,
-  'beta':     $badge-colour-beta,
-  'error':    $badge-colour-error,
-  'success':  $badge-colour-success,
+  'default':  $badge-colour--default,
+  'alpha':    $badge-colour--alpha,
+  'beta':     $badge-colour--beta,
+  'error':    $badge-colour--error,
+  'success':  $badge-colour--success,
 );
 
 @each $badge-type, $colour in $badges {
@@ -6111,6 +6122,239 @@ article {
   h1:first-of-type {
     margin-top: 0;
   }
+}
+
+/*
+Buttons
+
+Buttons signal action&mdash;use them to move the user through a transaction.
+
+Use 1 button per page to build a strong call to action. Adding a second or third button forces users to make a choice. If choice is required use another kind of element eg radio button.
+
+Use button text to describe what the button does&mdash;keep it short.
+
+The button alignment in [forms](section-forms.html) should put the primary action button at the left edge, in the user's line of sight.
+
+<hr />
+
+This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+Style guide: Buttons
+*/
+
+/*
+Creating buttons
+
+Call buttons using:
+
+- `<button>` element (for actions like submitting a form)
+- the `role` property of `a` elements (eg an anchor link).
+
+Do not apply styles to disabled buttons.
+
+Markup: templates/buttons-examples.hbs
+
+Style guide: Buttons.1 Creating buttons
+*/
+
+@mixin button-colours($bg-colour, $bg-colour--hover, $bg-colour--active, $text-colour, $text-colour--hover: $text-colour) {
+  button,
+  a[role='button'] {
+    background-color: $bg-colour;
+    color: $text-colour;
+    border: 1px solid $bg-colour--hover;
+
+    &:hover,
+    &:focus {
+      background-color: $bg-colour--hover;
+      color: $text-colour--hover;
+    }
+
+    &:active {
+      background-color: $bg-colour--active;
+    }
+
+    &[disabled],
+    &.disabled {
+      &,
+      &:hover,
+      &:active,
+      &:focus {
+        cursor: not-allowed;
+        border-color: transparent;
+        background-color: $button-bg-colour--disabled;
+        color: $non-black;
+      }
+    }
+  }
+}
+
+%base-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-block;
+  margin: 0 $small-spacing $small-spacing 0;
+  height: $base-spacing * 1.5;
+  border-radius: $tiny-border-radius;
+  outline: 0;
+  padding: $tiny-spacing $medium-spacing $tiny-spacing * 1.3;
+  text-decoration: none;
+  font-weight: $bold-font-weight;
+
+  @include media($tablet) {
+    margin: $small-spacing;
+  }
+}
+
+button,
+.button,
+[role='button'],
+[type='button'] {
+  @extend %base-button;
+
+  &.inverted {
+    border: 1px solid $button-inverted-colour;
+    background-color: transparent;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: $button-inverted-colour;
+      background-color: $button-inverted-colour;
+      color: $button-inverted-text-colour;
+    }
+  }
+}
+
+/*
+Link styles
+
+Styling for types and classes of links.
+
+There are other styles documented elsewhere (eg tag cloud links).
+
+Style guide: Link styles
+*/
+
+/*
+Hover, focus & external links
+
+The `:hover` and `:focus` styles are identical.
+
+Inverted colour versions of `:hover` and `:focus` are created using `@mixin link-colours` where required (eg in the page header). The `_buttons.scss` partial includes a similar mixin: `@mixin button-colours`.
+
+Link to external sites using `rel="external"`.
+
+Markup: templates/basic-links.hbs
+
+Style guide: Link styles.1 Hover links
+*/
+
+// A base extend that provides the styling for icons at the end of a link.
+%base-link-icon--after {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  right: -($medium-spacing);
+  width: $medium-spacing;
+  height: $medium-spacing;
+  background-repeat: no-repeat;
+  background-position: right $tiny-spacing;
+  border-bottom: 1px solid transparent;
+}
+
+@mixin link-colours($text-colour, $hover-bg-colour, $hover-text-colour: $text-colour) {
+  $link-disabled-color: rgba($text-colour, 0.5);
+  color: $text-colour;
+
+  a {
+    color: $text-colour;
+    text-decoration: none;
+    outline: none;
+    border-bottom: solid 1px $hover-bg-colour;
+    transition-timing-function: $transition-easing;
+    transition-duration: $transition-timing-fast;
+    transition-property: background-color, border-color, color;
+
+    &:hover,
+    &:focus {
+      background-color: $hover-bg-colour;
+      color: $hover-text-colour;
+    }
+
+    &[rel~='external'] {
+      display: inline-block;
+      position: relative;
+      margin-right: $base-spacing;
+
+      &:hover {
+        border-color: transparent;
+      }
+
+      &::after {
+        @extend %icon-external-link--aqua;
+        @extend %base-link-icon--after;
+
+        background-size: (0.75 * $medium-spacing) auto;
+      }
+    }
+
+    /*
+    See more link
+
+    Use see more links at the end of [lists](section-list-styles.html),
+    to take the user to a index page of all items.
+
+    Markup: <a class="see-more" href="#">See more</a>
+
+    Style guide: Link styles.2 See more link
+    */
+
+    &.see-more {
+      display: inline-block;
+      position: relative;
+      margin-right: $base-spacing;
+      font-weight: $heading-font-weight;
+      color: $button-bg-colour;
+
+      &::after {
+        @extend %icon-arrow-right--aqua;
+
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -($medium-spacing);
+        display: block;
+        width: $medium-spacing;
+        height: $medium-spacing;
+        background-repeat: no-repeat;
+        background-position: right $tiny-spacing;
+        background-size: (0.8 * $small-spacing) auto;
+      }
+
+      &:hover,
+      &:focus {
+        color: $hover-text-colour;
+      }
+    }
+  }
+
+  &.disabled {
+    outline: none;
+    color: $link-disabled-color;
+    text-decoration: none;
+    border-bottom: solid 1px;
+    outline-color: transparent;
+  }
+}
+
+// move these bad boys to their right contextual places
+
+.content-main,
+footer[role='contentinfo'] {
+  @include link-colours($non-black, $light-aqua, $non-black);
+  @include button-colours($button-bg-colour, $button-bg-colour--hover, $button-bg-colour--active, $button-text-colour);
 }
 
 /*
@@ -6406,113 +6650,6 @@ main {
 }
 
 /*
-Buttons
-
-Buttons signal action&mdash;use them to move the user through a transaction.
-
-Use 1 button per page to build a strong call to action. Adding a second or third button forces users to make a choice. If choice is required use another kind of element eg radio button.
-
-Use button text to describe what the button does&mdash;keep it short.
-
-The button alignment in [forms](section-forms.html) should put the primary action button at the left edge, in the user's line of sight.
-
-<hr />
-
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
-
-Style guide: Buttons
-*/
-
-/*
-Creating buttons
-
-Call buttons using:
-
-- `<button>` element (for actions like submitting a form)
-- the `role` property of `a` elements (eg an anchor link).
-
-Do not apply styles to disabled buttons.
-
-Markup: templates/buttons-examples.hbs
-
-Style guide: Buttons.1 Creating buttons
-*/
-
-%base-button {
-  -webkit-appearance: none;
-  appearance: none;
-  display: inline-block;
-  margin: 0 $small-spacing $small-spacing 0;
-  height: $base-spacing * 1.5;
-  border: none;
-  border-radius: $tiny-border-radius;
-  outline-offset: -2px;
-  outline: 2px solid transparent;
-  padding: $tiny-spacing $medium-spacing $tiny-spacing * 1.3;
-  background-color: $button-colour;
-  text-decoration: none;
-  font-weight: $bold-font-weight;
-  color: $button-text-colour;
-
-  &:focus {
-    outline-color: lighten($button-colour, 25%);
-  }
-
-  &:visited {
-    color: $button-text-colour;
-  }
-
-  &:hover {
-    background-color: $button-colour--hover;
-    color: $button-text-colour;
-  }
-
-  &:active {
-    background-color: $button-colour--active;
-    color: $button-text-colour;
-  }
-
-  &[disabled],
-  &.disabled {
-    &,
-    &:hover,
-    &:active,
-    &:focus {
-      cursor: not-allowed;
-      outline: none;
-      background-color: $button-colour--disabled;
-      color: $non-black;
-    }
-  }
-
-  @include media($tablet) {
-    margin: $small-spacing;
-  }
-
-}
-
-button,
-.button,
-[role='button'],
-[type='button'] {
-  @extend %base-button;
-
-  &.inverted {
-    border: 1px solid;
-    background-color: transparent;
-
-    &:hover,
-    &:active,
-    &:focus {
-      border-color: $button-inverted-colour;
-      background-color: $button-inverted-colour;
-      color: $button-inverted-text-colour;
-    }
-  }
-
-}
-
-/*
 Forms
 
 Keep forms as simple as possible&mdash;only ask what is needed for the transaction.
@@ -6556,7 +6693,7 @@ Style guide: Forms.1 Text input
   }
 
   &:focus {
-    outline: 2px solid $focus-colour;
+    outline: 2px solid $input-focus-colour;
   }
 
   &:disabled,
@@ -6818,9 +6955,7 @@ Navigation
 
 Ensure users understand where they are in the service, where they have been and where they can go.
 
-Use the HTML `<nav>` element and ARIA tags to define clear and accessible navigation links for the page.
-
-<hr />
+***
 
 This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
@@ -6830,28 +6965,95 @@ Style guide: Navigation
 /*
 Global navigation
 
-Provides the highest level of navigation in the framework.
+The global navigation panel is collapsed (hidden) by default.
 
-### Behaviour
-
-The Global Navigation panel is collapsed (hidden) by default on all screen sizes. Users that have JavaScript enabled in modern browsers (down to IE 9) will see a collapsed panel and a toggle for hiding and showing the menu.
-
-Users without JavaScript or on IE8 or older will see an expanded navigation panel and no toggle.
+Older browsers (IE8 and lower) and those without JavaScript will get an expanded menu without a hamburger button.
 
 Markup: templates/global-navigation.hbs
 
-Style guide: Navigation.1 Global Navigation
+Style guide: Navigation.1 Global navigation
 */
+
+/*
+Local navigation
+
+Use local navigation to help the user go straight to the specific content that meets their needs.
+
+Small screens (up to `$tablet` breakpoint) will see a toggle to expand the navigation panel.
+
+Older browsers (IE8 and lower) and those without JavaScript will see the expanded menu without a toggle button.
+
+Markup: templates/local-navigation.hbs
+
+Style guide: Navigation.2 Local navigation
+*/
+
+/*
+Breadcrumbs
+
+Breadcrumbs help the user understand where they are in the service and how they got there.
+
+They appear directly under a page header or hero, from `$tablet` breakpoint upwards.
+
+Markup: templates/breadcrumbs.hbs
+
+Style guide: Navigation.3 Breadcrumbs
+*/
+
+/*
+Contents links
+
+Contents links (index links) help users understand the page structure.
+
+A heading is optional&mdash;use the correct header level for the page structure.
+
+Users with modern browsers will see a smooth scroll down the page.
+
+Markup: templates/index-links.hbs
+
+Style guide: Navigation.4 Contents links
+*/
+
+/*
+Inline links
+
+You can present a list of links as a horizontal block using an unsorted list with the `.inline-links` class.
+
+Markup: templates/inline-links.hbs
+
+Style guide: Navigation.5 Inline links
+*/
+
+/*
+Footer navigation
+
+Footers help users who reach the bottom of a page without finding what they want.
+
+This framework uses CSS Flexboxes to manage columns. It provides:
+
+- lists of links arranged horizontally
+- 2 columns for `$mobile` and `$tablet` breakpoint
+- 4 columns for `$desktop` breakpoint.
+
+Markup: templates/footer-navigation.hbs
+
+Style guide: Navigation.6 Footer navigation
+*/
+
 .global-nav-toggle {
   position: relative;
   float: right;
   height: auto;
   margin: $tiny-spacing 0;
-  border-bottom: 1px solid;
   padding: 0;
 
+  .govau--header & {
+    border: 0;
+    border-bottom: 1px solid;
+  }
+
   &::before {
-    @extend .bars;
+    @extend %icon-bars;
     content: '';
     position: absolute;
     top: .25em;
@@ -6864,13 +7066,14 @@ Style guide: Navigation.1 Global Navigation
 
   &[aria-expanded='true'] {
     &::before {
-      @extend .close;
+      @extend %icon-close;
     }
   }
 
   &,
   &:hover {
     background-color: transparent;
+    border-color: transparent;
   }
 }
 
@@ -6920,9 +7123,15 @@ Style guide: Navigation.1 Global Navigation
 
     a {
       display: block;
-      border-bottom: 0;
+      border: none;
       padding: $small-spacing 0 1em;
       color: $body-inverted-text-colour;
+
+      &:focus,
+      &:hover {
+        background-color: transparent;
+        color: $body-inverted-text-colour;
+      }
     }
   }
 
@@ -6934,30 +7143,6 @@ Style guide: Navigation.1 Global Navigation
     }
   }
 }
-
-/*
-Local navigation
-
-The framework provides a vertical navigation menu that shows 3 levels of items.
-
-Ensure the side menu is accessible with a keyboard&mdash;users should be able to tab through every link. Use ARIA tags so screen readers can understand the menu.
-
-Use active state (`class="active"`) to show which page the user is on.
-
-Use short navigation links. They don't have to be the full page title.
-
-Test with users to ensure the navigation hierarchy is not too long or too deep.
-
-### Behaviour
-
-The Local Navigation panel is collapsed (hidden) by default on small screens (up to the `$tablet`). Users that have JavaScript enabled in modern browsers (down to IE 9) will see a collapsed panel and a toggle for hiding and showing the menu.
-
-Users without JavaScript or on IE8 or older will see an expanded navigation panel and no toggle.
-
-Markup: templates/local-navigation.hbs
-
-Style guide: Navigation.2 Local Navigation
-*/
 
 .local-nav-toggle {
   position: relative;
@@ -6973,7 +7158,7 @@ Style guide: Navigation.2 Local Navigation
   }
 
   &::before {
-    @extend .chevron-down-navy;
+    @extend %icon-chevron-down--navy;
     content: '';
     position: absolute;
     top: .5em;
@@ -7031,6 +7216,7 @@ Style guide: Navigation.2 Local Navigation
 
 
   ul {
+    @include link-colours($link-colour, $focus-colour, $link-colour);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -7046,11 +7232,12 @@ Style guide: Navigation.2 Local Navigation
 
       a {
         padding-left: $base-spacing;
+        border-bottom: 0;
       }
 
       ul {
         a {
-          @extend .icon-arrow-right;
+          @extend %icon-arrow-right;
           padding-left: $base-spacing + $small-spacing;
           background-repeat: no-repeat;
           background-position: $base-spacing $small-spacing * 1.45;
@@ -7059,45 +7246,43 @@ Style guide: Navigation.2 Local Navigation
       }
     }
 
+    li {
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid $border-colour;
+
+      &:first-child {
+        border-top: 1px solid $border-colour;
+      }
+    }
+
+    a {
+      display: block;
+      border: none;
+      border-left: 4px solid transparent;
+      border-bottom: none;
+      padding: $medium-spacing / 2 $small-spacing;
+      text-decoration: none;
+      transition: border-color $transition-timing-fast $transition-easing;
+
+      &:hover {
+        border-color: $border-contrast-colour;
+      }
+
+      &.active,
+      &.is-active {
+        font-weight: $bold-font-weight;
+      }
+
+      &.current {
+        background-color: $focus-colour;
+      }
+
+    }
+
   }
 
-  li {
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid $border-colour;
-
-    &:first-child {
-      border-top: 1px solid $border-colour;
-    }
-  }
-
-  a {
-    display: block;
-    border: none;
-    border-left: 4px solid transparent;
-    padding: $medium-spacing / 2 $small-spacing;
-    background-color: $background-colour;
-    text-decoration: none;
-    color: $non-black;
-
-    &:hover {
-      border-color: $border-contrast-colour;
-      background-color: $focus-colour;
-    }
-
-    &.active,
-    &.is-active {
-      font-weight: $bold-font-weight;
-    }
-
-    &.current {
-      background-color: $focus-colour;
-    }
-
-  }
 }
-
-
 
 // This class is legacy as of v1.2
 // Marked for removal at 2.0
@@ -7146,24 +7331,8 @@ Style guide: Navigation.2 Local Navigation
   }
 }
 
-
-/*
-Breadcrumbs
-
-Use breadcrumbs to help the user understand where they are in the service and how they got there.
-
-Default breadcrumbs appear on a light grey background, and are positioned directly underneath a page header or hero.
-
-Breadcrumbs are hidden on small screens, and only displayed at `$tablet` breakpoint or bigger.
-
-The inverted style (`.breadcrumbs--inverted`) can be used on a darker coloured background. Make sure you check the [colour contrast guidance](http://gov-au-ui-kit.dev/section-colours.html#kssref-colours-3-colour-contrast) before choosing a colour combination.
-
-Markup: templates/breadcrumbs.hbs
-
-Style guide: Navigation.3 Breadcrumbs
-*/
-
 [class^='breadcrumbs'] {
+  @include link-colours($link-colour, $link-colour--hover);
   display: none;
   width: 100%;
   margin: 0;
@@ -7172,13 +7341,6 @@ Style guide: Navigation.3 Breadcrumbs
 
   @include media($tablet) {
     display: inline-block;
-  }
-
-  a:link,
-  a:visited,
-  a:hover,
-  a:active {
-    color: $body-text-colour;
   }
 
   ul {
@@ -7193,7 +7355,7 @@ Style guide: Navigation.3 Breadcrumbs
       padding: 0;
 
       &:not(:last-child) {
-        @extend .icon-arrow-right;
+        @extend %icon-arrow-right;
         margin-right: $small-spacing;
         padding-right: $medium-spacing;
         background-repeat: no-repeat;
@@ -7204,19 +7366,13 @@ Style guide: Navigation.3 Breadcrumbs
   }
 
   &[class$='--inverted'] {
+    @include link-colours($link-inverted-colour, $link-inverted-colour--hover, $link-colour);
     background-color: transparent;
     color: $body-inverted-text-colour;
 
-    a:link,
-    a:visited,
-    a:hover,
-    a:active {
-      color: $body-inverted-text-colour;
-    }
-
     ul {
       li:not(:last-child) {
-        @extend .icon-arrow-right-white;
+        @extend %icon-arrow-right--white;
         color: $body-inverted-text-colour;
       }
     }
@@ -7224,17 +7380,32 @@ Style guide: Navigation.3 Breadcrumbs
 }
 
 /*
-Skip Links
+Skip links
 
-See. <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html">WCAG 2.4.1 Bypass Blocks</a>
+Provide skip links to navigation and content.
 
-When this Success Criterion is not satisfied, it may be difficult for people with some disabilities to reach the main content of a Web page quickly and easily.
+These are hidden visually by default but keyboard accessible.
+
+Include skip links between the opening of the `<body>` and the page `<header>`.
+
+<div class="callout">
+  <p>To test,
+    <a href="javascript:;">click to move focus to this</a> then press <kbd>Tab</kbd> to show:
+  </p>
+  <ul>
+    <li>Skip to main content</li>
+    <li>Skip to section navigation</li>
+  </ul>
+  <p>(The example space will be visually empty until the skip links receive focus.)</p>
+</div>
 
 Markup: templates/skip-link.hbs
 
-Style guide: Navigation.4 Skip Links
+Style guide: Navigation.7 Skip links
 */
+
 .skip-to {
+  @include link-colours($link-colour, $link-colour--hover);
   position: relative;
   z-index: 99;
 
@@ -7247,7 +7418,7 @@ Style guide: Navigation.4 Skip Links
     padding: 0;
     position: absolute;
     width: 1px;
-    background-color: $white;
+    border-radius: $tiny-border-radius;
 
     &:active,
     &:focus {
@@ -7263,25 +7434,6 @@ Style guide: Navigation.4 Skip Links
     }
   }
 }
-
-
-/*
-Index links
-
-Used to group a collection of text links, Index links can appear at the beginning of an article page as a table of contents, or as a group of links to related content.
-
-An optional heading is included in the markup example. Any level leading from `h2` to `h6` can be used. Use a heading level that's appropriate for your document outline.
-
-### Behaviour
-
-Because these are internal links they trigger a smooth scroll down the page.
-
-This works in Firefox, Chrome, IE10, Opera and Safari. Unsupported browsers would just use the normal internal link behaviour.
-
-Markup: templates/index-links.hbs
-
-Style guide: Navigation.5 Index links
-*/
 
 .index-links {
   margin: ($base-spacing * 2) 0 $base-spacing $small-spacing;
@@ -7315,18 +7467,6 @@ Style guide: Navigation.5 Index links
   }
 }
 
-
-/*
-Inline Links
-
-For when you'd like a list of links to appear on a single line, use `ul.inline-links`.
-
-When placing these links on a dark background, use `.inline-links--inverted.` Make sure you check the [colour contrast guidance](http://gov-au-ui-kit.dev/section-colours.html#kssref-colours-3-colour-contrast) before choosing a colour combination.
-
-Markup: templates/inline-links.hbs
-
-Style guide: Navigation.6 Inline Links
-*/
 [class^='inline-links'] {
   display: inline-block;
   list-style-type: none;
@@ -7346,17 +7486,74 @@ Style guide: Navigation.6 Inline Links
 }
 
 /*
-List views
+Accessibility
 
-Each list style has optional layout items. Follow the markup patterns in the examples
-below to achieve the correct style and semantics.
+- All navigation must be keyboard accessible and include ARIA tags.
+- Use the HTML `<nav>` element for controls and the given state classes to show which page the user is on.
+- Use short navigation links. They don't have to be the full page title.
+- Test with users to ensure the navigation hierarchy is not too long or too deep.
+- Use the [correct colour contrast](section-colours.html#guide-colours-3-colour-contrast) for breadcrumbs and inline links.
 
-- **Image**: omit the `figure` element if you don't need an image. Note: If you
-leave in a `figure` with no `img` you'll still get a left padding on your item
-- **Tags**: add tags to each item using a `footer.tags` and a `dl` element
-- **Meta**: use a `div.meta` to include supplementary information
+Style guide: Navigation.8 Accessibility
+*/
+
+/*
+List styles
+
+List styles make collections of similar content more usable and discoverable.
+
+You can add usual body elements within each list item (eg ordered and unordered lists).
+
+Use `<a class="see-more">` after your list to link to an index of all items.
 
 Style guide: List styles
+*/
+
+/*
+Horizontal style
+
+Horizontal style provides a single column of list items.
+
+Markup: templates/lists-horizontal.hbs
+
+Style guide: List styles.1 Horizontal style
+*/
+
+/*
+Vertical style
+
+Vertical style provides multiple columns of list items. By default the vertical lists are displayed in 2 columns.
+
+You can change the number of columns used:
+
+- `.vertical-list--thirds` give 3 columns of list items
+- `.vertical-list--fourths` give 4 columns of list items.
+
+For [browsers that don't support Flexbox layout](http://caniuse.com/#feat=flexbox) lists will appear as in horizontal style with images (if used) below each list item.
+
+Markup: templates/lists-vertical.hbs
+
+Style guide: List styles.2 Vertical style
+*/
+
+/*
+Small list style
+
+Use small list style for large groups of list items.
+
+Markup: templates/lists-small.hbs
+
+Style guide: List styles.3 Small list style
+*/
+
+/*
+Highlighted words style
+
+Use highlighted words style for a list with repeating phrases.
+
+Markup: templates/lists-highlighted.hbs
+
+Style guide: List styles.4 Highlighted word style
 */
 
 %base-list {
@@ -7365,15 +7562,16 @@ Style guide: List styles
   padding: 0;
 
   .tags {
+    @include link-colours($button-bg-colour, v, $link-colour);
     color: $grey;
 
     dl,
     dt,
     dd {
       display: inline-block;
-      line-height: $double-leading;
       margin: 0;
       padding: 0;
+      line-height: $base-heading-leading * 1.5;
     }
 
     dt,
@@ -7383,21 +7581,19 @@ Style guide: List styles
     }
 
     a {
-      color: $link-hover-colour;
       padding: 2px $tiny-spacing;
-      border: 1px solid $link-hover-colour;
+      border: 1px solid $button-bg-colour;
       border-radius: 2px;
 
-      &:hover {
-        color: $white;
-        background-color: $link-hover-colour;
+      &:hover,
+      &:focus {
+        border-color: $link-colour--hover;
       }
     }
   }
 
   .meta {
     font-size: $small-font-size;
-    //margin-top: $small-spacing;
     margin-bottom: $small-spacing;
 
     time {
@@ -7428,20 +7624,6 @@ Style guide: List styles
     display: block;
   }
 }
-
-/*
-Horizontal list
-
-A Horizontal list can have item(s) with a featured image. Note: If you
-leave in a `figure` with no `img` you'll still get a left padding on your item.
-
-- **Hero item**: by adding the `.hero-item` class to a list item, the layout
-changes to fit a wider image
-
-Markup: templates/lists-horizontal.hbs
-
-Style guide: List styles.1 Horizontal list
-*/
 
 .list-horizontal {
   @extend %base-list;
@@ -7484,25 +7666,6 @@ Style guide: List styles.1 Horizontal list
   }
 
 }
-
-
-/*
-Vertical list
-
-The Vertical list suits content that fits into a column layout, and wraps with
-two list items on each row. Note: In browsers where [Flexbox layout](http://caniuse.com/#feat=flexbox)
-is not supported, this will appear as a Horizontal list except with the image
-below the list item content.
-
-To make a list appear with three or four columns, use the classes `.vertical-list--thirds`
-and `.vertical-list--fourths` respectively.
-
-To remove the border-top from the first row of elements add the `.no-border` class to the `ul` element.
-
-Markup: templates/lists-vertical.hbs
-
-Style guide: List styles.2 Vertical list
-*/
 
 .list-vertical {
   @extend %base-list;
@@ -7599,23 +7762,12 @@ Style guide: List styles.2 Vertical list
   }
 }
 
-/*
-Small list
-
-These work well for displaying a larger number of list items with just a label
-and some meta information.
-
-Markup: templates/lists-small.hbs
-
-Style guide: List styles.3 Small list
-*/
-
 .list-small {
   @extend %base-list;
   border-top: solid 1px $border-colour;
 
   a {
-    @extend .icon-arrow-right;
+    @extend %icon-arrow-right;
 
     display: block;
     padding: $small-spacing;
@@ -7655,16 +7807,6 @@ Style guide: List styles.3 Small list
   }
 }
 
-/*
-Highlighted List
-
-Lists with highlighted phrases work well for displaying large lists where many items contain the same recurring phrases.
-
-Markup: templates/lists-highlighted.hbs
-
-Style guide: List styles.4 Highlighted List
-*/
-
 .list-highlighted {
   @extend %base-list;
 
@@ -7684,51 +7826,6 @@ Style guide: List styles.4 Highlighted List
       display: block;
       font-size: $smaller-font-size;
     }
-  }
-}
-
-/*
-See more link
-
-Some lists will show a feed of the latest or most relevant items. The see more link takes the user to the index page showing all of the items.
-
-Markup: templates/see-more-link.hbs
-
-Style guide: List styles.5 See more link
-*/
-
-.see-more {
-  display: inline-block;
-  position: relative;
-  margin-right: $base-spacing;
-  font-weight: $heading-font-weight;
-  border-bottom: 1px solid transparent;
-
-  &:link,
-  &:visited,
-  &:active {
-    color: $button-colour;
-  }
-
-  &::after {
-    @extend .icon-arrow-right-aqua;
-
-    content: '';
-    position: absolute;
-    display: block;
-    width: $medium-spacing;
-    height: $medium-spacing;
-    top: 0;
-    right: -($medium-spacing);
-    background-repeat: no-repeat;
-    background-position: right $tiny-spacing;
-    background-size: (0.8 * $small-spacing) auto;
-    border-bottom: none;
-  }
-
-  &:hover,
-  &:focus {
-    border-bottom: 1px solid;
   }
 }
 
@@ -7795,19 +7892,22 @@ summary {
   text-align: left;
   font-weight: $bold-font-weight;
   cursor: pointer;
+  transition: background-color $transition-timing-fast $transition-easing;
 
   // Remove vanilla summary styles.
   &::-webkit-details-marker {
     display: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     background-color: $light-aqua;
     color: $non-black;
   }
 
   &::before {
-    @extend .chevron-down-navy;
+    @extend %icon-chevron-down--navy;
 
     content: '';
     position: absolute;
@@ -7885,6 +7985,9 @@ img {
 }
 
 [class^='controls'] {
+  @include link-colours($link-inverted-colour, $link-inverted-colour, $controls-bg-colour);
+  @include button-colours($controls-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $controls-bg-colour);
+
   padding: $tiny-spacing 0;
   background-color: $controls-bg-colour;
   color: $body-inverted-text-colour;
@@ -7927,11 +8030,12 @@ img {
   }
 
   [role='button'] {
-    @extend .inverted;
     margin: 0;
   }
 
   &[class$='--contrast'] {
+    @include button-colours($controls-contrast-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $body-inverted-text-colour, $controls-contrast-bg-colour);
+
     background-color: $controls-contrast-bg-colour;
 
     [role='button']:hover,
@@ -7942,6 +8046,9 @@ img {
 }
 
 .govau--header {
+  @include link-colours($link-inverted-colour, $link-inverted-colour, $link-colour);
+  @include button-colours($header-bg-colour, $body-inverted-text-colour, $body-inverted-text-colour, $body-inverted-text-colour, $header-bg-colour);
+
   position: relative;
   padding: $medium-spacing 0 ($base-spacing * 3);
   padding-bottom: $medium-spacing;
@@ -7962,19 +8069,14 @@ img {
   }
 
   .logo {
-    @extend h3;
-
+    font-size: rem(24);
+    font-weight: $heading-font-weight;
     padding-bottom: 2px;
-    border-bottom: none;
+    border-bottom: 0;
     color: $body-inverted-text-colour;
     font-family: $base-sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-
-    &:hover,
-    &:focus {
-      border-bottom: 1px;
-    }
   }
 
   [class^='badge'] {
@@ -7994,8 +8096,8 @@ img {
 }
 
 .button--feedback {
-  @extend button;
   @extend .inverted;
+
   margin: 0;
   width: 100%;
   text-align: center;
@@ -8007,6 +8109,7 @@ img {
 }
 
 .hero {
+  @include link-colours($link-inverted-colour, $link-inverted-colour, $link-colour);
   padding: ($base-spacing * 2) 0;
   margin-bottom: 0;
   background-color: $hero-bg-colour;
@@ -8024,8 +8127,7 @@ img {
     font-weight: $base-font-weight;
   }
 
-  code,
-  a {
+  code {
     color: $body-inverted-text-colour;
   }
 }
@@ -8082,18 +8184,7 @@ footer[role='contentinfo'] {
     }
   }
 
-  /*
-  Footer navigation
-
-  A number of lists of links arranged horizontally. Displays two columns up to a
-  $tablet breakpoint, and four columns beyond that.
-
-  The columns are managed by CSS flex boxes, allowing 1 to 4 columns.
-
-  Markup: templates/footer-navigation.hbs
-
-  Style guide: Navigation.Footer Navigation
-  */
+  // Footer navigation is documented in the navigation partial.
   .footer-top {
     border-bottom: 1px solid $border-colour;
     margin-bottom: $base-spacing * 2;

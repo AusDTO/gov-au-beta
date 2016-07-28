@@ -14,8 +14,7 @@
  *= require "trumbowyg.min"
  *= require "editor.md/scss/editormd"
  */
- @import "../../../vendor/assets/stylesheets/ui-kit";
- @import "../../../vendor/assets/stylesheets/ui-kit-icons";
+ @import "ui-kit";
 
  @import "content_block";
  @import "page_controls";
