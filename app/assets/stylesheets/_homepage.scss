@@ -10,6 +10,152 @@
   padding-bottom: $tiny-spacing;
 }
 
+//controls column layout
+.about-australia {
+
+  @include outer-container;
+
+  .population {
+    @include media($tablet) {
+      @include span-columns(8 of 12);
+    }
+  }
+
+  .public-holiday {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+  }
+}
+
+//About Australia section
+
+.population {
+
+  ul {
+    text-align: center;
+    display: block;
+    list-style: none;
+    background-color: $background-secondary-colour;
+    margin-bottom: 2 * $base-spacing;
+    padding: 2 * $base-spacing $base-spacing;
+
+    @include media($tablet) {
+      display: table;
+      width: 100%;
+      height: 333px;
+
+      li {
+        display: table-cell;
+        text-align: left;
+        vertical-align: middle;
+      }
+    }
+
+    .population-infographic {
+      background: url('/assets/home/australia-map.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      color: $white;
+      font-size: rem(32);
+      font-weight: $heading-font-weight;
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      width: 1%; //I have no idea what I'm doing
+      height: 300px;
+
+      @include media($tablet) {
+        width: 50%;
+        display: table-cell;
+        height: auto;
+      }
+    }
+
+    .population-statistic {
+      color: #00a1bb;
+      font-weight: $heading-font-weight;
+      font-size: rem(26);
+      padding-left: 0;
+
+      @include media($tablet) {
+        padding-left: $base-spacing;
+      }
+
+      strong {
+        display: block;
+        font-size: rem(62);
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+//Calendar thing
+.public-holiday {
+
+  .next-holiday {
+    background-color: $background-secondary-colour;
+    margin-bottom: 2 * $base-spacing;
+    padding: 2 * $base-spacing $base-spacing;
+  }
+
+  .calendar {
+    font-weight: $heading-font-weight;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 240px;
+    text-align: center;
+
+    .event-title {
+      background-color: #00a1bb;
+      color: $white;
+      display: block;
+      font-size: rem(20);
+      font-weight: $heading-font-weight;
+      padding: $small-spacing;
+    }
+
+    time {
+      background-color: $white;
+      border: $small-spacing solid #00a1bb;
+      border-top: 0;
+      color: #00a1bb;
+      display: block;
+      font-size: rem(24);
+      line-height: 1;
+      padding: .75 * $small-spacing $small-spacing;
+
+      span {
+        display: block;
+        font-size: rem(70);
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.about-governemnt ul {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 2rem;
+
+    a {
+      font-size: rem(36);
+      font-weight: 700;
+    }
+
+    span {
+      display: block;
+      font-size: rem(56);
+      line-height: 1.5;
+    }
+  }
+}
+
 /*
 .about-australia {
   @include outer-container;
@@ -48,155 +194,3 @@
   }
 }
 */
-
-.about-australia {
-  @include outer-container;
-
-  .population {
-    @include media($tablet) {
-      @include span-columns(8 of 12);
-    }
-  }
-
-  .public-holiday {
-    @include media($tablet) {
-      @include span-columns(4 of 12);
-    }
-  }
-}
-
-.population ul, .pubs {
-  background-color: $background-secondary-colour;
-  padding: 2 * $base-spacing $base-spacing;
-  //height: 320px;
-}
-
-.calendar {
-  max-width: 240px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@include media($desktop) {
-  .calendar {
-    //padding: 2 * $base-spacing 4 * $base-spacing;
-  }
-}
-
-.population {
-  ul {
-    list-style: none;
-    text-align: center;
-    display: block;
-
-    @include media($tablet) {
-      display: table;
-      width: 100%;
-      height: 333px;
-
-      li {
-        display: table-cell;
-        text-align: left;
-        vertical-align: middle;
-        //width: 50%;
-
-      }
-    }
-
-    .population-infographic {
-      background: url('/assets/home/australia-map.svg');
-      background-repeat: no-repeat;
-      //background-attachment: fixed;
-      background-position: center;
-      background-size: contain;
-      color: $white;
-      font-size: rem(32);
-      font-weight: $heading-font-weight;
-      text-align: center;
-      display: table-cell;
-      vertical-align: middle;
-      width: 380px;
-      height: 300px;
-
-      @include media($tablet) {
-        width: 50%;
-        display: table-cell;
-        height: auto;
-      }
-    }
-
-    .population-statistic {
-      color: #00a1bb;
-      font-weight: $heading-font-weight;
-      font-size: rem(26);
-      padding-left: 0;
-
-      @include media($tablet) {
-        padding-left: $base-spacing;
-      }
-
-      strong {
-        display: block;
-        font-size: rem(62);
-        line-height: 1.2;
-      }
-    }
-  }
-}
-
-.public-holiday {
-
-  .calendar {
-    text-align: center;
-    font-weight: $heading-font-weight;
-    .event-title {
-      display: block;
-      background-color: #00a1bb;
-      color: $white;
-      font-weight: $heading-font-weight;
-      font-size: rem(20);
-      padding: $small-spacing;
-    }
-
-    time {
-      font-size: rem(24);
-      border: $small-spacing solid #00a1bb;
-      border-top: 0;
-      display: block;
-      background-color: $white;
-      padding: .75 * $small-spacing $small-spacing;
-      color: #00a1bb;
-      line-height: 1;
-
-      span {
-        display: block;
-        font-size: rem(70);
-        line-height: 1;
-      }
-    }
-  }
-}
-
-.about-governemnt ul {
-  list-style-type: none;
-  padding-left: 0;
-
-  li {
-    margin-bottom: 2rem;
-
-    a {
-      font-size: rem(36);
-      font-weight: 700;
-    }
-
-    span {
-      display: block;
-      font-size: rem(56);
-      line-height: 1.5;
-    }
-  }
-}
-
-.public-holiday {
-
-}
