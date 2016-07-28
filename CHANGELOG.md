@@ -5,6 +5,8 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Static related topics for department homepages
+
 ### Changed
 
 ### Fixed
@@ -15,7 +17,6 @@ This file is influenced by http://keepachangelog.com/.
 
 - Support setting user names in admin
 - Allow users to specify their name when they sign up
-- Static related topics for department homepages
 
 ### Changed
 
