@@ -2,6 +2,7 @@ module Editorial
   class NewsController < EditorialController
     include ::NodesHelper
     before_action :set_sections_by_membership, only: [:index, :new, :create, :edit]
+    before_action ->() { authorize! :create, :news }, only: [:new, :create]
 
     def index
       # TODO: return news editorial index
@@ -16,7 +17,6 @@ module Editorial
     end
 
     def new
-      authorize! :create, :news
       @editor = 'simple'
       @form = NewsArticleForm.new(NewsArticle.new)
       if params[:publisher].present?
@@ -25,7 +25,6 @@ module Editorial
     end
 
     def create
-      authorize! :create, :news
       @form = NewsArticleForm.new(NewsArticle.new)
       @form.prepopulate!
 
