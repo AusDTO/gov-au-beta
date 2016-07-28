@@ -23,6 +23,7 @@ news1 = NewsArticle.with_name(
     }
   ) do |news_article|
     news_article.name = "Business News"
+    news_article.release_date = Date.today
   end
 news1.revise!(content_body: 'foobar').apply!
 
