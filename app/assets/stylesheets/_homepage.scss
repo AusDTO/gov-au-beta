@@ -57,7 +57,7 @@
     }
 
     .population-infographic {
-      background: url('/assets/home/australia-map.svg');
+      background: url(asset-path('home/australia-map.svg'));
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
