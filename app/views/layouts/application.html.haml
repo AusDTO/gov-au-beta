@@ -9,17 +9,22 @@
     %header{role: 'banner'}
       = render 'application/signed_in_nav' if user_signed_in?
       %section.govau--header
-        .wrapper
-          .govau--logo
-            %a.logo{href: root_path}
-              gov.au
-            %span.badge--beta beta
-      %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
-        .wrapper
-          = breadcrumbs style: :ul, class: nil
-      - if content_for?(:header)
-        %section.hero
-          .wrapper= yield(:header)
+        - if content_for?(:header)
+          = yield(:header)
+        - else
+          .wrapper
+            .govau--logo
+              logo-govau-full-2x.png width=205
+              .brandbar.default
+                .b1
+                .b2
+            = #render partial: 'feedback_and_menu'
+
+          %nav.breadcrumbs--inverted{'aria-label' => 'breadcrumb'}
+            .wrapper
+              = breadcrumbs style: :ul, class: nil
+
+    = yield(:after_header)
 
     %main
       - if content_for?(:navbar)

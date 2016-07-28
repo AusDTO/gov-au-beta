@@ -1,0 +1,45 @@
+= inside_layout :application do
+  = yield
+
+  = content_for :header do
+    .wrapper
+      .govau--logo
+        logo-crest-2x.png asset width=65
+      = #render partial: 'feedback_and_menu'
+      .homeintro
+        %h1
+          %span.govau--text
+          %span.visuallyhidden
+            GOV.AU homepage
+        %p
+          Your guide to finding and using Australian Government services.
+      .links-group
+        %h2 Popular links
+        %ul
+          %li
+            = link_to 'Dates and times', '#'
+          %li
+            = link_to 'Tax returns', '#'
+          %li
+            = link_to 'Broadband', '#'
+          %li
+            = link_to 'Elections', '#'
+          %li
+            = link_to 'Television reception', '#'
+          %li
+            = link_to 'School holidays', '#'
+          %li
+            = link_to 'This is a link', '#'
+          %li
+            = link_to 'This is a link', '#'
+
+
+  = content_for :meta_description do
+    - if node.short_summary
+      = content_for :meta_description do
+        = node.short_summary
+
+  = content_for :after_header do
+    .brandbar.default
+      .b1
+      .b2
