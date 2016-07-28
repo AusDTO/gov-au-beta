@@ -7,6 +7,8 @@ This file is influenced by http://keepachangelog.com/.
 
 - Support setting user names in admin
 - Allow users to specify their name when they sign up
+- Refactor homepage images into responsive HTML components
+- Update homepage copy
 
 ### Changed
 
