@@ -5,8 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Support setting user names in admin
+- Allow users to specify their name when they sign up
+
 ### Changed
+
 - Wrapped news summary in abstract block
+- Show currently signed in name in the top right
 
 ### Fixed
 
