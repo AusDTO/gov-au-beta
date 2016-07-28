@@ -1,0 +1,16 @@
+- topic_data = STATIC_DATA[:department_topics][node.slug]
+- if topic_data.present?
+  %h2 Information and services
+  %p
+    = topic_data.blurb
+  %ul.list-vertical--thirds
+    - topic_data.topics.each do |topic|
+      %li
+        %figure{ style: 'height: 100px' }
+          = image_tag topic.image, alt: topic.name
+        %article
+          %h3
+            - if topic.respond_to? :url
+              = link_to(topic.name, topic.url)
+            - else
+              = link_to(topic.name, '#')
