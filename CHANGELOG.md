@@ -8,10 +8,14 @@ This file is influenced by http://keepachangelog.com/.
 - Static related topics for department homepages
 
 ### Changed
+- Updated to ui-kit v1.5
+- News hero is now conditional on whether it's the root or section news index
+
 
 ### Fixed
 
  - Listing pages of departments/news/ministers etc. now show links correctly styled
+
 
 
 ## [v0.7.1] - 2016-07-28

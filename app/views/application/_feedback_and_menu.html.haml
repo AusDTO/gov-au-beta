@@ -1,0 +1,21 @@
+.feedback{tabindex: '1'}
+  = link_to 'Give feedback', '#', class: 'button-feedback'
+%button.global-nav-toggle{'aria-controls' => 'global-nav'} Menu
+%nav.global-nav#global-nav{'aria-label' => 'global navigation',
+                               tabindex: '2',
+                               'aria-expanded' => 'false'}
+  %ul
+    %li
+      = link_to 'About us', '#'
+    %li
+      = link_to 'Information and services', '#'
+    %li
+      = link_to 'Ministers', '#'
+    %li
+      = link_to 'News', '#'
+    %li
+      = link_to 'Departments & Agencies', '#'
+    %li
+      = link_to 'Contact us', '#'
+  .feedback
+    =link_to 'Give feedback', '#', class: 'button--feedback'

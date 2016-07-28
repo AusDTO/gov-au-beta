@@ -17,6 +17,7 @@ namespace :ui_kit do
       text = File.read(file_name)
       text = text.gsub("asset-data-url('build/latest/img/icons/'", "asset-data-url('icons/'")
       text = text.gsub("asset-data-url('assets/img/icons/'", "asset-data-url('icons/'")
+      text = text.gsub("url('../latest/img/", "asset-url('")
       file = File.new file_name, 'wb+'
       file.write text
 

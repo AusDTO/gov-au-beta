@@ -2,16 +2,18 @@
   = yield
 
   = content_for :after_header do
-    %div{class: "hero-sml #{hero_class(@section)}"}
+    %div{class: "hero-med #{hero_class(@section)}"}
       .wrapper
-        %p
+        %h1
           = @section.name
+        %p
+          = @section.summary
 
 
-  = content_for :meta_description do
-    - if node.short_summary
-      = content_for :meta_description do
-        = node.short_summary
+
+  - if node.short_summary
+    = content_for :meta_description do
+      = node.short_summary
 
   = content_for :toolbar_actions do
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
