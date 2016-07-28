@@ -14,6 +14,7 @@ This file is influenced by http://keepachangelog.com/.
  - Listing pages of departments/news/ministers etc. now show links correctly styled
 
 
+
 ## [v0.7.1] - 2016-07-28
 ### Added
 
