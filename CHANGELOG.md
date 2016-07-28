@@ -15,6 +15,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+- Added breadcrumbs to school holiday pages
+
 
 ## [v0.7.0] - 2016-07-27
 
