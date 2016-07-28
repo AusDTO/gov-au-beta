@@ -6,14 +6,38 @@
   %dl
     %dt Name
     %dd
-      - if content.name.nil?
+      - if content[:name].nil?
         = defaults[:name]
       - else
-        = content.name
-    %dt Body
+        = content[:name]
+
+    %dt Short summary
     %dd
-      - if content.content_body.nil?
+      - if content[:short_summary].nil?
+        none
+      - else
+        = content[:short_summary]
+
+    %dt Summary
+    %dd
+      - if content[:summary].nil?
         none
       - else
         %div.content-block
-          != markdown_content content.content_body
+          != markdown_content content[:summary]
+
+    %dt Body
+    %dd
+      - if content[:content_body].nil?
+        none
+      - else
+        %div.content-block
+          != markdown_content content[:content_body]
+
+    - content.optional_keys_in_order.each do |key|
+      %dt= key.to_s.titleize
+      %dd
+        - if content[key].nil?
+          none
+        - else
+          = content[key]

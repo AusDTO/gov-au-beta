@@ -10,7 +10,28 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 
+## [v0.7.1] - 2016-07-28
+### Added
+
+- Support setting user names in admin
+- Allow users to specify their name when they sign up
+
+### Changed
+
+- Wrapped news summary in abstract block
+- Show currently signed in name in the top right
+- Submissions now show all content fields other than just the name & body.
+- Refactor homepage images into responsive HTML components
+- Update homepage copy
+- Refactor SCSS image inlining
+
+### Fixed
+
+- Added breadcrumbs to school holiday pages
+
+
 ## [v0.7.0] - 2016-07-27
+### Added
 
 - Added admin-only option to stop a node appearing in breadcrumbs and the menu
 - Added links on department homepages to related ministers

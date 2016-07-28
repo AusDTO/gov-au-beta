@@ -19,6 +19,18 @@ class RevisionContent
     end
   end
 
+  def main_keys_in_order
+    [:name, :short_summary, :summary, :content_body]
+  end
+
+  def optional_keys_in_order
+    node.all_content.keys.reject do |key|
+      get_content(key).nil?
+    end.reject do |key|
+      main_keys_in_order.include?(key)
+    end.sort
+  end
+
   def get_content(content_key)
     return nil unless traversal_sequence.any? { |rev| rev.diffs[content_key].present? }
 
@@ -44,6 +56,10 @@ class RevisionContent
     else
       super
     end
+  end
+
+  def [](key)
+    get_content(key)
   end
 
   private

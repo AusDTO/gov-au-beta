@@ -45,3 +45,4 @@ bower.json
 # ignore dummy app logs
 engines/synergy/spec/dummy/db/*.sqlite3
 engines/synergy/spec/dummy/log
+/vendor/assets/images.zip
