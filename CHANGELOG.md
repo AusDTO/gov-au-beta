@@ -6,6 +6,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 
 ### Changed
+- Wrapped news summary in abstract block
 
 ### Fixed
 
