@@ -12,10 +12,11 @@ module Editorial
         section: params[:section],
         slug: params[:slug]
       )
-
+      authorize! :read, @article
     end
 
     def new
+      authorize! :create, :news
       @editor = 'simple'
       @form = NewsArticleForm.new(NewsArticle.new)
       if params[:publisher].present?
@@ -24,6 +25,7 @@ module Editorial
     end
 
     def create
+      authorize! :create, :news
       @form = NewsArticleForm.new(NewsArticle.new)
       @form.prepopulate!
 

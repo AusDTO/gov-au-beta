@@ -19,6 +19,7 @@ module Editorial
     end
 
     def create
+      authorize! :update, @node
       @submission = SubmissionCreator.new(@node, params, current_user).create!
 
       if @submission.submit! current_user
@@ -31,7 +32,7 @@ module Editorial
     end
 
     def new
-
+      authorize! :update, @node
       @editor = params[:editor] || 'simple'
     end
 

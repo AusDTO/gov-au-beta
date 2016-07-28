@@ -43,6 +43,7 @@ module Editorial
 
     def show
       @rqst = Request.find(params[:id])
+      authorize! :show, @rqst
       @requestor = @rqst.user
       @approver = @rqst.approver.decorate unless @rqst.approver.nil?
       @owners = User.with_role(:owner, @rqst.section)
@@ -71,6 +72,13 @@ module Editorial
 
       redirect_to editorial_root_path
 
+    end
+
+    protected
+
+    # Users can see requests even if they aren't a collaborator on the section
+    def skip_view_section_auth?
+      true
     end
 
     private

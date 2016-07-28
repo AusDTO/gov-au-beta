@@ -1,9 +1,11 @@
 module Editorial
   class SectionsController < EditorialController
     before_action :find_section
+    before_action ->() { authorize! :read, @section }, unless: :skip_view_section_auth?
     decorates_assigned :section
     decorates_assigned :users, with: UserDecorator
     layout 'editorial_section'
+
 
     def show
       @filter = %w(my_pages submissions).detect { |f| f == params[:filter] }
@@ -12,6 +14,12 @@ module Editorial
     def collaborators
       @pending = Request.where(section: @section, state: :requested)
       @users = @section.users
+    end
+
+    protected
+
+    def skip_view_section_auth?
+      false
     end
 
     private

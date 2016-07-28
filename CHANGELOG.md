@@ -11,6 +11,9 @@ This file is influenced by http://keepachangelog.com/.
 
 - Amended ministers index text
 - Disabled Turbolinks
+- Added missing authorization checks
+- Removed spurious `<p>` tag around the node content body
+- Applied proper ui-kit styling to the approve membership button on requests
 
 ### Fixed
 

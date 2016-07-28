@@ -25,6 +25,11 @@ class Ability
             node.section.cms_type == Section::COLLABORATE_CMS
       end
 
+      can :show, Request do |request|
+        user == request.user ||
+            user.has_role?(:owner, request.section)
+      end
+
       can :update, Request do |request|
         request.state == 'requested' &&
             user.has_role?(:owner, request.section) &&
@@ -38,6 +43,11 @@ class Ability
       can :create_in, Section do |section|
         user.has_role?(:author, section) &&
             section.cms_type == Section::COLLABORATE_CMS
+      end
+
+      can :create, :news do
+        # if author of any section
+        user.roles.where(name: :author).count > 0
       end
 
       can :read, Section do |section|
@@ -59,6 +69,6 @@ class Ability
     end
 
     # Everyone (signed in or not) can view published pages.
-    can :read, Node, :state => :published
+    can :read_public, Node, :state => :published
   end
 end
