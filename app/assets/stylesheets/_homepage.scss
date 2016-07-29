@@ -10,6 +10,14 @@ $light-teal: #00a1bb;
 .home-heading {
   border-bottom: 6px solid $light-aqua;
   padding-bottom: $tiny-spacing;
+
+  &.small {
+    font-size: rem(24);
+
+    @include media($tablet) {
+      font-size: rem(26);
+    }
+  }
 }
 
 //controls column layout
@@ -40,12 +48,12 @@ $light-teal: #00a1bb;
     list-style: none;
     background-color: $background-secondary-colour;
     margin-bottom: 2 * $base-spacing;
-    padding: 2 * $base-spacing $base-spacing;
+    padding: 1.7 * $base-spacing $base-spacing;
 
     @include media($tablet) {
       display: table;
       width: 100%;
-      height: 333px;
+      height: 309px;
 
       li {
         display: table-cell;
@@ -127,13 +135,13 @@ a {
       border-top: 0;
       color: #00a1bb;
       display: block;
-      font-size: rem(24);
+      font-size: rem(20);
       line-height: 1;
       padding: .75 * $small-spacing $small-spacing;
 
       span {
         display: block;
-        font-size: rem(70);
+        font-size: rem(62);
         line-height: 1;
       }
     }
