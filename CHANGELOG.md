@@ -5,7 +5,11 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Link to 'Our Role' beneath related topics for department homepages
+
 ### Changed
+
+- Amended ministers index text
 
 ### Fixed
 
