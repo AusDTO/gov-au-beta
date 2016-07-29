@@ -9,6 +9,9 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+- Added validation to news article release_date
+
+
 ## [v0.8.0] - 2016-07-29
 ### Added
 
@@ -43,7 +46,6 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 - Added breadcrumbs to school holiday pages
-- Added validation to news article release_date
 
 
 ## [v0.7.0] - 2016-07-27
