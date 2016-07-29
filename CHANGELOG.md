@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 - Amended ministers index text
+- Disabled Turbolinks
 
 ### Fixed
 
