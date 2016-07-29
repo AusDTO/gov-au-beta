@@ -5,6 +5,14 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+### Changed
+
+### Fixed
+
+
+## [v0.8.1] - 2016-07-29
+### Added
+
 - Link to 'Our Role' beneath related topics for department homepages
 - Support for Google Tag Manager
 
