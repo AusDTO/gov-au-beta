@@ -35,8 +35,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
- - Listing pages of departments/news/ministers etc. now show links correctly styled
-
+- Listing pages of departments/news/ministers etc. now show links correctly styled
+- Fixed editing custom template nodes
 
 
 ## [v0.7.1] - 2016-07-28

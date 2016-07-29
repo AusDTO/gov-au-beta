@@ -58,6 +58,8 @@ RSpec.describe 'editing content', type: :feature do
       parent: section1.home_node, section: section1) }
     let!(:node2) { Fabricate(:news_article, state: 'published',
       section: section2) }
+    let!(:node3) { Fabricate(:custom_template_node, state: 'published',
+      section: section2) }
 
     before :each do
       author.add_role(:author, section1)
@@ -65,13 +67,15 @@ RSpec.describe 'editing content', type: :feature do
     end
 
     it 'should prefill the form' do
-      [node1, node2].each do |node|
+      [node1, node2, node3].each do |node|
         visit public_node_path(node)
         click_link 'Edit'
         expect(find_field('Body').value).to eq node.content_body
         expect(find_field('Name').value).to eq node.name
         expect(find_field('Short summary').value).to eq node.short_summary
-        expect(find_field('Long summary').value).to eq node.summary
+        if has_field?('Long summary')
+          expect(find_field('Long summary').value).to eq node.summary
+        end
       end
     end
 

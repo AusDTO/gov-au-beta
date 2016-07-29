@@ -1,7 +1,9 @@
 module EditorialHelper
 
   def form_type(node_clazz)
-    "#{node_clazz.name}Form".constantize
+    # Because of development mode autoloading, the class may not exist until
+    # we call constantize. Hence just catching the exception.
+    "#{node_clazz.name}Form".constantize rescue NodeForm
   end
 
   def show_view_editorial_link?
