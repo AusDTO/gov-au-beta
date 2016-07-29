@@ -14,6 +14,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 - Added validation to news article release_date
+- Agencies link on homepage does nothing rather than 404ing
 
 
 ## [v0.8.0] - 2016-07-29
