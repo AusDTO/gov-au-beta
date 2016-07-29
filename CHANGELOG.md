@@ -9,6 +9,29 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+
+## [v0.8.1] - 2016-07-29
+### Added
+
+- Link to 'Our Role' beneath related topics for department homepages
+- Support for Google Tag Manager
+
+### Changed
+
+- Amended ministers index text
+- Disabled Turbolinks
+- Added missing authorization checks
+- Removed spurious `<p>` tag around the node content body
+- Applied proper ui-kit styling to the approve membership button on requests
+
+### Fixed
+
+- Added validation to news article release_date
+- Agencies link on homepage does nothing rather than 404ing
+- Distributions saving on news article create
+- Removed borders from related topics on department homepages
+
+
 ## [v0.8.0] - 2016-07-29
 ### Added
 
@@ -21,8 +44,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
- - Listing pages of departments/news/ministers etc. now show links correctly styled
-
+- Listing pages of departments/news/ministers etc. now show links correctly styled
+- Fixed editing custom template nodes
 
 
 ## [v0.7.1] - 2016-07-28

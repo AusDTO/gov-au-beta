@@ -1,5 +1,5 @@
 %ul.secondary-controls
-  - if node && node.section
+  - if show_view_editorial_link?
     %li
       = link_to 'View in editorial', editorial_section_node_path(node.section, node)
 

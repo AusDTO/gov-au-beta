@@ -58,6 +58,10 @@ RSpec.describe Editorial::NewsController, type: :controller do
           expect(Node.last.section).to eq(section_a)
         end
 
+        it 'should have the specified distribution' do
+          expect(Node.last.sections).to include section_b
+        end
+
         it { is_expected.to set_flash[:notice].to('Your changes have been submitted') }
         it { is_expected.to redirect_to(editorial_section_submission_path(section_a.id, Submission.last)) }
       end

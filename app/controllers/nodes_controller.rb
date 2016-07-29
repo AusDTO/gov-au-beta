@@ -8,7 +8,7 @@ class NodesController < ApplicationController
 
     @node = Node.find_by_path! params[:path] || ''
 
-    raise ActiveRecord::RecordNotFound unless can? :read, @node
+    raise ActiveRecord::RecordNotFound unless can? :read_public, @node
     @section = @node.section
     if @section
       @news = NewsArticle.published_for_section(@section).limit(3)

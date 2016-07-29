@@ -4,7 +4,7 @@ RSpec.describe Editorial::SectionsController, type: :controller do
   render_views
 
   let!(:section) { Fabricate(:section) }
-  let!(:user) { Fabricate(:user) }
+  let!(:user) { Fabricate(:user, author_of: section) }
 
   describe 'GET #show' do
 
@@ -13,10 +13,6 @@ RSpec.describe Editorial::SectionsController, type: :controller do
     end
 
     context 'when user is authenticated and views all pages filter' do
-      # before do
-      #   sign_in(user)
-      # end
-
       it 'should load the page' do
         get :show, section_id: section
         expect(response.status).to eq(200)
@@ -67,7 +63,7 @@ RSpec.describe Editorial::SectionsController, type: :controller do
           get :collaborators, section_id: section
 
           expect(response.status).to eq(200)
-          expect(assigns(:users)).to eq([author, reviewer])
+          expect(assigns(:users)).to match_array([user, author, reviewer])
         end
       end
 

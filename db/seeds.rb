@@ -23,7 +23,9 @@ news1 = NewsArticle.with_name(
     }
   ) do |news_article|
     news_article.name = "Business News"
+    news_article.release_date = Date.today
   end
+news1.update(release_date: Date.today) if news1.release_date.blank?
 news1.revise!(content_body: 'foobar').apply!
 
 def make_node(parent, name, klass = GeneralContent)

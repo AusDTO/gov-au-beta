@@ -4,6 +4,7 @@ module Editorial
     include ::NodesHelper
 
     before_action :find_node, only: [:new, :create]
+    before_action ->() { authorize! :update, @node }, only: [:new, :create]
     before_action :check_submission_validity, only: [:new, :create]
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
@@ -31,7 +32,6 @@ module Editorial
     end
 
     def new
-
       @editor = params[:editor] || 'simple'
     end
 

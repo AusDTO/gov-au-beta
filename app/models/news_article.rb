@@ -25,6 +25,7 @@ class NewsArticle < Node
   }
 
   validates_presence_of :section
+  validates_presence_of :release_date
 
   def self.published_for_section(section)
     NewsArticle.by_section(section).by_release_date.by_published_at.published

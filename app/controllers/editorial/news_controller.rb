@@ -2,6 +2,7 @@ module Editorial
   class NewsController < EditorialController
     include ::NodesHelper
     before_action :set_sections_by_membership, only: [:index, :new, :create, :edit]
+    before_action ->() { authorize! :create, :news }, only: [:new, :create]
 
     def index
       # TODO: return news editorial index
@@ -12,7 +13,7 @@ module Editorial
         section: params[:section],
         slug: params[:slug]
       )
-
+      authorize! :read, @article
     end
 
     def new
@@ -34,8 +35,8 @@ module Editorial
           # TODO: move this into a form validator
           # Prevents distribution list being created for publisher
           @form.section_ids.reject! do |s_id|
-            s.blank? || s_id == @form.section_id ||
-                !current_user.is_member?(Section.find(s))
+            s_id.blank? || s_id == @form.section_id ||
+                !current_user.is_member?(Section.find(s_id))
           end
 
           section = Section.find(@form.section_id)

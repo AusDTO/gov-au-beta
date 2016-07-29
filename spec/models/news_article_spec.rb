@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe NewsArticle, type: :model do
   it { expect(described_class).to be < Node }
   it { is_expected.to respond_to :release_date }
+  it { is_expected.to validate_presence_of :release_date }
 
   describe '#published_for_section' do
     let!(:section) { Fabricate(:section) }

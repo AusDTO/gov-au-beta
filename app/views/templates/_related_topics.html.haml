@@ -3,7 +3,7 @@
   %h2 Information and services
   %p
     = topic_data.blurb
-  %ul.list-vertical--thirds
+  %ul.list-vertical--thirds.no-border
     - topic_data.topics.each do |topic|
       %li
         %figure{ style: 'height: 100px' }
@@ -14,3 +14,7 @@
               = link_to(topic.name, topic.url)
             - else
               = link_to(topic.name, '#')
+  %p
+    - our_role = node.children.find {|n| n.slug == 'our-role' }
+    - if our_role.present?
+      = link_to 'All information and services', public_node_path(our_role)

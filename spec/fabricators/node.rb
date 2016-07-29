@@ -34,5 +34,5 @@ end
 
 Fabricator(:custom_template_node, class_name: :custom_template_node, from: :node) do
   name { Fabricate.sequence(:custom_template_node_name) { |i| "custom-template-node-#{i}" } }
-  template 'custom_template'
+  template 'custom/public_holidays_tas'
 end

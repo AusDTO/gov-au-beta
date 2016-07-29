@@ -223,5 +223,7 @@ To create a new node type, do the following:
 * Add the node type to list in `Editorial::NodeController#prepare`
 * Create a template in `views/templates/<node_class>`
 * If required, create a subclass of `NodeDecorator` with class specific decorator logic
+* If required, create a subclass of `NodeForm` with any additional revisable attributes
+    with an associated template partial in `editorial/submissions`
 * If required, update `seeds.rb` to have examples of the node type
 * Create tests to verify subclass specific logic
