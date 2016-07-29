@@ -37,7 +37,8 @@ class Ability
       end
 
       can :read, Node do |node|
-        user.has_role?(:reviewer, node.section)
+        user.has_role?(:reviewer, node.section) ||
+            user.has_role?(:owner, node.section)
       end
 
       can :create_in, Section do |section|

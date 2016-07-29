@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do
       resources :submissions
-      resources :requests
+      resources :requests, only: [:new, :create, :show, :update]
       get 'collaborators' => 'sections#collaborators', as: 'collaborators'
 
       resources :nodes, only: [:show, :create, :new, :edit, :update, :index] do
