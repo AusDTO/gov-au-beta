@@ -18,6 +18,7 @@ module Editorial
 
     def show
       @node = Node.find(params[:id])
+      authorize! :read, @node
       @section = @node.section
       if @section
         @news = NewsArticle.published_for_section(@section).limit(3)
