@@ -6,6 +6,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 
 - Link to 'Our Role' beneath related topics for department homepages
+- Support for Google Tag Manager
 
 ### Changed
 
