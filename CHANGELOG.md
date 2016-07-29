@@ -15,6 +15,7 @@ This file is influenced by http://keepachangelog.com/.
 
 - Added validation to news article release_date
 - Agencies link on homepage does nothing rather than 404ing
+- Distributions saving on news article create
 
 
 ## [v0.8.0] - 2016-07-29
