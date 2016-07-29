@@ -22,7 +22,7 @@ class NewsController < ApplicationController
       slug: params[:slug],
       section: @section
     )
-    raise ActiveRecord::RecordNotFound unless can? :read, @node
+    raise ActiveRecord::RecordNotFound unless can? :read_public, @node
     render_node node
   end
 

@@ -22,11 +22,13 @@
   - owners.each do |owner|
     %li #{owner.display_name}
 
+%p
+  Current status: #{rqst.actioned_status}
+
 -if current_user.in?(@owners)
   - if rqst.open?
     = simple_form_for @rqst, url: editorial_section_request_path(@section, @rqst) do |f|
       =f.input :state, input_html: {value: 'approved'}, as: :hidden
-      =f.submit 'Approve membership'
-#{rqst.actioned_status}
+      =f.button :button, 'Approve membership'
 
 =link_to 'Back to topic', public_node_path(@rqst.section.home_node)

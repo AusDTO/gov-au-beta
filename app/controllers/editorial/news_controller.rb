@@ -2,6 +2,7 @@ module Editorial
   class NewsController < EditorialController
     include ::NodesHelper
     before_action :set_sections_by_membership, only: [:index, :new, :create, :edit]
+    before_action ->() { authorize! :create, :news }, only: [:new, :create]
 
     def index
       # TODO: return news editorial index
@@ -12,7 +13,7 @@ module Editorial
         section: params[:section],
         slug: params[:slug]
       )
-
+      authorize! :read, @article
     end
 
     def new
