@@ -34,8 +34,8 @@ module Editorial
           # TODO: move this into a form validator
           # Prevents distribution list being created for publisher
           @form.section_ids.reject! do |s_id|
-            s.blank? || s_id == @form.section_id ||
-                !current_user.is_member?(Section.find(s))
+            s_id.blank? || s_id == @form.section_id ||
+                !current_user.is_member?(Section.find(s_id))
           end
 
           section = Section.find(@form.section_id)
