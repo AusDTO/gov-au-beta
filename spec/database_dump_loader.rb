@@ -3,8 +3,8 @@
 #
 # Only COPY blocks are extracted. Any other commands, comments, whitespace is ignored.
 #
-# Skips content_blocks (because it's still in prod, and schema_migrations
-# (because db:test:prepare will already have popuated it and you'll get unique
+# Skips content_blocks (because it's still in prod), and schema_migrations
+# (because db:test:prepare will already have populated it and you'll get unique
 # key violations).
 #
 class DatabaseDumpLoader
