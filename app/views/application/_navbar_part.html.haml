@@ -4,9 +4,9 @@
   - nodes.reject{|n| n.options.suppress_in_nav}.each do |node|
     %li
       -# TODO: Handle nav suppression at any level of the hierarchy (not just leaf nodes)
-      - klass = 'is-active' if node == active || active.options.suppress_in_nav && node == active.parent
+      - klass = 'is-active current' if !active.nil? && (node == active || (active.options.suppress_in_nav && node == active.parent))
       %a{ href: public_node_path(node), class: klass }
         = node.name
-      - if depth > 1
+      - if depth > 1 && !node.children.published.empty?
         %ul
           = render partial: 'navbar_part', locals: { nodes: node.children.published, depth: depth - 1, active: active }
