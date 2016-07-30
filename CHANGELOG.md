@@ -5,6 +5,8 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Incumbent minister's name next to related minister link in dept homepages
+
 ### Changed
 
 ### Fixed
