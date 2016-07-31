@@ -69,6 +69,12 @@ class RevisionContent
   end
 
   def traversal_sequence
-    revision.self_and_ancestors.reverse
+
+    # When building the revisions history on-top of which this
+    # revision should be applied, only include those that have
+    # been applied.
+
+    revision.self_and_ancestors.select(&:applied?).reverse
+
   end
 end
