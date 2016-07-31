@@ -16,6 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 
 - Fixed footer markup
 
+
 ## [v0.8.1] - 2016-07-29
 ### Added
 
