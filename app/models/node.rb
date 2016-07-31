@@ -126,6 +126,10 @@ class Node < ApplicationRecord
     return RootNode.first
   end
 
+  def authors
+    submissions.map(&:submitter).uniq
+  end
+
   private
 
   # Override this method in subclasses to have different routes per subclass.
