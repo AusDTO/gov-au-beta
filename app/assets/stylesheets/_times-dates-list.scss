@@ -36,3 +36,16 @@
     }
   }
 }
+
+p.abstract--dates {
+  line-height: $base-heading-leading;
+  font-weight: $base-font-weight;
+  margin-bottom: $tiny-spacing;
+  margin-top: $base-spacing;
+  font-size: rem(24);
+  font-weight: $heading-font-weight;
+
+  @include media($tablet) {
+    font-size: rem(26);
+  }
+}

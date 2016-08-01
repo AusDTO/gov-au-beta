@@ -6,19 +6,16 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 
 - Section news index page now has a navbar consistent with rest of section
-
 - Incumbent minister's name next to related minister link in dept homepages
-
 - Added Times and Dates content for ACT, Victoria and NSW
-
 - Links to State government websites on homepage
 
-
 ### Changed
-- News item listings use h3s instead of h2s
 
+- News item listings use h3s instead of h2s
 - Updated 'Popular now' links
 - Upgrade UI kit to v1.7.1
+- Make 'abstract' CSS class in dates and times custom templates look like h3
 
 ### Fixed
 
