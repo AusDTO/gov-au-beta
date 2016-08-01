@@ -35,9 +35,12 @@ module Editorial
           # TODO: move this into a form validator
           # Prevents distribution list being created for publisher
           @form.section_ids.reject! do |s_id|
-            s_id.blank? || s_id == @form.section_id ||
-                !current_user.is_member?(Section.find(s_id))
+            s_id.blank? || !current_user.is_member?(Section.find(s_id))
           end
+
+          # Ensure the publisher is _always_ added to the distribution list
+          @form.section_ids.append @form.section_id\
+            if !@form.section_ids.include? @form.section_id
 
           section = Section.find(@form.section_id)
           submission = NodeCreator.new(section, @form).perform!(current_user)
@@ -62,6 +65,7 @@ module Editorial
       @form = NewsArticleMetadataForm.new(@node)
     end
 
+    # TODO: DRY up create and update into a service object
     def update
       @node = Node.find(params[:id])
       authorize! :update, @node
@@ -69,11 +73,13 @@ module Editorial
 
       if @form.validate(params.require(:node))
         if current_user.is_member?(Section.find(@form.section_id))
-          @form.section_ids.reject! do |s|
-            s.blank? ||
-              s == @form.section_id.to_s ||
-              !current_user.is_member?(Section.find(s))
+          @form.section_ids.reject! do |s_id|
+            s_id.blank? || !current_user.is_member?(Section.find(s_id))
           end
+
+          # Ensure the publisher is _always_ added to the distribution list
+          @form.section_ids.append @form.section_id\
+            if !@form.section_ids.include? @form.section_id
 
           @form.save do |params|
             @node.section_ids = params[:section_ids]
