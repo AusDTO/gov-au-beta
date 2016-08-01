@@ -30,7 +30,7 @@ This file is influenced by http://keepachangelog.com/.
 - Fixed the markup of the hero on section news listing page
 - UI Kit updater now overwrites updated images
 - Public holiday and School holiday dates for QLD and TAS
-
+- States in dates and times consistently use h4
 
 ## [v0.8.1] - 2016-07-29
 ### Added
