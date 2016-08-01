@@ -1,8 +1,9 @@
 class NewsController < ApplicationController
   include NodesHelper
-  decorates_assigned :node
   before_action :set_section, only: [:show]
 
+  decorates_assigned :node
+  decorates_assigned :articles
 
   def index
     @articles = NewsArticle.published.by_release_date.by_published_at
