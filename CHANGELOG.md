@@ -15,6 +15,7 @@ This file is influenced by http://keepachangelog.com/.
 - Made agencies link null again
 - Abstract markup fixed to match uikit-1.7.1
 - Added missing heros to /ministers, /departments and /categories
+- Images provided in vendor folder can be referenced using the asset system
 
 ## [v0.9.0] - 2016-08-01
 - Section news index page now has a navbar consistent with rest of section
