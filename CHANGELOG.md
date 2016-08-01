@@ -16,6 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 - Updated 'Popular now' links
 - Upgrade UI kit to v1.7.1
 - Make 'abstract' CSS class in dates and times custom templates look like h3
+- Removed dummy links from the footer
 
 ### Fixed
 
