@@ -20,7 +20,7 @@ RSpec.describe 'demo', type: :feature do
     page.find('.next-holiday a').click
 
     expect(page.current_path).to eql("/times-and-dates/australian-public-holidays")
-    expect(page).to have_css('h1', :text => 'Australian Public holidays')
+    expect(page).to have_css('h1', :text => 'Australian public holidays')
     page.find('a', :text => 'School holidays and term dates').click
 
     expect(page.current_path).to eql("/times-and-dates/school-holidays-and-term-dates")
@@ -55,4 +55,3 @@ RSpec.describe 'demo', type: :feature do
     #expect(page.current_path).to eql('/minister-for-communications')
   end
 end
-
