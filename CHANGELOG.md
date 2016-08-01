@@ -20,9 +20,10 @@ This file is influenced by http://keepachangelog.com/.
 - Updated 'Popular now' links
 
 ### Fixed
-- Section navbar correctly displays the active and current list items
 
+- Section navbar correctly displays the active and current list items
 - Fixed footer markup
+- Added the long summary form field back to the new submission page
 
 
 ## [v0.8.1] - 2016-07-29
