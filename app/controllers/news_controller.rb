@@ -13,7 +13,7 @@ class NewsController < ApplicationController
     if params[:section].present?
       set_section
       set_menu_nodes
-      @articles = @articles.by_section(@section)
+      @articles = @section.news_articles.published.by_release_date.by_published_at
     end
   end
 
