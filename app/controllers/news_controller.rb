@@ -7,8 +7,11 @@ class NewsController < ApplicationController
   def index
     @articles = NewsArticle.published.by_release_date.by_published_at
 
+    # TODO: this will be refactored out once node-hierarchy nav is implemented
+    # For now, this is the quickest way to get the same outcome
     if params[:section].present?
       set_section
+      set_menu_nodes
       @articles = @articles.by_section(@section)
     end
   end
