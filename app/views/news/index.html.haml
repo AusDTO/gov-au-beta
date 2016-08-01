@@ -1,5 +1,9 @@
 - if @section
   - breadcrumb :section_news_articles, @section
+
+  = content_for :navbar do
+    = render partial: 'application/navbar', locals: {menu_nodes: @menu_nodes, active: @section.news_node}
+
 - else
   - breadcrumb :public_news_articles
 
@@ -16,18 +20,18 @@
         %p
           Announcements, media releases, interviews, speeches and more from the Australian Government.
 
-  %article.content-listing#content
-    %ul.list-horizontal
-      - @articles.each do |article|
-        %li
-          %article
-            %h2= link_to article.name, public_node_path(article)
-            %div.meta
-              %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
-              = link_to article.section.name, public_node_path(article.section.home_node), { rel: :author }
-            %p
-              #{article.short_summary}
-            %footer.tags
-              %dl
-                - article.sections.each do |section|
-                  %dd= link_to section.name, public_node_path(section.home_node)
+%article#content{class: "#{news_article_class}"}
+  %ul.list-horizontal
+    - @articles.each do |article|
+      %li
+        %article
+          %h3= link_to article.name, public_node_path(article)
+          %div.meta
+            %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
+            = link_to article.section.name, public_node_path(article.section.home_node), { rel: :author }
+          %p
+            #{article.short_summary}
+          %footer.tags
+            %dl
+              - article.sections.each do |section|
+                %dd= link_to section.name, public_node_path(section.home_node)

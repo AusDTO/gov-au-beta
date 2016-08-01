@@ -4,14 +4,20 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 ### Added
+- Section news index page now has a navbar consistent with rest of section
 
 - Incumbent minister's name next to related minister link in dept homepages
 
+- Added Times and Dates content for ACT, Victoria and NSW
+
 ### Changed
+- News item listings use h3s instead of h2s
 
 ### Fixed
+- Section navbar correctly displays the active and current list items
 
 - Fixed footer markup
+
 
 ## [v0.8.1] - 2016-07-29
 ### Added
