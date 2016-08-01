@@ -92,7 +92,7 @@
 	      if (!toggle) {
 	          toggleElem.textContent = elem.dataset.toggleLabel || 'Menu';
 	      }
-	      
+
 	      toggleElem.setAttribute('aria-controls', panelLabel);
 	      toggleElem.className = panelLabel + '-toggle';
 	      toggleElem.targetElem = elem;
@@ -292,5 +292,5 @@
 
 /***/ }
 /******/ ]);;
-// git version: c2879b72f2e20623587c3ab738ed4787c4ed94fa
-// created at: Fri Jul 29 2016 06:23:51 GMT+0000 (UTC)
+// git version: 95ac92b7afef87a672e97645a8cfd726a5266af9
+// created at: Mon Aug 01 2016 05:08:08 GMT+0000 (UTC)
