@@ -67,6 +67,7 @@ group :development do
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
   gem 'listen'
+  gem 'letter_opener'
 end
 
 group :test, :development do
