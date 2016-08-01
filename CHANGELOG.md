@@ -25,6 +25,7 @@ This file is influenced by http://keepachangelog.com/.
 - Fixed footer markup
 - Added the long summary form field back to the new submission page
 - Renamed summary to long summary in node creation form
+- Added News header to section news listing page
 
 
 ## [v0.8.1] - 2016-07-29
