@@ -166,7 +166,13 @@ RSpec.describe Editorial::NewsController, type: :controller do
 
         it 'should reject sections without membership' do
           news = NewsArticle.find(article.id)
-          expect(news.section_ids).to eq [section_b.id]
+          expect(news.section_ids).to_not include(section_c.id)
+        end
+
+        it 'should include publisher in distribution' do
+          news = NewsArticle.find(article.id)
+          expect(news.section_ids).to include(section_a.id)
+          expect(news.section_ids).to match_array([section_a.id, section_b.id])
         end
       end
     end
