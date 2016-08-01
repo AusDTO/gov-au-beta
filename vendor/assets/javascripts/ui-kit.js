@@ -70,7 +70,7 @@
 	     * @param {bool} collapsed - if `true`, panel is collapsed by default
 	     */
 	    initPanel: function(elem, collapsed) {
-	      var panelLabel = elem.dataset ? elem.dataset.label ? elem.dataset.label : elem.className : elem.className;
+	      var panelLabel = elem.dataset ? elem.getAttribute('label') ? elem.getAttribute('label') : elem.className : elem.className;
 
 	      elem.id = panelLabel;
 
@@ -84,15 +84,15 @@
 	     * @param {object} elem - containing element for collapsible nav
 	     */
 	    initToggle: function(elem, toggle) {
-	      var panelLabel = elem.dataset ? elem.dataset.label ? elem.dataset.label : elem.className : elem.className,
+	      var panelLabel = elem.dataset ? elem.getAttribute('label') ? elem.getAttribute('label') : elem.className : elem.className,
 	          toggleElem = toggle || document.createElement('button'),
 	          self = this;
 
 	      // console.log(panelLabel, toggle);
 	      if (!toggle) {
-	          toggleElem.textContent = elem.dataset.toggleLabel || 'Menu';
+	          toggleElem.textContent = elem.getAttribute('toggleLabel') || 'Menu';
 	      }
-	      
+
 	      toggleElem.setAttribute('aria-controls', panelLabel);
 	      toggleElem.className = panelLabel + '-toggle';
 	      toggleElem.targetElem = elem;
@@ -292,5 +292,5 @@
 
 /***/ }
 /******/ ]);;
-// git version: 8b8acbecc4609669ed24bca45987e911a176a227
-// created at: Thu Jul 28 2016 08:40:08 GMT+0000 (UTC)
+// git version: f4a7ac4db98f80cca27a35ee2981b3611282a667
+// created at: Mon Aug 01 2016 06:09:08 GMT+0000 (UTC)

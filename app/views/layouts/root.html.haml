@@ -8,16 +8,16 @@
       = #render partial: 'feedback_and_menu'
       .homeintro
         %h1
-          %span.govau--text
-          %span.visuallyhidden
+          %span.govau--text{class: sunstate_class}
+          %span.is-visuallyhidden
             GOV.AU homepage
         %p
-          Your guide to finding and using Australian Government services.
+          Your guide to finding Australian Government services and information.
       .links-group
-        %h2 Popular links
+        %h2 Popular now
         %ul
           %li
-            = link_to 'Public Holiday dates', '/times-and-dates/australian-public-holidays'
+            = link_to 'Public holiday dates', '/times-and-dates/australian-public-holidays'
           %li
             = link_to 'Lodge your tax return', '#'
           %li
@@ -25,13 +25,13 @@
           %li
             = link_to 'Visiting Australia', '#'
           %li
-            = link_to 'What can you bring to Australia', '#'
+            = link_to 'Elections', '#'
           %li
             = link_to 'Citizenship', '#'
           %li
-            = link_to 'School Holiday dates', '/times-and-dates/school-holidays-and-term-dates'
+            = link_to 'School holiday dates', '/times-and-dates/school-holidays-and-term-dates'
           %li
-            = link_to 'Government Jobs', '#'
+            = link_to 'Government jobs', '#'
 
 
   - if node.short_summary
@@ -39,6 +39,6 @@
       = node.short_summary
 
   = content_for :after_header do
-    .brandbar.default
+    .brandbar.default{class: sunstate_class}
       .b1
       .b2

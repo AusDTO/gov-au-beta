@@ -1,9 +1,9 @@
-%article#content{class: "content-main", tabindex: "-1"}
+%article#content{class: "content-main"}
   - breadcrumb :public_news_article, node
 
   %dl.list-horizontal
     %div.tags
-      - node.sections.each do |distribution|
+      - node.related_sections.each do |distribution|
         %dd= link_to distribution.name, public_node_path(distribution.home_node)
 
   %h1

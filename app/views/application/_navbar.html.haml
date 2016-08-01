@@ -1,11 +1,12 @@
 -# locals: menu_nodes, active
 
 %aside.sidebar
-  %nav.primary-nav{'aria-label' => 'main navigation'}
-    %a#primary-nav-heading.js-accordion-trigger.nav-heading{href: 'javascript:void(0)',
-            'aria-expanded' => true, 'aria-controls' => 'primary-nav-panel'}
-      %span Show menu
-      %i.chevron.bottom
+  %nav.local-nav{'aria-label' => 'main navigation'}
+    %h1.is-visuallyhidden
+      Menu
     -if menu_nodes.present?
-      %ul#primary-nav-panel{'aria-labelledby' => 'primary-nav-heading'}
-        = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }
+      %ul
+        %li
+          = link_to @section.name, public_node_path(@section.home_node), class: 'is-active'
+          %ul
+            = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }

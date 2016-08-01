@@ -33,37 +33,10 @@
       = yield
     %footer{role: "contentinfo"}
       .wrapper
-        %section.footer-top
-          %nav
-            %ul
-              %li
-                %h3 Stuff
-              %li= link_to 'News', news_articles_path
-              %li Contact us
-              %li
-                %a{href: '/departments'} Departments and agencies
-            %ul
-              %li
-                %h3 Things
-              %li
-                %a{href: '/department-of-communications-and-the-arts'} Department of Communications and the Arts
-              %li
-                %a{href: '/minister-for-communications'} Minister for Communications
-            %ul
-              %li
-                %h3 Other things
-              %li
-                %a{href: '/television-tv-reception'} Television reception
-              %li
-                %a{href: '/ministers'} Ministers
-            %ul
-              %li
-                %h3 More stuff
-              %li Prototype directory
-
-        %section.footer-bottom
+        %section
           %figure
-            = image_tag 'coatofarms-01.svg', alt: 'Australian Government Coat of Arms', class: 'footer-logo'
+            .footer-logo
+              = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
           .footer-links
             %nav
               %ul
@@ -79,6 +52,7 @@
                   %a{href: 'javascript:void(0)'} Site map
                 %li
                   %a{href: 'javascript:void(0)'} Terms of use
-              %p
-                &copy; Commonwealth of Australia <br>
-                %a{href:'https://github.com/AusDTO/gov-au-ui-kit/blob/master/LICENSE.md'} Licensed under the MIT License.
+            %p
+              &copy; Commonwealth of Australia
+              %br
+              %a{href:'https://github.com/AusDTO/gov-au-ui-kit/blob/master/LICENSE.md'} Licensed under the MIT License.

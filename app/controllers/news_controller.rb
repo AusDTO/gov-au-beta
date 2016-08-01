@@ -1,15 +1,19 @@
 class NewsController < ApplicationController
   include NodesHelper
-  decorates_assigned :node
   before_action :set_section, only: [:show]
 
+  decorates_assigned :node
+  decorates_assigned :articles
 
   def index
     @articles = NewsArticle.published.by_release_date.by_published_at
 
+    # TODO: this will be refactored out once node-hierarchy nav is implemented
+    # For now, this is the quickest way to get the same outcome
     if params[:section].present?
       set_section
-      @articles = @articles.by_section(@section)
+      set_menu_nodes
+      @articles = @section.news_articles.published.by_release_date.by_published_at
     end
   end
 

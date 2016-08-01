@@ -7,7 +7,7 @@
     = f.input :parent_id, collection: [@section], as: :grouped_select, include_blank: false, group_method: :nodes, required: true, selected: @form.parent_id
     = f.input :name
     = f.input :short_summary
-    = f.input :summary, required: false
+    ~ f.input :summary, as: :text, input_html: {rows: 5}, required: false, label: 'Long summary'
     = render partial: 'options_form', locals: {f: f}
     ~ f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
     = f.hidden_field :type, value: @type_name, name: :type
