@@ -1,3 +1,5 @@
+$light-teal: #00a1bb;
+
 .home-category-list li {
   border-left: 1px solid $border-colour;
   border-top: 0;
@@ -8,6 +10,14 @@
 .home-heading {
   border-bottom: 6px solid $light-aqua;
   padding-bottom: $tiny-spacing;
+
+  &.small {
+    font-size: rem(24);
+
+    @include media($tablet) {
+      font-size: rem(26);
+    }
+  }
 }
 
 //controls column layout
@@ -38,12 +48,12 @@
     list-style: none;
     background-color: $background-secondary-colour;
     margin-bottom: 2 * $base-spacing;
-    padding: 2 * $base-spacing $base-spacing;
+    padding: 1.7 * $base-spacing $base-spacing;
 
     @include media($tablet) {
       display: table;
       width: 100%;
-      height: 333px;
+      height: 309px;
 
       li {
         display: table-cell;
@@ -125,22 +135,39 @@ a {
       border-top: 0;
       color: #00a1bb;
       display: block;
-      font-size: rem(24);
+      font-size: rem(20);
       line-height: 1;
       padding: .75 * $small-spacing $small-spacing;
 
       span {
         display: block;
-        font-size: rem(70);
+        font-size: rem(62);
         line-height: 1;
       }
     }
   }
 }
 
-.about-government ul {
+.government-links {
+  @include outer-container;
+
+  .federal-government {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+  }
+
+  .state-government {
+    @include media($tablet) {
+      @include span-columns(8 of 12);
+    }
+  }
+}
+
+.federal-government ul {
   list-style-type: none;
   padding-left: 0;
+  margin-top: $base-spacing;
 
   li {
     margin-bottom: 2rem;
@@ -148,6 +175,7 @@ a {
     a {
       font-size: rem(36);
       font-weight: 700;
+      color: $light-teal;
     }
 
     span {
@@ -155,5 +183,77 @@ a {
       font-size: rem(56);
       line-height: 1.5;
     }
+  }
+}
+
+.state-government {
+  ul {
+    margin-top: $base-spacing;
+
+      li {
+        border-top: 0;
+
+        &.nsw:before,
+        &.vic:before,
+        &.qld:before,
+        &.sa:before,
+        &.wa:before,
+        &.tas:before,
+        &.nt:before,
+        &.act:before {
+          background-repeat: no-repeat;
+          background-size: contain;
+          content: ' ';
+          top: 0;
+          display: block;
+          height: 60px;
+          left: 0;
+          position: relative;
+          width: 60px;
+        }
+
+        &.nsw:before {
+          background-image: url(asset-path('home/nsw.png'));
+        }
+
+        &.vic:before {
+          background-image: url(asset-path('home/vic.png'));
+        }
+
+        &.qld:before {
+          background-image: url(asset-path('home/qld.png'));
+        }
+
+        &.sa:before {
+          background-image: url(asset-path('home/sa.png'));
+        }
+
+        &.wa:before {
+          background-image: url(asset-path('home/wa.png'));
+        }
+
+        &.tas:before {
+          background-image: url(asset-path('home/tas.png'));
+        }
+
+        &.nt:before {
+          background-image: url(asset-path('home/nt.png'));
+        }
+
+        &.act:before {
+          background-image: url(asset-path('home/act.png'));
+        }
+
+        .state-title {
+          margin-bottom: 0;
+          min-height: 0;
+          margin-top: $small-spacing;
+        }
+    }
+  }
+
+  .local-government-directory {
+    list-style-type: none;
+    padding-left: 0;
   }
 }
