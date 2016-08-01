@@ -27,6 +27,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added News header to section news listing page
 - Fixed the markup of the hero on section news listing page
 - UI Kit updater now overwrites updated images
+- Public holiday and School holiday dates for QLD and TAS
 
 
 ## [v0.8.1] - 2016-07-29
