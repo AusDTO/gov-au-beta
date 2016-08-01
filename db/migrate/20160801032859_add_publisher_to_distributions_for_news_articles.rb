@@ -21,7 +21,6 @@ class AddPublisherToDistributionsForNewsArticles < ActiveRecord::Migration[5.0]
   end
 
   def up
-    #Node.where(type: 'NewsArticle').each do |node|
     NewsArticle.all.each do |node|
       unless node.sections.include? node.section
         node.sections.append node.section if node.section.present?
