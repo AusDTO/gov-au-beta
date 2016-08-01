@@ -1,9 +1,19 @@
 .callout--basic {
   background-color: $lighter-aqua;
-  padding: $base-spacing;
   margin: 2 * $base-spacing 0;
+  padding: $base-spacing;
 
   .callout-title {
     margin-top: 0;
+  }
+}
+
+.callout--calendar-event {
+  box-shadow: none;
+  margin-left: 0;
+  margin-right: 0;
+
+  .next-event {
+    margin-top: $small-spacing;
   }
 }
