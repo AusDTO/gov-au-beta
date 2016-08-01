@@ -28,7 +28,7 @@ RSpec.describe 'demo', type: :feature do
     page.find('nav.breadcrumbs--inverted a', :text => 'Home').click
 
     expect(page.current_path).to eql("/")
-    expect(page).to have_css('section..government-links h2', :text => 'Australian Government')
+    expect(page).to have_css('section.government-links h2', :text => 'Australian Government')
     page.find('a', :text => /18 Departments/).click
 
     expect(page.current_path).to eql("/departments")
