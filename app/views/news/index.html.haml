@@ -12,7 +12,8 @@
   - if @section
     %div{class: "hero-sml #{hero_class(@section)}"}
       .wrapper
-        = @section.name
+        %p
+          = @section.name
   - else
     .hero-med
       .wrapper
