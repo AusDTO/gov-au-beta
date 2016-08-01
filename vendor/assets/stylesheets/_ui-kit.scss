@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.6.0
+UI-Kit version: 1.7.1
 
 */
 
@@ -5711,7 +5711,7 @@ Style guide: Typography.2 Headings & body copy
 
 // Styling for headings
 //
-// Note that we don't style h5 and h6.
+// Note that we style h5 and h6 are identical to h4.
 
 h1,
 h2,
@@ -5725,9 +5725,11 @@ h4 {
 
 h1 {
   font-size: rem(24);
+  font-weight: $bold-font-weight;
+  margin-bottom: $small-spacing;
 
   @include media($tablet) {
-    font-size: rem(26);
+    font-size: rem(28);
   }
 
   @include media($desktop) {
@@ -5887,6 +5889,7 @@ kbd {
 strong {
   font-weight: $bold-font-weight;
 
+  // Huh?
   &.very-bold {
     font-weight: $heading-font-weight;
   }
@@ -5901,11 +5904,39 @@ strong {
 //
 // For abstracts or page introductory paragraphs.
 .abstract {
-  font-size: rem(24);
-  font-weight: $base-font-weight;
+  margin: $medium-spacing 0 ($base-spacing * 1.25);
   border-bottom: 1px solid $border-colour;
+
+  p {
+    font-size: rem(19);
+    font-weight: $base-font-weight;
+
+    @include media($tablet) {
+      font-size: rem(21);
+    }
+
+    @include media($desktop) {
+      font-size: rem(24);
+    }
+  }
+}
+
+// To be deprecated as of v2.0
+//
+// We are retaining this so that p.abstract is possible. Please use div.abstract p.
+p.abstract {
+  margin: $small-spacing 0 ($medium-spacing * 1.25);
   padding-bottom: $medium-spacing;
-  margin-bottom: $medium-spacing;
+  border-bottom: 1px solid $border-colour;
+  font-size: rem(19);
+
+  @include media($tablet) {
+    font-size: rem(21);
+  }
+
+  @include media($desktop) {
+    font-size: rem(24);
+  }
 }
 
 hr {
@@ -5945,10 +5976,14 @@ dl,
 p,
 dt,
 dd {
-  font-size: rem(17);
+  font-size: rem(16);
   margin-top: 0; // Check up on where margin-top is coming from...
   margin-bottom: $medium-spacing;
   line-height: $base-spacing;
+
+  @include media($tablet) {
+    font-size: rem(17);
+  }
 }
 
 li {
@@ -7224,6 +7259,7 @@ Style guide: Navigation.6 Footer navigation
   margin: $base-spacing 0 0;
   text-align: left;
   font-weight: $base-font-weight;
+  border: 0;
 
   &,
   &:hover {
@@ -7233,6 +7269,7 @@ Style guide: Navigation.6 Footer navigation
 
   &::before {
     @extend %icon-chevron-down--navy;
+
     content: '';
     position: absolute;
     top: .5em;
@@ -7241,6 +7278,7 @@ Style guide: Navigation.6 Footer navigation
     width: $medium-spacing;
     background-repeat: no-repeat;
     background-size: 100% auto;
+    background-position: center center;
     transform: rotate(0deg);
     transition: transform $transition-timing $transition-easing;
   }
@@ -7680,7 +7718,7 @@ Style guide: List styles.4 Highlighted word style
   padding: 0;
 
   .tags {
-    @include link-colours($button-bg-colour, v, $link-colour);
+    @include link-colours($button-bg-colour, $link-colour--hover, $link-colour);
     color: $grey;
 
     dl,
@@ -7785,6 +7823,8 @@ Style guide: List styles.4 Highlighted word style
 
 }
 
+$list-vertical-gutter: 4%;
+
 .list-vertical {
   @extend %base-list;
 
@@ -7803,10 +7843,15 @@ Style guide: List styles.4 Highlighted word style
 
     border-top: 4px solid $border-colour;
     border-bottom: none;
+    margin: 0;
     flex: 0 0 100%;
 
     @include media($tablet) {
-      flex-basis: 48%;
+      flex-basis: ((100% - $list-vertical-gutter) / 2);
+
+      &:not(:nth-child(2n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
 
     article {
@@ -7857,8 +7902,16 @@ Style guide: List styles.4 Highlighted word style
   }
 
   > li {
-    @include media ($tablet) {
-      flex: 0 0 31%;
+    @include media($tablet) {
+      flex: 0 0 ((100% - $list-vertical-gutter * 2) / 3);
+
+      &:not(:nth-child(2n)) {
+        margin-right: 0;
+      }
+
+      &:not(:nth-child(3n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
   }
 }
@@ -7874,8 +7927,17 @@ Style guide: List styles.4 Highlighted word style
   }
 
   > li {
-    @include media ($tablet) {
-      flex: 0 0 22%;
+    @include media($tablet) {
+      flex: 0 0 ((100% - $list-vertical-gutter * 3) / 4);
+
+      &:not(:nth-child(2n)),
+      &:not(:nth-child(3n)) {
+        margin-right: 0;
+      }
+
+      &:not(:nth-child(4n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
   }
 }
@@ -7954,7 +8016,7 @@ Accordions help users find only the content they need.
 
 The **expand/collapse all** feature will be provided soon&mdash;this will be mandatory if using a series of accordion elements.
 
-<hr />
+***
 
 This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
@@ -8030,11 +8092,11 @@ summary {
     content: '';
     position: absolute;
     top: .5em;
-    right: $small-spacing;
     bottom: .5em;
+    right: $small-spacing;
     width: $medium-spacing;
     background-repeat: no-repeat;
-    background-position: center center; // added this not in .local-nav-toggle
+    background-position: center center;
     background-size: 100% auto;
     transform: rotate(0deg);
     transition: transform $transition-timing $transition-easing;
@@ -8491,7 +8553,7 @@ footer[role='contentinfo'] {
     }
 
     img {
-      max-height: $base-spacing * 4;
+      max-height: 7em; //was $base-spacing * 4;
     }
   }
 

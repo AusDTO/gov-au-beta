@@ -18,6 +18,7 @@ This file is influenced by http://keepachangelog.com/.
 - News item listings use h3s instead of h2s
 
 - Updated 'Popular now' links
+- Upgrade UI kit to v1.7.1
 
 ### Fixed
 
@@ -27,6 +28,7 @@ This file is influenced by http://keepachangelog.com/.
 - Renamed summary to long summary in node creation form
 - Added News header to section news listing page
 - Fixed the markup of the hero on section news listing page
+- UI Kit updater now overwrites updated images
 
 
 ## [v0.8.1] - 2016-07-29
