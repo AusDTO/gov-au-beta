@@ -8,6 +8,8 @@ This file is influenced by http://keepachangelog.com/.
 
 - Incumbent minister's name next to related minister link in dept homepages
 
+- Added Times and Dates content for ACT, Victoria and NSW
+
 ### Changed
 - News item listings use h3s instead of h2s
 
