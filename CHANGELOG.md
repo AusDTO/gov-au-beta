@@ -17,6 +17,8 @@ This file is influenced by http://keepachangelog.com/.
 - Make 'abstract' CSS class in dates and times custom templates look like h3
 - Removed dummy links from the footer
 - Section news index pages now include distributed items
+- Updated homepage category descriptions
+
 
 ### Fixed
 
