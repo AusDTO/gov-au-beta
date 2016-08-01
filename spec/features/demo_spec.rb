@@ -20,7 +20,7 @@ RSpec.describe 'demo', type: :feature do
     page.find('.next-holiday a').click
 
     expect(page.current_path).to eql("/times-and-dates/australian-public-holidays")
-    expect(page).to have_css('h1', :text => 'Australian Public holidays')
+    expect(page).to have_css('h1', :text => 'Australian public holidays')
     page.find('a', :text => 'School holidays and term dates').click
 
     expect(page.current_path).to eql("/times-and-dates/school-holidays-and-term-dates")
@@ -28,7 +28,7 @@ RSpec.describe 'demo', type: :feature do
     page.find('nav.breadcrumbs--inverted a', :text => 'Home').click
 
     expect(page.current_path).to eql("/")
-    expect(page).to have_css('section.about-government h2', :text => 'About the Australian Government')
+    expect(page).to have_css('section.government-links h2', :text => 'Australian Government')
     page.find('a', :text => /18 Departments/).click
 
     expect(page.current_path).to eql("/departments")
@@ -55,4 +55,3 @@ RSpec.describe 'demo', type: :feature do
     #expect(page.current_path).to eql('/minister-for-communications')
   end
 end
-
