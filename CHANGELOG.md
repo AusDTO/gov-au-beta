@@ -17,6 +17,8 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 - News item listings use h3s instead of h2s
 
+- Updated 'Popular now' links
+
 ### Fixed
 - Section navbar correctly displays the active and current list items
 
