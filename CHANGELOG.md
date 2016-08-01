@@ -24,6 +24,7 @@ This file is influenced by http://keepachangelog.com/.
 - Section navbar correctly displays the active and current list items
 - Fixed footer markup
 - Added the long summary form field back to the new submission page
+- Renamed summary to long summary in node creation form
 
 
 ## [v0.8.1] - 2016-07-29
