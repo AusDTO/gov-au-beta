@@ -15,6 +15,12 @@ RSpec.describe 'signing up', type: :feature do
     find('#user_password').set('password')
     fill_in('Password confirmation', with: 'password')
     click_button('Sign up')
-    expect(page).to have_content('first last')
+
+    email_body = Nokogiri::HTML.parse(ActionMailer::Base.deliveries.last.body.raw_source)
+    signup_link_url = email_body.css("a")[0][:href]
+
+    visit signup_link_url
+
+    expect(page).to have_content('Your email address has been successfully confirmed')
   end
 end
