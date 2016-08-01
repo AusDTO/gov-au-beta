@@ -21,6 +21,11 @@
           Announcements, media releases, interviews, speeches and more from the Australian Government.
 
 %article#content{class: "#{news_article_class}"}
+  -# H1 not included in the hero bar for section news lists so include it here
+  -# TODO: include a tagline/abstract once we know what it should be
+  -# (may be section specific)
+  - if @section
+    %h1 News
   %ul.list-horizontal
     - @articles.each do |article|
       %li
