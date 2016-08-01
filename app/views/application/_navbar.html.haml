@@ -7,7 +7,6 @@
     -if menu_nodes.present?
       %ul
         %li
-          %a.is-active{href: public_node_path(@section.home_node)}
-            = @section.name
+          = link_to @section.name, public_node_path(@section.home_node), class: 'is-active'
           %ul
             = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }
