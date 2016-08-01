@@ -4,7 +4,6 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 ### Added
-
 - Section news index page now has a navbar consistent with rest of section
 - Incumbent minister's name next to related minister link in dept homepages
 - Added Times and Dates content for ACT, Victoria and NSW
@@ -17,6 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 - Upgrade UI kit to v1.7.1
 - Make 'abstract' CSS class in dates and times custom templates look like h3
 - Removed dummy links from the footer
+- Section news index pages now include distributed items
 
 ### Fixed
 
