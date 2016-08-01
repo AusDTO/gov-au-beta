@@ -1,5 +1,4 @@
 class AddPublisherToDistributionsForNewsArticles < ActiveRecord::Migration[5.0]
-
   class Node < ActiveRecord::Base
     self.inheritance_column = :_type_disabled
   end
