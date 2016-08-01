@@ -47,9 +47,9 @@ RSpec.describe 'demo', type: :feature do
     page.find('.content-main a', :text => 'Television (TV) reception').click
 
     expect(page.current_path).to eql('/television-tv-reception')
-    page.find('.footer-top a', :text => 'Department of Communications and the Arts').click
+    #page.find('.footer-top a', :text => 'Department of Communications and the Arts').click
 
-    expect(page.current_path).to eql('/department-of-communications-and-the-arts')
+    #expect(page.current_path).to eql('/department-of-communications-and-the-arts')
     #page.find('.minister', :text => 'Senator the Hon Mitch Fifield').click
 
     #expect(page.current_path).to eql('/minister-for-communications')
