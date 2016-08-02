@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.7.1
+UI-Kit version: 1.7.2
 
 */
 
@@ -5943,6 +5943,8 @@ hr {
   border-color: $border-colour;
   border-style: solid;
   border-bottom: none;
+  margin-top: $base-spacing;
+  margin-bottom: $base-spacing;
 }
 
 /*
@@ -6045,7 +6047,9 @@ Style guide: Typography.5 Callouts & warnings
 .callout--calendar-event {
   @extend %base-callout;
 
-  padding-bottom: $small-spacing; // reset
+  margin-left: 0;
+  box-shadow: none;
+  padding-bottom: $small-spacing;
   background-color: $callout-bg-light-colour;
 
   time,
@@ -8313,7 +8317,7 @@ img {
     .brandbar {
       position: absolute;
       top: 42px;
-      right: 0;
+      right: 66px;
       width: 50px;
       height: 5px;
     }
@@ -8325,7 +8329,7 @@ img {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    width: 269px;
+    width: 337px;
     height: 51px;
 
     &.dusk {
@@ -8411,7 +8415,7 @@ img {
   h1 {
     font-size: rem(28);
     margin-top: 0;
-    max-width: 15em;
+    max-width: 20em;
 
     @include media($tablet) {
       font-size: rem(38);
@@ -8439,6 +8443,17 @@ img {
   .tagline {
     font-size: $large-font-size;
   }
+
+  .wrapper {
+    :first-child {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
 }
 
 .hero-sml {
