@@ -9,6 +9,53 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+## [v1.0.0] - 2016-08-02
+### Added
+- Added favicon
+- Added link to homepage via GOV.AU logo in header
+
+### Changed
+- /departments listing style is now the same as /ministers
+- Upgrade UI kit to v1.7.2
+- 'More News' links below news on section homepages
+- Removed summaries from /departments
+
+### Fixed
+- Made agencies link null again
+- Abstract markup fixed to match uikit-1.7.1
+- Added missing heros to /ministers, /departments and /categories
+- Images provided in vendor folder can be referenced using the asset system
+- Reduced height of homepage category listings
+- Popular links breakpoints now react as expected
+
+## [v0.9.0] - 2016-08-01
+- Section news index page now has a navbar consistent with rest of section
+- Incumbent minister's name next to related minister link in dept homepages
+- Added Times and Dates content for ACT, Victoria and NSW
+- Links to State government websites on homepage
+
+### Changed
+
+- News item listings use h3s instead of h2s
+- Updated 'Popular now' links
+- Upgrade UI kit to v1.7.1
+- Make 'abstract' CSS class in dates and times custom templates look like h3
+- Removed dummy links from the footer
+- Section news index pages now include distributed items
+- Updated homepage category descriptions
+
+
+### Fixed
+
+- Section navbar correctly displays the active and current list items
+- Fixed footer markup
+- Added the long summary form field back to the new submission page
+- Renamed summary to long summary in node creation form
+- Added News header to section news listing page
+- Fixed the markup of the hero on section news listing page
+- UI Kit updater now overwrites updated images
+- Public holiday and School holiday dates for QLD and TAS
+- States in dates and times consistently use h4
 
 ## [v0.8.1] - 2016-07-29
 ### Added

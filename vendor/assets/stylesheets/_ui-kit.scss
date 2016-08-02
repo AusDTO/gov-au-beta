@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.5.0
+UI-Kit version: 1.7.2
 
 */
 
@@ -4074,9 +4074,9 @@ $tablet-minwidth: 768px;
 $desktop-minwidth: 1200px;
 
 $mobile: new-breakpoint(min-width $mobile-minwidth 8);
-$mobile-only: new-breakpoint(min-width #{$mobile-minwidth} max-width #{$tablet-minwidth - 1} 8);
+$mobile-only: new-breakpoint(min-width $mobile-minwidth max-width $tablet-minwidth - 1, 8);
 $tablet: new-breakpoint(min-width $tablet-minwidth 12);
-$tablet-only: new-breakpoint(min-width #{$tablet-minwidth} max-width #{$desktop-minwidth - 1} 12);
+$tablet-only: new-breakpoint(min-width $tablet-minwidth max-width $desktop-minwidth - 1, 12);
 $desktop: new-breakpoint(min-width $max-width 16);
 
 /*
@@ -5107,6 +5107,29 @@ $transition-easing: ease-in-out;
 
 // Spacing is governed by _typography.
 
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+// Added as a class because this should to be obvious in HTML
+
+.is-visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+// To be deprecated in 2.0
+.visuallyhidden {
+  display: none;
+}
+
 
 @mixin inline-background-image($img) {
   background-image: asset-data-url('icons/' + $img + '.png');
@@ -5455,21 +5478,9 @@ $input-focus-colour:            $light-aqua;
 /*
 Typography
 
-Basic content styling with good typographic defaults.
+This framework uses basic styling and good typographic defaults for clear and consistent content.
 
-The framework aims to meet common government typographic needs:
-
-- clear and consistent headings and labels
-- legible body paragraphs
-- easy-to-use input fields.
-
-It is designed to provide:
-
-- the highest standards of usability and accessibility
-- a consistent visual voice of credibility and warmth
-- ease-of-use across Australian Government digital platforms.
-
-The following guidance may change to apply only to content inside an `article`.
+This guidance may change to apply to only content inside an `article`.
 
 Style guide: Typography
 */
@@ -5477,7 +5488,7 @@ Style guide: Typography
 /*
 Typeface
 
-We are currently testing the open source [Open Sans font family](https://www.google.com/fonts/specimen/Open+Sans) in 3 styles:
+We are currently testing the open source [Open Sans family](https://www.google.com/fonts/specimen/Open+Sans) in 3 styles.
 
 <div class="guide-example--type"><h3>Open Sans regular 400</h3>
   <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
@@ -5495,9 +5506,7 @@ We are currently testing the open source [Open Sans font family](https://www.goo
   1234567890(!@#s%g.,?:;)</strong></p>
 </div>
 
-The framework is likely to change to a different primary typeface. We are currently testing the use of webfonts generally.
-
-We aim to spend a spike in the future to properly test and optimise any usage of webfonts.
+We are likely to change this to a different primary typeface.
 
 Style guide: Typography.1 Typeface
 */
@@ -5511,9 +5520,11 @@ $base-sans-serif: 'Open Sans', Verdana, 'Bitstream Vera Sans', sans-serif;
 $base-monospace: 'Lucida Sans Typewriter', 'Lucida Console', Monaco, 'Bitstream Vera Sans Mono', monospace;
 ```
 
-We have not decided on using a webfont but the font stacks should still achieve a high degree of coverage across a range of browsers and operating systems using the fall-backs (roughly 95% coverage).
+We are currently testing the use of webfonts.
 
-Currently you will need to load webfonts through the [Google Web Font Loader](https://github.com/typekit/webfontloader) via `<script>` to provide Open Sans via the HTML `head` to support both modern browsers, and Internet Explorer.
+The font stacks should still achieve a high degree of coverage across a range of browsers and operating systems using the fall-backs (roughly 95% coverage).
+
+You need to load webfonts through the [Google Web Font Loader](https://github.com/typekit/webfontloader) via `<script>` to add Open Sans via the HTML `head`. This supports modern browsers and older versions of Internet Explorer.
 
 Style guide: Typography.1 Typeface.1 Font stacks
 */
@@ -5527,29 +5538,24 @@ $base-font-family: $base-sans-serif;
 /*
 Spacing
 
-Spacing is relative to the `line-height` (leading) of the font size.
+The framework sets spacing variables in ems relative to the base font's leading. This ensures horizontal and vertical rhythm through pages.
 
-```
-$base-leading: 1.6;
-$base-heading-leading: 1.4;
+<p class="callout">Spacing will change in relation to the font size of the elements that use them. So don’t apply a <code>font-size</code> to a container element (eg a <code>footer</code>).</p>
 
-html {
-  color: $body-text-colour;
-  line-height: $base-leading;
-  font-family: $base-font-family;
-  font-weight: $base-font-weight;
-}
-```
+The base font's leading (`line-height`) is set using the variable `$base-leading` (`$base-leading: 1.6`).
 
-The values are anchored to the `base-leading` (which is unit-less) and act as a multiplier of the font size. The `$base-spacing` unit is then set in ems (ie by * 1em).
+`$base-leading` is used to calculate 5 spacing values in ems:
 
-```
-$base-spacing: $base-leading * 1em;
-$medium-spacing: $base-spacing * 0.75;
-$small-spacing: $base-spacing / 2;
-```
+- `$base-spacing: $base-leading * 1em`
+- `$large-spacing: $base-spacing * 2`
+- `$medium-spacing: $base-spacing * 0.75`
+- `$small-spacing: $base-spacing / 2`
+- `$tiny-spacing: $base-spacing / 4`.
 
-We are likely to change the `$base-spacing` unit to give a figure easier to multiply and divide.
+We may change:
+
+- `$base-spacing` to a figure that is easier to multiply and divide
+- to using rems instead of ems, for consistency in calculations (in preference to relational proportionality in sizing).
 
 Style guide: Typography.3 Spacing
 */
@@ -5562,6 +5568,7 @@ $double-leading: 2;
 
 // Base spacing, relative to leading.
 $base-spacing: $base-leading * 1em;
+$large-spacing: $base-spacing * 2;
 $medium-spacing: $base-spacing * 0.75;
 $small-spacing: $base-spacing / 2;
 $tiny-spacing: $base-spacing / 4;
@@ -5589,28 +5596,73 @@ html {
 /*
 Headings & body copy
 
-The type sizes are designed for legibility and readability. We are currently testing this.
+The types sizes are based on a perfect fourth modular scale.
 
-They are initially based on a perfect fourth modular scale.
+Use `.gov-speak` styles for complex content, for example annual reports.
+
+We are currently testing all styles for legibility and readability.
 
 ### Breakpoints
 
-- Mobile (extra small devices): 8 columns, 420px maximum
-- Tablet (small devices): 12 columns, 768px maximum
-- Desktop (medium devices): 16 columns, 1200px maximum
+- Mobile (extra small devices): 8 columns, 420px maximum.
+- Tablet (small devices): 12 columns, 768px maximum.
+- Desktop (medium devices): 16 columns, 1200px maximum.
 
-### Font size & line heights default settings
-
-Use relative units to allow for variety across users' browsers and device screens.
-
- This table shows font size and line height (size/line-height) in pixels and ems.
+### Font size defaults
 
 <table class="content-table">
+  <caption>Global styles</caption>
   <tr>
     <th>Style</th>
-    <th>Mobile</th>
+    <th>Mobile (default)</th>
     <th>Tablet</th>
     <th>Desktop</th>
+  </tr>
+  <tr>
+    <td>p, ol, ul, dt, dd, dl</td>
+    <td>17px</td>
+    <td>17px</td>
+    <td>17px</td>
+  </tr>
+  <tr>
+    <td>h1</td>
+    <td>24px</td>
+    <td>26px<br></td>
+    <td>32px</td>
+  </tr>
+  <tr>
+    <td>h2</td>
+    <td>32px</td>
+    <td>44px</td>
+    <td>44px</td>
+  </tr>
+  <tr>
+    <td>h3</td>
+    <td>24px</td>
+    <td>26px</td>
+    <td>26px</td>
+  </tr>
+  <tr>
+    <td>h4, h5, h6</td>
+    <td>18px</td>
+    <td>18px</td>
+    <td>18px</td>
+  </tr>
+</table>
+
+<table class="content-table">
+  <caption><code>.gov-speak</code> style</caption>
+  <tr>
+    <th>Style</th>
+    <th>Mobile (default)</th>
+    <th>Tablet</th>
+    <th>Desktop</th>
+  </tr>
+  <tr>
+    <td>p, ol, ul, dt, dd, dl</td>
+    <td>17px</td>
+    <td>17px</td>
+    <td>17px</td>
   </tr>
   <tr>
     <td>h1</td>
@@ -5648,15 +5700,9 @@ Use relative units to allow for variety across users' browsers and device screen
     <td>16px</td>
     <td>16px</td>
   </tr>
-  <tr>
-    <td>p</td>
-    <td>16px</td>
-    <td>16px</td>
-    <td>16px</td>
-  </tr>
 </table>
 
-### Base size examples
+### Base size examples&mdash;global styles
 
 Markup: templates/heading-body-styles.hbs
 
@@ -5665,7 +5711,7 @@ Style guide: Typography.2 Headings & body copy
 
 // Styling for headings
 //
-// Note that we don't style h5 and h6.
+// Note that we style h5 and h6 are identical to h4.
 
 h1,
 h2,
@@ -5678,12 +5724,12 @@ h4 {
 }
 
 h1 {
-  // This needs to be changed to live in the 'header', where the breadcrumbs currently are (grey bar).
   font-size: rem(24);
-  //line-height: $small-leading;
+  font-weight: $bold-font-weight;
+  margin-bottom: $small-spacing;
 
   @include media($tablet) {
-    font-size: rem(26);
+    font-size: rem(28);
   }
 
   @include media($desktop) {
@@ -5719,6 +5765,10 @@ h4 {
   font-weight: $heading-font-weight;
 }
 
+h5,
+h6 {
+  @extend h4;
+}
 
 // Document this later.
 .gov-speak {
@@ -5814,15 +5864,13 @@ kbd {
 }
 
 /*
-Keyboard input
+Show keyboard input
 
-Use when asking users to enter keyboard combinations, eg a shortcut to print the screen and copy it to clipboard.
+Use the [`<kbd>` element](http://w3c.github.io/html/textlevel-semantics.html#the-kbd-element) to show users which key to press.
 
-Further [W3C specification documentation](http://dev.w3.org/html5/spec/Overview.html#the-kbd-element).
+Markup: Copy text to clipboard using <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Markup: Abort! Abort! <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Delete</kbd>
-
-Style guide: Typography.10 Keyboard keys
+Style guide: Typography.8 Keyboard input
 */
 
 kbd {
@@ -5841,6 +5889,7 @@ kbd {
 strong {
   font-weight: $bold-font-weight;
 
+  // Huh?
   &.very-bold {
     font-weight: $heading-font-weight;
   }
@@ -5855,38 +5904,63 @@ strong {
 //
 // For abstracts or page introductory paragraphs.
 .abstract {
-  font-size: rem(24);
-  font-weight: $base-font-weight;
+  margin: $medium-spacing 0 ($base-spacing * 1.25);
   border-bottom: 1px solid $border-colour;
+
+  p {
+    font-size: rem(19);
+    font-weight: $base-font-weight;
+
+    @include media($tablet) {
+      font-size: rem(21);
+    }
+
+    @include media($desktop) {
+      font-size: rem(24);
+    }
+  }
+}
+
+// To be deprecated as of v2.0
+//
+// We are retaining this so that p.abstract is possible. Please use div.abstract p.
+p.abstract {
+  margin: $small-spacing 0 ($medium-spacing * 1.25);
   padding-bottom: $medium-spacing;
+  border-bottom: 1px solid $border-colour;
+  font-size: rem(19);
+
+  @include media($tablet) {
+    font-size: rem(21);
+  }
+
+  @include media($desktop) {
+    font-size: rem(24);
+  }
 }
 
 hr {
   border-color: $border-colour;
   border-style: solid;
   border-bottom: none;
+  margin-top: $base-spacing;
+  margin-bottom: $base-spacing;
 }
-
-/*
-Horizontal & vertical rhythm
-
-Combinations of these elements have been tested to maintain vertical rhythm between content.
-
-Style guide: Typography.4 Horizontal & vertical rhythm
-*/
 
 /*
 Lists
 
-List styles have been developed for:
+The framework provides list styles for:
 
 - unordered lists (bullet point lists)
 - ordered lists (numbered)
 - definition lists (terms and definitions).
 
+More [complex list styles](section-list-styles.html) are available.
+
 Markup: templates/list-examples.hbs
 
-Style guide: Typography.5 Lists
+Style guide: Typography.4 Lists
 */
 
 ul,
@@ -5904,10 +5978,14 @@ dl,
 p,
 dt,
 dd {
-  font-size: rem(17);
+  font-size: rem(16);
   margin-top: 0; // Check up on where margin-top is coming from...
   margin-bottom: $medium-spacing;
   line-height: $base-spacing;
+
+  @include media($tablet) {
+    font-size: rem(17);
+  }
 }
 
 li {
@@ -5935,13 +6013,17 @@ dt {
 /*
 Callouts & warnings
 
-**Callouts** and **warning callouts** can be used to draw the user's attention to a specific piece of content.
+There are 3 classes for drawing the user's attention:
 
-There is also a **calendar callout** to draw attention to things on specific dates.
+- `.callout`
+- `.callout--warning` for warnings
+- `.callout--calendar-event` for dates.
+
+You can use these on paragraphs (`<p>`), or on a wrapping element, like a `<div>` or an `<aside>`.
 
 Markup: templates/callouts-examples.hbs
 
-Style guide: Typography.6 Callouts & warnings
+Style guide: Typography.5 Callouts & warnings
 */
 
 %base-callout {
@@ -5965,7 +6047,9 @@ Style guide: Typography.6 Callouts & warnings
 .callout--calendar-event {
   @extend %base-callout;
 
-  padding-bottom: $small-spacing; // reset
+  margin-left: 0;
+  box-shadow: none;
+  padding-bottom: $small-spacing;
   background-color: $callout-bg-light-colour;
 
   time,
@@ -5994,11 +6078,11 @@ Style guide: Typography.6 Callouts & warnings
 /*
 Badges
 
-The framework provides styling for `badges` to indicate status.
+There is styling for badges to indicate status.
 
 Markup: templates/badges.hbs
 
-Style guide: Typography.7 Badges
+Style guide: Typography.6 Badges
 */
 
 $badges: (
@@ -6025,7 +6109,7 @@ $badges: (
 /*
 Quotations
 
-The framework provides 2 ways of using quotes:
+There are 2 ways of using quotes:
 
 - **in-line quoting** using `q` element (adds quotation marks to either side of the in-line quotation)
 - **block quotes** via `blockquote`:
@@ -6040,7 +6124,7 @@ The framework provides 2 ways of using quotes:
 
 Markup: templates/quotation-examples.hbs
 
-Style guide: Typography.8 Quotations
+Style guide: Typography.7 Quotations
 */
 
 blockquote {
@@ -6055,11 +6139,15 @@ blockquote {
     background-color: $background-colour;
 
     p {
-      @extend h3;
-
+      font-size: rem(24);
       line-height: $base-leading;
       text-align: center;
       font-weight: $base-font-weight;
+      margin-top: $base-spacing;
+
+      @include media($tablet) {
+        font-size: rem(26);
+      }
     }
 
     // Support: IE7 does not properly support pseudo elements `:before`/`:after`: http://caniuse.com/#feat=css-sel2
@@ -6172,7 +6260,9 @@ Style guide: Buttons.1 Creating buttons
 
 @mixin button-colours($bg-colour, $bg-colour--hover, $bg-colour--active, $text-colour, $text-colour--hover: $text-colour) {
   button,
-  a[role='button'] {
+  a[role='button'],
+  input[type='submit'],
+  input[type='reset'] {
     background-color: $bg-colour;
     color: $text-colour;
     border: 1px solid $bg-colour--hover;
@@ -6206,16 +6296,17 @@ Style guide: Buttons.1 Creating buttons
   -webkit-appearance: none;
   appearance: none;
   display: inline-block;
-  margin: 0 $small-spacing $small-spacing 0;
-  height: $base-spacing * 1.5;
+  height: $base-spacing * 2;
+  margin: 0 $base-spacing $small-spacing 0;
+  padding: $small-spacing $base-spacing;
   border-radius: $tiny-border-radius;
   outline: 0;
-  padding: $tiny-spacing $medium-spacing $tiny-spacing * 1.3;
   text-decoration: none;
   font-weight: $bold-font-weight;
 
   @include media($tablet) {
-    margin: $small-spacing;
+    height: $base-spacing * 1.75;
+    padding: ($tiny-spacing * 1.25) $medium-spacing;
   }
 }
 
@@ -6771,6 +6862,7 @@ form {
     &[type='radio'],
     &[type='checkbox'] {
       @extend %base-input;
+
       height: 1px;
       // hide the native widget but keep it in the tab order
       left: -10000px;
@@ -6992,9 +7084,13 @@ Local navigation
 
 Use local navigation to help the user go straight to the specific content that meets their needs.
 
+The framework provides a vertical navigation menu that shows 4 levels of items.
+
 Small screens (up to `$tablet` breakpoint) will see a toggle to expand the navigation panel.
 
 Older browsers (IE8 and lower) and those without JavaScript will see the expanded menu without a toggle button.
+
+Use active state (`class="is-active"`) to show which page the user is on.
 
 Markup: templates/local-navigation.hbs
 
@@ -7167,6 +7263,7 @@ Style guide: Navigation.6 Footer navigation
   margin: $base-spacing 0 0;
   text-align: left;
   font-weight: $base-font-weight;
+  border: 0;
 
   &,
   &:hover {
@@ -7176,6 +7273,7 @@ Style guide: Navigation.6 Footer navigation
 
   &::before {
     @extend %icon-chevron-down--navy;
+
     content: '';
     position: absolute;
     top: .5em;
@@ -7184,6 +7282,7 @@ Style guide: Navigation.6 Footer navigation
     width: $medium-spacing;
     background-repeat: no-repeat;
     background-size: 100% auto;
+    background-position: center center;
     transform: rotate(0deg);
     transition: transform $transition-timing $transition-easing;
   }
@@ -7223,23 +7322,17 @@ Style guide: Navigation.6 Footer navigation
     }
   }
 
-  h1 {
-    font-size: 1em;
-    font-weight: $base-font-weight;
-    text-transform: uppercase;
-    margin: 0;
-    line-height: $base-leading;
-  }
-
 
   ul {
     @include link-colours($link-colour, $focus-colour, $link-colour);
     margin: 0;
     padding: 0;
     list-style: none;
+    text-transform: uppercase;
 
     ul {
       margin: 0;
+      text-transform: none;
 
       li {
         &:last-child {
@@ -7247,18 +7340,20 @@ Style guide: Navigation.6 Footer navigation
         }
       }
 
-      a {
-        padding-left: $base-spacing;
-        border-bottom: 0;
-      }
-
       ul {
         a {
-          @extend %icon-arrow-right;
-          padding-left: $base-spacing + $small-spacing;
-          background-repeat: no-repeat;
-          background-position: $base-spacing $small-spacing * 1.45;
-          background-size: $tiny-spacing auto;
+          padding-left: $base-spacing;
+          border-bottom: 0;
+        }
+
+        ul {
+          a {
+            @extend %icon-arrow-right;
+            padding-left: $base-spacing + $small-spacing;
+            background-repeat: no-repeat;
+            background-position: $base-spacing $small-spacing * 1.45;
+            background-size: $tiny-spacing auto;
+          }
         }
       }
     }
@@ -7286,12 +7381,11 @@ Style guide: Navigation.6 Footer navigation
         border-color: $border-contrast-colour;
       }
 
-      &.active,
       &.is-active {
         font-weight: $bold-font-weight;
       }
 
-      &.current {
+      &.is-current {
         background-color: $focus-colour;
       }
 
@@ -7469,7 +7563,8 @@ Style guide: Navigation.7 Skip links
     font-weight: $base-font-weight;
   }
 
-  ul {
+  ul,
+  ol {
     list-style-type: none;
     margin: $base-spacing 0 0;
     padding: 0;
@@ -7559,7 +7654,7 @@ Accessibility
 - Test with users to ensure the navigation hierarchy is not too long or too deep.
 - Use the [correct colour contrast](section-colours.html#guide-colours-3-colour-contrast) for breadcrumbs and inline links.
 
-Style guide: Navigation.8 Accessibility
+Style guide: Navigation.9 Accessibility
 */
 
 /*
@@ -7627,7 +7722,7 @@ Style guide: List styles.4 Highlighted word style
   padding: 0;
 
   .tags {
-    @include link-colours($button-bg-colour, v, $link-colour);
+    @include link-colours($button-bg-colour, $link-colour--hover, $link-colour);
     color: $grey;
 
     dl,
@@ -7732,6 +7827,8 @@ Style guide: List styles.4 Highlighted word style
 
 }
 
+$list-vertical-gutter: 4%;
+
 .list-vertical {
   @extend %base-list;
 
@@ -7744,16 +7841,21 @@ Style guide: List styles.4 Highlighted word style
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   > li {
 
     border-top: 4px solid $border-colour;
     border-bottom: none;
+    margin: 0;
     flex: 0 0 100%;
 
     @include media($tablet) {
-      flex-basis: 48%;
+      flex-basis: ((100% - $list-vertical-gutter) / 2);
+
+      &:not(:nth-child(2n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
 
     article {
@@ -7804,8 +7906,16 @@ Style guide: List styles.4 Highlighted word style
   }
 
   > li {
-    @include media ($tablet) {
-      flex: 0 0 31%;
+    @include media($tablet) {
+      flex: 0 0 ((100% - $list-vertical-gutter * 2) / 3);
+
+      &:not(:nth-child(2n)) {
+        margin-right: 0;
+      }
+
+      &:not(:nth-child(3n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
   }
 }
@@ -7821,8 +7931,17 @@ Style guide: List styles.4 Highlighted word style
   }
 
   > li {
-    @include media ($tablet) {
-      flex: 0 0 22%;
+    @include media($tablet) {
+      flex: 0 0 ((100% - $list-vertical-gutter * 3) / 4);
+
+      &:not(:nth-child(2n)),
+      &:not(:nth-child(3n)) {
+        margin-right: 0;
+      }
+
+      &:not(:nth-child(4n)) {
+        margin-right: $list-vertical-gutter;
+      }
     }
   }
 }
@@ -7901,7 +8020,7 @@ Accordions help users find only the content they need.
 
 The **expand/collapse all** feature will be provided soon&mdash;this will be mandatory if using a series of accordion elements.
 
-<hr />
+***
 
 This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
@@ -7977,11 +8096,11 @@ summary {
     content: '';
     position: absolute;
     top: .5em;
-    right: $small-spacing;
     bottom: .5em;
+    right: $small-spacing;
     width: $medium-spacing;
     background-repeat: no-repeat;
-    background-position: center center; // added this not in .local-nav-toggle
+    background-position: center center;
     background-size: 100% auto;
     transform: rotate(0deg);
     transition: transform $transition-timing $transition-easing;
@@ -8198,7 +8317,7 @@ img {
     .brandbar {
       position: absolute;
       top: 42px;
-      right: 0;
+      right: 66px;
       width: 50px;
       height: 5px;
     }
@@ -8210,7 +8329,7 @@ img {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    width: 269px;
+    width: 337px;
     height: 51px;
 
     &.dusk {
@@ -8246,11 +8365,6 @@ img {
   .breadcrumbs--inverted {
     margin-top: $medium-spacing;
   }
-}
-
-//DELETE THIS:
-.visuallyhidden {
-  display: none;
 }
 
 .homeintro {
@@ -8301,7 +8415,7 @@ img {
   h1 {
     font-size: rem(28);
     margin-top: 0;
-    max-width: 15em;
+    max-width: 20em;
 
     @include media($tablet) {
       font-size: rem(38);
@@ -8310,26 +8424,36 @@ img {
 
   p {
     font-size: rem(18);
-    margin-bottom: 0;
     max-width: 30em;
+    margin-bottom: $small-spacing;
 
     @include media($tablet) {
       font-size: rem(20);
     }
   }
 
-  // Should this be deprecated?
   .site-title {
     @extend h1;
 
-    margin: $tiny-spacing 0;
+    display: block;
+    margin-top: 0;
+    margin-bottom: $tiny-spacing;
   }
 
-  // Should this be deprecated?
   .tagline {
-    @extend h4;
-    font-weight: $base-font-weight;
+    font-size: $large-font-size;
   }
+
+  .wrapper {
+    :first-child {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
 }
 
 .hero-sml {
@@ -8444,7 +8568,7 @@ footer[role='contentinfo'] {
     }
 
     img {
-      max-height: $base-spacing * 4;
+      max-height: 7em; //was $base-spacing * 4;
     }
   }
 

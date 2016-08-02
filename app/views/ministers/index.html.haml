@@ -1,8 +1,15 @@
 - breadcrumb :ministers
 
+= content_for :after_header do
+  .hero-med.corporate
+    .wrapper
+      %h1
+        Cabinet Ministers
+      %p
+        The Australian Government's ministers include Cabinet ministers, outer ministers, assistant ministers,
+        ministers assisting and parliamentary secretaries.
+
 %article.content-listing
-  %h1
-    Cabinet Ministers
   %ul.list-highlighted
     - ministers.each do |minister|
       %li

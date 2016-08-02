@@ -16,10 +16,10 @@
   %section.about-australia
     %h2.home-heading About Australia
     .population
-      %h3 Population (as at December 2015)
+      %h3 Population (December 2015)
       %ul
-        %li.population-infographic 23,924,836
-        %li.population-statistic <strong>99,604 </strong>more females <br>than males
+        %li.population-infographic 23,940,300
+        %li.population-statistic <strong>96,300 </strong>more females <br>than males
 
     .public-holiday
       %h3 Next public holiday
@@ -33,7 +33,6 @@
 
   %section.home-news-list
     %h2.home-heading News
-    %p Government announcements, media releases, interviews, speeches and more.
     - if @news.empty?
       %p No current news articles
     %ul.list-vertical--fourths
@@ -44,18 +43,46 @@
             .meta= news.release_date
     =link_to 'All news', news_articles_path, :class => "see-more"
 
-  %section.about-government
-    %h2.home-heading About the Australian Government
-    %ul
-      %li
-        %a{href: '/departments'}
-          %span= @departments.count
-          Departments
-      %li
-        %a{href: '#'}
-          %span= @agencies.count
-          Agencies
-      %li
-        %a{href: '/ministers'}
-          %span= @ministers.count
-          Ministers
+  %section.government-links
+    .federal-government
+      %h2.home-heading.small Australian Government
+      %ul
+        %li
+          %a{href: '/departments'}
+            %span= @departments.count
+            Departments
+        %li
+          %a{href: '#'}
+            %span= @agencies.count
+            Agencies
+        %li
+          %a{href: '/ministers'}
+            %span= @ministers.count
+            Ministers
+    .state-government
+      %h2.home-heading.small State and territory governments
+      %ul.list-vertical
+        %li.nsw
+          %h3.state-title New South Wales
+          %a{href: 'https://www.nsw.gov.au/'} www.nsw.gov.au
+        %li.vic
+          %h3.state-title Victoria
+          %a{href: 'http://www.vic.gov.au/'} www.vic.gov.au
+        %li.qld
+          %h3.state-title Queensland
+          %a{href: 'http://www.qld.gov.au/'} www.qld.gov.au
+        %li.sa
+          %h3.state-title South Australia
+          %a{href: 'http://www.sa.gov.au/'} www.sa.gov.au
+        %li.wa
+          %h3.state-title Western Australia
+          %a{href: 'https://www.wa.gov.au/'} www.wa.gov.au
+        %li.tas
+          %h3.state-title Tasmania
+          %a{href: 'http://www.tas.gov.au/'} www.tas.gov.au
+        %li.nt
+          %h3.state-title Northern Territory
+          %a{href: 'https://nt.gov.au/'} www.nt.gov.au
+        %li.act
+          %h3.state-title Australian Capital Territory
+          %a{href: 'http://www.act.gov.au/'} www.act.gov.au

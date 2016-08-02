@@ -1,18 +1,19 @@
-%article#content{class: "content-main", tabindex: "-1"}
+%article#content{class: "content-main"}
   - breadcrumb :public_news_article, node
 
   %dl.list-horizontal
     %div.tags
-      - node.sections.each do |distribution|
+      - node.related_sections.each do |distribution|
         %dd= link_to distribution.name, public_node_path(distribution.home_node)
 
   %h1
     =node.name
 
   %div.abstract
-    =node.short_summary
-    - if node.summary
-      != markdown_content node.summary
+    %p
+      =node.short_summary
+      - if node.summary
+        != markdown_content node.summary
 
   %ul.announcement-info
     - if node.release_date
