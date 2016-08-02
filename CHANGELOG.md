@@ -6,6 +6,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 
 - Added favicon
+- Added link to homepage via GOV.AU logo in header
 
 ### Changed
 - /departments listing style is now the same as /ministers
