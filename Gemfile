@@ -63,6 +63,10 @@ gem 'administrate', github: 'micapam/administrate', ref: '34492932'
 # https://github.com/thoughtbot/administrate/pull/614
 gem 'bourbon'
 
+group :production do
+  gem 'aws-ses', '~> 0.6.0', require: 'aws/ses'
+end
+
 group :development do
   gem 'web-console', '~> 3.0'
   gem 'byebug', platform: :mri
