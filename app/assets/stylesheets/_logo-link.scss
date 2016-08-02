@@ -1,7 +1,19 @@
-a.govau--logo {
+a.govau--logo, a.govau--logo:hover, a.govau--logo:focus, a.govau--logo:active {
   border-bottom: none;
 }
+
 a.govau--logo:hover, a.govau--logo:focus,a.govau--logo:active {
-  border-bottom: solid white 2px;
   background-color: transparent;
+}
+
+a.govau--logo:hover .brandbar,
+a.govau--logo:focus .brandbar,
+a.govau--logo:active .brandbar,
+a.govau--logo:hover .b1,
+a.govau--logo:focus .b1,
+a.govau--logo:active .b1,
+a.govau--logo:hover .b2,
+a.govau--logo:focus .b2,
+a.govau--logo:active .b2{
+  background:white;
 }
