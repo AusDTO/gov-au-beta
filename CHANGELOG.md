@@ -12,6 +12,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 - Updated demo script to include all steps
 - Header logo hover state is brand bar turning white
+- Link beneath related topics includes anchor
 
 ### Fixed
 - Accessing news for an unknown section returns file not found

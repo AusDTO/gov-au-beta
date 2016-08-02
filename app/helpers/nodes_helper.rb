@@ -12,7 +12,8 @@ module NodesHelper
     end
   end
 
-  def public_node_path(node)
-    Rails.application.routes.url_helpers.nodes_path(path: node.path)
+  def public_node_path(node, opts = {})
+    opts[:path] = node.path
+    Rails.application.routes.url_helpers.nodes_path opts
   end
 end
