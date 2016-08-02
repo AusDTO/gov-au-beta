@@ -5,6 +5,12 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v1.0.0] - 2016-08-02
+### Added
 - Added favicon
 - Added link to homepage via GOV.AU logo in header
 
