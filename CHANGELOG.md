@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 - Updated demo script to include all steps
 
 ### Fixed
+- Accessing news for an unknown section returns file not found
 
 ## [v1.0.0] - 2016-08-02
 ### Added
