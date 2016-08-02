@@ -9,7 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - /departments listing style is now the same as /ministers
-
+- Upgrade UI kit to v1.7.2
 
 ### Fixed
 - Made agencies link null again
