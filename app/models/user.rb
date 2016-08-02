@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :requests
 
+  validates :email, email_domain_whitelist: true
+
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end

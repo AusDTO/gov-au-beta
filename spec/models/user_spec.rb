@@ -14,6 +14,13 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "email validations" do
+    it "only allows *.gov.au emails" do
+      user = User.new(email: "alice@not-allowed.com")
+      expect(user.errors_on(:email)).to eql(["only *.gov.au email addresses permitted"])
+    end
+  end
+
   describe 'section membership' do
     let!(:section_a) { Fabricate(:section) }
     let!(:section_b) { Fabricate(:section) }
