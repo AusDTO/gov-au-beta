@@ -68,7 +68,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {
     protocol: 'https',
-    host: 'gov-au-beta.apps.platform.digital.gov.au'
+    host: ENV["APP_DOMAIN"]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
