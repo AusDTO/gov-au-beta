@@ -9,12 +9,13 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - /departments listing style is now the same as /ministers
-
+- Upgrade UI kit to v1.7.2
 
 ### Fixed
 - Made agencies link null again
 - Abstract markup fixed to match uikit-1.7.1
 - Added missing heros to /ministers, /departments and /categories
+- Images provided in vendor folder can be referenced using the asset system
 
 - Reduced height of homepage category listings
 
