@@ -10,17 +10,19 @@
   = render partial: 'templates/related_topics'
   = render partial: 'templates/content_body', object: node.content_body
 
-  %h2=link_to 'News', news_articles_path
+  %h2 News
   %p Announcements, media releases, interviews, speeches and more.
 
-  - if @news.empty?
+  - if @news.any?
+    %ul.list-vertical--thirds
+      - @news.each do |news|
+        %li
+          %article
+            %h3= link_to news.name, public_node_path(news)
+            .meta= l(news.release_date, format: :news)
+    %p
+      =link_to 'More news', section_news_articles_path(section: @section.home_node.slug)
+  - else
     %p No current news articles
-
-  %ul.list-vertical--thirds
-    - @news.each do |news|
-      %li
-        %article
-          %h3= link_to news.name, public_node_path(news)
-          .meta= l(news.release_date, format: :news)
 
   = render partial: 'templates/related_ministers', object: @section.try(:ministers)
