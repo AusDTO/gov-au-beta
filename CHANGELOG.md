@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- Made agencies link null again
 
 ## [v0.9.0] - 2016-08-01
 - Section news index page now has a navbar consistent with rest of section
