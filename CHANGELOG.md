@@ -14,6 +14,7 @@ This file is influenced by http://keepachangelog.com/.
 - Header logo hover state is brand bar turning white
 
 ### Fixed
+- Accessing news for an unknown section returns file not found
 
 ## [v1.0.0] - 2016-08-02
 ### Added
