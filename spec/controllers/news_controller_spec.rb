@@ -26,6 +26,14 @@ RSpec.describe NewsController, type: :controller do
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
+
+      context 'for an undefined section' do
+        it 'should throw a not found' do
+          expect {
+            get :show, section: 'undefined', slug: article_draft.slug
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
     end
   end
 
