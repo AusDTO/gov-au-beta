@@ -5,6 +5,8 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 
+- Added favicon
+
 ### Changed
 
 ### Fixed
