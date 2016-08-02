@@ -1,5 +1,5 @@
 Fabricator(:user) do
-  email { Fabricate.sequence(:email) { |i| "user-#{i}@example.com" } }
+  email { Fabricate.sequence(:email) { |i| "user-#{i}@some-agency.gov.au" } }
   password { "qwerty1234" }
   transient :is_admin, :author_of, :reviewer_of, :owner_of, :unconfirmed
 

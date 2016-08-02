@@ -8,7 +8,7 @@ RSpec.describe 'signing up', type: :feature do
 
   it 'sets the name' do
     visit new_user_registration_path
-    fill_in('Email', with: 'test@example.com')
+    fill_in('Email', with: 'test@example.gov.au')
     fill_in('First name', with: 'first')
     fill_in('Last name', with: 'last')
     # Can't use fill_in for Password because it's an ambiguous match
