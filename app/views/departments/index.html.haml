@@ -1,11 +1,27 @@
 - breadcrumb :departments
+
+= content_for :after_header do
+  .hero-med.corporate
+    .wrapper
+      %h1
+        Departments
+      %p
+        The Australian Government has 18 departments and 189 agencies.
+
+
 %article.content-listing
-  %h1
-    Departments
-  %ul
+  %ul.list-highlighted
     - departments.each do |department|
       %li
-        = link_to(department.name, public_node_path(department.home_node))
+        %a{href:  public_node_path(department.home_node)}
+          - if department.prefix.present?
+            %span
+              = department.prefix
+          = department.title
+
+        %p
+          = department.home_node.short_summary
+
         - if department.agencies.any?
           %ul
             - department.agencies.each do |agency|
