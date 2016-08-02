@@ -47,11 +47,14 @@ RSpec.describe 'demo', type: :feature do
     page.find('.content-main a', :text => 'Television (TV) reception').click
 
     expect(page.current_path).to eql('/television-tv-reception')
-    #page.find('.footer-top a', :text => 'Department of Communications and the Arts').click
+    page.find('nav.breadcrumbs--inverted a', :text => 'Home').click
+    page.find('a', :text => /18 Departments/).click
+    page.find('article.content-listing li a', :text => 'Department of Communications and the Arts').click
 
-    #expect(page.current_path).to eql('/department-of-communications-and-the-arts')
-    #page.find('.minister', :text => 'Senator the Hon Mitch Fifield').click
+    expect(page.current_path).to eql('/department-of-communications-and-the-arts')
+    expect(page).to have_content 'Senator the Hon Mitch Fifield'
+    page.find('a', :text => 'Minister for Communications').click
 
-    #expect(page.current_path).to eql('/minister-for-communications')
+    expect(page.current_path).to eql('/minister-for-communications')
   end
 end
