@@ -4,8 +4,10 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 ### Added
+- DB scrub script
 
 ### Changed
+- Updated demo script to include all steps
 
 ### Fixed
 
