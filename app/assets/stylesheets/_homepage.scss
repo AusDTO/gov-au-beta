@@ -5,6 +5,11 @@ $light-teal: #00a1bb;
   border-top: 0;
   margin: $base-spacing 0;
   padding: $tiny-spacing $base-spacing;
+
+  p {
+    min-height: 0;
+    margin-bottom: $small-spacing;
+  }
 }
 
 .home-heading {
