@@ -19,9 +19,6 @@
               = department.prefix
           = department.title
 
-        %p
-          = department.home_node.short_summary
-
         - if department.agencies.any?
           %ul
             - department.agencies.each do |agency|
