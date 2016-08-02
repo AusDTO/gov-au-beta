@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 - /departments listing style is now the same as /ministers
 - Upgrade UI kit to v1.7.2
 - 'More News' links below news on section homepages
+- Removed summaries from /departments
 
 ### Fixed
 - Made agencies link null again
