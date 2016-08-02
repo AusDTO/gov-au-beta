@@ -2,9 +2,10 @@
   - breadcrumb :public_node, node
 
   %div.abstract
-    =node.short_summary
-    - if node.summary
-      != markdown_content node.summary
+    %p
+      =node.short_summary
+      - if node.summary
+        != markdown_content node.summary
 
   = render partial: 'templates/related_topics'
   = render partial: 'templates/content_body', object: node.content_body

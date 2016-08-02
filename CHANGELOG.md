@@ -8,9 +8,13 @@ This file is influenced by http://keepachangelog.com/.
 - Added favicon
 
 ### Changed
+- /departments listing style is now the same as /ministers
+
 
 ### Fixed
 - Made agencies link null again
+- Abstract markup fixed to match uikit-1.7.1
+- Added missing heros to /ministers, /departments and /categories
 
 - Reduced height of homepage category listings
 
