@@ -10,6 +10,8 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 - Made agencies link null again
 
+- Reduced height of homepage category listings
+
 ## [v0.9.0] - 2016-08-01
 - Section news index page now has a navbar consistent with rest of section
 - Incumbent minister's name next to related minister link in dept homepages
