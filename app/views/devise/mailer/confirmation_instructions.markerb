@@ -1,5 +1,11 @@
-Welcome <%= @email %>!
+Hi <%= @resource.first_name %>
 
-You can confirm your account through the link below:
+Welcome to GOV.AU Beta.
 
-[Confirm my account](<%= confirmation_url(@resource, confirmation_token: @token) %>)
+To get started as a content author or reviewer please confirm your email address and follow the instructions.
+
+[Click here to confirm your email address.](<%= confirmation_url(@resource, confirmation_token: @token) %>)
+
+Thank you
+
+The GOV.AU Team

@@ -22,6 +22,8 @@ class UserDashboard < Administrate::BaseDashboard
     roles: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    confirmed_at: Field::DateTime,
+    confirmation_sent_at: Field::DateTime,
     password: PasswordField,
     password_confirmation: PasswordField,
     first_name: Field::String,
@@ -52,6 +54,8 @@ class UserDashboard < Administrate::BaseDashboard
     :last_sign_in_at,
     :current_sign_in_ip,
     :last_sign_in_ip,
+    :confirmed_at,
+    :confirmation_sent_at,
     :created_at,
     :updated_at,
   ].freeze
@@ -65,6 +69,8 @@ class UserDashboard < Administrate::BaseDashboard
     :last_name,
     :password,
     :password_confirmation,
+    :confirmed_at,
+    :confirmation_sent_at,
     :roles,
   ].freeze
 
