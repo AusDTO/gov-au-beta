@@ -1,7 +1,8 @@
 # GOV.AU Beta Frontend
 This project provides the user facing frontend to the GOV.AU content site.
 
-[![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta) [![Code Climate](https://codeclimate.com/repos/576396facfacf40074004a6e/badges/76ba0d87dc83eb9e3202/gpa.svg)](https://codeclimate.com/repos/576396facfacf40074004a6e/feed) [![Test Coverage](https://codeclimate.com/repos/576396facfacf40074004a6e/badges/76ba0d87dc83eb9e3202/coverage.svg)](https://codeclimate.com/repos/576396facfacf40074004a6e/coverage)
+[![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta) [![Code Climate](https://codeclimate.com/github/AusDTO/gov-au-beta/badges/gpa.svg)](https://codeclimate.com/github/AusDTO/gov-au-beta) [![Test Coverage](https://codeclimate.com/github/AusDTO/gov-au-beta/badges/coverage.svg)](https://codeclimate.com/github/AusDTO/gov-au-beta/coverage)
+
 
 ## GOV.AU stack
 If you're contributing to this repo, then you'll most likely be contributing to the other GOV.AU repos in the stack:
