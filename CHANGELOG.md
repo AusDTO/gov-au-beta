@@ -9,6 +9,22 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+
+## [v1.0.1] - 2016-08-03
+### Added
+- DB scrub script
+- Email is enabled in production
+- Only allows sign-up for \*.gov.au email addresses
+- Confirmation of email address is now switched on for all new users
+
+### Changed
+- Updated demo script to include all steps
+- Header logo hover state is brand bar turning white
+- Link beneath related topics includes anchor
+
+### Fixed
+- Accessing news for an unknown section returns file not found
+
 ## [v1.0.0] - 2016-08-02
 ### Added
 - Added favicon

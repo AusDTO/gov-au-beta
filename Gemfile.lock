@@ -99,6 +99,11 @@ GEM
     arel (7.0.0)
     autoprefixer-rails (6.3.7)
       execjs
+    aws-ses (0.6.0)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -220,6 +225,8 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -418,6 +425,7 @@ GEM
     websocket-extensions (0.1.2)
     with_model (1.2.1)
       activerecord (>= 3.0)
+    xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -428,6 +436,7 @@ DEPENDENCIES
   acts_as_tree (~> 2.4.0)
   administrate!
   andand
+  aws-ses (~> 0.6.0)
   bourbon
   bower-rails (~> 0.10.0)
   byebug
@@ -454,6 +463,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  letter_opener
   listen
   markerb
   mini_magick
