@@ -4,6 +4,14 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.0.1] - 2016-08-03
+### Added
 - DB scrub script
 - Email is enabled in production
 - Only allows sign-up for \*.gov.au email addresses
