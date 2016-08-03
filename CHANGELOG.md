@@ -2,8 +2,17 @@
 All notable changes to this product will be documented below.
 This file is influenced by http://keepachangelog.com/.
 
-## [Unreleased] -
+## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.0.2] - 2016-08-03
+### Added
+- Transition links displayed on root page
 
 ### Changed
 
