@@ -5,9 +5,13 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased] -
 ### Added
 - DB scrub script
+- Email is enabled in production
+- Only allows sign-up for \*.gov.au email addresses
+- Confirmation of email address is now switched on for all new users
 
 ### Changed
 - Updated demo script to include all steps
+- Header logo hover state is brand bar turning white
 
 ### Fixed
 - Accessing news for an unknown section returns file not found
