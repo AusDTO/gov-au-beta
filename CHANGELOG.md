@@ -4,6 +4,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased] -
 ### Added
+- Transition links displayed on root page
 
 ### Changed
 
