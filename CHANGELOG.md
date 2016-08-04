@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 - The html title tag reflects the page name
+- Node preview layout in editorial now correctly wraps metadata header
 
 - Improved support for IE
 
