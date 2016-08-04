@@ -9,6 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- The html title tag reflects the page name
 
 
 ## [v1.0.2] - 2016-08-03

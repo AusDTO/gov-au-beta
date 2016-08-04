@@ -88,20 +88,20 @@ school_hols_act.update(template: 'custom/school_holidays_act', options: {suppres
 password = ENV['SEED_USER_PASSWORD']
 raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
 
-unless admin = User.find_by(email: "admin@example.com")
-  admin = User.create!(email: "admin@example.com", password: password)
+unless admin = User.find_by(email: "admin@example.gov.au")
+  admin = User.create!(email: "admin@example.gov.au", password: password)
 end
 
-unless author = User.find_by(email: "author@example.com")
-  author = User.create!(email: "author@example.com", password: password)
+unless author = User.find_by(email: "author@example.gov.au")
+  author = User.create!(email: "author@example.gov.au", password: password)
 end
 
-unless reviewer = User.find_by(email: "reviewer@example.com")
-  reviewer = User.create!(email: "reviewer@example.com", password: password)
+unless reviewer = User.find_by(email: "reviewer@example.gov.au")
+  reviewer = User.create!(email: "reviewer@example.gov.au", password: password)
 end
 
-unless owner = User.find_by(email: "owner@example.com")
-  owner = User.create!(email: "owner@example.com", password: password)
+unless owner = User.find_by(email: "owner@example.gov.au")
+  owner = User.create!(email: "owner@example.gov.au", password: password)
 end
 
 admin.add_role :admin

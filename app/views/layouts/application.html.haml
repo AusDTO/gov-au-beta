@@ -1,7 +1,7 @@
 !!! 5
 
 %html.js{lang: "en-au"}
-  = render 'application/head', title: 'GovAuBeta'
+  = render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
   %body
     %div.skip-to
       %a{href: "#content"}

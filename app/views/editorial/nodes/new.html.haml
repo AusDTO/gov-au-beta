@@ -1,3 +1,6 @@
+= content_for :title do
+  = "Create a new #{@form.model.decorate.type_display_name} page"
+
 - breadcrumb :new_editorial_node, @section, @parent, @type
 
 %h1
