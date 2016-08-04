@@ -11,6 +11,8 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 - The html title tag reflects the page name
 
+- Improved support for IE
+
 
 ## [v1.0.2] - 2016-08-03
 ### Added
