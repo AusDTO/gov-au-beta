@@ -46,4 +46,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
+
+  # Set mock environment git tag and SHA1 values
+  config.version_tag = 'v1.0.0'
+  config.version_sha = 'abcdefghijkl'
 end
