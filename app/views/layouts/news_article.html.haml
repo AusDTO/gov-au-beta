@@ -1,5 +1,6 @@
 = inside_layout :application do
-  = yield
+  %article#content{class: "content-main"}
+    = yield
 
   = content_for :title do
     = @node.name
