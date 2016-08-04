@@ -18,7 +18,7 @@ module Editorial
     private
     def set_git_vars
       @version_tag = Rails.configuration.version_tag
-      @version_sha = Rails.configuration.version_sha
+      @version_sha = Rails.configuration.version_sha[0..6]
     end
   end
 end
