@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'editorial version details', type: :feature do
   Warden.test_mode!
 
-  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
   let!(:author) { Fabricate(:user, author_of: section) }
 
