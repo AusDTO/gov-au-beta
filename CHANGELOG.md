@@ -4,6 +4,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+- Include git tag and sha1 on editorial footer
 
 ### Changed
 

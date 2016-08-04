@@ -97,4 +97,7 @@ Rails.application.configure do
   config.middleware.use '::Rack::Auth::Basic' do |u, p|
     [u, p] == [ENV["HTTP_USERNAME"], ENV["HTTP_PASSWORD"]]
   end
+
+  config.version_tag = ENV['CIRCLE_TAG']
+  config.version_sha = ENV['CIRCLE_SHA1']
 end
