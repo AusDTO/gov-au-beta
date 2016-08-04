@@ -14,6 +14,8 @@ This file is influenced by http://keepachangelog.com/.
 
 - Improved support for IE
 
+- Correctly check for a valid node type when creating nodes
+
 
 ## [v1.0.2] - 2016-08-03
 ### Added

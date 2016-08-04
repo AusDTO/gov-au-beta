@@ -62,43 +62,40 @@ RSpec.describe Editorial::NodesController, type: :controller do
     #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
     # end
 
-    context 'when user is authorised' do
-      before { sign_in(author) }
-
-      let(:submission) { Fabricate(:submission) }
-
-      subject do
-        post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
-        response
-      end
-
-      it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
-
-      specify 'that a node is created' do
-        expect { subject }.to change(Node, :count).by(1)
-      end
-    end
-
     describe 'to a collaborate node' do
       context 'as authorised user' do
-
-        # before do
-        #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
-        # end
 
         before { sign_in(author) }
 
         let(:submission) { Fabricate(:submission) }
 
-        subject do
-          post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
-          response
+        context 'with valid data' do
+          subject do
+            post :create, params: {
+                section_id: section,
+                node: {name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo'}
+            }
+            response
+          end
+
+          it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
+
+          specify 'that a node is created' do
+            expect { subject }.to change(Node, :count).by(1)
+          end
         end
 
-        it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
+        context 'with an invalid type' do
+          subject do
+            post :create, params: {
+                section_id: section,
+                node: {name: 'Test node', parent_id: section.home_node.id, short_summary: 'foo'},
+                type: 'bad'
+            }
+            response
+          end
 
-        specify 'that a node is created' do
-          expect { subject }.to change(Node, :count).by(1)
+          it { is_expected.to have_http_status(:bad_request) }
         end
       end
 
@@ -110,8 +107,10 @@ RSpec.describe Editorial::NodesController, type: :controller do
 
         it "does not save the new node" do
           expect{
-            post :create, section_id: section, node: { name: 'Test Node',
-              parent_id: section.home_node.id }
+            post :create, params: {
+                section_id: section,
+                node: { name: 'Test Node', parent_id: section.home_node.id }
+            }
           }.to_not change(Node,:count)
         end
       end
@@ -126,7 +125,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
         end
         it "does not save the new node" do
           expect{
-            post :create, section_id: section, node: { name: 'Test Node' }
+            post :create, params: { section_id: section, node: { name: 'Test Node' } }
           }.to_not change(Node,:count)
         end
       end
