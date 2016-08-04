@@ -5,6 +5,7 @@ module Editorial
     check_authorization
 
     before_action ->() { authorize! :view, :editorial_page }
+    before_action :set_git_vars
 
     layout 'editorial'
 
@@ -12,6 +13,12 @@ module Editorial
       authorize! :view, :editorial_page
       @sections = Section.all.order(:name).select{ |section| can? :read, section }
       @news_section = Section.find_by(name: 'news')
+    end
+
+    private
+    def set_git_vars
+      @version_tag = Rails.configuration.version_tag
+      @version_sha = Rails.configuration.version_sha
     end
   end
 end

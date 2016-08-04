@@ -55,4 +55,7 @@ Rails.application.configure do
 
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
+
+  config.version_tag = 'dummy_version'
+  config.version_sha = 'dummy_sha'
 end
