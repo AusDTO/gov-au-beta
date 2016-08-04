@@ -6,6 +6,10 @@ $light-teal: #00a1bb;
   margin: $base-spacing 0;
   padding: $tiny-spacing $base-spacing;
 
+  @include media($tablet) {
+    max-width: ((100% - $list-vertical-gutter * 2) / 3);
+  }
+
   p {
     min-height: 0;
     margin-bottom: $small-spacing;
