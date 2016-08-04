@@ -31,4 +31,8 @@
     %footer{role: "contentinfo"}
       %div.wrapper
         %p
-          &lt;insert footer here&gt;
+          - if @version_tag.present?
+            #{@version_tag}:
+          - if @version_sha.present?
+            #{@version_sha}
+
