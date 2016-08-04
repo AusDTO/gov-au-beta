@@ -124,7 +124,7 @@ credentials for these instances in the environment variables for an application
 that is bound to them.
 
 * SSH into the jump-box that has access to the source RDS instance
-* `pg_dump --no-owner --no-acl -h SRC_RDS_HOST -U SRC_RDS_USERNAME -W SRC_RDS_NAME  > db.sql`
+* `pg_dump --no-owner --no-acl -c -h SRC_RDS_HOST -U SRC_RDS_USERNAME -W SRC_RDS_NAME  > db.sql`
   * You will need to provide the SRC_RDS_PASSWORD
 * If local migrations need to be run on this, SCP the file to your local machine,
   run the necessary migrations, and SCP the file back.
