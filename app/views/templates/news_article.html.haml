@@ -1,31 +1,30 @@
 = content_for :title do
   =node.name
-  
-%article#content{class: "content-main"}
-  - breadcrumb :public_news_article, node
 
-  %dl.list-horizontal
-    %div.tags
-      - node.related_sections.each do |distribution|
-        %dd= link_to distribution.name, public_node_path(distribution.home_node)
+- breadcrumb :public_news_article, node
 
-  %h1
-    =node.name
+%dl.list-horizontal
+  %div.tags
+    - node.related_sections.each do |distribution|
+      %dd= link_to distribution.name, public_node_path(distribution.home_node)
 
-  %div.abstract
-    %p
-      =node.short_summary
-      - if node.summary
-        != markdown_content node.summary
+%h1
+  =node.name
 
-  %ul.announcement-info
-    - if node.release_date
-      %li Published date: #{l(node.release_date, format: :news)}
-    %li
-      Published by:
-      %a= link_to(node.section.name, public_node_path(node.section.home_node))
+%div.abstract
+  %p
+    =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
+
+%ul.announcement-info
+  - if node.release_date
+    %li Published date: #{l(node.release_date, format: :news)}
+  %li
+    Published by:
+    %a= link_to(node.section.name, public_node_path(node.section.home_node))
 
 
-  = render partial: 'templates/content_body', object: node.content_body
+= render partial: 'templates/content_body', object: node.content_body
 
-  =@hierarchy
+=@hierarchy

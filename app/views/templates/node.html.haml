@@ -1,12 +1,12 @@
 = content_for :title do
   =node.name
-%article#content{class: "content-main"}
-  - breadcrumb :public_node, node
 
-  %h1
-    =node.name
+- breadcrumb :public_node, node
 
-  = render partial: 'templates/content_body', object: node.content_body
+%h1
+  =node.name
 
-  %p
-    =@hierarchy
+= render partial: 'templates/content_body', object: node.content_body
+
+%p
+  =@hierarchy
