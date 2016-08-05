@@ -62,7 +62,7 @@
         %li
           %article
             %h3= link_to news.name, public_node_path(news)
-            .meta= news.release_date
+            .meta= l(news.release_date, format: :news)
     =link_to 'All news', news_articles_path, :class => "see-more"
 
   %section.government-links
