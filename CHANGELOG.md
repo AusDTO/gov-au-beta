@@ -7,7 +7,6 @@ This file is influenced by http://keepachangelog.com/.
 - Include git tag and sha1 on editorial footer
 
 ### Changed
-- Truncated SHA on editorial page and improved clarity around version
 
 ### Fixed
 - The html title tag reflects the page name
