@@ -15,6 +15,13 @@ module Editorial
       @news_section = Section.find_by(name: 'news')
     end
 
+    class ClientParamError < StandardError
+    end
+
+    rescue_from ClientParamError do
+      head :bad_request
+    end
+
     private
     def set_git_vars
       @version_tag = Rails.configuration.version_tag
