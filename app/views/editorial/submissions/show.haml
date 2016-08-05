@@ -29,18 +29,18 @@
     %tr
       %td Reviewed by
       %td= submission.reviewer_display_name
-    %tr
-      %td Reviewed at
-      %td= l(submission.reviewed_at) unless submission.reviewed_at.blank?
+    - if submission.reviewed_at.present?
+      %tr
+        %td Reviewed at
+        %td= l(submission.reviewed_at)
 
--# default to the published name if no name is set
-- locals = {defaults: {name: submission.revisable.name}}
+- locals = {submission: submission, defaults: {name: submission.revisable.name}, node_type_template: @node_type_template} 
 
 %h2 Original content
-= render partial: 'content', object: submission.original_content, locals: locals
+= render partial: 'content', locals: locals.merge(content: submission.original_content)
 
 %h2 Submitted content
-= render partial: 'content', object: submission.submitted_content, locals: locals
+= render partial: 'content', locals: locals.merge(content: submission.submitted_content)
 
 - if can?(:review, @submission)
   %h2 Review

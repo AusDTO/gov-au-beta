@@ -9,6 +9,12 @@ module Editorial
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
+    def show
+      super
+      # FIXME: this works around the node Fabricator not setting the type in specs
+      node_type_name = @submission.revision.revisable.type || "GeneralContent"
+      @node_type_template = node_type_name.underscore
+    end
 
     def index
       @submissions = scope.open.recent
