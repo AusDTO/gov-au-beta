@@ -1,0 +1,32 @@
+
+.list-vertical {
+  overflow: hidden;
+  > li {
+
+    @include media($tablet) {
+      width: ((100% - $list-vertical-gutter) / 2);
+      float: left;
+    }
+  }
+}
+
+.list-vertical--thirds {
+  overflow: hidden;
+  > li {
+    @include media($tablet) {
+      width: ((100% - $list-vertical-gutter * 2) / 3);
+      float: left;
+    }
+  }
+}
+
+.list-vertical--fourths {
+  overflow: hidden;
+  > li {
+
+    @include media($tablet) {
+      width: ((100% - $list-vertical-gutter * 3) / 4);
+      float:left;
+    }
+  }
+}
