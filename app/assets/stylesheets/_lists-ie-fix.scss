@@ -1,32 +1,31 @@
+@include media($tablet) {
 
-.list-vertical {
-  overflow: hidden;
-  > li {
+  .list-vertical {
+    overflow: hidden;
 
-    @include media($tablet) {
+    > li {
+
+      float: left;
       width: ((100% - $list-vertical-gutter) / 2);
-      float: left;
     }
   }
-}
 
-.list-vertical--thirds {
-  overflow: hidden;
-  > li {
-    @include media($tablet) {
+  .list-vertical--thirds {
+    overflow: hidden;
+
+    > li {
+      float: left;
       width: ((100% - $list-vertical-gutter * 2) / 3);
+    }
+  }
+
+  .list-vertical--fourths {
+    overflow: hidden;
+
+    > li {
       float: left;
-    }
-  }
-}
-
-.list-vertical--fourths {
-  overflow: hidden;
-  > li {
-
-    @include media($tablet) {
       width: ((100% - $list-vertical-gutter * 3) / 4);
-      float:left;
     }
   }
+
 }
