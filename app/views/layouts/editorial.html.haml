@@ -1,39 +1,49 @@
 !!! 5
-
-%html.js
-  = render 'head', title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU Editorial" : 'GOV.AU Editorial' )
-  %body
-    %header{role: 'banner', class: 'navigation'}
-      = render 'application/signed_in_nav'
-      %section.govau--header
-        %div.wrapper
-          %div.govau--logo
-            %a.logo(href="/")
-              gov.au
-            %span.badge--beta beta
-
-      - if content_for?(:header)
-        %section.hero
-          .wrapper= yield(:header)
-
-    %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
-      .wrapper
-        = breadcrumbs style: :ul, class: nil
-
-    %main
-      - if content_for?(:navbar)
-        %aside.sidebar
-          %nav.primary-nav{'aria-label' => 'main navigation'}
-            = yield :navbar
-      %article#content{class: "content-main", role: "main"}
-        = render 'alerts'
-        = yield
-    %footer{role: "contentinfo"}
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]>
+<html lang="en" class="ie6 no-js">    <![endif]-->
+<!--[if IE 7 ]>
+<html lang="en" class="ie7 no-js">    <![endif]-->
+<!--[if IE 8 ]>
+<html lang="en" class="ie8 no-js">    <![endif]-->
+<!--[if IE 9 ]>
+<html lang="en" class="ie9 no-js">    <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"><!--<![endif]-->
+= render 'head', title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU Editorial" : 'GOV.AU Editorial' )
+%body
+  %header{role: 'banner', class: 'navigation'}
+    = render 'application/signed_in_nav'
+    %section.govau--header
       %div.wrapper
-        %p
-          Version:
-          - if @version_tag.present?
-            #{@version_tag}:
-          - if @version_sha.present?
-            #{@version_sha}
+        %div.govau--logo
+          %a.logo(href="/")
+            gov.au
+          %span.badge--beta beta
 
+    - if content_for?(:header)
+      %section.hero
+        .wrapper= yield(:header)
+
+  %nav.breadcrumbs{'aria-label' => 'breadcrumb'}
+    .wrapper
+      = breadcrumbs style: :ul, class: nil
+
+  %main
+    - if content_for?(:navbar)
+      %aside.sidebar
+        %nav.primary-nav{'aria-label' => 'main navigation'}
+          = yield :navbar
+    %article#content{class: "content-main", role: "main"}
+      = render 'alerts'
+      = yield
+  %footer{role: "contentinfo"}
+    %div.wrapper
+      %p
+        Version:
+        - if @version_tag.present?
+          #{@version_tag}:
+        - if @version_sha.present?
+          #{@version_sha}
+</html>

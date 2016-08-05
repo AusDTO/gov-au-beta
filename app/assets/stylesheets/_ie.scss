@@ -1,0 +1,25 @@
+.ie7, .ie8, .ie9 {
+  .govau--logo {
+    height: 79px;
+    width: 272px;
+  }
+  .footer-logo {
+    float: left;
+  }
+  .footer-links {
+    p {
+      position: relative;
+      top: -100px;
+      float: right;
+    }
+    ul {
+      position: relative;
+      top: -100px;
+      width: 100%;
+      li {
+        display: inline-block;
+        float: right;
+      }
+    }
+  }
+}
