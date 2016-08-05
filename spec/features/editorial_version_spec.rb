@@ -15,7 +15,7 @@ RSpec.describe 'editorial version details', type: :feature do
     it 'displays version tag and sha' do
       # Values set in test.rb
       expect(page).to have_content('v1.0.0')
-      expect(page).to have_content('abcdefghijkl')
+      expect(page).to have_content('abcdefghijkl'[0..6])
     end
   end
 end
