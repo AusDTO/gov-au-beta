@@ -72,7 +72,9 @@ $light-teal: #00a1bb;
     }
 
     .population-infographic {
-      background: url(asset-path('home/australia-map.svg'));
+      background: asset-url('home/australia-map.png');
+      background-image: none, asset-url('home/australia-map.svg'),
+      linear-gradient(transparent, transparent);
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
@@ -113,9 +115,9 @@ $light-teal: #00a1bb;
 
 //Calendar thing
 .public-holiday {
-a {
- text-decoration: none;
-}
+  a {
+    text-decoration: none;
+  }
   .next-holiday {
     background-color: $background-secondary-colour;
     margin-bottom: 2 * $base-spacing;
@@ -199,70 +201,154 @@ a {
   ul {
     margin-top: $base-spacing;
 
-      li {
-        border-top: 0;
+    li {
+      border-top: 0;
 
-        &.nsw:before,
-        &.vic:before,
-        &.qld:before,
-        &.sa:before,
-        &.wa:before,
-        &.tas:before,
-        &.nt:before,
-        &.act:before {
-          background-repeat: no-repeat;
-          background-size: contain;
-          content: ' ';
-          top: 0;
-          display: block;
-          height: 60px;
-          left: 0;
-          position: relative;
-          width: 60px;
-        }
+      &.nsw:before,
+      &.vic:before,
+      &.qld:before,
+      &.sa:before,
+      &.wa:before,
+      &.tas:before,
+      &.nt:before,
+      &.act:before {
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: ' ';
+        top: 0;
+        display: block;
+        height: 60px;
+        left: 0;
+        position: relative;
+        width: 60px;
+      }
 
-        &.nsw:before {
-          background-image: url(asset-path('home/nsw.png'));
-        }
+      &.nsw:before {
+        background-image: asset-url('home/nsw.png');
+      }
 
-        &.vic:before {
-          background-image: url(asset-path('home/vic.png'));
-        }
+      &.vic:before {
+        background-image: asset-url('home/vic.png');
+      }
 
-        &.qld:before {
-          background-image: url(asset-path('home/qld.png'));
-        }
+      &.qld:before {
+        background-image: asset-url('home/qld.png');
+      }
 
-        &.sa:before {
-          background-image: url(asset-path('home/sa.png'));
-        }
+      &.sa:before {
+        background-image: asset-url('home/sa.png');
+      }
 
-        &.wa:before {
-          background-image: url(asset-path('home/wa.png'));
-        }
+      &.wa:before {
+        background-image: asset-url('home/wa.png');
+      }
 
-        &.tas:before {
-          background-image: url(asset-path('home/tas.png'));
-        }
+      &.tas:before {
+        background-image: asset-url('home/tas.png');
+      }
 
-        &.nt:before {
-          background-image: url(asset-path('home/nt.png'));
-        }
+      &.nt:before {
+        background-image: asset-url('home/nt.png');
+      }
 
-        &.act:before {
-          background-image: url(asset-path('home/act.png'));
-        }
+      &.act:before {
+        background-image: asset-url('home/act.png');
+      }
 
-        .state-title {
-          margin-bottom: 0;
-          min-height: 0;
-          margin-top: $small-spacing;
-        }
+      .state-title {
+        margin-bottom: 0;
+        min-height: 0;
+        margin-top: $small-spacing;
+      }
     }
   }
 
   .local-government-directory {
     list-style-type: none;
     padding-left: 0;
+  }
+}
+
+.ie7, .ie8 {
+  .govau--logo.home {
+    height: 79px;
+    width: 65px;
+  }
+  .govau--text {
+    display: block;
+    background: asset-url('icons/logo-gov-au.png');
+    background-image: none, asset-url('icons/logo-gov-au-2x.png'),
+    linear-gradient(transparent, transparent);
+
+  }
+  
+  .list-vertical--thirds li,
+  .state-government li {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    width: 27%;
+  }
+  .list-vertical--fourths li {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    width: 20%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .home-news-list .list-vertical--fourths {
+    h3 {
+      height: 130px;
+    }
+  }
+  .links-group {
+    min-height: 100px;
+  }
+  .links-group li {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    width: 15%;
+  }
+  .about-australia div {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+
+
+    &.population {
+      width: 55%;
+      height: 450px;
+      .population-infographic {
+        padding-top: 125px;
+        width: 75%;
+      }
+      li {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+      }
+    }
+    &.public-holiday {
+      width: 30%;
+      float:right;
+    }
+  }
+  .government-links {
+    div {
+      display: inline-block;
+      *display: inline;
+      zoom: 1;
+
+    }
+    .federal-government {
+      width: 25%;
+      float: left;
+      margin-right: 10px;
+    }
+    .state-government {
+      width: 70%;
+    }
   }
 }
