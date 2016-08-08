@@ -1,7 +1,7 @@
 !!! 5
 
 %html.js
-  = render 'head', title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU Collaboration" : 'GOV.AU Editorial' )
+  = render 'head', title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU Editorial" : 'GOV.AU Editorial' )
   %body
     %header{role: 'banner', class: 'navigation'}
       = render 'application/signed_in_nav'
