@@ -285,10 +285,14 @@ $light-teal: #00a1bb;
   .list-vertical--thirds li,
   .state-government li {
     display: inline-block;
-    width: 30%;
+    *display: inline;
+    zoom: 1;
+    width: 27%;
   }
   .list-vertical--fourths li {
     display: inline-block;
+    *display: inline;
+    zoom: 1;
     width: 20%;
     margin-left: 20px;
     margin-right: 20px;
@@ -303,10 +307,14 @@ $light-teal: #00a1bb;
   }
   .links-group li {
     display: inline-block;
+    *display: inline;
+    zoom: 1;
     width: 15%;
   }
   .about-australia div {
     display: inline-block;
+    *display: inline;
+    zoom: 1;
 
 
     &.population {
@@ -318,6 +326,8 @@ $light-teal: #00a1bb;
       }
       li {
         display: inline-block;
+        *display: inline;
+        zoom: 1;
       }
     }
     &.public-holiday {
@@ -328,7 +338,8 @@ $light-teal: #00a1bb;
   .government-links {
     div {
       display: inline-block;
-
+      *display: inline;
+      zoom: 1;
 
     }
     .federal-government {

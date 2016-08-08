@@ -18,6 +18,8 @@
       width: 100%;
       li {
         display: inline-block;
+        *display: inline;
+        zoom: 1;
         float: right;
       }
     }
