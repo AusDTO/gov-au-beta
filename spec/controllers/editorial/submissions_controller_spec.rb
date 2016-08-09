@@ -7,8 +7,12 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   describe 'GET #show' do
     context 'as an authorised author' do
       before { sign_in(author) }
-      let(:submission) { Fabricate(:submission) }
-      let(:section) { submission.revision.revisable.section }
+
+      let!(:section)      { Fabricate(:section) }
+      let!(:section_home) { Fabricate(:section_home, section: section) }
+      let!(:node)         { Fabricate(:general_content, parent: section_home) }
+
+      let(:submission) { Fabricate(:submission, revisable: node) }
       let!(:author) { Fabricate(:user, author_of: section) }
       subject { get :show, section_id: section, id: submission.id }
       it { is_expected.to be_success }
@@ -26,16 +30,16 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   end
 
   describe 'GET #index' do
-    # Yes I hate the usage of all of these fabricators...
-    let!(:root_node) { Fabricate(:root_node) }
     let(:flora) { Fabricate(:section) }
+    let(:flora_home) { Fabricate(:section_home, section: flora) }
     let(:fauna) { Fabricate(:section) }
+    let(:fauna_home) { Fabricate(:section_home, section: fauna) }
     let(:author) { Fabricate(:user, author_of: [flora, fauna]) }
     let(:flora_reviewer) { Fabricate(:user, author_of: [flora, fauna], reviewer_of: flora) }
-    let(:tree) { Fabricate(:node, section: flora) }
-    let(:grass) { Fabricate(:node, section: flora) }
-    let(:cow) { Fabricate(:node, section: fauna ) }
-    let(:goat) { Fabricate(:node, section: fauna ) }
+    let(:tree) { Fabricate(:general_content, parent: flora_home) }
+    let(:grass) { Fabricate(:general_content, parent: flora_home) }
+    let(:cow) { Fabricate(:general_content, parent: fauna_home ) }
+    let(:goat) { Fabricate(:general_content, parent: fauna_home ) }
     let(:revision_tree) { Fabricate(:revision, revisable: tree) }
     let(:revision_grass) { Fabricate(:revision, revisable: grass) }
     let(:revision_cow) { Fabricate(:revision, revisable: cow) }
@@ -78,12 +82,12 @@ RSpec.describe Editorial::SubmissionsController, type: :controller do
   end
 
   context 'as an author' do
-    let(:node) { Fabricate(:node) }
+    let(:node) { Fabricate(:general_content) }
     let(:user) { Fabricate(:user, author_of: node.section) }
     before { sign_in(user) }
 
     context 'with an open submission' do
-      let(:node) { Fabricate(:node) }
+      let(:node) { Fabricate(:general_content) }
       let(:revision) { Fabricate(:revision, revisable: node)}
       let!(:submission) { Fabricate(:submission, revision: revision, submitter: user) }
 

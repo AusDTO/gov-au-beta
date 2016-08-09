@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe NodeCreator, type: :service do
-  let!(:root_node)   { Fabricate(:root_node) }
-  let(:user)         { Fabricate(:user) }
-  let!(:section)     { Fabricate(:section) }
-  let!(:parent)      { Fabricate(:node, section: section, parent: root_node) }
-  let(:name)         { 'Node Name' }
-  let(:content_body) { 'This is the first revision' }
-  let(:node_class)   { Node }
-  let(:form)         { NodeForm.new(node_class.new(params)) }
-  let(:params)       { { name: name, content_body: content_body,
+  let!(:user)         { Fabricate(:user) }
+  let!(:section_home){ Fabricate(:section_home) }
+  let!(:section)     { section_home.section }
+  let!(:parent)      { Fabricate(:general_content, section: section, parent: section_home) }
+  let!(:name)         { 'Node Name' }
+  let!(:content_body) { 'This is the first revision' }
+  let!(:node_class)   { Node }
+  let!(:form)         { NodeForm.new(node_class.new(params)) }
+  let!(:params)       { { name: name, content_body: content_body,
                          parent_id: parent.id } }
 
   subject(:creator)  { NodeCreator.new(section, form) }

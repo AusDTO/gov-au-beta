@@ -6,6 +6,7 @@ RSpec.describe 'editing content', type: :feature do
   Warden.test_mode!
   let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
   let!(:author) { Fabricate(:user, author_of: section) }
 
   before :each do
@@ -25,7 +26,7 @@ RSpec.describe 'editing content', type: :feature do
   end
 
   context 'on a node page' do
-    let!(:node) { Fabricate(:node, section: section, parent: root_node) }
+    let!(:node) { Fabricate(:general_content, parent: section_home) }
 
     it 'should show a link to edit the content in the CMS' do
       visit public_node_path(node)
@@ -53,13 +54,12 @@ RSpec.describe 'editing content', type: :feature do
 
   context 'when editing content' do
     let!(:section1) { Fabricate(:section) }
+    let!(:section_home1) { Fabricate(:section_home, section: section1) }
     let!(:section2) { Fabricate(:section) }
-    let!(:node1) { Fabricate(:general_content, state: 'published',
-      parent: section1.home_node, section: section1) }
-    let!(:node2) { Fabricate(:news_article, state: 'published',
-      section: section2) }
-    let!(:node3) { Fabricate(:custom_template_node, state: 'published',
-      section: section2) }
+    let!(:section_home2) { Fabricate(:section_home, section: section2) }
+    let!(:node1) { Fabricate(:general_content, state: 'published', parent: section_home1) }
+    let!(:node2) { Fabricate(:news_article, state: 'published', parent: section_home2) }
+    let!(:node3) { Fabricate(:custom_template_node, state: 'published', parent: section_home2) }
 
     before :each do
       author.add_role(:author, section1)

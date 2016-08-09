@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Submission, type: :model do
 
+  let(:section_home) { Fabricate(:section_home, section: Fabricate(:section)) }
+
   it { is_expected.to belong_to :revision }
   it { is_expected.to belong_to :submitter }
   it { is_expected.to belong_to :reviewer }
@@ -40,7 +42,7 @@ RSpec.describe Submission, type: :model do
   describe '#submit!' do
     context 'editing body' do
       let(:author) { Fabricate(:user, reviewer_of: revision.section) }
-      let(:revision) { Fabricate(:node).revise! content_body: 'Revised content' }
+      let(:revision) { Fabricate(:general_content, parent: section_home).revise! content_body: 'Revised content' }
       subject { Fabricate(:submission, revision: revision) }
       before do
         subject.submit! author
@@ -51,7 +53,7 @@ RSpec.describe Submission, type: :model do
     end
     context 'editing title' do
       let(:author) { Fabricate(:user, reviewer_of: revision.section) }
-      let(:revision) { Fabricate(:node).revise! name: 'Revised name' }
+      let(:revision) { Fabricate(:general_content, parent: section_home).revise! name: 'Revised name' }
       subject { Fabricate(:submission, revision: revision) }
       before do
         subject.submit!(author)
@@ -62,7 +64,7 @@ RSpec.describe Submission, type: :model do
     end
     context 'editing title and content' do
       let(:author) { Fabricate(:user, reviewer_of: revision.section) }
-      let(:revision) { Fabricate(:node).revise!(name: 'Revised name', content_body: 'Revised content') }
+      let(:revision) { Fabricate(:general_content, parent: section_home).revise!(name: 'Revised name', content_body: 'Revised content') }
       subject { Fabricate(:submission, revision: revision) }
       before do
         subject.submit!(author)
@@ -77,7 +79,11 @@ RSpec.describe Submission, type: :model do
 
   describe 'reviewing' do
     let(:reviewer) { Fabricate(:user, reviewer_of: revision.section) }
-    let(:revision) { Fabricate(:node, state: 'draft').revise! name: 'Revised name', content_body: 'Revised content' }
+    let(:revision) do
+      Fabricate(:general_content, state: 'draft').revise!(
+        name: 'Revised name', content_body: 'Revised content'
+      )
+    end
     subject { Fabricate(:submission, revision: revision, submitted_at: 3.days.ago, state: :submitted) }
 
     before do

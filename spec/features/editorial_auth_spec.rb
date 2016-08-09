@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'editorial authorisation:' do
   Warden.test_mode!
 
-  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
   let!(:author_user) { Fabricate(:user, author_of: section) }
   let!(:reviewer_user) { Fabricate(:user, reviewer_of: section) }
   let!(:owner_user) { Fabricate(:user, owner_of: section) }

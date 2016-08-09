@@ -1,5 +1,7 @@
+# TODO should not be able to invoke this directly
 Fabricator(:section) do
   name { Fabricate.sequence(:section_name) { |i| "section-#{i}" } }
+  # TODO why does a section build a root node?
   after_build { Fabricate(:root_node) unless Node.root_node }
 end
 

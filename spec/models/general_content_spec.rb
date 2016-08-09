@@ -4,11 +4,11 @@ RSpec.describe GeneralContent, type: :model do
 
   describe 'recursive ancestry' do
     let!(:root) { Fabricate(:root_node) }
-    let(:section) { Fabricate(:section) }
+    let(:section_home) { Fabricate(:section_home) }
+    let(:section) { section_home.section }
     subject(:parent) { Fabricate(:general_content, section: section,
       parent: section.home_node) }
-    let(:child) { Fabricate(:general_content, section: section,
-      parent: parent) }
+    let(:child) { Fabricate(:general_content, section: section, parent: parent) }
 
     before do
       parent.parent = child
