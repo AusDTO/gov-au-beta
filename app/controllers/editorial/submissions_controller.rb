@@ -11,8 +11,7 @@ module Editorial
 
     def show
       super
-      # FIXME: this works around the node Fabricator not setting the type in specs
-      node_type_name = @submission.revision.revisable.type || "GeneralContent"
+      node_type_name = @submission.revision.revisable.type
       @node_type_template = node_type_name.underscore
     end
 

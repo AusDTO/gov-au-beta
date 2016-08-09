@@ -3,21 +3,22 @@ require 'rails_helper'
 RSpec.describe NodesController, :type => :controller do
   describe 'GET #show' do
     let!(:root_node) { Fabricate(:root_node) }
+    let!(:foo) { Fabricate(:section, name: 'foo')}
+    let!(:section_home) { Fabricate(:section_home, section: foo)}
 
     describe 'finding a node' do
-      let(:foo) { Fabricate(:section, name: 'foo')}
-      let(:zero) { Fabricate(:node, name: 'zero', section: foo) }
+      let(:zero) { Fabricate(:general_content, name: 'zero', parent: section_home) }
 
       %w(one two).each do |num|
-        let!(num.to_sym) { Fabricate(:node, name: num, section: foo) }
+        let!(num.to_sym) { Fabricate(:general_content, name: num, parent: section_home) }
       end
 
       %w(three four).each do |num|
-        let!(num.to_sym) { Fabricate(:node, name: num, section: foo, parent: zero)}
+        let!(num.to_sym) { Fabricate(:general_content, name: num, parent: zero)}
       end
 
       %w(five six).each do |num|
-        let!(num.to_sym) { Fabricate(:node, name: num, section: foo, parent: four)}
+        let!(num.to_sym) { Fabricate(:general_content, name: num, parent: four)}
       end
 
       context 'given a non-existing path' do
@@ -60,7 +61,8 @@ RSpec.describe NodesController, :type => :controller do
     end
 
     describe 'layout' do
-      let(:node) { Fabricate(:node, section: section) }
+      let(:section_home) { Fabricate(:section_home, section: section) }
+      let(:node) { Fabricate(:general_content, parent: section_home) }
       subject { get :show, params: { path: node.path} }
 
       context 'with a custom layout' do
@@ -77,7 +79,7 @@ RSpec.describe NodesController, :type => :controller do
     end
 
     describe 'node state' do
-      let(:node) { Fabricate(:node, parent: root_node, state: state) }
+      let(:node) { Fabricate(:general_content, parent: section_home, state: state) }
 
       let(:request) {
         get :show, params: { path: node.path}
@@ -107,7 +109,7 @@ RSpec.describe NodesController, :type => :controller do
         it { is_expected.to render_with_layout node.section.layout }
       end
 
-      let(:node) { Fabricate(:node, parent: root_node, state: state) }
+      let(:node) { Fabricate(:general_content, parent: Fabricate(:section_home), state: state) }
 
       before do
         get :preview, params: { token: node.token}
