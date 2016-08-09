@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added automated accessibility tests
 
 ### Changed
+- Error pages are now styled like the rest of the site
 
 ### Fixed
 - The html title tag reflects the page name
