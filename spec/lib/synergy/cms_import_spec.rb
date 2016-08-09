@@ -3,7 +3,7 @@ require 'pry'
 
 require 'synergy/cms_import'
 
-RSpec.describe Synergy::CMSImport, :type => :cms_import do
+RSpec.describe Synergy::CMSImport, :type => :cms_import, :truncate => true do
 
   class DummyCMSAdapter
     attr_reader :section

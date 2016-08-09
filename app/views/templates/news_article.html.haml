@@ -3,10 +3,8 @@
 
 - breadcrumb :public_news_article, node
 
-%dl.list-horizontal
-  %div.tags
-    - node.related_sections.each do |distribution|
-      %dd= link_to distribution.name, public_node_path(distribution.home_node)
+%div.list-horizontal
+  = render partial: 'templates/related_sections', locals: {node: node}
 
 %h1
   =node.name

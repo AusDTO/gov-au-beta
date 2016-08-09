@@ -47,3 +47,7 @@ bower.json
 engines/synergy/spec/dummy/db/*.sqlite3
 engines/synergy/spec/dummy/log
 /vendor/assets/images.zip
+
+# ignore sitemap because it's based on the database
+public/sitemap.xml*
+public/sitemaps/*

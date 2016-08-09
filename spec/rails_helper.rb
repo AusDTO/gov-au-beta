@@ -45,12 +45,12 @@ RSpec.configure do |config|
 
   # Request specs cannot use a transaction because Capybara runs in a
   # separate thread with a different database connection.
-  config.before type: :cms_import do
+  config.before truncate: true do
     DatabaseCleaner.strategy = :truncation
   end
 
   # Reset so other non-request specs don't have to deal with slow truncation.
-  config.after type: :cms_import  do
+  config.after truncate: true  do
     DatabaseCleaner.strategy = :transaction
   end
 
@@ -61,6 +61,8 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+
+  config.include NodesHelper, nodes_helper: true
 
   #
   # You can disable this behaviour by removing the line below, and instead

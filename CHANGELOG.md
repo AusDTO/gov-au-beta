@@ -5,6 +5,7 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased]
 ### Added
 - Include git tag and sha1 on editorial footer
+- Added automated accessibility tests
 
 ### Changed
 - Error pages are now styled like the rest of the site
@@ -12,10 +13,9 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 - The html title tag reflects the page name
 - Node preview layout in editorial now correctly wraps metadata header
-
 - Improved support for IE
-
 - Correctly check for a valid node type when creating nodes
+- Fixed some accessibility issues
 
 
 ## [v1.0.2] - 2016-08-03

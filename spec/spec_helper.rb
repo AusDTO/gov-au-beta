@@ -18,9 +18,11 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
 require 'capybara/rspec'
+require 'capybara/webkit'
 require 'simplecov'
 require 'codeclimate-test-reporter'
 require 'with_model'
+require 'axe/rspec'
 
 # save to CircleCI's artifacts directory if we're on CircleCI
 if ENV['CIRCLE_ARTIFACTS']
@@ -31,6 +33,14 @@ end
 # push test coverage report to codeclimate.com
 WebMock.disable_net_connect!(:allow => "codeclimate.com")
 CodeClimate::TestReporter.start
+
+Capybara.javascript_driver = :webkit
+
+# Default behaviour is to raise a warning for unknown urls
+# Until such time as we get any other requirements, just let everything through
+Capybara::Webkit.configure do |config|
+  config.allow_unknown_urls
+end
 
 RSpec.configure do |config|
 
