@@ -44,6 +44,9 @@ ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 # logs etc. in /usr/local/var/postgres/
 
+# install qt for running javascript-enabled feature tests
+brew install qt
+
 # install deps
 bundle install
 
