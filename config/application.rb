@@ -28,5 +28,7 @@ module GovAuBeta
     end
 
     config.time_zone = "Sydney"
+
+    config.exceptions_app = self.routes
   end
 end
