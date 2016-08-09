@@ -104,6 +104,9 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
+    axe-matchers (1.3.1)
+      dumb_delegator (~> 0.8)
+      virtus (~> 1.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -123,6 +126,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.11.1)
+      capybara (>= 2.3.0, < 2.8.0)
+      json
     cf-app-utils (0.6)
     codeclimate-test-reporter (0.5.2)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -183,6 +189,7 @@ GEM
       dry-monads (>= 0.0.1)
       ice_nine (~> 0.11)
       inflecto (~> 0.0.0, >= 0.0.2)
+    dumb_delegator (0.8.0)
     enumerize (1.1.1)
       activesupport (>= 3.2)
     equalizer (0.0.11)
@@ -385,6 +392,8 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    sitemap_generator (5.1.0)
+      builder
     slop (3.6.0)
     spinach (0.8.10)
       colorize
@@ -437,11 +446,13 @@ DEPENDENCIES
   administrate!
   andand
   aws-ses (~> 0.6.0)
+  axe-matchers
   bourbon
   bower-rails (~> 0.10.0)
   byebug
   cancancan
   capybara (~> 2.7)
+  capybara-webkit
   cf-app-utils
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
@@ -496,6 +507,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   simple_form!
   simplecov (~> 0.11.2)
+  sitemap_generator
   spinach (~> 0.8.10)
   storext!
   tzinfo-data
