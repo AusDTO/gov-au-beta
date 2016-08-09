@@ -7,6 +7,7 @@ This file is influenced by http://keepachangelog.com/.
 - Include git tag and sha1 on editorial footer
 
 ### Changed
+- Error pages are now styled like the rest of the site
 
 ### Fixed
 - The html title tag reflects the page name
