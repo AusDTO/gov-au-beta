@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   namespace :editorial do
     resources :news, only: [:index, :new, :edit, :update]
