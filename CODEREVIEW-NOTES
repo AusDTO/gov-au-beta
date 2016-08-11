@@ -1,0 +1,2 @@
+- sections controller, layout could be handled in a method?
+- Nodes controller, instead of a helper could we use a query object?
