@@ -39,6 +39,7 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import, :truncate => true do
 
   let(:cms_url)           { "http://foo.bar.com/stuff" }
   let(:section)           { Fabricate(:section, :cms_url => cms_url) }
+  let(:section_home)      { Fabricate(:section_home, section: section) }
   let(:adapter)           do
     DummyCMSAdapter.new(section).tap do |adapter|
       adapter.dummy_nodes = dummy_nodes
@@ -78,11 +79,11 @@ RSpec.describe Synergy::CMSImport, :type => :cms_import, :truncate => true do
     let(:dummy_nodes) { [] }
 
     before(:each) do
-      Fabricate(:node, section: section, parent: root_node)
+      Fabricate(:general_content, parent: section_home)
     end
 
     it "all nodes for a source are replaced during import" do
-      expect(Node.where(section: section).count).to eq(1)
+      expect(Node.where(section: section).count).to eq(2)
       importer.run
       expect(Node.where(section: section).count).to eq(0)
     end

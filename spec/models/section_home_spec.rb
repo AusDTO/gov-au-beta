@@ -1,21 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe SectionHome, type: :model do
-  let!(:root_node) { Fabricate(:root_node) }
 
   it { is_expected.to validate_presence_of :section }
 
   describe 'depth validation' do
-    let(:first_child) { Fabricate(:node, parent: root_node) }
-    subject { Fabricate.build(:section_home, parent: first_child)}
+    let(:first_child_of_root) { Fabricate(:section_home) }
+
+    subject { Fabricate.build(:section_home, parent: first_child_of_root)}
 
     it { is_expected.not_to be_valid }
   end
 
   describe 'uniqueness' do
-    let(:section) { Fabricate(:section) } # SectionHome is automatically generated
-    subject { Fabricate.build(:section_home, parent: root_node,
-      section: section) }
+    let(:section)                { Fabricate(:section) }
+    let!(:existing_section_home) { Fabricate(:section_home, section: section) }
+
+    subject do
+      Fabricate.build(:section_home, section: section)
+    end
+
     it { is_expected.not_to be_valid }
   end
 

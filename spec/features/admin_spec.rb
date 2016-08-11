@@ -8,9 +8,11 @@ RSpec.describe 'admin features', type: :feature do
 
   context 'an admin user' do
     let!(:agency) { Fabricate(:agency) }
+    let!(:agency_home) { Fabricate(:section_home, section: agency) }
     let!(:topic) { Fabricate(:topic) }
-    let(:news_article) { Fabricate(:news_article, section: agency, parent: agency.home_node) }
-    let(:general_content) { Fabricate(:general_content, section: agency, parent: agency.home_node) }
+    let!(:topic_home) { Fabricate(:section_home, section: topic) }
+    let(:news_article) { Fabricate(:news_article, parent: agency.home_node) }
+    let(:general_content) { Fabricate(:general_content, parent: agency.home_node) }
 
     before do
       login_as(admin_user, scope: :user)

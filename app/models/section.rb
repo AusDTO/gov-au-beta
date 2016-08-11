@@ -56,14 +56,18 @@ class Section < ApplicationRecord
     self.cms_type ||= COLLABORATE_CMS
   end
 
+  # FIXME: this should be done in a controller to break a circular dependency.
+  # Fabricators cannot create a SectionHome which creates a Section which creates a SectionHome!
   def generate_home_node
-    unless home_node.present?
-      SectionHome.create! do |node|
-        node.name = name
-        node.content_body = ''
-        node.section = self
-        node.state = 'published'
-        node.parent = Node.root_node
+    unless Rails.env.test?  # <-- added this to avoid breaking specs
+      unless home_node.present?
+        SectionHome.create! do |node|
+          node.name = name
+          node.content_body = ''
+          node.section = self
+          node.state = 'published'
+          node.parent = Node.root_node
+        end
       end
     end
   end

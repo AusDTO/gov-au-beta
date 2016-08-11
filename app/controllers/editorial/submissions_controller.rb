@@ -9,6 +9,11 @@ module Editorial
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
+    def show
+      super
+      node_type_name = @submission.revision.revisable.type
+      @node_type_template = node_type_name.underscore
+    end
 
     def index
       @submissions = scope.open.recent
