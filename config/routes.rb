@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :sections
     resources :submissions
     resources :topics
+    resources :categories
     resources :users
   end
 
@@ -60,8 +61,7 @@ Rails.application.routes.draw do
   resources :departments, only: :index
   resources :ministers, only: :index
 
-  #FIXME Hard-coded category routes - static content
-  get 'categories/infrastructure-and-telecommunications' => 'categories#infrastructure_and_telecommunications'
+  get 'categories/:slug' => 'categories#show', as: :category
 
   get root 'nodes#home'
   get '/preview/:token' => 'nodes#preview', as: :previews

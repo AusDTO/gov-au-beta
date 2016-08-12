@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
-  def infrastructure_and_telecoms
+  def show
+    @category = Category.friendly.find(params[:slug])
   end
 end

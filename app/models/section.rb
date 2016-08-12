@@ -6,12 +6,13 @@ class Section < ApplicationRecord
   has_many :requests
   has_many :news_distributions, as: :distribution
   has_many :news_articles, through: :news_distributions
+  has_and_belongs_to_many :categories, join_table: :section_categories
 
   has_and_belongs_to_many :sections,
-        class_name: 'Section',
-        join_table: :section_connections,
-        foreign_key: :section_id,
-        association_foreign_key: :connection_id
+      class_name: 'Section',
+      join_table: :section_connections,
+      foreign_key: :section_id,
+      association_foreign_key: :connection_id
 
   delegate :slug, to: :home_node, allow_nil: true
 
