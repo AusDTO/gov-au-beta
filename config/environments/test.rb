@@ -36,6 +36,7 @@ Rails.application.configure do
 
   # Add default url options so *_url helpers work in test
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -46,4 +47,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
+
+  # Set mock environment git tag and SHA1 values
+  config.version_tag = 'v1.0.0'
+  config.version_sha = 'abcdefghijkl'
 end

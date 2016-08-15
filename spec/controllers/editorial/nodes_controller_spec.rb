@@ -5,13 +5,14 @@ require 'rails_helper'
 RSpec.describe Editorial::NodesController, type: :controller do
   render_views
 
-  let!(:root_node) { Fabricate(:root_node) }
   let!(:section) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
+
   let(:author) { Fabricate(:user, author_of: section) }
 
   describe 'GET #index' do
     let(:reviewer) { Fabricate(:user, reviewer_of: section) }
-    let(:nodes) { Fabricate.times(3, :node, section: section) }
+    let(:nodes) { Fabricate.times(3, :general_content, parent: section_home) }
     let(:authenticated_request) { get :index, params: { section_id: section.id } }
 
     context 'when user is authorised' do
@@ -48,7 +49,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:node) { Fabricate(:general_content, section: section, parent: section.home_node) }
+    let(:node) { Fabricate(:general_content, parent: section_home) }
     before do
       sign_in(author)
       get :show, params: { section_id: section, id: node.id }
@@ -62,43 +63,40 @@ RSpec.describe Editorial::NodesController, type: :controller do
     #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
     # end
 
-    context 'when user is authorised' do
-      before { sign_in(author) }
-
-      let(:submission) { Fabricate(:submission) }
-
-      subject do
-        post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
-        response
-      end
-
-      it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
-
-      specify 'that a node is created' do
-        expect { subject }.to change(Node, :count).by(1)
-      end
-    end
-
     describe 'to a collaborate node' do
       context 'as authorised user' do
-
-        # before do
-        #   expect(ContentAnalysisHelper).to receive(:lint).and_return('')
-        # end
 
         before { sign_in(author) }
 
         let(:submission) { Fabricate(:submission) }
 
-        subject do
-          post :create, section_id: section, node: { name: 'Test Node', parent_id: section.home_node.id, short_summary: 'foo' }
-          response
+        context 'with valid data' do
+          subject do
+            post :create, params: {
+                section_id: section,
+                node: {name: 'Test Node', parent_id: section_home.id, short_summary: 'foo'}
+            }
+            response
+          end
+
+          it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
+
+          specify 'that a node is created' do
+            expect { subject }.to change(Node, :count).by(1)
+          end
         end
 
-        it { is_expected.to redirect_to(editorial_section_submission_path(section, Submission.last)) }
+        context 'with an invalid type' do
+          subject do
+            post :create, params: {
+                section_id: section,
+                node: {name: 'Test node', parent_id: section.home_node.id, short_summary: 'foo'},
+                type: 'bad'
+            }
+            response
+          end
 
-        specify 'that a node is created' do
-          expect { subject }.to change(Node, :count).by(1)
+          it { is_expected.to have_http_status(:bad_request) }
         end
       end
 
@@ -110,8 +108,10 @@ RSpec.describe Editorial::NodesController, type: :controller do
 
         it "does not save the new node" do
           expect{
-            post :create, section_id: section, node: { name: 'Test Node',
-              parent_id: section.home_node.id }
+            post :create, params: {
+                section_id: section.id,
+                node: { name: 'Test Node', parent_id: section_home.id }
+            }
           }.to_not change(Node,:count)
         end
       end
@@ -126,7 +126,7 @@ RSpec.describe Editorial::NodesController, type: :controller do
         end
         it "does not save the new node" do
           expect{
-            post :create, section_id: section, node: { name: 'Test Node' }
+            post :create, params: { section_id: section, node: { name: 'Test Node' } }
           }.to_not change(Node,:count)
         end
       end

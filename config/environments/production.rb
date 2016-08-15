@@ -70,6 +70,10 @@ Rails.application.configure do
     protocol: 'https',
     host: ENV["APP_DOMAIN"]
   }
+  Rails.application.routes.default_url_options = {
+      protocol: 'https',
+      host: ENV["APP_DOMAIN"]
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -97,4 +101,7 @@ Rails.application.configure do
   config.middleware.use '::Rack::Auth::Basic' do |u, p|
     [u, p] == [ENV["HTTP_USERNAME"], ENV["HTTP_PASSWORD"]]
   end
+
+  config.version_tag = ENV['CIRCLE_TAG']
+  config.version_sha = ENV['CIRCLE_SHA1']
 end

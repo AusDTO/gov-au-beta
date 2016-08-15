@@ -1,14 +1,16 @@
-%article#content{class: "content-main"}
-  - breadcrumb :public_node, node
+= content_for :title do
+  =node.name
 
-  %h1
-    =node.name
+- breadcrumb :public_node, node
 
-  %div.abstract
-    %p
-      =node.short_summary
-      - if node.summary
-        != markdown_content node.summary
+%h1
+  =node.name
 
-  = render partial: 'templates/toc', locals: {content_body: node.content_body, depth: node.options.toc}
-  = render partial: 'templates/content_body', object: node.content_body
+%div.abstract
+  %p
+    =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
+
+= render partial: 'templates/toc', locals: {content_body: node.content_body, depth: node.options.toc}
+= render partial: 'templates/content_body', object: node.content_body

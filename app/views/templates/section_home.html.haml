@@ -1,28 +1,30 @@
-%article#content{class: "content-main"}
-  - breadcrumb :public_node, node
+= content_for :title do
+  =node.name
 
-  %div.abstract
-    %p
-      =node.short_summary
-      - if node.summary
-        != markdown_content node.summary
+- breadcrumb :public_node, node
 
-  = render partial: 'templates/related_topics'
-  = render partial: 'templates/content_body', object: node.content_body
+%div.abstract
+  %p
+    =node.short_summary
+    - if node.summary
+      != markdown_content node.summary
 
-  %h2 News
-  %p Announcements, media releases, interviews, speeches and more.
+= render partial: 'templates/related_topics'
+= render partial: 'templates/content_body', object: node.content_body
 
-  - if @news.any?
-    %ul.list-vertical--thirds
-      - @news.each do |news|
-        %li
-          %article
-            %h3= link_to news.name, public_node_path(news)
-            .meta= l(news.release_date, format: :news)
-    %p
-      =link_to 'More news', section_news_articles_path(section: @section.home_node.slug)
-  - else
-    %p No current news articles
+%h2 News
+%p Announcements, media releases, interviews, speeches and more.
 
-  = render partial: 'templates/related_ministers', object: @section.try(:ministers)
+- if @news.any?
+  %ul.list-vertical--thirds
+    - @news.each do |news|
+      %li
+        %article
+          %h3= link_to news.name, public_node_path(news)
+          .meta= l(news.release_date, format: :news)
+  %p
+    =link_to 'More news', section_news_articles_path(section: @section.home_node.slug)
+- else
+  %p No current news articles
+
+= render partial: 'templates/related_ministers', object: @section.try(:ministers)

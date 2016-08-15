@@ -32,8 +32,7 @@ module Editorial
       configure_defaults!
       authorize! :create_in, @section
 
-      @node_types = [GeneralContent].map do |klass|
-        name = klass.name.underscore
+      @node_types = creatable_type_list.map do |name|
         [I18n.t("domain_model.nodes.#{name}"), name]
       end
 
@@ -86,11 +85,18 @@ module Editorial
 
     private
 
+    def creatable_type_list
+      [GeneralContent].map do |klass|
+        klass.name.underscore
+      end
+    end
+
     def derive_type
       @type_name = params[:type] || 'general_content'
       # Be extra pedantic with user input that is being turned into code
+      # This check MUST be done before the call to #constantize
+      raise ClientParamError unless creatable_type_list.include?(@type_name)
       @type = @type_name.camelize.constantize
-      raise 'Invalid Type' unless @type.superclass.name == 'Node'
       @form_type = form_type(@type)
     end
 

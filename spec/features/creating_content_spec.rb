@@ -16,11 +16,11 @@ RSpec.describe 'creating content:', type: :feature do
     login_as(author_user, scope: :user)
   end
 
-  let!(:root_node) { Fabricate(:root_node) }
-  let(:section) { root_node; Fabricate(:section) }
-  let(:author_user) { Fabricate(:user, author_of: section, reviewer_of: section) }
-  let(:name) {'test name'}
-  let(:slug) {'test-name'}
+  let!(:section) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
+  let!(:author_user) { Fabricate(:user, author_of: section, reviewer_of: section) }
+  let!(:name) {'test name'}
+  let!(:slug) {'test-name'}
 
   context 'when creating general content' do
     before do
@@ -92,8 +92,8 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   context 'when creating a news article' do
-    let!(:root_node) { Fabricate(:root_node) }
     let!(:news_section) { Fabricate(:section, name: 'news') }
+    let!(:section_home) { Fabricate(:section_home, section: news_section) }
     before do
       visit new_editorial_news_path(section, type: :news_article)
     end
@@ -139,8 +139,9 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   context 'with a parent specified' do
-    let(:node_1) {Fabricate(:node, section: section)}
-    let(:node_2) {Fabricate(:node, section: section)}
+    let(:section_home) { Fabricate(:section_home, section: section) }
+    let(:node_1) {Fabricate(:general_content, parent: section_home)}
+    let(:node_2) {Fabricate(:general_content, parent: section_home)}
 
     it 'prefill the parent' do
       visit new_editorial_section_node_path(section, parent_id: node_1.id)
@@ -151,7 +152,8 @@ RSpec.describe 'creating content:', type: :feature do
   end
 
   describe 'create a child of an existing page' do
-    let(:node) { Fabricate(:node, section: section) }
+    let(:section_home) { Fabricate(:section_home, section: section) }
+    let(:node) { Fabricate(:general_content, parent: section_home) }
 
     it 'should allow a user to create a child of a specific type' do
       visit public_node_path(node)

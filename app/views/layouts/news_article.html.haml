@@ -1,5 +1,9 @@
 = inside_layout :application do
-  = yield
+  %article#content{class: "content-main", role: "main"}
+    = yield
+
+  = content_for :title do
+    = @node.name
 
   = content_for :after_header do
     %div{class: "hero-sml #{hero_class(@section)}"}

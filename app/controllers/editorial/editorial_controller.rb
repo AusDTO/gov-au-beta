@@ -5,6 +5,7 @@ module Editorial
     check_authorization
 
     before_action ->() { authorize! :view, :editorial_page }
+    before_action :set_git_vars
 
     layout 'editorial'
 
@@ -12,6 +13,19 @@ module Editorial
       authorize! :view, :editorial_page
       @sections = Section.all.order(:name).select{ |section| can? :read, section }
       @news_section = Section.find_by(name: 'news')
+    end
+
+    class ClientParamError < StandardError
+    end
+
+    rescue_from ClientParamError do
+      head :bad_request
+    end
+
+    private
+    def set_git_vars
+      @version_tag = Rails.configuration.version_tag
+      @version_sha = Rails.configuration.version_sha[0..6]
     end
   end
 end

@@ -1,5 +1,5 @@
 # GOV.AU Beta Frontend
-This project provides the user facing frontend to the GOV.AU content site.
+Foo This project provides the user facing frontend to the GOV.AU content site.
 
 [![Circle CI](https://circleci.com/gh/AusDTO/gov-au-beta.svg?style=svg&circle-token=e2ad7c1b0e6a0825c4c805e4412d064c98cd23cc)](https://circleci.com/gh/AusDTO/gov-au-beta) [![Code Climate](https://codeclimate.com/github/AusDTO/gov-au-beta/badges/gpa.svg)](https://codeclimate.com/github/AusDTO/gov-au-beta) [![Test Coverage](https://codeclimate.com/github/AusDTO/gov-au-beta/badges/coverage.svg)](https://codeclimate.com/github/AusDTO/gov-au-beta/coverage)
 
@@ -43,6 +43,9 @@ initdb /usr/local/var/postgres
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 # logs etc. in /usr/local/var/postgres/
+
+# install qt for running javascript-enabled feature tests
+brew install qt
 
 # install deps
 bundle install
@@ -124,7 +127,7 @@ credentials for these instances in the environment variables for an application
 that is bound to them.
 
 * SSH into the jump-box that has access to the source RDS instance
-* `pg_dump --no-owner --no-acl -h SRC_RDS_HOST -U SRC_RDS_USERNAME -W SRC_RDS_NAME  > db.sql`
+* `pg_dump --no-owner --no-acl -c -h SRC_RDS_HOST -U SRC_RDS_USERNAME -W SRC_RDS_NAME  > db.sql`
   * You will need to provide the SRC_RDS_PASSWORD
 * If local migrations need to be run on this, SCP the file to your local machine,
   run the necessary migrations, and SCP the file back.

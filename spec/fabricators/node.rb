@@ -1,15 +1,24 @@
+# FIXME: rename this node_defaults to prevent instantiation
 Fabricator(:node) do
   name { Fabricate.sequence(:node_name) { |i| "node-#{i}" } }
-  section {|attrs| Fabricate(:section) unless attrs[:parent].try(:section).present? }
   state 'published'
   short_summary 'A single sentence'
   summary 'A paragraph'
   content_body { Fabricate.sequence(:content_body) { |i| "Random content #{i}" } }
 
-  after_build {|node, _transients|
-    unless node.parent.present?
-      node.parent = node.section.home_node
-    end }
+  parent do |attrs|
+    if attrs[:parent].present?
+      attrs[:parent]
+    else
+      Fabricate(:section_home)
+    end
+  end
+
+  section do |attrs|
+    if attrs[:parent].present?
+      attrs[:parent].section
+    end
+  end
 end
 
 Fabricator(:general_content, from: :node, class_name: :general_content) do
@@ -24,12 +33,29 @@ Fabricator(:news_article, from: :node, class_name: :news_article) do
 end
 
 Fabricator(:root_node, class_name: :root_node) do
-  # name { '' }
   state 'published'
   content_body 'Welcome to gov.au'
 end
 
 Fabricator(:section_home, class_name: :section_home, from: :node) do
+  parent do |attrs|
+    if Node.root_node.present?
+      Node.root_node
+    else
+      Fabricate(:root_node)
+    end
+  end
+  section do |attrs|
+    if attrs[:section].present?
+      attrs[:section]
+    else
+      Fabricate(:department)
+    end
+  end
+
+  after_build do |section_home, _transients|
+    section_home.name = section_home.section.name
+  end
 end
 
 Fabricator(:custom_template_node, class_name: :custom_template_node, from: :node) do

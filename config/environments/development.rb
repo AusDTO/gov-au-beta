@@ -32,6 +32,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.delivery_method = :letter_opener
 
@@ -55,4 +56,7 @@ Rails.application.configure do
 
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
+
+  config.version_tag = 'dummy_version'
+  config.version_sha = 'dummy_sha'
 end

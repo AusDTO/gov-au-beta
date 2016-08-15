@@ -1,3 +1,6 @@
+= content_for :title do
+  ="#{requestor.display_name} wants to join #{rqst.section_name}"
+
 - breadcrumb :editorial_request, @rqst
 
 %h1 #{requestor.display_name} wants to join #{rqst.section_name}
