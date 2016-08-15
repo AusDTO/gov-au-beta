@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe NewsController, type: :controller do
   render_views
 
-  let!(:root_node) { Fabricate(:root_node) }
   let!(:section_a) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section_a) }
   let!(:user) { Fabricate(:user, author_of: section_a) }
 
   describe 'GET #show' do
-    let!(:article_published) { Fabricate(:news_article, section: section_a, state: 'published') }
-    let!(:article_draft) { Fabricate(:news_article, section: section_a, state: 'draft') }
+    let!(:article_published) { Fabricate(:news_article, parent: section_home, state: 'published') }
+    let!(:article_draft) { Fabricate(:news_article, parent: section_home, state: 'draft') }
 
     context 'when a user is not authorised' do
       context 'for a published page' do

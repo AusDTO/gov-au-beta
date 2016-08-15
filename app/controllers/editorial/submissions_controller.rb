@@ -9,7 +9,6 @@ module Editorial
     before_action :find_submission, only: [:show, :update]
     decorates_assigned :submission
 
-
     def index
       @submissions = scope.open.recent
 

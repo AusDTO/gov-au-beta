@@ -6,7 +6,8 @@ RSpec.describe "controls", :type => :feature do
 
   let!(:root_node) { Fabricate(:root_node) }
   let(:section) { Fabricate(:section) }
-  let!(:node) { section.home_node }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
+  let!(:node) { section_home }
 
   context 'not signed in' do
     before do
@@ -78,7 +79,7 @@ RSpec.describe "controls", :type => :feature do
 
       context 'when visiting a topic page' do
         let(:topic) { Fabricate(:topic) }
-        let(:topic_home) { Fabricate(:node, parent: root_node, section: topic) }
+        let(:topic_home) { Fabricate(:section_home, section: topic) }
 
         before do
           visit "/#{topic_home.slug}"
@@ -91,7 +92,7 @@ RSpec.describe "controls", :type => :feature do
 
       context 'when visiting an agency page' do
         let(:agency) { Fabricate(:agency) }
-        let(:agency_home) { Fabricate(:node, parent: root_node, section: agency) }
+        let(:agency_home) { Fabricate(:section_home, section: agency) }
 
         before do
           visit public_node_path(agency_home)

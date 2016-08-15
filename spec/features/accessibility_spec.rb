@@ -51,10 +51,14 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
 
     # Test accessibility of test data
     let!(:minister) { Fabricate(:minister) }
+    let!(:minister_home) { Fabricate(:section_home, section: minister) }
     let!(:department) { Fabricate(:department, ministers: [minister]) }
+    let!(:department_home) { Fabricate(:section_home, section: department) }
     let!(:topic) { Fabricate(:topic) }
-    let!(:news_article) { Fabricate(:news_article, section: department, sections: [department, minister]) }
-    let!(:general_content) { Fabricate(:general_content) }
+    let!(:topic_home) { Fabricate(:section_home, section: topic) }
+    let!(:news_article) { Fabricate(:news_article, parent: department_home, sections: [department, minister]) }
+    let!(:general_content) { Fabricate(:general_content, parent: department_home) }
+
     include_examples 'is accessible', 'root_path', true
     include_examples 'is accessible', 'departments_path', true
     include_examples 'is accessible', 'ministers_path', true
