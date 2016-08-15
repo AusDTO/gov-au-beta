@@ -17,4 +17,7 @@
       %h4= leaf_category.name
       %ul
         - leaf_category.sections.each do |section|
-          %li= link_to(section.name, nodes_path(section.slug))
+          - if section.home_node.state.draft? and not section.home_node.options.suppress_in_nav
+            %li=link_to(section.name, 'javascript:void(0)', :class => "disabled")
+          - else
+            %li=link_to(section.name, nodes_path(section.slug))
