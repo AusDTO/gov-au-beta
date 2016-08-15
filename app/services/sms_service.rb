@@ -40,19 +40,17 @@ class SMSService
     end
   end
 
-  def send_sms(user, message)
-    if user.phone_number.present?
-      self.class.post(
-        Rails.configuration.sms_send_message_url,
-        headers: {
-          'Content-Type' => 'application/json',
-          'Authorization' => "Bearer #{@@token}"
-        },
-        body: {
-          to: user.phone_number,
-          body: message
-        }
-      )
-    end
+  def send_sms(phone_number, message)
+    self.class.post(
+      Rails.configuration.sms_send_message_url,
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{@@token}"
+      },
+      body: {
+        to: phone_number,
+        body: message
+      }.to_json
+    )
   end
 end
