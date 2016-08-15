@@ -4,6 +4,13 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+## [v1.0.3] - 2016-08-16
+### Added
 - Include git tag and sha1 on editorial footer
 - Added automated accessibility tests
 
