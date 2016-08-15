@@ -1,8 +1,10 @@
 class Category < ApplicationRecord
-  acts_as_tree
+  resourcify
+
+  acts_as_tree counter_cache: :children_count
 
   extend FriendlyId
-  friendly_id :name, use: [:slugged]
+  friendly_id :name, use: :slugged, routes: :default
 
   has_and_belongs_to_many :sections, join_table: :section_categories
 

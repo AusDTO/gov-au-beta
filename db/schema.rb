@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 20160812011645) do
     t.text     "short_summary"
     t.text     "summary"
     t.integer  "parent_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "children_count"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["slug"], name: "index_categories_on_slug", using: :btree
   end
 

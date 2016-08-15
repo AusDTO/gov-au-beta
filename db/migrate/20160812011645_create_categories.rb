@@ -6,6 +6,7 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.text :short_summary
       t.text :summary
       t.column :parent_id, :integer
+      t.column :children_count, :integer
 
       t.timestamps
     end

@@ -18,6 +18,6 @@
       %ul
         - leaf_category.sections.each do |section|
           - if section.home_node.state.draft? and not section.home_node.options.suppress_in_nav
-            %li=link_to(section.name, 'javascript:void(0)', :class => "disabled")
+            %span.placeholder-link= section.name
           - else
             %li=link_to(section.name, nodes_path(section.slug))
