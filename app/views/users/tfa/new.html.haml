@@ -1,0 +1,14 @@
+.content-main
+  %h1
+    Setup two-factor authentication
+
+  You will need to setup two-factor authentication.
+
+  You must set a phone number. Google Authenticator (or other TOPT) solutions are optional.
+
+  %form{action: users_two_factor_path, method: 'POST'}
+    %input{name: 'authenticity_token', value: "#{form_authenticity_token}", type: :hidden}
+    %p
+      %input{class: :string, type: :text, maxlength: 10, name: :phone_number}
+    %p
+      %input{type: :submit, role: :button, value: 'Send code'}
