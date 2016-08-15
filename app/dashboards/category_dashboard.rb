@@ -10,6 +10,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
       id: Field::Number,
       name: Field::String,
+      short_summary: Field::String,
       summary: Field::String,
       parent: Field::BelongsTo.with_options(class_name: "Category"),
       children: Field::HasMany.with_options(class_name: "Category"),
@@ -30,6 +31,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
       :id,
       :name,
+      :short_summary,
       :summary,
       :parent,
       :children
@@ -40,6 +42,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
       :name,
+      :short_summary,
       :summary,
       :parent
   ].freeze

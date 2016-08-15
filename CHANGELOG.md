@@ -13,6 +13,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 - Include git tag and sha1 on editorial footer
 - Added automated accessibility tests
+- Added ability to group topics into categories
 
 ### Changed
 - Error pages are now styled like the rest of the site
