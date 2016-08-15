@@ -11,7 +11,7 @@ RSpec.describe 'category page', type: :feature do
   let(:leaf_category) {subcategory.children.find_or_create_by!(name: 'Road')}
   let!(:topic) { Fabricate(:topic, name: 'Business', summary: 'The business section covers a range of business-related topics.',
                            categories: [leaf_category]) }
-
+  let!(:topic_home) { Fabricate(:section_home, section: topic) }
 
   before do
     visit category_path(infrastructure_and_telecommunications)
