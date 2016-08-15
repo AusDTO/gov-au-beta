@@ -16,6 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Error pages are now styled like the rest of the site
+- Upgrade UI kit to v1.7.3
 
 ### Fixed
 - The html title tag reflects the page name
