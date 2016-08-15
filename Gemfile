@@ -54,6 +54,7 @@ gem 'html2haml'
 gem 'rubyzip', '>= 1.0.0'
 gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
+gem 'newrelic_rpm'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
