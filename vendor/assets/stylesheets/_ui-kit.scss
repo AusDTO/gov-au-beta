@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.7.2
+UI-Kit version: 1.7.3
 
 */
 
@@ -3756,9 +3756,9 @@ $ease-in-out-back:  cubic-bezier(0.680, -0.550, 0.265, 1.550);
 /*
 Grid
 
-This framework uses [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) to create a consistent 16 column responsive grid layout with good defaults.
+This framework uses <a href="http://bourbon.io/" rel="external">Bourbon</a> and <a href="http://neat.bourbon.io/" rel="external">Neat</a> to create a consistent 16 column responsive grid layout with good defaults.
 
-Bourbon is a [SASS](http://sass-lang.com/) mixin library (it provides little styling). Neat is a flexible grid framework.
+Bourbon is a <a href="http://sass-lang.com/" rel="external">SASS</a> mixin library (it provides little styling). Neat is a flexible grid framework.
 
 Avoid mixing this layout with other grid layouts.
 
@@ -3768,11 +3768,11 @@ Primary content is always contained in 12 columns. This allows for seamless intr
 
 The grid unit proportions, gutters and spacing are defined in `_grid-settings.scss`.
 
-If you need an element not defined here you are probably not the only one&mdash;please [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues) so we can provide it for everyone.
+If you need an element not defined here you are probably not the only one&mdash;please <a href="https://github.com/AusDTO/gov-au-ui-kit/issues" rel="external">log a GitHub issue</a> so we can provide it for everyone.
 
-<hr />
+***
 
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+This guidance is in part adapted from <a href="http://govuk-elements.herokuapp.com" rel="external">GOV.UK elements</a> under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="external">Open Government Licence v3.0</a>, and <a href="https://standards.usa.gov/getting-started/" rel="external">18F Draft US Web Design Standards</a> under <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" rel="external">CC0 1.0 Universal</a>.
 
 Style guide: Grid
 */
@@ -3792,7 +3792,7 @@ This framework has a mobile-first default layout of 4 columns, and adds 3 breakp
 - Tablet: 12 columns, 768px minimum
 - Desktop: 16 columns, 1200px minimum
 
-If you give an element a modified grid setting consider the implications for all breakpoints. The Digital Service Standard recommends you [build using mobile first design principles](https://www.dto.gov.au/standard/6-consistent-and-responsive/).
+If you give an element a modified grid setting consider the implications for all breakpoints. The Digital Service Standard recommends you <a href="https://www.dto.gov.au/standard/6-consistent-and-responsive/" rel="external">build using mobile first design principles</a>.
 
 Please also consider the [font size](section-typography.html#kssref-typography-2-headings-body-copy-1-breakpoints) at different breakpoints.
 
@@ -4073,11 +4073,11 @@ $mobile-minwidth: 420px;
 $tablet-minwidth: 768px;
 $desktop-minwidth: 1200px;
 
-$mobile: new-breakpoint(min-width $mobile-minwidth 8);
+$mobile: new-breakpoint(min-width $mobile-minwidth, 8);
 $mobile-only: new-breakpoint(min-width $mobile-minwidth max-width $tablet-minwidth - 1, 8);
-$tablet: new-breakpoint(min-width $tablet-minwidth 12);
+$tablet: new-breakpoint(min-width $tablet-minwidth, 12);
 $tablet-only: new-breakpoint(min-width $tablet-minwidth max-width $desktop-minwidth - 1, 12);
-$desktop: new-breakpoint(min-width $max-width 16);
+$desktop: new-breakpoint(min-width $max-width, 16);
 
 /*
 Debugging
@@ -4088,7 +4088,7 @@ Turn on the visual grid to help debugging:
 $visual-grid: true;
 ```
 
-See the example [Bourbon Neat working grid layout](http://neat.bourbon.io/examples/).
+See the example <a href="http://neat.bourbon.io/examples/" rel="external">Bourbon Neat working grid layout</a>.
 
 Style guide: Grid.4 Debugging
 */
@@ -5217,7 +5217,7 @@ Colours
 
 A basic palette of colours that are clear and accessible.
 
-We are finalising the colours&mdash;for help [log a GitHub issue](https://github.com/AusDTO/gov-au-ui-kit/issues).
+We are finalising the colours&mdash;for help <a href="https://github.com/AusDTO/gov-au-ui-kit/issues" rel="external">log a GitHub issue</a>.
 
 Style guide: Colours
 */
@@ -5398,7 +5398,7 @@ $light-blue:    #e8f5fa;
 /*
 Accessibility
 
-The [recommended colour contrast ratio](http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) for text and interactive elements should be at least 4.5:1.
+The <a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html" rel="external">recommended colour contrast ratio</a> for text and interactive elements should be at least 4.5:1.
 
 ### Accessible combinations
 <p class="guide-colour-block bg-non-black">non-white on non-black<span class="invert">AAA</span></p>
@@ -5419,6 +5419,22 @@ The [recommended colour contrast ratio](http://www.w3.org/TR/UNDERSTANDING-WCAG2
 <p class="guide-colour-block bg-light-green">success-green on light-green <span class="invert">AAA</span></p>
 <p class="guide-colour-block bg-light-yellow">non-black on light-yellow <span class="invert">AA</span></p>
 <p class="guide-colour-block bg-light-blue">non-black on light-blue <span class="invert">AA</span></p>
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Colours.3 Accessibility
 */
@@ -5488,7 +5504,7 @@ Style guide: Typography
 /*
 Typeface
 
-We are currently testing the open source [Open Sans family](https://www.google.com/fonts/specimen/Open+Sans) in 3 styles.
+We are currently testing the open source <a href="https://www.google.com/fonts/specimen/Open+Sans" rel="external">Open Sans family</a> in 3 styles.
 
 <div class="guide-example--type"><h3>Open Sans regular 400</h3>
   <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
@@ -5524,7 +5540,7 @@ We are currently testing the use of webfonts.
 
 The font stacks should still achieve a high degree of coverage across a range of browsers and operating systems using the fall-backs (roughly 95% coverage).
 
-You need to load webfonts through the [Google Web Font Loader](https://github.com/typekit/webfontloader) via `<script>` to add Open Sans via the HTML `head`. This supports modern browsers and older versions of Internet Explorer.
+You need to load webfonts through the <a href="https://github.com/typekit/webfontloader" rel="external">Google Web Font Loader</a> via `<script>` to add Open Sans via the HTML `head`. This supports modern browsers and older versions of Internet Explorer.
 
 Style guide: Typography.1 Typeface.1 Font stacks
 */
@@ -5866,9 +5882,25 @@ kbd {
 /*
 Show keyboard input
 
-Use the [`<kbd>` element](http://w3c.github.io/html/textlevel-semantics.html#the-kbd-element) to show users which key to press.
+Use the <a href="http://w3c.github.io/html/textlevel-semantics.html#the-kbd-element" rel="external"><code>kbd</code> element</a> to show users which key to press.
 
 Markup: Copy text to clipboard using <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Typography.8 Keyboard input
 */
@@ -5990,8 +6022,6 @@ dd {
 
 li {
   margin-bottom: ($small-spacing / 1.5);
-  margin-left: -($small-spacing / 4);
-  padding-left: ($small-spacing / 4);
 
   ul,
   ol {
@@ -6022,6 +6052,22 @@ There are 3 classes for drawing the user's attention:
 You can use these on paragraphs (`<p>`), or on a wrapping element, like a `<div>` or an `<aside>`.
 
 Markup: templates/callouts-examples.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Typography.5 Callouts & warnings
 */
@@ -6082,6 +6128,22 @@ There is styling for badges to indicate status.
 
 Markup: templates/badges.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Typography.6 Badges
 */
 
@@ -6124,12 +6186,28 @@ There are 2 ways of using quotes:
 
 Markup: templates/quotation-examples.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Typography.7 Quotations
 */
 
 blockquote {
   margin: $medium-spacing 0;
-  padding: $small-spacing ($base-spacing + ($small-spacing * 0.75));
+  padding: $small-spacing ($base-spacing + $small-spacing);
   background-color: $background-secondary-colour;
   font-family: $base-serif;
   quotes: '\201C''\201D''\2018''\2019';
@@ -6225,6 +6303,253 @@ article {
   }
 }
 
+@mixin wrapper-padding {
+  @include pad(0 $base-spacing);
+  width: 100%;
+  box-sizing: border-box;
+
+  @include media($desktop) {
+    width: 100%;
+    min-width: $max-width;
+  }
+}
+
+@mixin flex-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  header[role='banner'],
+  footer[role='contentinfo'] {
+    flex: none;
+  }
+}
+
+/*
+Layout
+
+Maximum page width is set to 1200px. Gutters between the columns are a minimum of 32px.
+
+```
+$max-width: em(1200) !global;
+$gutter: em(32);
+```
+
+We define the grid placement for the following page layout elements:
+
+- `header[role='banner']` and `footer[role='contentinfo']`
+- `main.content-main`
+- `aside`.
+
+To create your own element you will need to use the <a href="http://thoughtbot.github.io/neat-docs/latest/#span-columns" rel="external">Neat <code>span-columns</code> function</a>.
+
+For each new element you will need to set column properties for the breakpoints, from smallest to largest:
+
+1. `$mobile`
+2. `$tablet`
+3. `$desktop`
+
+The following diagram shows how the main content area takes up 12 of 16 columns at `$desktop` and above:
+
+![Diagram of the layout across 16 columns](kss-assets/img/img_grid_layout.png)
+
+For iOS users ensure you set the `viewport` to the `device-width` in your `<head>` to ensure your site is responsive:
+
+```
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+Style guide: Grid.5 Layout
+*/
+
+/*
+Wrapper class
+
+There is a wrapper class (`<div class="wrapper">`) for wrapping the contents of a block within the grid, while allowing its outer container to run the full viewport width.
+
+This is currently used for the page `header` and `footer`, and also for the [breadcrumbs](section-navigation.html#kssref-navigation-2-breadcrumbs).
+
+Style guide: Grid.5 Layout.1 Wrapper
+*/
+
+.wrapper {
+  @include wrapper-padding;
+  @include outer-container;
+}
+
+body {
+  @include flex-layout;
+}
+
+main {
+  @include wrapper-padding;
+  @include outer-container;
+
+  // makes flex work in IE10/11 https://thatemil.com/blog/2013/11/03/sticky-footers-flexbox-and-ie10/
+  flex: 1 0 auto;
+
+  @include media($tablet) {
+    padding-top: $base-spacing * 2;
+  }
+
+  .form-wrapper {
+    @include fill-parent;
+
+    @include media($tablet) {
+      @include span-columns(4 of 6);
+    }
+  }
+
+  /*
+  Sidebar
+
+  Primary content is always contained in 12 columns. This allows for seamless introduction of a sidebar/side navigation.
+
+  ![Diagram of the layout with optional aside nav](kss-assets/img/img_grid_layout_nav.png)
+
+  By default the sidebar sits to the right of the main content. When the sidebar contains content controls (eg filters), instead of navigation, it can sit on the left side. Use the class `.sidebar-has-controls` on the parent `main` element:
+
+  ```
+  <main class="sidebar-has-controls">
+    <aside class="sidebar">
+    ...
+    </aside>
+    <article role="main" id="content" class="content-main">
+    ...
+    </article>
+  </main>
+  ```
+
+  Style guide: Grid.6 Sidebar
+  */
+  @include direction-context(right-to-left) {
+    .sidebar {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(4 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(4 of 16);
+      }
+    }
+
+    .content-main {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(8 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(10 of 16);
+        @include shift(2);
+      }
+
+      &:first-child {
+
+        @include reset-layout-direction;
+
+        @include fill-parent;
+        @include shift(0);
+
+        @include media($tablet) {
+          @include span-columns(8 of 12);
+          @include shift(0);
+        }
+
+        @include media($desktop) {
+          @include span-columns(10 of 16);
+          @include shift(0);
+        }
+
+      }
+    }
+  }
+
+  &.sidebar-has-controls {
+    @include reset-layout-direction;
+
+    .sidebar {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(4 of 12);
+        margin-left: 0;
+      }
+
+      @include media($desktop) {
+        @include span-columns(4 of 16);
+      }
+    }
+
+    .content-main {
+      @include fill-parent;
+
+      @include media($tablet) {
+        @include span-columns(8 of 12);
+      }
+
+      @include media($desktop) {
+        @include span-columns(9 of 16);
+        @include shift(1);
+      }
+    }
+  }
+}
+
+
+/*
+Header & footer
+
+The site header and footer are targeted by their ARIA roles, not a `class` or `id`. Use `banner` and `contentinfo` roles, respectively.
+
+Style guide: Grid.7 Header & footer
+*/
+
+header {
+  &[role='banner'] {
+    @include outer-container(100%);
+    min-width: 100%;
+  }
+}
+
+footer {
+  &[role='contentinfo'] {
+    @include outer-container(100%);
+    @include pad(0 default);
+    margin-top: ($base-spacing * 2);
+    min-width: 100%;
+  }
+}
+
+/*
+Accessibility
+
+Long lines reduce legibility. Lines of text should be no longer than 75 characters including spaces. Place text in narrower grid boxes to stop text lines from becoming too wide.
+
+Low-vision users should be able to increase the size of the text by up to 200 per cent without breaking the layout.
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
+Style guide: Grid.8 Accessibility
+*/
+
 /*
 Buttons
 
@@ -6236,9 +6561,9 @@ Use button text to describe what the button does&mdash;keep it short.
 
 The button alignment in [forms](section-forms.html) should put the primary action button at the left edge, in the user's line of sight.
 
-<hr />
+***
 
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+This guidance is in part adapted from <a href="http://govuk-elements.herokuapp.com" rel="external">GOV.UK elements</a> under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="external">Open Government Licence v3.0</a>, and <a href="https://standards.usa.gov/getting-started/" rel="external">18F Draft US Web Design Standards</a> under <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" rel="external">CC0 1.0 Universal</a>.
 
 Style guide: Buttons
 */
@@ -6254,6 +6579,22 @@ Call buttons using:
 Do not apply styles to disabled buttons.
 
 Markup: templates/buttons-examples.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Buttons.1 Creating buttons
 */
@@ -6351,6 +6692,22 @@ Link to external sites using `rel="external"`.
 
 Markup: templates/basic-links.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Link styles.1 Hover links
 */
 
@@ -6412,6 +6769,22 @@ Style guide: Link styles.1 Hover links
 
     Markup: <a class="see-more" href="#">See more</a>
 
+    <details data-label="accordion-accessibility" aria-expanded="false">
+      <summary>Accessibility &amp; browser testing</summary>
+      <div class="accordion-panel">
+      <strong>Passed</strong>:
+        <ul>
+          <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+          <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+        </ul>
+      <strong>Untested</strong>:
+        <ul>
+          <li>WCAG:AA manual</li>
+          <li>Browser support &mdash; automated and manual</li>
+        </ul>
+      </div>
+    </details>
+
     Style guide: Link styles.2 See more link
     */
 
@@ -6468,17 +6841,38 @@ Tables make data content easier to scan.
 
 This framework uses striped/zebra tables (alternating row colours).
 
+Use `<thead>`, `<tbody>` and `<tfoot>` to improve how browsers display tables. They don't make tables more accessible.
+
+There is
+<a href="https://www.w3.org/WAI/tutorials/tables/" rel="external">guidance on making tables</a> provided by the W3C.
+
 ***
 
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), and [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+This guidance is in part adapted from <a href="http://govuk-elements.herokuapp.com/" rel="external">GOV.UK elements</a> under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="external">Open Government Licence v3.0</a>, and <a href="https://standards.usa.gov/getting-started/" rel="external">18F Draft US Web Design Standards</a> under <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" rel="external">CC0 1.0 Universal</a>.
 
 Style guide: Tables
 */
 
 /*
-Basic content tables
+Basic table
 
 Markup: templates/table-examples.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Tables.1 Basic tables
 */
@@ -6514,9 +6908,25 @@ table {
 }
 
 /*
-Calendar table variant
+Calendar table
 
 Markup: templates/table-calendar.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Tables.2 Calendar table variant
 */
@@ -6600,158 +7010,12 @@ Avoid tables with multiple header levels and spanned cells.
 
 ### Headers & captions
 
-Title tables using the [`<caption>` element](https://www.w3.org/wiki/HTML/Elements/caption) inside the `<table>` element.
+Title tables using the <a href="https://www.w3.org/wiki/HTML/Elements/caption" rel="external">`<caption>` element</a> inside the `<table>` element.
 
-Row and column headers should be set with the [`scope` attribute](https://www.w3.org/TR/html401/struct/tables.html#adef-scope).
-
-Don't use `<thead>`, `<tbody>` and `<tfoot>`.
-
-***
-
-More [guidance on making accessible tables](https://www.w3.org/WAI/tutorials/tables/) is provided by the W3C.
+Row and column headers should be set with the <a href="https://www.w3.org/TR/html401/struct/tables.html#adef-scope" rel="external">`scope` attribute</a>.
 
 Style guide: Tables.3 Accessibility
 */
-
-%wrapper-padding {
-  @include pad(0 $base-spacing);
-  box-sizing: content-box;
-
-  * {
-    box-sizing: border-box;
-  }
-
-  @include media($desktop) {
-    width: 100%;
-    min-width: $max-width;
-  }
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.wrapper {
-  @extend %wrapper-padding;
-  @include outer-container;
-}
-
-header {
-  &[role='banner'] {
-    @include outer-container(100%);
-    min-width: 100%;
-    flex: none;
-  }
-}
-
-footer {
-  &[role='contentinfo'] {
-    @include outer-container(100%);
-    @include pad(0 default);
-    margin-top: ($base-spacing * 2);
-    min-width: 100%;
-    flex: none;
-
-  }
-}
-
-main {
-  @extend %wrapper-padding;
-  @include outer-container;
-
-  // makes flex work in IE10/11 https://thatemil.com/blog/2013/11/03/sticky-footers-flexbox-and-ie10/
-  flex: 1 0 auto;
-
-  @include media($tablet) {
-    padding-top: $base-spacing * 2;
-  }
-
-  .form-wrapper {
-    @include fill-parent;
-
-    @include media($tablet) {
-      @include span-columns(4 of 6);
-    }
-  }
-
-  @include direction-context(right-to-left) {
-    .sidebar {
-      @include fill-parent;
-
-      @include media($tablet) {
-        @include span-columns(4 of 12);
-      }
-
-      @include media($desktop) {
-        @include span-columns(4 of 16);
-      }
-    }
-
-    .content-main {
-      @include fill-parent;
-
-      @include media($tablet) {
-        @include span-columns(8 of 12);
-      }
-
-      @include media($desktop) {
-        @include span-columns(10 of 16);
-        @include shift(2);
-      }
-
-      &:first-child {
-
-        @include reset-layout-direction;
-
-        @include fill-parent;
-        @include shift(0);
-
-        @include media($tablet) {
-          @include span-columns(8 of 12);
-          @include shift(0);
-        }
-
-        @include media($desktop) {
-          @include span-columns(10 of 16);
-          @include shift(0);
-        }
-
-      }
-    }
-  }
-
-  &.sidebar-has-controls {
-    @include reset-layout-direction;
-
-    .sidebar {
-      @include fill-parent;
-
-      @include media($tablet) {
-        @include span-columns(4 of 12);
-        margin-left: 0;
-      }
-
-      @include media($desktop) {
-        @include span-columns(4 of 16);
-      }
-    }
-
-    .content-main {
-      @include fill-parent;
-
-      @include media($tablet) {
-        @include span-columns(8 of 12);
-      }
-
-      @include media($desktop) {
-        @include span-columns(9 of 16);
-        @include shift(1);
-      }
-    }
-  }
-}
 
 /*
 Forms
@@ -6762,7 +7026,7 @@ Ask only 1 question per page.
 
 ***
 
-This guidance is in part adapted from [GOV.UK elements](http://govuk-elements.herokuapp.com/) under [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) and [GOV.UK design patterns](https://www.gov.uk/service-manual/user-centred-design/resources/patterns/) under [Open Government Licence v2.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/).
+This guidance is in part adapted from <a href="http://govuk-elements.herokuapp.com/" rel="external">GOV.UK elements</a> under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="external">Open Government Licence v3.0</a> and <a href="https://www.gov.uk/service-manual/user-centred-design/resources/patterns/" rel="external">GOV.UK design patterns</a> under <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/" rel="external">Open Government Licence v2.0</a>.
 
 Style guide: Forms
 */
@@ -6775,6 +7039,22 @@ Single line text inputs.
 They can be limited to number input only by setting the `type` attribute to `number`. For telephone numbers set the `type` attribute to `tel`. To trigger the num-pad on iPhones, add a pattern attribute to the input element: `pattern="[0-9]*"`.
 
 Markup: templates/text-input-single-line.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Forms.1 Text input
 */
@@ -6803,7 +7083,8 @@ Style guide: Forms.1 Text input
   &:disabled,
   &[disabled] {
     cursor: not-allowed;
-    opacity: .5;
+    background: $non-white;
+    border: 2px solid $light-grey;
   }
 
 }
@@ -6848,6 +7129,22 @@ form {
     <label for="texta">An input for longer responses</label>
     <textarea name="texta" id="texta"></textarea>
   </form>
+
+  <details data-label="accordion-accessibility" aria-expanded="false">
+    <summary>Accessibility &amp; browser testing</summary>
+    <div class="accordion-panel">
+    <strong>Passed</strong>:
+      <ul>
+        <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+        <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+      </ul>
+    <strong>Untested</strong>:
+      <ul>
+        <li>WCAG:AA manual</li>
+        <li>Browser support &mdash; automated and manual</li>
+      </ul>
+    </div>
+  </details>
 
   Style guide: Forms.2 Text area input
   */
@@ -6925,6 +7222,22 @@ form {
     </fieldset>
   </form>
 
+  <details data-label="accordion-accessibility" aria-expanded="false">
+    <summary>Accessibility &amp; browser testing</summary>
+    <div class="accordion-panel">
+    <strong>Passed</strong>:
+      <ul>
+        <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+        <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+      </ul>
+    <strong>Untested</strong>:
+      <ul>
+        <li>WCAG:AA manual</li>
+        <li>Browser support &mdash; automated and manual</li>
+      </ul>
+    </div>
+  </details>
+
   Style guide: Forms.3 Radio button input
   */
 
@@ -6981,6 +7294,22 @@ Markup:
     <label for="ccc">CCC</label>
   </fieldset>
 </form>
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Forms.4 Checkbox input
 */
@@ -7062,7 +7391,7 @@ Ensure users understand where they are in the service, where they have been and 
 
 ***
 
-This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+This guidance is in part adapted from <a href="https://standards.usa.gov/getting-started/" rel="external">18F Draft US Web Design Standards</a> under <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" rel="external">CC0 1.0 Universal</a>.
 
 Style guide: Navigation
 */
@@ -7076,6 +7405,22 @@ Older browsers (IE8 and lower) and those without JavaScript will get an expanded
 
 Markup: templates/global-navigation.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Navigation.1 Global navigation
 */
 
@@ -7084,15 +7429,31 @@ Local navigation
 
 Use local navigation to help the user go straight to the specific content that meets their needs.
 
-The framework provides a vertical navigation menu that shows 4 levels of items.
+The framework provides a vertical navigation menu. The home page title is always at top, followed by up to 3 levels of navigation.
 
-Small screens (up to `$tablet` breakpoint) will see a toggle to expand the navigation panel.
+Small screens (up to `$tablet` breakpoint) will see the menu closed (unexpanded) by default.
 
-Older browsers (IE8 and lower) and those without JavaScript will see the expanded menu without a toggle button.
+Older browsers (IE8 and lower) and those without JavaScript will see an expanded menu. It will not be able to be closed.
 
-Use active state (`class="is-active"`) to show which page the user is on.
+Use active state to show where the user is. Use `class="is-active"` for each clicked menu item. Use  `class="is-active is-current"` for the current location.
 
 Markup: templates/local-navigation.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Navigation.2 Local navigation
 */
@@ -7105,6 +7466,22 @@ Breadcrumbs help the user understand where they are in the service and how they 
 They appear directly under a page header or hero, from `$tablet` breakpoint upwards.
 
 Markup: templates/breadcrumbs.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Navigation.3 Breadcrumbs
 */
@@ -7120,15 +7497,47 @@ Users with modern browsers will see a smooth scroll down the page.
 
 Markup: templates/index-links.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Navigation.4 Contents links
 */
 
 /*
-Inline links
+Inline links block
 
 You can present a list of links as a horizontal block using an unsorted list with the `.inline-links` class.
 
 Markup: templates/inline-links.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Navigation.5 Inline links
 */
@@ -7145,6 +7554,22 @@ This framework uses CSS Flexboxes to manage columns. It provides:
 - 4 columns for `$desktop` breakpoint.
 
 Markup: templates/footer-navigation.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Navigation.6 Footer navigation
 */
@@ -7513,6 +7938,22 @@ Include skip links between the opening of the `<body>` and the page `<header>`.
 
 Markup: templates/skip-link.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Navigation.7 Skip links
 */
 
@@ -7612,6 +8053,22 @@ You can use groups of links:
 
 Markup: templates/groups-links.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: Navigation.8 Group of links
 */
 
@@ -7646,6 +8103,90 @@ Style guide: Navigation.8 Group of links
 }
 
 /*
+Tab navigation (experimental)
+
+Use tab navigation to style a links list as horizontal tabs. Tabs wrap on top of each other for smaller breakpoints.
+
+Use tab navigation in the main content area only.
+
+Client-side context is not affected by the tabs.
+
+Set current location using `class="is-current"`.
+
+Markup: templates/tab-style-nav.hbs
+
+Style guide: Navigation.07 Tab navigation
+*/
+
+.inline-tab-nav {
+  border-bottom: solid 1px $grey;
+  margin: ($base-spacing * 2) 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include media($tablet) {
+      display: table-cell;
+    }
+
+    font-size: 1em;
+    font-weight: 400;
+    margin: 0;
+    padding: $small-spacing 1.5em;
+    padding-left: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-bottom: solid 4px transparent;
+  }
+
+  ul {
+    @include clearfix;
+    @include media($tablet) {
+      display: table-cell;
+      border-top: none;
+    }
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+    border-top: solid 1px $grey;
+  }
+
+  li {
+    float: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    background: transparent;
+    display: block;
+    float: left;
+    vertical-align: bottom;
+    padding: $small-spacing 1.5em;
+    border-bottom: solid 4px transparent;
+
+    &:hover,
+    &:focus {
+      color: $non-black;
+      border-bottom-color: $aqua;
+    }
+
+    &.is-current,
+    &.is-active {
+      color: $dark-aqua; //Accessibility: can't be $aqua on $lighter-aqua
+      background-color: $lighter-aqua;
+      border-bottom-color: $aqua;
+    }
+  }
+
+}
+
+/*
 Accessibility
 
 - All navigation must be keyboard accessible and include ARIA tags.
@@ -7654,7 +8195,7 @@ Accessibility
 - Test with users to ensure the navigation hierarchy is not too long or too deep.
 - Use the [correct colour contrast](section-colours.html#guide-colours-3-colour-contrast) for breadcrumbs and inline links.
 
-Style guide: Navigation.9 Accessibility
+Style guide: Navigation.10 Accessibility
 */
 
 /*
@@ -7676,6 +8217,22 @@ Horizontal style provides a single column of list items.
 
 Markup: templates/lists-horizontal.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: List styles.1 Horizontal style
 */
 
@@ -7689,9 +8246,25 @@ You can change the number of columns used:
 - `.vertical-list--thirds` give 3 columns of list items
 - `.vertical-list--fourths` give 4 columns of list items.
 
-For [browsers that don't support Flexbox layout](http://caniuse.com/#feat=flexbox) lists will appear as in horizontal style with images (if used) below each list item.
+For <a href="http://caniuse.com/#feat=flexbox" rel="external">browsers that don't support Flexbox layout</a> lists will appear as in horizontal style with images (if used) below each list item.
 
 Markup: templates/lists-vertical.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: List styles.2 Vertical style
 */
@@ -7703,6 +8276,22 @@ Use small list style for large groups of list items.
 
 Markup: templates/lists-small.hbs
 
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
+
 Style guide: List styles.3 Small list style
 */
 
@@ -7712,6 +8301,17 @@ Highlighted words style
 Use highlighted words style for a list with repeating phrases.
 
 Markup: templates/lists-highlighted.hbs
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility notes</summary>
+  <div class="accordion-panel">
+
+    <p>**Passed** HTML5 validation by <a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a><br/>
+    **Passed** WCAG:AA automated by <a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a><br/>
+    **Untested** WCAG:AA manual compliance<br/>
+    **Untested** Supported browsers tested</p>
+  </div>
+</details>
 
 Style guide: List styles.4 Highlighted word style
 */
@@ -8022,7 +8622,7 @@ The **expand/collapse all** feature will be provided soon&mdash;this will be man
 
 ***
 
-This guidance is in part adapted from [18F Draft US Web Design Standards](https://standards.usa.gov/getting-started/) under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+This guidance is in part adapted from <a href="https://standards.usa.gov/getting-started/" rel="external">18F Draft US Web Design Standards</a> under <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" rel="external">CC0 1.0 Universal</a>.
 
 Markup: templates/accordion.hbs
 
@@ -8044,6 +8644,22 @@ When implementing accordions:
 - JavaScript behaviour is used to replace the browser default for `<details>`.
 - For multiple accordion elements each `details` element must have its own `data-label` attribute.
 - This framework allows a text/string search of accordion content, even when collapsed (string itself remains hidden until opened).
+
+<details data-label="accordion-accessibility" aria-expanded="false">
+  <summary>Accessibility &amp; browser testing</summary>
+  <div class="accordion-panel">
+  <strong>Passed</strong>:
+    <ul>
+      <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+      <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+    </ul>
+  <strong>Untested</strong>:
+    <ul>
+      <li>WCAG:AA manual</li>
+      <li>Browser support &mdash; automated and manual</li>
+    </ul>
+  </div>
+</details>
 
 Style guide: Accordions.1 Usability
 */
@@ -8132,6 +8748,11 @@ summary {
     padding-bottom: 0;
     top: $small-spacing * -2;
   }
+
+  :first-child {
+    margin-top: 0;
+  }
+
 }
 
 figure {
@@ -8547,8 +9168,8 @@ img {
 }
 
 footer[role='contentinfo'] {
-
   @include pad(( $base-spacing * 2 ) 0);
+
   background-color: $non-white;
   border-top: 6px solid $border-contrast-colour;
 
@@ -8561,8 +9182,6 @@ footer[role='contentinfo'] {
   }
 
   .footer-logo {
-    //margin: 0 0 $base-spacing;
-
     @include media($tablet) {
       @include span-columns(3 of 12);
     }
@@ -8573,7 +9192,6 @@ footer[role='contentinfo'] {
   }
 
   .footer-links {
-
     @include media($tablet) {
       @include span-columns(9 of 12);
     }
@@ -8585,8 +9203,8 @@ footer[role='contentinfo'] {
     }
 
     li {
-      margin-right: $small-spacing;
       display: block;
+      margin-right: $small-spacing;
 
       @include media($tablet) {
         display: inline-block;
@@ -8600,13 +9218,13 @@ footer[role='contentinfo'] {
 
   // Footer navigation is documented in the navigation partial.
   .footer-top {
-    border-bottom: 1px solid $border-colour;
     margin-bottom: $base-spacing * 2;
     padding-bottom: $base-spacing * 2;
+    border-bottom: 1px solid $border-colour;
 
     nav {
-      box-sizing: border-box;
       display: flex;
+      box-sizing: border-box;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-around;
@@ -8634,6 +9252,7 @@ footer[role='contentinfo'] {
         h3,
         h4 {
           font-size: rem(16);
+          font-weight: $heading-font-weight;
         }
       }
     }
