@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :complete_two_factor_setup
   helper_method :decorated_current_user
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -23,6 +24,18 @@ class ApplicationController < ActionController::Base
 
   def decorated_current_user
     current_user.try(:decorate)
+  end
+
+  #TODO: move this into a Warden after_authentication method or
+  # something likely to be executed _after_ TFA has been skipped
+  def complete_two_factor_setup
+    if current_user && !current_user.account_verified && current_user.confirmed_at
+      # Users need to be able to verify their tfa code
+      #unless request.path.start_with?('/users')
+      if request.path.match(/\A\/users(?!\/edit).*\z/) == nil
+        redirect_to users_two_factor_path
+      end
+    end
   end
 
   protected

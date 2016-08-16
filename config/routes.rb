@@ -5,6 +5,20 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
+  namespace :users do
+    scope path: 'two-factor', as: 'two_factor' do
+      get '/new' => 'two_factor_setup#new'
+      post '/' => 'two_factor_setup#create'
+      post '/update' => 'two_factor_setup#update'
+
+      scope path: 'identity', as: 'identity' do
+        get '/' => 'two_factor_confirmation#show'
+        get '/confirm' => 'two_factor_confirmation#confirm'
+        put '/confirm' => 'two_factor_confirmation#create'
+      end
+    end
+  end
+
   namespace :editorial do
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article

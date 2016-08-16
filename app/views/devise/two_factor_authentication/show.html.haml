@@ -1,0 +1,17 @@
+.content-main
+  - if current_user.direct_otp
+    %h2 Enter the code that was sent to you
+  - else
+    %h2 Enter the code from your authenticator app
+
+  %p= flash[:notice]
+
+  = form_tag([resource_name, :two_factor_authentication], method: :put) do
+    = text_field_tag :code
+    = submit_tag 'Submit'
+
+  - if current_user.direct_otp
+    = link_to 'Resend code', resend_code_two_factor_authentication_path, action: :get
+  - else
+    = link_to 'Send me a code instead', resend_code_user_two_factor_authentication_path
+  = link_to 'Sign out', destroy_user_session_path, :method => :delete

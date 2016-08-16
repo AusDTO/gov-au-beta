@@ -1,50 +1,45 @@
 module Users
   class TwoFactorSetupController < TwoFactorConfirmationController
     before_action :authenticate_user!
-    before_action :confirm_two_factor
+    before_action :confirm_two_factor!
+
 
     def new
     end
 
+
     def create
       current_user.unconfirmed_phone_number =  params[:phone_number]
 
-      if current_user.validate
+      if current_user.save
         current_user.create_direct_otp
+        response = SMSService.new.send_unconfirmed_number_confirmation current_user
 
-        response = SMSService.new.send_sms(
-          current_user.unconfirmed_phone_number,
-          "Please complete your two-factor setup: #{current_user.direct_otp}"
-        )
-
+        # TODO: handle service failure
         if response.code == 202
           redirect_to users_two_factor_confirm_path and return
         end
       end
+
       render :new
     end
+
 
     def confirm
     end
 
+
     def update
-      direct_otp_expiry = Rails.configuration.devise.direct_otp_valid_for
-      grace_window = current_user.direct_otp_sent_at + direct_otp_expiry
+      if current_user.authenticate_otp(params[:code])
+        current_user.phone_number = current_user.unconfirmed_phone_number
+        current_user.unconfirmed_phone_number = nil
+        current_user.account_verified = true
+        current_user.save!
 
-      if grace_window > DateTime.now
-        if current_user.authenticate_otp(params[:phone_number_otp])
-          current_user.phone_number = current_user.unconfirmed_phone_number
-          current_user.unconfirmed_phone_number = nil
-          current_user.account_verified = true
-          current_user.save
-
-          redirect_to root_path
-        else
-          # TODO: limit opportunities to re-try
-          render :confirm
-        end
+        redirect_to root_path
       else
-        redirect_to users_two_factor_path
+        # TODO: limit opportunities to re-try
+        render :confirm
       end
     end
   end

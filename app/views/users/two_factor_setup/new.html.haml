@@ -2,9 +2,11 @@
   %h1
     Setup two-factor authentication
 
-  You will need to setup two-factor authentication.
+  You will need to setup two-factor authentication to complete your account setup.
 
-  You must set a phone number. Google Authenticator (or other TOPT) solutions are optional.
+  = form_tag([:users, :two_factor], method: :post) do
+    = text_field_tag :phone_number, nil, maxlength: 10
+    = submit_tag 'Send code', role: :button
 
   %form{action: users_two_factor_path, method: 'POST'}
     %input{name: 'authenticity_token', value: "#{form_authenticity_token}", type: :hidden}

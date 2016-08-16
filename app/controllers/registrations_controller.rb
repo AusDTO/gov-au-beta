@@ -1,5 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  before_action Users::confirm_two_factor!, only: [:edit]
+
   private
 
   def sign_up_params

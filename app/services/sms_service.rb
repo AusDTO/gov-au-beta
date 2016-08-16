@@ -11,6 +11,27 @@ class SMSService
     end
   end
 
+  def send_unconfirmed_number_confirmation_code(user)
+    send_user_otp(user, user.unconfirmed_phone_number)
+  end
+
+  def send_two_factor_confirmation_code(user)
+    send_user_otp(user, user.phone_number)
+  end
+
+  def send_user_otp(user, phone_number)
+    if phone_number != nil && user.direct_otp != nil
+      send_sms(
+        user.phone_number,
+        "Your GOV.AU two-factor authentication code is #{user.direct_otp}"
+      )
+    else
+      raise "Phone number or OTP not set"
+    end
+  end
+
+
+  private
   def self.token
     @@token
   end
@@ -39,6 +60,8 @@ class SMSService
       raise "error getting token"
     end
   end
+
+
 
   def send_sms(phone_number, message)
     self.class.post(
