@@ -10,9 +10,12 @@ common: &common
   pool:     <%= ENV['DB_CONCURRENCY'] || 10 %>
   timeout:  5000
 
-development:
+development: &development
   <<: *common
   database: <%= ENV['DB_NAME'] || 'govau_beta_development' %>
+
+static:
+  <<: *development
 
 # https://circleci.com/docs/environment#databases
 # Both postgresql and mysql are set up to use the ubuntu user, have a database called circle_test available, and don't require any password.
