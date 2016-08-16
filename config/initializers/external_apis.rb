@@ -7,6 +7,10 @@ Rails.application.configure do
     url
   end
 
-  config.content_analysis_base_url = check_format(ENV['CONTENT_ANALYSIS_BASE_URL'], 'content analysis base url')
+  if !Rails.env.static?
+    config.content_analysis_base_url = check_format(ENV['CONTENT_ANALYSIS_BASE_URL'], 'content analysis base url')
+  else
+    config.content_analysis_base_url = "https://dummy"
+  end
 
 end
