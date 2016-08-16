@@ -4,7 +4,6 @@ require 'uri'
 require 'fileutils'
 require 'httparty'
 require 'pathname'
-require 'pry'
 
 # This code exists because I could not get wget to download the GOV.AU
 # with a URL -> path/file mapping that would allow it to be served
