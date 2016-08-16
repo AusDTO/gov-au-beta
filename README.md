@@ -231,3 +231,19 @@ To create a new node type, do the following:
     with an associated template partial in `editorial/submissions`
 * If required, update `seeds.rb` to have examples of the node type
 * Create tests to verify subclass specific logic
+
+## Generating a static snapshot of GOV.AU
+
+1. Install a local prodution snapshot in your development database
+2. `rm -fr ./out`
+3. `RAILS_ENV=static bundle exec rails static:generate`
+4. `bundle exec rails static:serve`
+
+This will create a static snapshot in `./out` which can be viewed at `http://localhost:8000`
+
+When tweaking the spider code itself, it's quicker to test just downloading the home page.
+
+        bundle exec rails static:home
+
+This will download the home page and all of the referenced assets (except for remote assets).
+
