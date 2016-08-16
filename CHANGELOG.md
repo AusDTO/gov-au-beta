@@ -15,6 +15,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 - The page preview in the editor does not allow javascript to be previewed
+- Don't let admins search on password hash
+
 
 ## [v1.0.3] - 2016-08-16
 ### Added
