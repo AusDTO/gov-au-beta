@@ -1,12 +1,20 @@
 module Users
   class TwoFactorController < ApplicationController
+    def index
+    end
 
-    def verify_identity
+    def confirm
 
     end
 
+    def validate_code
+
+    end
+
+
+
     private
-    def verify_identity
+    def identity_check
       # Check identity last checked date
       if current_user.identity_verified_at == nil
         identity_expires_at = 5.minutes.ago
@@ -18,7 +26,7 @@ module Users
       if identity_expires_at < DateTime.now
         # Redirect to identity check process
         # Maintain request.path to redirect back to after completion
-        redirect_to
+        redirect_to users_two_factor_identity_path
       end
     end
   end

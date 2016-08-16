@@ -1,0 +1,22 @@
+.content-main
+  %h1 Confirm two-factor code
+
+  A code has been sent to your phone number. Please enter it below
+  to complete your two-factor authentication setup.
+
+  = form_tag([:users, :two_factor, :confirmation], method: :post)
+    = text_field_tag  :code
+    = submit_tag 'Confirm'
+
+  -#%form{method: :post, action: users_two_factor_update_path}
+  -#  %p
+  -#    %input{name: 'authenticity_token', value: "#{form_authenticity_token}", type: :hidden}
+  -#    %input{class: :string, type: :text, name: :phone_number_otp}
+  -#  %p
+  -#    %input{type: :submit, role: :button, value: 'Confirm'}
+
+  %p
+
+  - unless current_user.account_verified
+    %p
+      = link_to 'Use a different number', users_two_factor_new_path

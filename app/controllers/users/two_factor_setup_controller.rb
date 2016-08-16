@@ -1,5 +1,8 @@
 module Users
-  class TfaController < ::ApplicationController
+  class TwoFactorSetupController < TwoFactorConfirmationController
+    before_action :authenticate_user!
+    before_action :confirm_two_factor
+
     def new
     end
 
@@ -44,11 +47,5 @@ module Users
         redirect_to users_two_factor_path
       end
     end
-  end
-
-  private
-
-  def identity_check
-
   end
 end
