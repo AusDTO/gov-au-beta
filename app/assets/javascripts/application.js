@@ -12,10 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require simplemde.min
-//= require trumbowyg
-//= require editor.md/editormd
-//= require editor.md/languages/en
-//= require showdown.min
+//= require sanitize-html.min
+//= require showdown
 //= require "ui-kit"
 //= require_tree .

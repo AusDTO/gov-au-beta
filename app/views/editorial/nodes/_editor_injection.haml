@@ -6,7 +6,22 @@
       var text = $('#node_content_body')[0].value,
         target = $('#editor-preview')[0],
         converter = new showdown.Converter({tables: true}),
-        html = converter.makeHtml(text);
+        // default filter settings from https://github.com/punkave/sanitize-html made explicit below
+        html = converter.makeHtml(sanitizeHtml(text), {
+        allowedTags: [ 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+          'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+          'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre',
+          'dd', 'dl', 'heading', 'footer', 'section', 'article', 'main' ],
+        allowedAttributes: {
+          a: [ 'href', 'name', 'target' ],
+          img: [ 'src' ]
+        },
+        // Lots of these won't come up by default because we don't allow them
+        selfClosing: [ 'img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta' ],
+        // URL schemes we permit
+        allowedSchemes: [ 'http', 'https', 'ftp', 'mailto' ],
+        allowedSchemesByTag: {}
+        });
 
         target.innerHTML = html;
       if(text != ""){
@@ -17,57 +32,3 @@
     };
     $('#node_content_body').keyup(previewMarkdown);
     previewMarkdown();
-
-
-
-
-- if @editor == 'simplemde'
-  %script
-    var simplemde = new SimpleMDE();
-    $('form').submit(function(event) {simplemde.element.value = simplemde.value();});
-
-- if @editor == 'trum'
-  %script
-    $('#node_content_body').after('<div id="editor"></div>');
-    $('#editor').trumbowyg({svgPath: "#{image_path 'icons.svg'}", removeformatPasted: true});
-    $('#node_content_body').css({'display': 'none'});
-    $('#editor').trumbowyg('html', document.getElementById('node_content_body').value);
-    $('form').submit(function(event) {document.getElementById('node_content_body').value = $('#editor').trumbowyg('html');});
-
-- if @editor == 'editormd'
-  :javascript
-    $('#node_content_body').wrap('<div id="editormd"></div>');
-    $('#node_content_body').css({'display': 'none'});
-    var editor_md = editormd("editormd",{
-      path : '/assets/editor.md/lib/',
-      placeholder: "Start typing here...",
-      toolbarIcons : function() {
-        return [
-          "undo",
-          "redo",
-          "|",
-          "bold",
-          "italic",
-          "quote",
-          "uppercase",
-          "lowercase",
-          "|",
-          "h1",
-          "h2",
-          "h3",
-          "h4",
-          "|",
-          "list-ul",
-          "list-ol",
-          "hr",
-          "|",
-          "link",
-          "image",
-          "||",
-          "watch",
-          "fullscreen"
-          ];
-        }
-      });
-    $('form').submit(function(event) {editor_md.element.value = editor_md.getMarkdown();});
-
