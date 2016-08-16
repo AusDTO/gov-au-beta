@@ -8,12 +8,11 @@ This file is influenced by http://keepachangelog.com/.
 - Added collecting test metadata for CircleCI
 - Added ability to mark pages as placeholders that appear in navigation
 
-
 ### Changed
-- Upgrade UI kit to v1.7.3
+- Upgrade UI kit to v1.7.4
 - Removed optional content editors like editor.md and trumbowyg
 - Deleted summary text on Minister and Departments listing pages
-
+- Improvements to the database scrubbing script
 
 ### Fixed
 - The page preview in the editor does not allow javascript to be previewed
