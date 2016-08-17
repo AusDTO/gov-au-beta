@@ -1,5 +1,6 @@
 //= require sanitize-html.min
 //= require showdown
+//= require_self
 
 $('#node_content_body').after('<div id="editor-preview" class="content-block" style="display: none;"></div>');
 
