@@ -10,19 +10,27 @@ require 'synergy/cms_import'
 
 RootNode.find_or_create_by!(state: 'published')
 
-topic = Topic.find_or_create_by!(name: "Business")
+category = Category.find_or_create_by!(name: 'Infrastructure and telecommunications',
+                                       short_summary: 'Transport safety, television reception, telecommunications.',
+                                       summary: 'Australian Government information and services related to infrastructure and telecommunications.')
+category.save
+subcategory = category.children.find_or_create_by!(name:'Infrastructure')
+leaf_category = subcategory.children.find_or_create_by!(name: 'Road')
+
+topic = Topic.find_or_create_by!(name: 'Business')
 topic.summary = 'The business section covers a range of business-related topics.'
+topic.categories << leaf_category
 topic.save
 
 news1 = NewsArticle.with_name(
-    "Business News"
+    'Business News'
   ).find_or_create_by!(
     {
       section: topic,
       state: :published,
     }
   ) do |news_article|
-    news_article.name = "Business News"
+    news_article.name = 'Business News'
     news_article.release_date = Date.today
   end
 news1.update(release_date: Date.today) if news1.release_date.blank?
@@ -41,10 +49,10 @@ def make_node(parent, name, klass = GeneralContent)
     end
 end
 
-node1 = make_node(topic.home_node, "Starting a Business")
-node2 = make_node(node1, "Finding Staff")
+node1 = make_node(topic.home_node, 'Starting a Business')
+node2 = make_node(node1, 'Finding Staff')
 node2.revise!(content_body: 'lorem ipsum').apply!
-node3 = make_node(node2, "Types of Employment")
+node3 = make_node(node2, 'Types of Employment')
 
 times = Topic.find_or_create_by!(name: 'Times and dates') do |topic|
   topic.summary = 'Australian times and dates'
@@ -86,22 +94,22 @@ school_hols_act = make_node(school_hols, 'Australian Capital Territory', CustomT
 school_hols_act.update(template: 'custom/school_holidays_act', options: {suppress_in_nav: true})
 
 password = ENV['SEED_USER_PASSWORD']
-raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
+raise 'SEED_USER_PASSWORD cannot be empty' if password.blank?
 
-unless admin = User.find_by(email: "admin@example.gov.au")
-  admin = User.create!(email: "admin@example.gov.au", password: password)
+unless admin = User.find_by(email: 'admin@example.gov.au')
+  admin = User.create!(email: 'admin@example.gov.au', password: password)
 end
 
-unless author = User.find_by(email: "author@example.gov.au")
-  author = User.create!(email: "author@example.gov.au", password: password)
+unless author = User.find_by(email: 'author@example.gov.au')
+  author = User.create!(email: 'author@example.gov.au', password: password)
 end
 
-unless reviewer = User.find_by(email: "reviewer@example.gov.au")
-  reviewer = User.create!(email: "reviewer@example.gov.au", password: password)
+unless reviewer = User.find_by(email: 'reviewer@example.gov.au')
+  reviewer = User.create!(email: 'reviewer@example.gov.au', password: password)
 end
 
-unless owner = User.find_by(email: "owner@example.gov.au")
-  owner = User.create!(email: "owner@example.gov.au", password: password)
+unless owner = User.find_by(email: 'owner@example.gov.au')
+  owner = User.create!(email: 'owner@example.gov.au', password: password)
 end
 
 admin.add_role :admin

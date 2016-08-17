@@ -1,0 +1,11 @@
+$link-disabled-colour: transparentize($non-black, 0.4);
+$hover-bg-colour: $light-aqua;
+span.placeholder-link {
+  color: $link-disabled-colour;
+  border-bottom: solid 1px transparentize($hover-bg-colour, 0.4);
+  cursor: not-allowed;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
