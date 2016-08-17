@@ -15,6 +15,7 @@ class CategoryDashboard < Administrate::BaseDashboard
       summary: Field::String,
       parent: Field::BelongsTo.with_options(class_name: "Category"),
       children: Field::HasMany.with_options(class_name: "Category"),
+      sections: Field::HasMany,
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
   }.freeze
@@ -40,6 +41,7 @@ class CategoryDashboard < Administrate::BaseDashboard
       :summary,
       :parent,
       :children,
+      :sections,
       :created_at,
       :updated_at
   ].freeze
