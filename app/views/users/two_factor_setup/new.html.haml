@@ -2,15 +2,11 @@
   %h1
     Setup two-factor authentication
 
-  You will need to setup two-factor authentication to complete your account setup.
+  - unless current_user.account_verified
+    You will need to setup two-factor authentication to complete your account setup.
 
-  = form_tag([:users, :two_factor], method: :post) do
-    = text_field_tag :phone_number, nil, maxlength: 10
-    = submit_tag 'Send code', role: :button
+  Enter a phone number you have access to that you can use for two-factor authentication.
 
-  %form{action: users_two_factor_path, method: 'POST'}
-    %input{name: 'authenticity_token', value: "#{form_authenticity_token}", type: :hidden}
-    %p
-      %input{class: :string, type: :text, maxlength: 10, name: :phone_number}
-    %p
-      %input{type: :submit, role: :button, value: 'Send code'}
+  = form_tag([:users, :two_factor_setup], method: :post) do
+    %p= text_field_tag :phone_number, nil, maxlength: 10
+    %p= submit_tag 'Send code', role: :button

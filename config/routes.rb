@@ -6,16 +6,22 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   namespace :users do
-    scope path: 'two-factor', as: 'two_factor' do
-      get '/new' => 'two_factor_setup#new'
-      post '/' => 'two_factor_setup#create'
-      post '/update' => 'two_factor_setup#update'
+    resource :two_factor_setup, only: [:new, :create, :update], controller: 'two_factor_setup' do
+      get :confirm
+    end
 
-      scope path: 'identity', as: 'identity' do
-        get '/' => 'two_factor_confirmation#show'
-        get '/confirm' => 'two_factor_confirmation#confirm'
-        put '/confirm' => 'two_factor_confirmation#create'
-      end
+    resource :two_factor_verification, only: [:show, :create], controller: :two_factor_verification do
+      get :resend_code
+    end
+    scope path: 'two-factor', as: 'two_factor' do
+
+
+      # scope path: 'identity', as: 'identity' do
+      #   get '/' => 'two_factor_confirmation#show'
+      #   get '/confirm' => 'two_factor_confirmation#confirm'
+      #   put '/create' => 'two_factor_confirmation#create'
+      #   get '/resend_code' => 'two_factor_confirmation#resend_code'
+      # end
     end
   end
 

@@ -4,10 +4,10 @@
   A code has been sent to your phone number. Please enter it below
   to complete your two-factor authentication setup.
 
-  = form_tag([:users, :two_factor, :confirmation], method: :post)
+  = form_tag([:users, :two_factor_setup], method: :put) do
     = text_field_tag  :code
     = submit_tag 'Confirm'
 
   - unless current_user.account_verified
     %p
-      = link_to 'Use a different number', users_two_factor_new_path
+      = link_to 'Use a different number', new_users_two_factor_setup_path
