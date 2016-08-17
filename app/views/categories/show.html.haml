@@ -1,0 +1,24 @@
+- breadcrumb :category, @category
+
+= content_for :title do
+  = @category.name
+
+= content_for :after_header do
+  .hero-med.corporate
+    .wrapper
+      %h1= @category.name
+      %p= @category.summary
+
+
+%article.content-main
+  - @category.children.each do |subcategory|
+    %h2= subcategory.name
+    - subcategory.children.each do |leaf_category|
+      %h4= leaf_category.name
+      %ul
+        - leaf_category.sections.each do |section|
+          - if not section.home_node.options.suppress_in_nav
+            - if section.home_node.state.draft?
+              %span.placeholder-link= section.name
+            - else
+              %li=link_to(section.name, nodes_path(section.slug))

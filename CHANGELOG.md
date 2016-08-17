@@ -4,6 +4,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+- Added ability to group topics into categories
 
 ### Changed
 

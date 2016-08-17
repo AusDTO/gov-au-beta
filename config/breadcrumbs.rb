@@ -24,7 +24,7 @@ crumb :public_node do |node|
 end
 
 crumb :category do |name|
-  link name, nil #TODO: change this once we have Category model
+  link name, category_path
   parent :public_node, Node.root_node
 end
 

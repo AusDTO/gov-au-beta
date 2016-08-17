@@ -98,7 +98,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'with_model', '~> 1.2.1'
   gem 'axe-matchers'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
 end
 
 platforms :mingw, :mswin do

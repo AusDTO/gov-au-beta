@@ -22,7 +22,8 @@ class SectionDashboard < Administrate::BaseDashboard
     ),
     cms_url: Field::String,
     cms_path: Field::String,
-    image_url: Field::String
+    image_url: Field::String,
+    categories: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -49,7 +50,8 @@ class SectionDashboard < Administrate::BaseDashboard
     :cms_type,
     :cms_url,
     :cms_path,
-    :image_url
+    :image_url,
+    :categories
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -62,7 +64,8 @@ class SectionDashboard < Administrate::BaseDashboard
     :cms_type,
     :cms_url,
     :cms_path,
-    :image_url
+    :image_url,
+    :categories
   ].freeze
 
   # Overwrite this method to customize how sections are displayed
