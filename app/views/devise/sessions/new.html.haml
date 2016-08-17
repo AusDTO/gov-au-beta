@@ -1,16 +1,41 @@
-%article.content-listing
-  %h2 Log in
-  %section.form-wrapper
+%article.sign-in
+  %h1 Sign in &mdash; GOV.AU Author
+  %section.sign-in-form
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       / TODO: UI Kit needs styles for email type (see https://github.com/AusDTO/gov-au-ui-kit/issues/51)
       /= f.input :email, autofocus: true
+
+      = devise_error_messages!
+
       %p
-        = f.label :email
+        = f.label :email, "Email address"
         = f.text_field :email
+
       %p
         = f.label :password
         = f.password_field :password
-      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-      = f.button :submit, "Log in", role: 'button'
 
-  = render "devise/shared/links"
+      .form-footer-actions
+        .form-options
+          .remember-me
+            = f.check_box :remember_me, as: :boolean if devise_mapping.rememberable?
+            %label.checkbox{ :for => "user_remember_me" } Remember me
+
+          %p
+            - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+              = link_to "Forgot password?", new_password_path(resource_name)
+
+        / = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+        %p
+          = f.button :submit, "Sign in", role: 'button'
+
+    .sign-in-footer-links
+      - if devise_mapping.confirmable? && controller_name != 'confirmations'
+        = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+
+      %h2.background-border-heading
+        %span.inner
+          Or
+
+      - if devise_mapping.registerable? && controller_name != 'registrations'
+        = link_to "Sign up to be an author", new_registration_path(resource_name), :class => "primary-link"

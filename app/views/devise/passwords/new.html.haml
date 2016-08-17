@@ -1,9 +1,25 @@
-%article.content-listing
-  %h2 Forgot your password?
-  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-    = f.error_notification
-    .form-inputs
-      = f.input :email, required: true, autofocus: true
-    .form-actions
-      = f.button :submit, "Send me reset password instructions"
-  = render "devise/shared/links"
+%article.sign-in
+  %h1 Forgot your password?
+  %section.sign-in-form
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = devise_error_messages!
+
+
+      %p
+        = f.input :email, required: true, autofocus: true
+      .form-footer-actions
+        %p
+          = f.button :submit, "Send me reset password instructions", role: 'button'
+
+    .sign-in-footer-links
+      - if devise_mapping.confirmable? && controller_name != 'confirmations'
+        = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+
+      %h2.background-border-heading
+        %span.inner
+          Or
+
+      - if controller_name != 'sessions'
+        = link_to "Sign in", new_session_path(resource_name), :class => "primary-link"
+
+    / = render "devise/shared/links"
