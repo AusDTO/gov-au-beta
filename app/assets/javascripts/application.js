@@ -12,7 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require sanitize-html.min
-//= require showdown
 //= require "ui-kit"
 //= require_tree .

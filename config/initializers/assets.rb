@@ -10,4 +10,4 @@ Rails.application.config.assets.paths << Rails.root.join("vendor", "assets", "im
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w( fonts.js *.png *.jpg *.jpeg *.gif *.svg )
+Rails.application.config.assets.precompile += %w( fonts.js editor.js *.png *.jpg *.jpeg *.gif *.svg )
