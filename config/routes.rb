@@ -13,16 +13,6 @@ Rails.application.routes.draw do
     resource :two_factor_verification, only: [:show, :create], controller: :two_factor_verification do
       get :resend_code
     end
-    scope path: 'two-factor', as: 'two_factor' do
-
-
-      # scope path: 'identity', as: 'identity' do
-      #   get '/' => 'two_factor_confirmation#show'
-      #   get '/confirm' => 'two_factor_confirmation#confirm'
-      #   put '/create' => 'two_factor_confirmation#create'
-      #   get '/resend_code' => 'two_factor_confirmation#resend_code'
-      # end
-    end
   end
 
   namespace :editorial do
