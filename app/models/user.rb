@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_one_time_password(encrypted: true)
 
   validates :email, email_domain_whitelist: true
-  validates :phone_number, presence: true, aus_phone_number: true
+  validates :phone_number, aus_phone_number: true
+  validates :unconfirmed_phone_number, aus_phone_number: true
 
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
@@ -45,10 +46,11 @@ class User < ApplicationRecord
   end
 
   def send_two_factor_authentication_code(code)
-    response = SMSService.new.send_sms(
-        self,
-        "Your two-factor authentication code to sign in to GOV.AU is #{code}"
-    )
+    # response = SMSService.new.send_sms(
+    #     self.phone_number,
+    #     "Your two-factor authentication code to sign in to GOV.AU is #{code}"
+    # )
+    response = SMSService.new.send_two_factor_confirmation_code!(self)
 
     # TODO: handle SMS delivery-failure, and check the response is 202
     unless response.code == 202
@@ -58,6 +60,22 @@ class User < ApplicationRecord
   end
 
   def need_two_factor_authentication?(request)
-    request.ip != '127.0.0.1'
+    #request.ip != '127.0.0.1' && !self.bypass_tfa
+    !self.bypass_tfa && self.account_verified
+  end
+
+  def create_direct_otp_for(field)
+    otp_service = OtpService.new(self)
+    otp_service.create_otp(field)
+  end
+
+  def authenticate_direct_otp_for(field, code)
+    otp_service = OtpService.new(self)
+    otp_service.authenticate_otp(field, code)
+  end
+
+  def identity_expired?
+    direct_otp_valid_for = Rails.configuration.devise.direct_otp_valid_for
+    return identity_verified_at == nil || identity_verified_at + direct_otp_valid_for < Time.now.utc
   end
 end

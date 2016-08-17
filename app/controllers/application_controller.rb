@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       # Users need to be able to verify their tfa code
       #unless request.path.start_with?('/users')
       if request.path.match(/\A\/users(?!\/edit).*\z/) == nil
-        redirect_to users_two_factor_path
+        redirect_to new_users_two_factor_setup_path
       end
     end
   end

@@ -11,19 +11,22 @@ class SMSService
     end
   end
 
-  def send_unconfirmed_number_confirmation_code(user)
-    send_user_otp(user, user.unconfirmed_phone_number)
+
+  def send_unconfirmed_number_confirmation_code!(user)
+    send_user_otp!(user, user.unconfirmed_phone_number, :unconfirmed_phone_number_otp)
   end
 
-  def send_two_factor_confirmation_code(user)
-    send_user_otp(user, user.phone_number)
+
+  def send_two_factor_confirmation_code!(user)
+    send_user_otp!(user, user.phone_number, :direct_otp)
   end
 
-  def send_user_otp(user, phone_number)
-    if phone_number != nil && user.direct_otp != nil
+
+  def send_user_otp!(user, phone_number, field)
+    if phone_number != nil && user.send(field) != nil
       send_sms(
-        user.phone_number,
-        "Your GOV.AU two-factor authentication code is #{user.direct_otp}"
+        phone_number,
+        "Your GOV.AU two-factor authentication code is #{user.send(field)}"
       )
     else
       raise "Phone number or OTP not set"
@@ -36,9 +39,11 @@ class SMSService
     @@token
   end
 
+
   def self.token_expiry
     @@token_expires_at
   end
+
 
   def set_token
     response = self.class.post(
@@ -60,7 +65,6 @@ class SMSService
       raise "error getting token"
     end
   end
-
 
 
   def send_sms(phone_number, message)

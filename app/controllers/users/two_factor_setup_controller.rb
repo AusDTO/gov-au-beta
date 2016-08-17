@@ -1,8 +1,8 @@
 module Users
-  class TwoFactorSetupController < TwoFactorConfirmationController
+  class TwoFactorSetupController < TwoFactorVerificationController
     before_action :authenticate_user!
     before_action :confirm_two_factor!
-
+    before_action :verify_direct_otp_sent, only: [:confirm, :update]
 
     def new
     end
@@ -12,12 +12,14 @@ module Users
       current_user.unconfirmed_phone_number =  params[:phone_number]
 
       if current_user.save
-        current_user.create_direct_otp
-        response = SMSService.new.send_unconfirmed_number_confirmation current_user
+        current_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
+        response = SMSService.new.send_unconfirmed_number_confirmation_code! current_user
 
         # TODO: handle service failure
         if response.code == 202
-          redirect_to users_two_factor_confirm_path and return
+          redirect_to confirm_users_two_factor_setup_path and return
+        else
+          puts response
         end
       end
 
@@ -30,7 +32,7 @@ module Users
 
 
     def update
-      if current_user.authenticate_otp(params[:code])
+      if current_user.authenticate_direct_otp_for(:unconfirmed_phone_number_otp, params[:code])
         current_user.phone_number = current_user.unconfirmed_phone_number
         current_user.unconfirmed_phone_number = nil
         current_user.account_verified = true
@@ -40,6 +42,13 @@ module Users
       else
         # TODO: limit opportunities to re-try
         render :confirm
+      end
+    end
+
+    private
+    def verify_direct_otp_sent
+      if current_user.unconfirmed_phone_number_otp == nil
+        redirect_to new_users_two_factor_setup_path
       end
     end
   end
