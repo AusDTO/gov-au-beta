@@ -1,5 +1,5 @@
 class MarkdownRenderer
-  def initialize(nesting_level = 2)
+  def initialize(nesting_level: 2)
     @content_renderer = Redcarpet::Markdown.new(::ContentMarkdown, tables: true)
     # TODO: uikit does not yet support nested TOC
     # Once they do, revisit the nesting_level option
@@ -12,6 +12,7 @@ class MarkdownRenderer
   end
 
   def toc(markdown_content)
+    # TODO: Pass compiled content as arg
     render(@toc_renderer, markdown_content)
   end
 

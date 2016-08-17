@@ -33,6 +33,7 @@ class Node < ApplicationRecord
 
   belongs_to :section
   has_many :submissions, through: :revisions
+  has_many :data_bundles
 
   enumerize :state, in: STATES, scope: true
   content_attribute :content_body

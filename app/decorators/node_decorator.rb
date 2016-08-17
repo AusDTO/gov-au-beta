@@ -7,6 +7,11 @@ class NodeDecorator < Draper::Decorator
     I18n.t("domain_model.nodes.#{object.class.name.underscore}")
   end
 
+  # TODO: Need to handle all the different content attrs
+  def content_body
+    NodeCompiler.new(object).body
+  end
+
   def template
     object.class.to_s.underscore
   end

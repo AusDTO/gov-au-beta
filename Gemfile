@@ -56,6 +56,8 @@ gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
 
+gem 'liquid', '~> 3.0', '>= 3.0.6'
+
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
 # - https://github.com/thoughtbot/administrate/pull/575 # Rails 5
