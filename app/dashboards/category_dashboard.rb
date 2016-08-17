@@ -10,10 +10,13 @@ class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
       id: Field::Number,
       name: Field::String,
+      slug: Field::String,
       short_summary: Field::String,
       summary: Field::String,
       parent: Field::BelongsTo.with_options(class_name: "Category"),
       children: Field::HasMany.with_options(class_name: "Category"),
+      created_at: Field::DateTime,
+      updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,10 +35,13 @@ class CategoryDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
       :id,
       :name,
+      :slug,
       :short_summary,
       :summary,
       :parent,
-      :children
+      :children,
+      :created_at,
+      :updated_at
   ].freeze
 
   # FORM_ATTRIBUTES

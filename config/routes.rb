@@ -33,12 +33,15 @@ Rails.application.routes.draw do
       end
     end
 
+    # keep these alphabetically sorted
+    # code order determines order in the UI
+    resources :categories
+    resources :custom_template_nodes
     resources :departments
     resources :general_contents
     resources :ministers
     resources :news_articles
     resources :nodes
-    resources :custom_template_nodes
     resources :requests
     resources :revisions
     resources :roles
@@ -47,7 +50,6 @@ Rails.application.routes.draw do
     resources :sections
     resources :submissions
     resources :topics
-    resources :categories
     resources :users
   end
 
