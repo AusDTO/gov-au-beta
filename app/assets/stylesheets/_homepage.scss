@@ -4,13 +4,7 @@ $light-teal: #0098b0;
   .abstract {
     border-bottom: 0;
     padding-bottom: 0;
-    @include span-columns(12 of 12);
-    float: none;
-
-    @include media($tablet) {
-      @include span-columns(8 of 12);
-      float: none;
-    }
+    max-width: 770px
   }
 }
 
