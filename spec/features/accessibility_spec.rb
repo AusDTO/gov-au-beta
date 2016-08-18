@@ -15,7 +15,7 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
       expect(page.status_code).to eq(200)
       # TODO: Remove skip clause once ui-kit colours are updated
       # See https://github.com/AusDTO/gov-au-ui-kit/issues/271
-      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa).skipping('color-contrast')
+      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa)
     end
   end
 
