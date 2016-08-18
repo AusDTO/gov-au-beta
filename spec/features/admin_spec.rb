@@ -208,7 +208,7 @@ RSpec.describe 'admin features', type: :feature do
         visit admin_root_path
         fill_in('Email', with: admin_user.email)
         fill_in('Password', with: admin_user.password)
-        click_button('Log in')
+        click_button('Sign in')
         expect(current_path).to eq(admin_root_path)
       end
     end
@@ -218,7 +218,7 @@ RSpec.describe 'admin features', type: :feature do
         visit admin_root_path
         fill_in('Email', with: non_admin_user.email)
         fill_in('Password', with: non_admin_user.password)
-        click_button('Log in')
+        click_button('Sign in')
         expect(current_path).to eq(editorial_root_path)
       end
     end

@@ -1,10 +1,21 @@
-%article.content-listing
-  %h2 Resend confirmation instructions
-  = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-    = f.error_notification
-    = f.full_error :confirmation_token
-    .form-inputs
-      = f.input :email, required: true, autofocus: true
-    .form-actions
-      = f.button :submit, "Resend confirmation instructions"
-  = render "devise/shared/links"
+%article.sign-in
+  %h1 Resend confirmation instructions
+  %section.sign-in-form
+    = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+      = f.full_error :confirmation_token
+      %p
+        = f.input :email, required: true, autofocus: true
+
+      .form-footer-actions
+        %p
+          = f.button :submit, "Resend confirmation instructions", role: 'button'
+
+    .sign-in-footer-links
+
+      %h2.background-border-heading
+        %span.inner
+          Or
+
+      - if controller_name != 'sessions'
+        = link_to "Sign in", new_session_path(resource_name), :class => "primary-link"

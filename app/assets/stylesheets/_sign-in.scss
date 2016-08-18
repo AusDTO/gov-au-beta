@@ -1,0 +1,117 @@
+//small center column layout. Should this go into UI Kit?
+//some visual defects with grid in chrome
+.sign-in {
+  @include outer-container;
+  @include span-columns(12 of 12);
+  @include link-colours($non-black, $light-aqua, $non-black);
+  @include button-colours($button-bg-colour, $button-bg-colour--hover, $button-bg-colour--active, $button-text-colour);
+  margin-top: 2 * $base-spacing;
+
+  @include media($tablet) {
+    @include span-columns(7 of 12);
+    @include shift(2.5 of 12);
+  }
+
+  @include media($desktop) {
+    @include span-columns(6 of 16);
+    @include shift(5 of 16);
+  }
+}
+
+.sign-in-form {
+  margin-top: 1.5 * $base-spacing;
+
+  //should we make all input labels bold?
+  label {
+    font-weight: 700;
+  }
+
+  //why isn't checkbox text same size as body?
+  form input[type="checkbox"] + label {
+    font-size: rem(16);
+    padding-left: 40px;
+
+    @include media($tablet) {
+      font-size: rem(17);
+    }
+
+  }
+
+  //formatting of form footer actions
+  .form-footer-actions {
+
+    input[type="submit"] {
+      margin-bottom: 0;
+      margin-top: $small-spacing;
+      width: 100%;
+    }
+
+    .form-options {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+
+      .remember-me {
+        display: block;
+
+        //Adjust alignment of checkbox
+        input[type="checkbox"] + label::before {
+          left: 0;
+          top: 11px;
+        }
+
+        input[type="checkbox"]:checked + label::after {
+          left: 5px;
+          top: 16px;
+        }
+
+        @include media($mobile) {
+
+          display: table-cell;
+          text-align: left;
+          width: 50%;
+
+          + p {
+            display: table-cell;
+            text-align: right;
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  //formatting of form footer secondary links
+  .sign-in-footer-links {
+    text-align: center;
+
+    //should we have this defined globally?
+    .background-border-heading {
+      border-bottom: 1px solid $border-colour;
+      line-height: 1;
+      margin-bottom: $small-spacing;
+      margin-top: 0;
+      text-align: center;
+
+      span {
+        background-color: $white;
+        font-size: rem(20);
+        font-weight: $heading-font-weight;
+        padding: 0 $small-spacing;
+        position: relative;
+        top: 11px;
+      }
+    }
+
+    //should we have this defined globally?
+    .primary-link {
+      color: $aqua;
+      font-weight: $heading-font-weight;
+
+      &:hover,
+      &:focus {
+        color: $link-colour;
+      }
+    }
+  }
+}
