@@ -76,7 +76,7 @@ class Node < ApplicationRecord
   # Override in subclasses to add options
   # Format is {option: :default_value}
   def available_options
-    {suppress_in_nav: false}
+    {suppress_in_nav: false, placeholder: false}
   end
 
   # 1) reform requires options to be an object with attributes

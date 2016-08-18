@@ -15,7 +15,9 @@ class NodesController < ApplicationController
     end
 
     set_menu_nodes
-    render_node node
+    if bustable_stale?([@node, @section, *@news, *@ministers, *@departments, *@agencies, *@categories])
+      render_node node
+    end
   end
 
   def home
