@@ -25,8 +25,9 @@ class NodesController < ApplicationController
     @ministers = Minister.all
     @departments = Department.all
     @agencies = Agency.all
-    @categories = Category.roots
-    @categories_coming_soon = STATIC_DATA[:categories] #TODO Replace once categories are proper data
+    @categories = Category.roots.where(:placeholder => false)
+    @categories_coming_soon = Category.roots.where(:placeholder => true)
+    # @categories_coming_soon = STATIC_DATA[:categories] #TODO Replace once categories are proper data
     show
   end
 
