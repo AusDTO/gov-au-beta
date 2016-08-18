@@ -8,6 +8,9 @@
     = text_field_tag  :code
     = submit_tag 'Confirm'
 
+  If you do not receive a code or your code has expired,
+  = link_to 'get a new one sent to you', resend_code_user_two_factor_authentication_path, action: :get
+
   - unless current_user.account_verified
     %p
       = link_to 'Use a different number', new_users_two_factor_setup_path

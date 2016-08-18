@@ -8,10 +8,12 @@ Rails.application.routes.draw do
   namespace :users do
     resource :two_factor_setup, only: [:new, :create, :update], controller: 'two_factor_setup' do
       get :confirm
+
     end
 
-    resource :two_factor_verification, only: [:show, :create], controller: :two_factor_verification do
+    resource :two_factor_verification, only: [:new, :create, :update], controller: :two_factor_verification do
       get :resend_code
+      get :confirm
     end
   end
 

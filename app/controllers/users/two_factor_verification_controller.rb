@@ -15,7 +15,7 @@ module Users
           SMSService.new.send_two_factor_confirmation_code!(current_user)
         end
       end
-      #redirect_to
+      redirect_to confirm_users_two_factor_verification_path
     end
 
 

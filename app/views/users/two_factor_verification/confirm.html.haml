@@ -6,7 +6,7 @@
 
   %p= flash[:notice]
 
-  = form_tag([:users, :two_factor_verification], method: :post) do
+  = form_tag([:users, :two_factor_verification], method: :put) do
     = text_field_tag :code, nil, autocomplete: :off
     = submit_tag 'Submit'
 
