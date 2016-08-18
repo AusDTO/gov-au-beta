@@ -2,9 +2,6 @@
   %h1 Sign in
   %section.sign-in-form
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      / TODO: UI Kit needs styles for email type (see https://github.com/AusDTO/gov-au-ui-kit/issues/51)
-      /= f.input :email, autofocus: true
-
       = devise_error_messages!
 
       %p
@@ -18,14 +15,14 @@
       .form-footer-actions
         .form-options
           .remember-me
-            = f.check_box :remember_me, as: :boolean if devise_mapping.rememberable?
-            %label.checkbox{ :for => "user_remember_me" } Remember me
+            if devise_mapping.rememberable?
+              = f.check_box :remember_me, as: :boolean if devise_mapping.rememberable?
+              %label.checkbox{ :for => "user_remember_me" } Remember me
 
           %p
             - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
               = link_to "Forgot password?", new_password_path(resource_name)
 
-        / = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
         %p
           = f.button :submit, "Sign in", role: 'button'
 
