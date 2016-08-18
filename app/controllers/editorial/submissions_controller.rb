@@ -16,6 +16,7 @@ module Editorial
       unless can? :review_in, @section
         @submissions = @submissions.for(current_user)
       end
+      bustable_fresh_when(@submissions)
     end
 
     def create

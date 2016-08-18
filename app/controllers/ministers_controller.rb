@@ -5,6 +5,7 @@ class MinistersController < ApplicationController
   def index
     @ministers = Minister.order(:name)
     fudge_order
+    bustable_fresh_when(@ministers)
   end
 
   #TODO Get rid of this fudge once full requirements are clear
