@@ -3,19 +3,27 @@ module Users
     before_action :check_direct_otp_expiry, only: [:show, :create]
 
 
-    def show
-      unless current_user.totp_enabled?
-        current_user.create_direct_otp
-        r = SMSService.new.send_two_factor_confirmation_code!(current_user)
-
-        # TODO: make this async and handle service failure
-        unless r.code == 202
-          raise 'There was an error sending the SMS'
-        end
-      end
+    def new
     end
 
+
     def create
+      unless current_user.totp_enabled?
+        current_user.create_direct_otp
+
+        Thread.new do
+          SMSService.new.send_two_factor_confirmation_code!(current_user)
+        end
+      end
+      #redirect_to
+    end
+
+
+    def confirm
+    end
+
+
+    def update
       if current_user.authenticate_otp(params[:code])
         current_user.identity_verified_at = DateTime.now
         current_user.save!
@@ -31,11 +39,13 @@ module Users
       end
     end
 
+
     # https://github.com/Houdini/two_factor_authentication/blob/9d7d3472f4d272f70c2357ca4bced6f32ec2fbc9/app/controllers/devise/two_factor_authentication_controller.rb#L18
     def resend_code
       current_user.send_new_otp
       redirect_to users_two_factor_verification_path
     end
+
 
     private
 

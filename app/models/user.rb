@@ -18,6 +18,7 @@ class User < ApplicationRecord
     !persisted? || password.present? || password_confirmation.present?
   end
 
+
   def member_of_sections
     # Admins are implicit members of all sections
     if has_role? :admin
@@ -27,10 +28,13 @@ class User < ApplicationRecord
     end
   end
 
+
   def is_member?(section)
     member_of_sections.include? section
   end
 
+
+  # Required hook for two_factor_authentication gem
   def pending_request_for(section)
     requests.find_by(section: section, state: 'requested')
   end
@@ -46,33 +50,29 @@ class User < ApplicationRecord
   end
 
   def send_two_factor_authentication_code(code)
-    # response = SMSService.new.send_sms(
-    #     self.phone_number,
-    #     "Your two-factor authentication code to sign in to GOV.AU is #{code}"
-    # )
-    response = SMSService.new.send_two_factor_confirmation_code!(self)
-
-    # TODO: handle SMS delivery-failure, and check the response is 202
-    unless response.code == 202
-      puts response
-      raise "there was an error delivering the SMS"
+    Thread.new do
+      SMSService.new.send_two_factor_confirmation_code!(self)
     end
   end
+
 
   def need_two_factor_authentication?(request)
     #request.ip != '127.0.0.1' && !self.bypass_tfa
     !self.bypass_tfa && self.account_verified
   end
 
+
   def create_direct_otp_for(field)
     otp_service = OtpService.new(self)
     otp_service.create_otp(field)
   end
 
+
   def authenticate_direct_otp_for(field, code)
     otp_service = OtpService.new(self)
     otp_service.authenticate_otp(field, code)
   end
+
 
   def identity_expired?
     direct_otp_valid_for = Rails.configuration.devise.direct_otp_valid_for

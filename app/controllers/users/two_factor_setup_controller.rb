@@ -13,14 +13,13 @@ module Users
 
       if current_user.save
         current_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
-        response = SMSService.new.send_unconfirmed_number_confirmation_code! current_user
 
-        # TODO: handle service failure
-        if response.code == 202
-          redirect_to confirm_users_two_factor_setup_path and return
-        else
-          puts response
+        # For now, dispatch SMS in new thread and redirect user immediately
+        # User is able to request another SMS code if this is not delivered
+        Thread.new do
+          SMSService.new.send_unconfirmed_number_confirmation_code! current_user
         end
+        redirect_to confirm_users_two_factor_setup_path and return
       end
 
       render :new
