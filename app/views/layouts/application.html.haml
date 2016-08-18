@@ -29,7 +29,7 @@
               .b1
               .b2
           .feedback{tabindex:1}
-            %a.button--feedback{href:ENV['FEEDBACK_URL']+request.url, role:"button"}
+            %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
               Feedback
         %nav.breadcrumbs--inverted{'aria-label' => 'breadcrumb'}
           .wrapper

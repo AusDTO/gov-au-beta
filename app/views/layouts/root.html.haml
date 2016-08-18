@@ -7,7 +7,7 @@
       .govau--logo.home
         = image_tag 'icons/logo-crest-2x.png', width: '65'
       .feedback{tabindex:1}
-        %a.button--feedback{href:ENV['FEEDBACK_URL']+request.url, role:"button"}
+        %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
           Feedback
       .homeintro
         %h1
