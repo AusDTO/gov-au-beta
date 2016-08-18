@@ -5,10 +5,16 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased]
 ### Added
 - Added ability to group topics into categories
+- Added collecting test metadata for CircleCI
 
 ### Changed
+- Upgrade UI kit to v1.7.3
+- Removed optional content editors like editor.md and trumbowyg
+- Deleted summary text on Minister and Departments listing pages
+
 
 ### Fixed
+- The page preview in the editor does not allow javascript to be previewed
 
 ## [v1.0.3] - 2016-08-16
 ### Added
@@ -17,7 +23,6 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Error pages are now styled like the rest of the site
-- Upgrade UI kit to v1.7.3
 
 ### Fixed
 - The html title tag reflects the page name

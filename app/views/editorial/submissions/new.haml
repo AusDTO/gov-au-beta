@@ -5,8 +5,6 @@
 
 %h1 Submit changes to #{@node.name}
 
-= render partial: 'editorial/nodes/editor_links'
-
 .fieldset
   = simple_form_for [:editorial, @form], as: :node, url: editorial_section_submissions_path(@section, node_id: @node), method: :post do |f|
     ~ f.input :name
@@ -16,4 +14,4 @@
     ~ f.input :content_body, as: :text, label: 'Body', input_html: {rows: 15}
     = f.submit 'Submit for review', role: :button
 
-= render partial: 'editorial/nodes/editor_injection'
+= javascript_include_tag 'editor'
