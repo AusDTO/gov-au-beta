@@ -2,6 +2,7 @@
   %h1 Sign in
   %section.sign-in-form
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
       = devise_error_messages!
 
       %p
@@ -14,9 +15,9 @@
 
       .form-footer-actions
         .form-options
-          .remember-me
-            if devise_mapping.rememberable?
-              = f.check_box :remember_me, as: :boolean if devise_mapping.rememberable?
+          - if devise_mapping.rememberable?
+            .remember-me
+              = f.check_box :remember_me, as: :boolean
               %label.checkbox{ :for => "user_remember_me" } Remember me
 
           %p
