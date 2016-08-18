@@ -2,6 +2,8 @@ Fabricator(:user) do
   email { Fabricate.sequence(:email) { |i| "user-#{i}@some-agency.gov.au" } }
   password { "qwerty1234" }
   transient :is_admin, :author_of, :reviewer_of, :owner_of, :unconfirmed
+  account_verified { true }
+  bypass_tfa { true }
 
   after_build do |user, transients|
     if transients[:is_admin]

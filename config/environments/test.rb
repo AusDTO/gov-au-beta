@@ -51,4 +51,9 @@ Rails.application.configure do
   # Set mock environment git tag and SHA1 values
   config.version_tag = 'v1.0.0'
   config.version_sha = 'abcdefghijkl'
+
+
+  # Set SMS provider
+  config.sms_authenticate_url = 'some-url'
+  config.sms_send_message_url = 'some-url'
 end
