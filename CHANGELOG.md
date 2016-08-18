@@ -5,6 +5,7 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased]
 ### Added
 - Added ability to group topics into categories
+- Added collecting test metadata for CircleCI
 
 ### Changed
 - Upgrade UI kit to v1.7.3
