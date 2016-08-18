@@ -1,0 +1,10 @@
+.content-main
+  %h1 Halt! Who goes there?
+
+  %p
+    You are about to access an area that requires you verify you are the account holder.
+    To do this, we require you to input a code that we can either send to you via SMS, or
+    that is provided by an authenticator app if you have one configured.
+
+  = form_tag([:users, :two_factor_verification], method: :post) do
+    = submit_tag 'Verify'

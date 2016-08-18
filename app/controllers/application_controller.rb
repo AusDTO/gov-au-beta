@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       # Check identity last checked date
       if current_user.identity_expired?
         session[:target_redirect] = request.path
-        redirect_to users_two_factor_verification_path
+        redirect_to new_users_two_factor_verification_path
       end
     end
   end
