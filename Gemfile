@@ -99,6 +99,7 @@ group :test do
   gem 'with_model', '~> 1.2.1'
   gem 'axe-matchers'
   gem 'poltergeist'
+  gem 'rspec_junit_formatter', '0.2.3'
 end
 
 platforms :mingw, :mswin do
