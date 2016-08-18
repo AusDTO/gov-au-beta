@@ -16,7 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 - The page preview in the editor does not allow javascript to be previewed
 - Don't let admins search on password hash
-
+- Update visual design of admin sign-in form
 
 ## [v1.0.3] - 2016-08-16
 ### Added
