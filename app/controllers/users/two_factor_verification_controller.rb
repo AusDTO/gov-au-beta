@@ -38,16 +38,6 @@ module Users
     end
 
     private
-    def confirm_two_factor!
-      if current_user.account_verified
-        # Check identity last checked date
-        if current_user.identity_expired?
-          session[:target_redirect] = request.path
-          redirect_to users_two_factor_verification_path
-        end
-      end
-    end
-
 
     def check_direct_otp_expiry
       o = OtpService.new(current_user)

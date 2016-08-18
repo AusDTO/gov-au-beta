@@ -39,6 +39,15 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  def confirm_two_factor!
+    if current_user.account_verified
+      # Check identity last checked date
+      if current_user.identity_expired?
+        session[:target_redirect] = request.path
+        redirect_to users_two_factor_verification_path
+      end
+    end
+  end
 
   # Calls *stale?* but modifies any supplied *strong_etag* by prepending the value of 
   # ApplicationController#etag_seed.
@@ -89,4 +98,5 @@ class ApplicationController < ActionController::Base
       editorial_root_path
     end
   end
+
 end
