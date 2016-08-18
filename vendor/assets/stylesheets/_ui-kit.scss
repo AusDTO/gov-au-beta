@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.7.3
+UI-Kit version: 1.7.4
 
 */
 
@@ -5114,6 +5114,7 @@ $transition-easing: ease-in-out;
 
 // Added as a class because this should to be obvious in HTML
 
+.visuallyhidden,
 .is-visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -5123,11 +5124,6 @@ $transition-easing: ease-in-out;
   padding: 0;
   position: absolute;
   width: 1px;
-}
-
-// To be deprecated in 2.0
-.visuallyhidden {
-  display: none;
 }
 
 
@@ -5420,7 +5416,7 @@ The <a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-con
 <p class="guide-colour-block bg-light-yellow">non-black on light-yellow <span class="invert">AA</span></p>
 <p class="guide-colour-block bg-light-blue">non-black on light-blue <span class="invert">AA</span></p>
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="colour-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -5486,7 +5482,7 @@ $badge-colour--success:         $green;
 $controls-bg-colour:            $dark-navy;
 $controls-contrast-bg-colour:   $maroon;
 $header-bg-colour:              #134058;
-$hero-bg-colour:                #00a1bb;
+$hero-bg-colour:                #0098b0;
 $breadcrumbs-bg-colour:         $non-white;
 
 $input-focus-colour:            $light-aqua;
@@ -5886,7 +5882,7 @@ Use the <a href="http://w3c.github.io/html/textlevel-semantics.html#the-kbd-elem
 
 Markup: Copy text to clipboard using <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="kbd-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6053,7 +6049,7 @@ You can use these on paragraphs (`<p>`), or on a wrapping element, like a `<div>
 
 Markup: templates/callouts-examples.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="callouts-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6128,7 +6124,7 @@ There is styling for badges to indicate status.
 
 Markup: templates/badges.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="badges-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6186,7 +6182,7 @@ There are 2 ways of using quotes:
 
 Markup: templates/quotation-examples.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="blockquote-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6531,7 +6527,7 @@ Long lines reduce legibility. Lines of text should be no longer than 75 characte
 
 Low-vision users should be able to increase the size of the text by up to 200 per cent without breaking the layout.
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="grid-text-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6580,7 +6576,7 @@ Do not apply styles to disabled buttons.
 
 Markup: templates/buttons-examples.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="buttons-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6676,7 +6672,7 @@ Link styles
 
 Styling for types and classes of links.
 
-There are other styles documented elsewhere (eg tag cloud links).
+There are other link styles documented elsewhere (for example [tags in list styles](http://gov-au-ui-kit.apps.staging.digital.gov.au/section-list-styles.html)).
 
 Style guide: Link styles
 */
@@ -6692,7 +6688,7 @@ Link to external sites using `rel="external"`.
 
 Markup: templates/basic-links.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="basic-links-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6726,7 +6722,7 @@ Style guide: Link styles.1 Hover links
 }
 
 @mixin link-colours($text-colour, $hover-bg-colour, $hover-text-colour: $text-colour) {
-  $link-disabled-color: rgba($text-colour, 0.5);
+  $link-disabled-colour: transparentize($text-colour, 0.4);
   color: $text-colour;
 
   a {
@@ -6769,7 +6765,7 @@ Style guide: Link styles.1 Hover links
 
     Markup: <a class="see-more" href="#">See more</a>
 
-    <details data-label="accordion-accessibility" aria-expanded="false">
+    <details data-label="placeholder-link-accessibility" aria-expanded="false">
       <summary>Accessibility &amp; browser testing</summary>
       <div class="accordion-panel">
       <strong>Passed</strong>:
@@ -6817,12 +6813,46 @@ Style guide: Link styles.1 Hover links
     }
   }
 
-  &.disabled {
-    outline: none;
-    color: $link-disabled-color;
-    text-decoration: none;
-    border-bottom: solid 1px;
-    outline-color: transparent;
+  /*
+  Placeholder links (prototyping)
+
+  Use placeholder links (greyed out links) to show actions that users can't currently take.
+
+  Your content should explain why the action isn't available and when it will be.
+
+  <p class="callout">Placeholders only work in `<span>` tags; not `<a>`.</p>
+
+  Markup: <p><span class="placeholder-link">Draft news item</span></p>
+  <p><a href="#">News item</a><p>
+
+  <details data-label="placeholder-links-accessibility" aria-expanded="false">
+    <summary>Accessibility &amp; browser testing</summary>
+    <div class="accordion-panel">
+    <strong>Passed</strong>:
+      <ul>
+        <li>HTML5 validation (<a href="http://validator.github.io/validator/" rel="external">Nu Html Checker</a>)</li>
+        <li>WCAG:AA automated (<a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/" rel="external">HTML_CodeSniffer</a>)</li>
+      </ul>
+    <strong>Untested</strong>:
+      <ul>
+        <li>WCAG:AA manual</li>
+        <li>Browser support &mdash; automated and manual</li>
+      </ul>
+    </div>
+  </details>
+
+  Style guide: Link styles.3 Placeholder links
+  */
+
+  // Specifying a span here explicitly to avoid a.placeholder-link usage.
+  span.placeholder-link {
+    color: $link-disabled-colour;
+    border-bottom: none;
+    cursor: not-allowed;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -6858,7 +6888,7 @@ Basic table
 
 Markup: templates/table-examples.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="table-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -6912,7 +6942,7 @@ Calendar table
 
 Markup: templates/table-calendar.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="table-calendar-style-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7040,7 +7070,7 @@ They can be limited to number input only by setting the `type` attribute to `num
 
 Markup: templates/text-input-single-line.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="text-input-single-line-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7130,7 +7160,7 @@ form {
     <textarea name="texta" id="texta"></textarea>
   </form>
 
-  <details data-label="accordion-accessibility" aria-expanded="false">
+  <details data-label="text-area-input-accessibility" aria-expanded="false">
     <summary>Accessibility &amp; browser testing</summary>
     <div class="accordion-panel">
     <strong>Passed</strong>:
@@ -7222,7 +7252,7 @@ form {
     </fieldset>
   </form>
 
-  <details data-label="accordion-accessibility" aria-expanded="false">
+  <details data-label="radio-button-accessibility" aria-expanded="false">
     <summary>Accessibility &amp; browser testing</summary>
     <div class="accordion-panel">
     <strong>Passed</strong>:
@@ -7295,7 +7325,7 @@ Markup:
   </fieldset>
 </form>
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="checkbox-input-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7405,7 +7435,7 @@ Older browsers (IE8 and lower) and those without JavaScript will get an expanded
 
 Markup: templates/global-navigation.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="global-nav-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7439,7 +7469,7 @@ Use active state to show where the user is. Use `class="is-active"` for each cli
 
 Markup: templates/local-navigation.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="local-nav-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7467,7 +7497,7 @@ They appear directly under a page header or hero, from `$tablet` breakpoint upwa
 
 Markup: templates/breadcrumbs.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="breadcrumb-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7497,7 +7527,7 @@ Users with modern browsers will see a smooth scroll down the page.
 
 Markup: templates/index-links.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="index-links-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7523,7 +7553,7 @@ You can present a list of links as a horizontal block using an unsorted list wit
 
 Markup: templates/inline-links.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="inline-links-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7555,7 +7585,7 @@ This framework uses CSS Flexboxes to manage columns. It provides:
 
 Markup: templates/footer-navigation.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="footer-nav-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -7938,7 +7968,7 @@ Include skip links between the opening of the `<body>` and the page `<header>`.
 
 Markup: templates/skip-link.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="skip-links-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -8053,7 +8083,7 @@ You can use groups of links:
 
 Markup: templates/groups-links.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="group-links-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -8217,7 +8247,7 @@ Horizontal style provides a single column of list items.
 
 Markup: templates/lists-horizontal.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="horizontal-list-styles-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -8250,7 +8280,7 @@ For <a href="http://caniuse.com/#feat=flexbox" rel="external">browsers that don'
 
 Markup: templates/lists-vertical.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="vertical-list-styles-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -8276,7 +8306,7 @@ Use small list style for large groups of list items.
 
 Markup: templates/lists-small.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="small-list-styles-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -8302,7 +8332,7 @@ Use highlighted words style for a list with repeating phrases.
 
 Markup: templates/lists-highlighted.hbs
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="highlighted-list-styles-accessibility" aria-expanded="false">
   <summary>Accessibility notes</summary>
   <div class="accordion-panel">
 
@@ -8645,7 +8675,7 @@ When implementing accordions:
 - For multiple accordion elements each `details` element must have its own `data-label` attribute.
 - This framework allows a text/string search of accordion content, even when collapsed (string itself remains hidden until opened).
 
-<details data-label="accordion-accessibility" aria-expanded="false">
+<details data-label="accordions-accessibility" aria-expanded="false">
   <summary>Accessibility &amp; browser testing</summary>
   <div class="accordion-panel">
   <strong>Passed</strong>:
@@ -9044,13 +9074,9 @@ img {
   }
 
   p {
-    font-size: rem(18);
+    font-size: rem(24);
     max-width: 30em;
     margin-bottom: $small-spacing;
-
-    @include media($tablet) {
-      font-size: rem(20);
-    }
   }
 
   .site-title {
@@ -9081,7 +9107,8 @@ img {
   padding: $medium-spacing 0;
 
   p {
-    font-size: rem(17);
+    font-size: rem(19);
+    font-weight: $bold-font-weight;
   }
 }
 
