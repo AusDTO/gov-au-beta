@@ -31,7 +31,7 @@ module Editorial
     end
 
     def new
-      @editor = params[:editor] || 'simple'
+
     end
 
     def update
