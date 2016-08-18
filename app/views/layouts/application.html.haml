@@ -28,8 +28,9 @@
             .brandbar.default
               .b1
               .b2
-          = #render partial: 'feedback_and_menu'
-
+          .feedback{tabindex:1}
+            %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
+              Feedback
         %nav.breadcrumbs--inverted{'aria-label' => 'breadcrumb'}
           .wrapper
             = breadcrumbs style: :ul, class: nil

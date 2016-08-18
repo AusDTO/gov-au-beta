@@ -3,9 +3,12 @@
 
   = content_for :header do
     .wrapper
+
       .govau--logo.home
         = image_tag 'icons/logo-crest-2x.png', width: '65'
-      = #render partial: 'feedback_and_menu'
+      .feedback{tabindex:1}
+        %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
+          Feedback
       .homeintro
         %h1
           %span.govau--text{class: sunstate_class}
@@ -13,6 +16,7 @@
             GOV.AU homepage
         %p
           Your guide to finding Australian Government services and information.
+
       .links-group
         %h2 Popular now
         %ul
