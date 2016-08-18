@@ -70,6 +70,8 @@ class Ability
     end
 
     # Everyone (signed in or not) can view published pages.
-    can :read_public, Node, :state => :published
+    can :read_public, Node do |n|
+      n.state == :published && !n.options.placeholder
+    end
   end
 end
