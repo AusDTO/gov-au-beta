@@ -6,6 +6,7 @@ module Editorial
 
     before_action :derive_type, except: [:show, :prepare]
 
+
     def index
       #TODO: evaluate whether this is required anymore!
       unless params[:section_id].present?
@@ -14,6 +15,7 @@ module Editorial
       end
 
       @nodes = @section.nodes.order(updated_at: :desc).decorate
+      bustable_fresh_when([*@nodes, @section])
     end
 
     def show
@@ -24,6 +26,7 @@ module Editorial
         @news = NewsArticle.published_for_section(@section).limit(3)
       end
       set_menu_nodes
+      bustable_fresh_when([*@nodes, *@news, @section])
     end
 
     def prepare
