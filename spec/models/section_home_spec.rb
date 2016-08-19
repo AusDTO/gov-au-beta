@@ -23,4 +23,16 @@ RSpec.describe SectionHome, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  describe 'name' do
+    let!(:section)      { Fabricate(:section, name: "FOO") }
+    let!(:section_home) { Fabricate(:section_home, section: section, name: "FOO") }
+
+    it 'updates section name when name is changed' do
+      expect(section.name).to eql("FOO")
+      section_home.name = "BAR"
+      section_home.save!
+      section.reload
+      expect(section.name).to eql("BAR")
+    end
+  end
 end
