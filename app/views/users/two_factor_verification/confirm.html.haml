@@ -1,17 +1,29 @@
-.content-main
-  - if current_user.direct_otp
-    %h2 Enter the code that was sent to you
-  - else
-    %h2 Enter the code from your authenticator app
-
+%article.sign-in
   %p= flash[:notice]
 
-  = form_tag([:users, :two_factor_verification], method: :put) do
-    = text_field_tag :code, nil, autocomplete: :off
-    = submit_tag 'Submit'
-
+  %h1 Two-factor confirmation
   - if current_user.direct_otp
-    = link_to 'Resend code', resend_code_users_two_factor_verification_path, action: :get
+    %p Enter the code that was sent to you
   - else
-    = link_to 'Send me a code instead', resend_code_users_two_factor_verification_path
-  = link_to 'Sign out', destroy_user_session_path, :method => :delete
+    %p Enter the code from your authenticator app
+
+  %section.sign-in-form
+    = form_tag([:users, :two_factor_verification], method: :put) do
+      = text_field_tag :code, nil, autocomplete: :off
+
+      .form-footer-actions
+        .form-options
+          %p= submit_tag 'Verify', role: :button
+
+
+    .sign-in-footer-links
+      .background-border-heading
+        %span.inner
+          Or
+      - if current_user.direct_otp
+        Didn't receive a code?
+        = link_to 'Send again', resend_code_users_two_factor_verification_path, method: :post
+      - else
+        = link_to 'Send me a code instead', resend_code_users_two_factor_verification_path, method: :post
+
+

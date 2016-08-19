@@ -1,16 +1,22 @@
-.content-main
+%artcile.sign-in
   %h1 Confirm two-factor code
 
-  A code has been sent to your phone number. Please enter it below
-  to complete your two-factor authentication setup.
+  %p
+    A code has been sent to your phone number. Please enter it below
+    to complete your two-factor authentication setup.
 
-  = form_tag([:users, :two_factor_setup], method: :put) do
-    = text_field_tag  :code
-    = submit_tag 'Confirm'
+  %section.sign-in-form
+    = form_tag([:users, :two_factor_setup], method: :put) do
+      = text_field_tag  :code, nil, autocomplete: :off
 
-  If you do not receive a code or your code has expired,
-  = link_to 'get a new one sent to you', resend_code_user_two_factor_authentication_path, action: :get
+      .form-footer-actions
+        .form-options
+          = submit_tag 'Confirm', role: :button
 
-  - unless current_user.account_verified
-    %p
-      = link_to 'Use a different number', new_users_two_factor_setup_path
+      .sign-in-footer-links
+        Didn't receive a code?
+        = link_to 'Get a new one sent to you', resend_code_users_two_factor_setup_path, method: :post
+
+        - unless current_user.account_verified
+          %p
+            = link_to 'Use a different number', new_users_two_factor_setup_path
