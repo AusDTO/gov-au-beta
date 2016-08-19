@@ -20,10 +20,10 @@ class OtpService
   end
 
 
-  def authenticate_otp(field, code)
-    direct_otp = @user.send(field)
-    return false if direct_otp.nil? || direct_otp != code || otp_expired?(field.to_sym)
-    clear_direct_otp(field)
+  def authenticate_otp(code_field, code)
+    direct_otp = @user.send(code_field)
+    return false if direct_otp.nil? || direct_otp != code || otp_expired?(code_field.to_sym)
+    clear_direct_otp(code_field)
     true
   end
 

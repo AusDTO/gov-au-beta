@@ -68,9 +68,19 @@ class User < ApplicationRecord
   end
 
 
-  def authenticate_direct_otp_for(field, code)
+  def send_new_direct_otp_for(phone_number_field, code_field=nil)
+    code_field = "#{phone_number_field}_otp" if code_field.nil?
+    create_direct_otp_for(code_field)
+
+    Thread.new do
+      SMSService.new.send_two_factor_confirmation_code_for!(phone_number_field, code_field, self)
+    end
+  end
+
+
+  def authenticate_direct_otp_for(code_field, code)
     otp_service = OtpService.new(self)
-    otp_service.authenticate_otp(field, code)
+    otp_service.authenticate_otp(code_field, code)
   end
 
 

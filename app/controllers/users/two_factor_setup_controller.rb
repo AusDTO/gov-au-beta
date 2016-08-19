@@ -12,13 +12,7 @@ module Users
       current_user.unconfirmed_phone_number =  params[:phone_number]
 
       if current_user.save
-        current_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
-
-        # For now, dispatch SMS in new thread and redirect user immediately
-        # User is able to request another SMS code if this is not delivered
-        Thread.new do
-          SMSService.new.send_unconfirmed_number_confirmation_code! current_user
-        end
+        current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
         redirect_to confirm_users_two_factor_setup_path and return
       end
 
@@ -43,6 +37,13 @@ module Users
         render :confirm
       end
     end
+
+
+    def resend_code
+      current_user.send_new_otp_for(:unconfirmed_phone_number)
+      redirect_to confirm_users_two_factor_setup_path
+    end
+
 
     private
     def verify_direct_otp_sent

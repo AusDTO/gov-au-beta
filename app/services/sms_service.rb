@@ -12,21 +12,25 @@ class SMSService
   end
 
 
-  def send_unconfirmed_number_confirmation_code!(user)
-    send_user_otp!(user, user.unconfirmed_phone_number, :unconfirmed_phone_number_otp)
+  # def send_unconfirmed_number_confirmation_code!(user)
+  #   send_user_otp!(user, user.unconfirmed_phone_number, :unconfirmed_phone_number_otp)
+  # end
+  #
+  #
+  # def send_two_factor_confirmation_code!(user)
+  #   send_user_otp!(user, user.phone_number, :direct_otp)
+  # end
+  #
+
+  def send_two_factor_confirmation_code_for!(phone_number_field, code_field, user)
+    send_user_otp!(user, phone_number_field, code_field)
   end
 
-
-  def send_two_factor_confirmation_code!(user)
-    send_user_otp!(user, user.phone_number, :direct_otp)
-  end
-
-
-  def send_user_otp!(user, phone_number, field)
-    if phone_number != nil && user.send(field) != nil
+  def send_user_otp!(user, phone_number_field, code_field)
+    if user.send(phone_number_field) != nil && user.send(code_field) != nil
       send_sms(
-        phone_number,
-        "Your GOV.AU two-factor authentication code is #{user.send(field)}"
+        user.send(phone_number_field),
+        "Your GOV.AU two-factor authentication code is #{user.send(code_field)}"
       )
     else
       raise "Phone number or OTP not set"

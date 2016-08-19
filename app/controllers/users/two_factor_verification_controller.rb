@@ -2,7 +2,6 @@ module Users
   class TwoFactorVerificationController < ApplicationController
     before_action :check_direct_otp_expiry, only: [:show, :create]
 
-
     def new
     end
 
@@ -42,10 +41,9 @@ module Users
 
     # https://github.com/Houdini/two_factor_authentication/blob/9d7d3472f4d272f70c2357ca4bced6f32ec2fbc9/app/controllers/devise/two_factor_authentication_controller.rb#L18
     def resend_code
-      current_user.send_new_otp
-      redirect_to users_two_factor_verification_path
+      current_user.send_new_direct_otp_for(:phone_number, :direct_otp)
+      redirect_to confirm_users_two_factor_verification_path
     end
-
 
     private
 
