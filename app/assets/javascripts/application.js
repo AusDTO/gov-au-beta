@@ -15,30 +15,29 @@
 //= require "ui-kit"
 //= require "cable"
 
-/*function red() {
-    $('div').css('background','#B60C0C')
-    .text('Screen Size RED');
+function open_accordions() {
+  var b = document.querySelectorAll("details");
+  for (var i=0; i < b.length; i++) {
+    b[i].setAttribute("aria-expanded", "true");
+    b[i].setAttribute('open', '');
+  }
 }
 
-function orange() {
-    $('div').css('background','#EBAE10')
-    .text('Screen Size ORANGE');
+function close_accordions() {
+  var b = document.querySelectorAll("details");
+  for (var i=0; i < b.length; i++) {
+    b[i].setAttribute("aria-expanded", "false");
+    b[i].removeAttribute("open", "");
+  }
 }
 
-function green() {
-    $('div').css('background','#83ba2b')
-    .text('Screen Size GREEN');
-}*/
-
-var widths = [0, 500, 850];
+var widths = [0, 500];
 
 function resizeFn() {
 if (window.innerWidth>=widths[0] && window.innerWidth<widths[1]) {
-red();
-} else if (window.innerWidth>=widths[1] && window.innerWidth<widths[2]) {
-orange();
+close_accordions();
 } else {
-green();
+open_accordions();
 }
 }
 window.onresize = resizeFn;
