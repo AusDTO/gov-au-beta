@@ -15,6 +15,7 @@
 //= require "ui-kit"
 //= require "cable"
 
+//makes the accordions default to closed on mobile and open on desktop
 function open_accordions() {
   var b = document.querySelectorAll("details");
   for (var i=0; i < b.length; i++) {
@@ -34,12 +35,42 @@ function close_accordions() {
 var widths = [0, 500];
 
 function resizeFn() {
-if (window.innerWidth>=widths[0] && window.innerWidth<widths[1]) {
-close_accordions();
-} else {
-open_accordions();
-}
+  if (window.innerWidth>=widths[0] && window.innerWidth<widths[1]) {
+    close_accordions();
+  } else {
+    open_accordions();
+  }
 }
 window.onresize = resizeFn;
 window.onload = resizeFn;
 resizeFn();
+
+//insert a expand all button into the DOM
+window.onload = function toggle_accordions() {
+
+  var x = document.querySelectorAll(".category-accordion-group");
+
+  for (var i=0; i < x.length; i++) {
+    var node = document.createElement("a");
+    var t = document.createTextNode("open all");
+    node.setAttribute('id', 'accordion_collapse_'+i);
+    node.setAttribute('href', '#');
+    node.appendChild(t);
+    x[i].appendChild(node);
+  }
+
+  //make the expan all button expand all accordions within it's parent section
+  var collapse = document.getElementById('accordion_collapse_1')
+
+  collapse.addEventListener('click', function(e){
+    e.preventDefault();
+
+    this.parentNode.className = 'accordion-group--opened-js';
+
+    var b = document.querySelectorAll(".accordion-group--opened-js details");
+    for (var i=0; i < b.length; i++) {
+      b[i].setAttribute("aria-expanded", "true");
+      b[i].setAttribute('open', '');
+    }
+  })
+}
