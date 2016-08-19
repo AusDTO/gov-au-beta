@@ -14,3 +14,33 @@
 //= require jquery_ujs
 //= require "ui-kit"
 //= require "cable"
+
+/*function red() {
+    $('div').css('background','#B60C0C')
+    .text('Screen Size RED');
+}
+
+function orange() {
+    $('div').css('background','#EBAE10')
+    .text('Screen Size ORANGE');
+}
+
+function green() {
+    $('div').css('background','#83ba2b')
+    .text('Screen Size GREEN');
+}*/
+
+var widths = [0, 500, 850];
+
+function resizeFn() {
+if (window.innerWidth>=widths[0] && window.innerWidth<widths[1]) {
+red();
+} else if (window.innerWidth>=widths[1] && window.innerWidth<widths[2]) {
+orange();
+} else {
+green();
+}
+}
+window.onresize = resizeFn;
+window.onload = resizeFn;
+resizeFn();
