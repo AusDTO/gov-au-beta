@@ -22,13 +22,13 @@ class ApplicationController < ActionController::Base
   # Calls *stale?* but modifies any supplied *strong_etag* by prepending the value of 
   # ApplicationController#etag_seed.
   def bustable_stale?(object = nil, **kwd_args)
-    stale?(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+    etag_disabled? || stale?(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
   end
 
   # Calls *fresh_when?* but modifies any supplied *strong_etag* by prepending the value of 
   # ApplicationController#etag_seed.
   def bustable_fresh_when(object = nil, **kwd_args)
-    fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+    !etag_disabled? && fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
   end
 
   def configure_permitted_parameters
@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def etag_disabled?
+    user_signed_in? || !flash.empty?
+  end
 
   if Rails.env.development? || Rails.env.test?
     def etag_seed
