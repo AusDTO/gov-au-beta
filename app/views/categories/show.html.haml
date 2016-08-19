@@ -18,7 +18,9 @@
       %ul
         - leaf_category.sections.each do |section|
           - if not section.home_node.options.suppress_in_nav
-            - if section.home_node.state.draft?
-              %span.placeholder-link= section.name
+            - if section.home_node.options.placeholder
+              %li
+                %span.placeholder-link= section.name
             - else
-              %li=link_to(section.name, nodes_path(section.slug))
+              %li
+                =link_to(section.name, nodes_path(section.slug))
