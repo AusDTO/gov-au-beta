@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :decorated_current_user
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -14,7 +15,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    super.try(:decorate)
+    user = super
+    if user
+      User.includes(:roles).find(user.id)
+    end
+  end
+
+  def decorated_current_user
+    current_user.try(:decorate)
   end
 
   protected

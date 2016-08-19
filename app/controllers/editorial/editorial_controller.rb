@@ -11,7 +11,12 @@ module Editorial
 
     def index
       authorize! :view, :editorial_page
-      @sections = Section.all.order(:name).select{ |section| can? :read, section }
+      @sections = Section
+        .all
+        .includes(:home_node)
+        .order(:name)
+        .select{ |section| can? :read, section }
+
       @news_section = Section.find_by(name: 'news')
       bustable_fresh_when([*@sections, @news_section])
     end
