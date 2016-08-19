@@ -54,14 +54,13 @@ RSpec.describe ApplicationController, type: :controller do
       end
     end
 
-    #FIXME
-    # context "when a flash message is shown" do
-    #   before { controller.flash[:foo] = "bar" }
-    #
-    #   it {expect(controller.flash[:foo]).to be_present}
-    #
-    #   include_examples "does not generate an ETAG"
-    # end
+    context "when a flash message is shown" do
+      before(:each) do
+        controller.stub(:flash).and_return({"message" => "I am not empty"})
+      end
+
+      include_examples "does not generate an ETAG"
+    end
   end
 
   context "logged in" do
@@ -71,7 +70,6 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     include_examples "does not generate an ETAG"
-
   end
 
 end
