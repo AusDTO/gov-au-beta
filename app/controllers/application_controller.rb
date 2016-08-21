@@ -16,10 +16,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    user = super
-    if user
-      User.includes(:roles).find(user.id)
-    end
+    super
+
+    # TODO: this breaks lots of assumptions about current_user
+    # being writeable, and requires more thought.
+    # if user
+    #   User.includes(:roles).find(user.id)
+    # end
   end
 
   def decorated_current_user
