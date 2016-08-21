@@ -1,17 +1,18 @@
-%article.sign-in
+%article.verify
   %p= flash[:notice]
 
   %h1
-    Setup two-factor authentication
-
-  - unless current_user.account_verified
-    You will need to setup two-factor authentication to complete your account setup.
+    - if current_user.account_verified
+      Change phone number
+    - else
+      To sign up, you will need to verify your account
 
   %p
-    Enter a phone number you have access to that you can use for two-factor authentication.
+    Keep your account secure by using both your password and mobile phone
 
   %section.sign-in-form
     = form_tag([:users, :two_factor_setup], method: :post) do
+      = label_tag 'phone_number'
       = text_field_tag :phone_number, nil, maxlength: 10
       .form-footer-actions
         .form-options

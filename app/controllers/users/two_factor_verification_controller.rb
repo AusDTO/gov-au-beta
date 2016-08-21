@@ -1,6 +1,6 @@
 module Users
   class TwoFactorVerificationController < ApplicationController
-    before_action :check_direct_otp_expiry, only: [:show, :create]
+    before_action :check_direct_otp_expiry, only: [:show, :create, :confirm]
 
     def new
     end

@@ -1,21 +1,22 @@
-%artcile.sign-in
-  %h1 Confirm two-factor code
+%artcile.verify
+  %h1 Please verify your account
 
   %p
-    A code has been sent to your phone number. Please enter it below
-    to complete your two-factor authentication setup.
+    A text message with a verification code was just sent to
+    #{sanitized_unconfirmed_phone_number(current_user)}
 
   %section.sign-in-form
     = form_tag([:users, :two_factor_setup], method: :put) do
+      = label_tag 'code', 'Enter 6 digit code'
       = text_field_tag  :code, nil, autocomplete: :off
 
       .form-footer-actions
         .form-options
-          = submit_tag 'Confirm', role: :button
+          %p
+            = submit_tag 'Verify', role: :button
 
       .sign-in-footer-links
-        Didn't receive a code?
-        = link_to 'Get a new one sent to you', resend_code_users_two_factor_setup_path, method: :post
+        %p= link_to 'Resend verification code', resend_code_users_two_factor_setup_path, method: :post
 
         - unless current_user.account_verified
           %p

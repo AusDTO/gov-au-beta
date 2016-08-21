@@ -3,9 +3,9 @@
 
   %h1 Two-factor confirmation
   - if current_user.direct_otp
-    %h2 Enter the code that was sent to you
+    %p Enter the code that was sent to you
   - else
-    %h2 Enter the code from your authenticator app
+    %p Enter the code from your authenticator app
 
   %section.sign-in-form
     = form_tag([resource_name, :two_factor_authentication], method: :put) do
@@ -20,9 +20,9 @@
           %span.inner
             Or
         - if current_user.direct_otp
-          If you do not receive a code or your code has expired,
-          = link_to 'get a new one sent to you', resend_code_user_two_factor_authentication_path, action: :get
+          Didn't receive your code?
+          = link_to 'Resend now', resend_code_user_two_factor_authentication_path, action: :get
         - else
-          = link_to 'Send me a code through SMS instead', resend_code_user_two_factor_authentication_path
-        = link_to 'Sign out', destroy_user_session_path, :method => :delete
+          = link_to 'Send me a code instead', resend_code_user_two_factor_authentication_path
+        %p= link_to 'Sign out', destroy_user_session_path, :method => :delete
 

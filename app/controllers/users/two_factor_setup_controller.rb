@@ -40,7 +40,7 @@ module Users
 
 
     def resend_code
-      current_user.send_new_otp_for(:unconfirmed_phone_number)
+      current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
       redirect_to confirm_users_two_factor_setup_path
     end
 

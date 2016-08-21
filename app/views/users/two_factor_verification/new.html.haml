@@ -1,9 +1,9 @@
-%article.sign-in
-  %h1 Halt! Who goes there?
+%article.verify
+  %h1 Before you can continue, you will need to verify your account
 
   %p
-    You are about to access an area that requires you verify you are the account holder.
-    To do this, we require you to input a code that we can either send to you via SMS, or
-    that is provided by an authenticator app if you have one configured.
+    Keep your account secure by using both your password and your mobile phone.
 
-  = link_to 'Proceed to verification', users_two_factor_verification_path, method: :post
+  %section.sign-in-form
+    .form-footer-actions
+      = link_to 'Get started', users_two_factor_verification_path, method: :post, role: :button
