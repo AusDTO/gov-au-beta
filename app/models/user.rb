@@ -88,4 +88,9 @@ class User < ApplicationRecord
     direct_otp_valid_for = Rails.configuration.devise.direct_otp_valid_for
     return identity_verified_at == nil || identity_verified_at + direct_otp_valid_for < Time.now.utc
   end
+
+  def confirm_identity!
+    self.identity_verified_at = DateTime.now
+    save!
+  end
 end

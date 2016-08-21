@@ -9,7 +9,6 @@
       = f.input :email, required: true, autofocus: true
       = f.input :first_name, required: false
       = f.input :last_name, required: false
-      = f.input :phone_number, required: true, hint: "number should be in the format of \"04xxxxxxxx\" where x is a digit"
       = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
       = f.input :password_confirmation, required: true
       .form-footer-actions
