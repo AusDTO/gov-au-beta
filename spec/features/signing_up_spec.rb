@@ -11,6 +11,7 @@ RSpec.describe 'signing up', type: :feature do
     fill_in('Email', with: 'test@example.gov.au')
     fill_in('First name', with: 'first')
     fill_in('Last name', with: 'last')
+    fill_in('Phone number', with: '0412345678')
     # Can't use fill_in for Password because it's an ambiguous match
     find('#user_password').set('password')
     fill_in('Password confirmation', with: 'password')

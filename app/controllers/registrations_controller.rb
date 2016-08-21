@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_action confirm_two_factor!, only: [:edit]
+  before_action :confirm_two_factor!, only: [:edit]
+
 
   private
 

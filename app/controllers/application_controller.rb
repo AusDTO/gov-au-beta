@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def confirm_two_factor!
-    if current_user.account_verified
+    if current_user.account_verified && !current_user.bypass_tfa
       # Check identity last checked date
       if current_user.identity_expired?
         session[:target_redirect] = request.path
