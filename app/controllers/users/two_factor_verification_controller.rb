@@ -8,11 +8,7 @@ module Users
 
     def create
       unless current_user.totp_enabled?
-        current_user.create_direct_otp
-
-        Thread.new do
-          SMSService.new.send_two_factor_confirmation_code!(current_user)
-        end
+        current_user.send_new_direct_otp_for(:phone_number, :direct_otp)
       end
       redirect_to confirm_users_two_factor_verification_path
     end
@@ -23,9 +19,8 @@ module Users
 
 
     def update
-      if current_user.authenticate_otp(params[:code])
-        current_user.identity_verified_at = DateTime.now
-        current_user.save!
+      if authenticate_code
+        current_user.confirm_identity!
 
         if (target_redirect = session[:target_redirect]) != nil
           session.delete(:target_redirect)
@@ -50,6 +45,12 @@ module Users
     def check_direct_otp_expiry
       o = OtpService.new(current_user)
       o.clear_direct_otp(:direct_otp) if o.otp_expired?(:direct_otp)
+    end
+
+    def authenticate_code
+      return true if current_user.direct_otp && current_user.authenticate_otp(params[:code])
+      return true if current_user.totp_enabled? && current_user.authenticate_totp(params[:code])
+      false
     end
   end
 end
