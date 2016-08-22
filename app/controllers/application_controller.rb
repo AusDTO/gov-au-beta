@@ -45,8 +45,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def etag_disabled?
-    user_signed_in? || !flash.empty?
+  if Rails.env.development?
+    def etag_disabled?
+      true
+    end
+  else
+    def etag_disabled?
+      user_signed_in? || flash.present?
+    end
   end
 
   if Rails.env.development? || Rails.env.test?
