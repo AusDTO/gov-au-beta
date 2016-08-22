@@ -53,7 +53,9 @@ class SMSService
 
     if response.code == 200
       @@token = JSON.parse(response.body)['access_token']
-      @@token_expires_at = (Time.now + JSON.parse(response.body)['expires_in'].to_i.seconds)
+
+      #Build some slack into token expiry so that we overlap nicely
+      @@token_expires_at = (Time.now + JSON.parse(response.body)['expires_in'].to_i.seconds) - 1.minute
     else
       puts response
       raise "error getting token"
