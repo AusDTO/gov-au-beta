@@ -15,7 +15,10 @@
 //= require "ui-kit"
 //= require "cable"
 
-//makes the accordions default to closed on mobile and open on desktop
+//set breakpoint for accordions to collapse at
+var width = 520;
+
+//open every accordion on the page
 function open_accordions() {
   var b = document.querySelectorAll("details");
   for (var i=0; i < b.length; i++) {
@@ -24,6 +27,7 @@ function open_accordions() {
   }
 }
 
+//close every accordion on the page
 function close_accordions() {
   var b = document.querySelectorAll("details");
   for (var i=0; i < b.length; i++) {
@@ -32,45 +36,77 @@ function close_accordions() {
   }
 }
 
-var widths = [0, 500];
-
+//detect screen width and close or open accordions appropriately
 function resizeFn() {
-  if (window.innerWidth>=widths[0] && window.innerWidth<widths[1]) {
+  if (window.innerWidth<width) {
     close_accordions();
   } else {
     open_accordions();
   }
 }
-window.onresize = resizeFn;
-window.onload = resizeFn;
-resizeFn();
 
-//insert a expand all button into the DOM
-window.onload = function toggle_accordions() {
+//insert 'Open all' and 'Close all' buttons into the DOM
+function toggle_accordions() {
 
-  var x = document.querySelectorAll(".category-accordion-group");
+  var x = document.querySelectorAll(".accordion-group");
 
   for (var i=0; i < x.length; i++) {
-    var node = document.createElement("a");
-    var t = document.createTextNode("open all");
-    node.setAttribute('id', 'accordion_collapse_'+i);
-    node.setAttribute('href', '#');
-    node.appendChild(t);
-    x[i].appendChild(node);
+
+    //define attributes for our 'Open all' button
+    var openButton = document.createElement("button"),
+      openText = document.createTextNode("Open all");
+    openButton.setAttribute('class', 'open-all-accordions');
+    openButton.appendChild(openText);
+
+    //define attributes for our 'Close all' button
+    var closeButton = document.createElement("button"),
+      closeText = document.createTextNode("Close all");
+    closeButton.setAttribute('class', 'close-all-accordions');
+    closeButton.appendChild(closeText);
+
+    //insert 'Open all' and 'Close all' buttons iside every '.accordion-group' container on the page
+    x[i].insertBefore(openButton, x[i].childNodes[0])
+    x[i].insertBefore(closeButton, x[i].childNodes[0])
   }
 
-  //make the expan all button expand all accordions within it's parent section
-  var collapse = document.getElementById('accordion_collapse_1')
+  //make the 'Open all' button open all accordions within it's parent section
+  var openAll = document.getElementsByClassName('open-all-accordions');
 
-  collapse.addEventListener('click', function(e){
+  for (var i = 0; i < openAll.length; i++) {
+    openAll[i].addEventListener('click',open_accordion_group,false);
+  }
+
+  function open_accordion_group(e){
     e.preventDefault();
 
-    this.parentNode.className = 'accordion-group--opened-js';
+    var b = this.parentNode.querySelectorAll('details');
 
-    var b = document.querySelectorAll(".accordion-group--opened-js details");
     for (var i=0; i < b.length; i++) {
       b[i].setAttribute("aria-expanded", "true");
       b[i].setAttribute('open', '');
     }
-  })
+  }
+
+  //make the 'Close all' button close all accordions within it's parent section
+  var closeAll = document.getElementsByClassName('close-all-accordions');
+
+  for (var i = 0; i < closeAll.length; i++) {
+    closeAll[i].addEventListener('click',close_accordion_group,false);
+  }
+
+  function close_accordion_group(e){
+    e.preventDefault();
+
+    var b = this.parentNode.querySelectorAll('details');
+
+    for (var i=0; i < b.length; i++) {
+      b[i].setAttribute("aria-expanded", "false");
+      b[i].removeAttribute('open', '');
+    }
+  }
+}
+
+window.onload = function() {
+  resizeFn();
+  toggle_accordions();
 }
