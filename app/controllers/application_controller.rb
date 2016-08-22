@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
     current_user.try(:decorate)
   end
 
-  #TODO: move this into a Warden after_authentication method or
-  # something likely to be executed _after_ TFA has been skipped
+  #TODO: move this into a Warden after_authentication method
+  # This seems like a stop-gap but works technically
   def complete_two_factor_setup
     if current_user && !current_user.account_verified && current_user.confirmed_at
       # Users need to be able to verify their tfa code
