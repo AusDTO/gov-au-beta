@@ -35,6 +35,8 @@ module Users
         current_user.account_verified = true
         current_user.save!
 
+        flash[:notice] = 'You have successfully verified and saved your phone number'
+
         redirect_to root_path
       else
         # TODO: limit opportunities to re-try

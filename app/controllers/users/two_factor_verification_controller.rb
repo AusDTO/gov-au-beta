@@ -28,7 +28,8 @@ module Users
           redirect_to :root and return
         end
       else
-        render :show
+        flash[:alert] = 'There was an error with the verification code.'
+        redirect_to confirm_users_two_factor_verification_path
       end
     end
 
