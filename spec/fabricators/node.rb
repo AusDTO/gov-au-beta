@@ -19,6 +19,18 @@ Fabricator(:node) do
       attrs[:parent].section
     end
   end
+
+  transient :placeholder
+
+  after_build do |node, transients|
+    if transients[:placeholder]
+      # Note: options must be set as a whole (ie `node.options.placeholder = true` does not work)
+      o = node.options
+      o.placeholder = true
+      node.options = o
+    end
+  end
+
 end
 
 Fabricator(:general_content, from: :node, class_name: :general_content) do
