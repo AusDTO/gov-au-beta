@@ -24,17 +24,17 @@
         %p
           Announcements, media releases, interviews, speeches and more from the Australian Government.
 
-%article#content{class: "#{news_article_class}"}
+%article#content{class: "#{news_article_class}", tabindex: -1}
   -# H1 not included in the hero bar for section news lists so include it here
   -# TODO: include a tagline/abstract once we know what it should be
   -# (may be section specific)
   - if @section
     %h1 News
-  %ul.list-horizontal
+  %ul.news-listing
     - articles.each do |article|
       %li
         %article
-          %h3= link_to article.name, public_node_path(article)
+          %h2= link_to article.name, public_node_path(article)
           %div.meta
             %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
             = link_to article.section.name, public_node_path(article.section.home_node), { rel: :author }

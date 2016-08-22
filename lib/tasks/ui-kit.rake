@@ -2,11 +2,11 @@ require 'net/http'
 require 'zip'
 
 namespace :ui_kit do
-  desc 'Sets up UI kit with updates'
+  desc 'Sets up UI kit with updates. To download from a custom url (eg circleci), define UI_KIT_URL.'
 
   task :update do
     def download_asset(name, destination)
-      ui_kit_url = "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
+      ui_kit_url = ENV['UI_KIT_URL'] || "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
       path_to_file = "vendor/assets/"+destination
       File.delete(path_to_file) if File.exist?(path_to_file)
       file = File.new path_to_file, 'wb+'
