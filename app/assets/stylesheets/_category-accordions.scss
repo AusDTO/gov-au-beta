@@ -9,7 +9,7 @@ details.swiss {
     font-size: rem(20);
 
     &:before {
-      background-image: asset-url('chevron-black.svg')
+      background-image: asset-url('chevron-black.svg');
     }
   }
 
@@ -19,10 +19,50 @@ details.swiss {
     padding-right: 0;
 
     @include media($mobile) {
-    ul {
-      @include span-columns(6 of 9);
-      @include shift(3 of 9);
+      ul {
+        @include span-columns(6 of 9);
+        @include shift(3 of 9);
+      }
     }
   }
+}
+
+.accordion-group {
+
+  details {
+    width: 100%;
+  }
+
+  &.show-open  .open-all-accordions {
+    cursor: pointer;
+    color: $body-text-colour;
+    border-bottom: 1px solid;
+  }
+
+  &.show-close .close-all-accordions {
+    cursor: pointer;
+    color: $body-text-colour;
+    border-bottom: 1px solid;
+  }
+
+  .open-all-accordions, .close-all-accordions {
+    background-color: #fff;
+    border: none;
+    color: #717171;
+    cursor: not-allowed;
+    text-transform: uppercase;
+    font-size: rem(14);
+    padding: 0;
+    line-height: 1.4;
+    height: auto;
+    font-weight: 300;
+    float: right;
+    margin-right: 0;
+    margin-left: $base-spacing;
+
+    &:hover, &:focus {
+      background-color: #fff;
+      color: #717171;
+    }
   }
 }

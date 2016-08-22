@@ -18,6 +18,7 @@
 //set breakpoint for accordions to collapse at
 var width = 520;
 
+
 //open every accordion on the page
 function open_accordions() {
   var b = document.querySelectorAll("details");
@@ -38,10 +39,17 @@ function close_accordions() {
 
 //detect screen width and close or open accordions appropriately
 function resizeFn() {
+  var accordion_containers = document.getElementsByClassName('accordion-group');
   if (window.innerWidth<width) {
     close_accordions();
+    for (var i=0; i < accordion_containers.length; i++) {
+      accordion_containers[i].classList.add('show-open');
+    }
   } else {
     open_accordions();
+    for (var i=0; i < accordion_containers.length; i++) {
+      accordion_containers[i].classList.add('show-close');
+    }
   }
 }
 
@@ -79,6 +87,10 @@ function toggle_accordions() {
   function open_accordion_group(e){
     e.preventDefault();
 
+    var c = this.parentNode.classList
+    c.add('show-close')
+    c.remove('show-open');
+
     var b = this.parentNode.querySelectorAll('details');
 
     for (var i=0; i < b.length; i++) {
@@ -97,6 +109,10 @@ function toggle_accordions() {
   function close_accordion_group(e){
     e.preventDefault();
 
+    var c = this.parentNode.classList
+    c.add('show-open')
+    c.remove('show-close');
+
     var b = this.parentNode.querySelectorAll('details');
 
     for (var i=0; i < b.length; i++) {
@@ -106,7 +122,47 @@ function toggle_accordions() {
   }
 }
 
+//toggles visiblity of open all and close all buttons
+function find_accordion(){
+
+  var accordions = document.querySelectorAll("details");
+
+  for (var i=0; i < accordions.length; i++) {
+    var accordion = accordions[i];
+
+    //when user clicks an accordion we check whether we should hide or show open all or collapse all buttons
+    accordion.onclick = function() {
+      var b = this.parentNode.querySelectorAll('details');
+      var open_count = 0,
+        close_count = 0;
+      for (var i=0; i < b.length; i++) {
+        if (b[i].hasAttribute("open")) {
+          var open_count = open_count + 1;
+        }
+        else {
+          var close_count = close_count + 1;
+        }
+      }
+
+      //toggle visibility class
+      var c = this.parentNode;
+
+      if (open_count > 0) {
+        c.classList.add('show-close');
+      } else {
+        c.classList.remove('show-close');
+      }
+      if (close_count > 0) {
+        c.classList.add('show-open');
+      } else {
+        c.classList.remove('show-open');
+      }
+    }
+  }
+}
+
 window.onload = function() {
   resizeFn();
   toggle_accordions();
+  find_accordion();
 }
