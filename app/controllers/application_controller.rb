@@ -1,6 +1,22 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
+  before_action :beta_access
+
+  def beta_access
+    redirect_to go_invites_path unless has_beta_access?
+  end
+
+  def has_beta_access?
+    current_visitor.present?
+  end
+
+  def current_visitor
+    token = cookies[:govau_beta_token]
+    return nil if token.blank?
+    Invite.find_by(accepted_token: token)
+  end
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

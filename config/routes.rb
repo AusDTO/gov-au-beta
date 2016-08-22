@@ -74,6 +74,11 @@ Rails.application.routes.draw do
 
   resources :departments, only: :index
   resources :ministers, only: :index
+  resources :invites do
+    collection do
+      get :go
+    end
+  end
 
   get 'categories/:slug' => 'categories#show', as: :category
 

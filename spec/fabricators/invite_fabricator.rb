@@ -1,0 +1,2 @@
+Fabricator(:invite) do
+end

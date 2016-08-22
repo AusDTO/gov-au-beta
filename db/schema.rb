@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826021046) do
+ActiveRecord::Schema.define(version: 20160822111550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,17 @@ ActiveRecord::Schema.define(version: 20160826021046) do
     t.text     "summary"
     t.integer  "parent_id"
     t.integer  "children_count"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "placeholder",    default: false, null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["slug"], name: "index_categories_on_slug", using: :btree
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "url"
+    t.string   "email"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -38,6 +45,17 @@ ActiveRecord::Schema.define(version: 20160826021046) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.string   "code"
+    t.string   "accepted_token"
+    t.datetime "accepted_at"
+    t.string   "email"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["accepted_token"], name: "index_invites_on_accepted_token", using: :btree
+    t.index ["code"], name: "index_invites_on_code", using: :btree
   end
 
   create_table "news_distributions", force: :cascade do |t|
