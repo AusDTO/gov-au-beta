@@ -22,9 +22,8 @@ module Users
       if authenticate_code
         current_user.confirm_identity!
 
-        if (target_redirect = session[:target_redirect]) != nil
-          session.delete(:target_redirect)
-          redirect_to target_redirect and return
+        if session[:target_redirect].present?
+          redirect_to session.delete(:target_redirect) and return
         else
           redirect_to :root and return
         end
