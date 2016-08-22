@@ -1,3 +1,5 @@
+# API adapter for Telstra specification
+# https://dev.telstra.com/content/sms-getting-started
 class SMSService
   include HTTParty
 
