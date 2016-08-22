@@ -2,14 +2,24 @@
 
 %article.content-listing
   %section.home-category-list
-    %h2 What's new in Beta
-    %p.abstract
-      We're designing this site in phases. This allows us to launch new features faster than releasing a completely redesigned GOV.AU. Some links are inactive as we're hard at work on new features and content. Our focus has been on department content, topic content and one life event.
-      %a{:href => "#"} Find out more
+    %h2 What is GOV.AU Beta?
+    .abstract
+      %p
+        GOV.AU Beta is a small imagining of what a whole-of-government platform could look like. Its goal is to make Australian Government information and services simpler, clearer and faster.
+      %p
+        We're designing GOV.AU in phases and this Beta version is a very early release. This means we can launch new features swiftly, speak to users regularly and get feedback as we go – helping us create the best possible experience for everyone.
 
-    %h2 What's available now
-    %p.abstract
-      GOV.AU now includes useful topics, information and services which we've grouped into categories
+    %h2 What’s available now?
+    .abstract
+      %p
+        GOV.AU Beta includes some examples of user-focussed information and services content that we’ve grouped into categories.
+      %p
+        We’ve also worked on some
+        %a{href: '/departments'}
+          agency ‘corporate’ content
+        and
+        %a{href: '/ministers'}
+          minister pages.
 
     %ul.list-vertical--thirds
       - @categories.each do |category|
@@ -20,20 +30,19 @@
             %p
               = category.summary
 
-    %h2 What's coming soon
+    %h2 What’s coming next?
     %p.abstract
-      Information and services are being continually added, improved and worked on. Here are some categories we may be looking at next
+      We have plans to expand our information and services content. This will involve pulling in content from multiple government agencies to focus on what users need to know about a particular topic.
 
-      %ul.list-vertical--thirds
-        - @categories_coming_soon.each do |category|
-          %li
-            %article
-              %h3
-                %span.placeholder-link
-                  = category.name
-              %p
-                = category.summary
-
+    %ul.list-vertical--thirds
+      - @categories_coming_soon.each do |category|
+        %li
+          %article
+            %h3
+              %span.placeholder-link
+                = category.name
+            %p
+              = category.summary
 
   %section.about-australia
     %h2.home-heading About Australia
