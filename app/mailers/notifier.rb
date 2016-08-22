@@ -23,4 +23,13 @@ class Notifier < ApplicationMailer
       format.html
     end
   end
+
+  def beta_invite(invite)
+    @url = invite_url(invite)
+    mail(to: invite.email, subject: 'Invitation to GOV.AU Beta') do |format|
+      format.text
+      format.html
+    end
+  end
+
 end

@@ -63,6 +63,7 @@ describe 'editorial authorisation:' do
       '/editorial/news'                           => false,
       '/editorial/news/new'                       => false,
       '/editorial/users/new'                      => false,
+      '/invites/new'                              => false,
     }
   end
 
@@ -83,6 +84,7 @@ describe 'editorial authorisation:' do
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => false,
           '/editorial/users/new'                      => false,
+          '/invites/new'                              => false,
       }
     end
 
@@ -155,6 +157,7 @@ describe 'editorial authorisation:' do
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => true,
           '/editorial/users/new'                      => true,
+          '/invites/new'                              => true,
       }
     end
   end

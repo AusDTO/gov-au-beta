@@ -28,6 +28,11 @@ crumb :category do |name|
   parent :public_node, Node.root_node
 end
 
+crumb :invite do |name|
+  link 'Invite', invites_path
+  parent :public_node, Node.root_node
+end
+
 crumb :editorial_root do
   link 'Editorial Home', editorial_root_path
 end

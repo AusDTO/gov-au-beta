@@ -31,6 +31,8 @@ module GovAuBeta
 
     config.exceptions_app = self.routes
 
+    config.require_invite = ENV["REQUIRE_INVITE"].present?
+
     #logging
 
     config.lograge.enabled = true

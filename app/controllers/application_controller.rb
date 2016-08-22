@@ -1,11 +1,12 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
-  include IncompleteTfaSetup
+  include IncompleteTfaSetup, InviteConcern
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :complete_two_factor_setup
+  before_action :authorize_invite_access
   helper_method :decorated_current_user
   around_action :setup_logging
 

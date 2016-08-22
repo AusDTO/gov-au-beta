@@ -1,0 +1,13 @@
+
+- if @invite.accepted?
+  %p
+    This invitation has already been accepted.
+
+- else
+  %p
+    This invitation can only be used once and will be linked to your current device and internet browser. If you want to use a different device or browser, please switch before clicking accept.
+
+
+  = simple_form_for @invite, :action => 'update', :url => invite_path(@invite.code) do |form|
+    = form.hidden_field :code
+    = form.submit 'Accept invite'

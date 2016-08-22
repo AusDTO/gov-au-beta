@@ -1,0 +1,17 @@
+Hello,
+
+We'd like to welcome you to view GOV.AU beta. It's an early release of what simpler, clearer and faster Australian Government information and services could look like.
+
+This invitation has only been shared with a small group of people. It's unique to you.
+
+Access will only be granted to your current internet browser and device.
+
+To activate your invitation, please click the link below:
+
+<<%= @url.html_safe %>>
+
+This link expires in 1 month.
+
+We look forward to hearing your thoughts,
+
+The GOV.AU team

@@ -1,0 +1,50 @@
+!!! 5
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]>
+<html lang="en-AU" class="ie6 no-js">    <![endif]-->
+<!--[if IE 7 ]>
+<html lang="en-AU" class="ie7 no-js">    <![endif]-->
+<!--[if IE 8 ]>
+<html lang="en-AU" class="ie8 no-js">    <![endif]-->
+<!--[if IE 9 ]>
+<html lang="en-AU" class="ie9 no-js">    <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en-AU" class="no-js"><!--<![endif]-->
+
+= render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
+%body
+  = render 'application/google_tag_manager'
+  %div.skip-to
+    %a{href: "#content"}
+      Skip to main content
+
+  -# TODO: Move this aria role to %main and move the hero into the correct aria landmark once ui-kit resolves
+  -# https://github.com/AusDTO/gov-au-ui-kit/issues/313
+  %div{role: 'main'}
+    = yield(:after_header)
+
+    %main
+      = render 'application/alerts'
+      = yield
+  %footer{role: "contentinfo"}
+    .wrapper
+      %section
+        %figure
+          .footer-logo
+            = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
+        .footer-links
+          - if about_section
+            %nav
+              %ul
+                %li
+                  =link_to(about_section.name, nodes_path(about_section.slug))
+                - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
+                  %li
+                    %a{ href: public_node_path(node)}
+                      = node.name
+
+          %p
+            &copy; Commonwealth of Australia
+            %br
+            %a{href:'http://creativecommons.org/licenses/by/3.0/au/'} This work is licensed under a Creative Commons Attribution 3.0 International License
+</html>

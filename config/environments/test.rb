@@ -59,4 +59,7 @@ Rails.application.configure do
 
   #Set use of two-factor auth
   config.use_2fa = true
+
+  config.require_invite = false
+
 end

@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     resources :departments
     resources :feedbacks
     resources :general_contents
+    resources :invites
     resources :ministers
     resources :news_articles
     resources :nodes
@@ -98,6 +99,11 @@ Rails.application.routes.draw do
 
   resources :departments, only: :index
   resources :ministers, only: :index
+  resources :invites, only: [:show, :create, :new, :edit, :update] do
+    collection do
+      get :required
+    end
+  end
 
   get 'categories/:slug' => 'categories#show', as: :category
 
