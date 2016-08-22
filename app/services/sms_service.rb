@@ -13,11 +13,6 @@ class SMSService
 
 
   def send_two_factor_confirmation_code_for!(phone_number_field, code_field, user)
-    send_user_otp!(user, phone_number_field, code_field)
-  end
-
-  
-  def send_user_otp!(user, phone_number_field, code_field)
     # Should only ever receive a symbol defined in code, not by the user
     if user.send(phone_number_field) != nil && user.send(code_field) != nil
       send_sms(
