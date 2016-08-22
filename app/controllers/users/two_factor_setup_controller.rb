@@ -4,10 +4,12 @@ module Users
     before_action :confirm_two_factor!
     before_action :verify_direct_otp_sent, only: [:confirm, :update]
 
+    # Display view to send one-time-password or input authenticator code
     def new
     end
 
 
+    # Send SMS and redirect to confirm if valid number
     def create
       current_user.unconfirmed_phone_number =  params[:phone_number]
 
@@ -20,10 +22,12 @@ module Users
     end
 
 
+    # Give form to input one-time-password
     def confirm
     end
 
 
+    # Validate one-time-password and redirect if successful
     def update
       if current_user.authenticate_direct_otp_for(:unconfirmed_phone_number_otp, params[:code])
         current_user.phone_number = current_user.unconfirmed_phone_number
@@ -46,6 +50,7 @@ module Users
 
 
     private
+    # Don't let users skip ahead of being sent an actual code
     def verify_direct_otp_sent
       if current_user.unconfirmed_phone_number_otp == nil
         redirect_to new_users_two_factor_setup_path
