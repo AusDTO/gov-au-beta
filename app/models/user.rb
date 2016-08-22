@@ -57,8 +57,12 @@ class User < ApplicationRecord
 
 
   def need_two_factor_authentication?(request)
-    #request.ip != '127.0.0.1' && !self.bypass_tfa
-    !self.bypass_tfa && self.account_verified
+    if Rails.env.development?
+      unless Rails.configuration.force_2fa.present?
+        return request.ip != '127.0.0.1' && !self.bypass_tfa && self.account_verified
+      end
+    end
+    return !self.bypass_tfa && self.account_verified
   end
 
 
@@ -90,7 +94,7 @@ class User < ApplicationRecord
   end
 
   def confirm_identity!
-    self.identity_verified_at = DateTime.now
+    self.identity_verified_at = Time.now.utc
     save!
   end
 end
