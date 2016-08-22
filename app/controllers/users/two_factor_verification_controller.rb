@@ -39,12 +39,13 @@ module Users
       redirect_to confirm_users_two_factor_verification_path
     end
 
-    private
 
+    private
     def check_direct_otp_expiry
       o = OtpService.new(current_user)
       o.clear_direct_otp(:direct_otp) if o.otp_expired?(:direct_otp)
     end
+
 
     def authenticate_code
       return true if current_user.direct_otp && current_user.authenticate_otp(params[:code])

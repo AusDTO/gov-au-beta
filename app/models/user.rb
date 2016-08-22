@@ -34,7 +34,6 @@ class User < ApplicationRecord
   end
 
 
-  # Required hook for two_factor_authentication gem
   def pending_request_for(section)
     requests.find_by(section: section, state: 'requested')
   end
@@ -49,6 +48,7 @@ class User < ApplicationRecord
     roles.exists?(resource_id: section)
   end
 
+  # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
     Thread.new do
       SMSService.new.send_two_factor_confirmation_code!(self)
