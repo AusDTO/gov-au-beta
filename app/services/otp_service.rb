@@ -21,6 +21,7 @@ class OtpService
 
 
   def authenticate_otp(code_field, code)
+    # Should only ever receive a symbol defined in code, not by the user
     direct_otp = @user.send(code_field)
     return false if direct_otp.nil? || direct_otp != code || otp_expired?(code_field.to_sym)
     clear_direct_otp(code_field)
@@ -30,6 +31,7 @@ class OtpService
 
   # https://github.com/Houdini/two_factor_authentication/blob/9d7d3472f4d272f70c2357ca4bced6f32ec2fbc9/lib/two_factor_authentication/models/two_factor_authenticatable.rb
   def otp_expired?(direct_otp)
+    # Should only ever receive a symbol defined in code, not by the user
     sent_at =  @user.send("#{direct_otp}_sent_at")
     sent_at == nil || (Time.now.utc > sent_at + self.class.direct_otp_valid_for)
   end
