@@ -26,12 +26,12 @@
         =link_to "minister pages.", ministers_path
 
 
-    %ul.list-vertical--thirds
+    %ul.list-vertical--thirds.real-list
       - @categories.each do |category|
         %li
           %article
             %h3
-              = link_to(category.name, category_path(category))
+              = link_to(category.name, category_path(category.slug))
             %p
               = category.summary
 
@@ -41,7 +41,7 @@
       involve pulling in content from multiple government agencies to focus on
       what users need to know about a particular topic.
 
-    %ul.list-vertical--thirds
+    %ul.list-vertical--thirds.placeholder-list
       - @categories_coming_soon.each do |category|
         %li
           %article
