@@ -1,87 +1,78 @@
 require 'rails_helper'
+require 'support/shared_context_two_factor_login.rb'
 
 RSpec.describe 'verify identity', type: :feature do
   Warden.test_mode!
 
   let!(:root_node) { Fabricate(:root_node) }
-  let!(:otp_user) { Fabricate(:user, bypass_tfa: false) }
-  let!(:totp_user) { Fabricate(:totp_user, bypass_tfa: false) }
-
-  let(:verify_otp_user) {
-    code = User.find(otp_user.id).direct_otp
-    fill_in('Enter 6 digit code', with: code)
-    click_button('Verify')
+  let!(:otp_user) {
+    Fabricate(:user, bypass_tfa: false, account_verified: true)
   }
 
-  let(:verify_totp_user) {
-    code = ROTP::TOTP.new('averysecretkey').now
-    fill_in('Enter 6 digit code', with: code)
-    click_button('Verify')
+  let!(:totp_user) {
+    Fabricate(:totp_user, bypass_tfa: false, account_verified: true)
   }
 
-  describe 'two_factor_confirmation' do
-    context 'as an otp user' do
+
+  describe 'two_factor_verification' do
+    include_context 'shared_two_factor_login'
+
+    context 'with a otp_user' do
       before {
         login_as(otp_user)
-        visit new_users_two_factor_verification_path
-        verify_otp_user
-        click_link('Get started')
+        complete_2fa_login(otp_user)
       }
 
-      context 'with an incorrect identity code' do
-        before {
-          fill_in('Enter 6 digit code', with: '000000')
-          click_button('Verify')
-        }
+      context 'when accessing a protected area' do
+        before { visit new_users_two_factor_setup_path }
 
-        it 'stays on the same page' do
-          expect(current_path).to eq(confirm_users_two_factor_verification_path)
-          expect(page).to have_content('There was an error with the verification code.')
+        it 'should redirect to user verification' do
+          expect(current_path).to eq(new_users_two_factor_verification_path)
+          expect(page).to have_content(
+            'Before you can continue, you will need to verify your account'
+          )
+          expect(page).to have_link('Get started')
         end
-      end
 
-      context 'with a correct code' do
-        before {
-          code = User.find(otp_user.id).direct_otp
-          fill_in('Enter 6 digit code', with: code)
-          click_button('Verify')
-        }
 
-        it 'redirects to root path' do
-          expect(current_path).to eq(root_path)
+        context 'when following start link' do
+          before { click_link('Get started') }
+
+          it 'should show a code input' do
+            expect(page).to have_field('Enter 6 digit code')
+            expect(page).to have_content(
+              'A text message with a verification code was just sent to'
+            )
+          end
+
+
+          context 'with the incorrect code' do
+            before {
+              fill_in('Enter 6 digit code', with: 'wrongcode')
+              click_button('Verify')
+            }
+
+            it 'should show an error' do
+              expect(page).to have_content("Sorry, your code didn't work. Please try again.")
+              expect(page).to have_field('Enter 6 digit code')
+            end
+          end
+
+
+          context 'with the correct code' do
+            before {
+              fill_in('Enter 6 digit code', with: User.find(otp_user).direct_otp)
+              click_button('Verify')
+            }
+
+
+            it 'should display the original view' do
+              expect(current_path).to eq(new_users_two_factor_setup_path)
+              expect(page).to have_content('Thanks. You account has been verified.')
+            end
+          end
         end
-      end
 
-      context 'requesting a new code' do
-        before{
-          click_link('Resend now')
-        }
-
-        it 'expects to show code input' do
-          expect(current_path).to eq(confirm_users_two_factor_verification_path)
-        end
-      end
-    end
-
-
-    context 'intercepting another action' do
-      before {
-        login_as(otp_user)
-        visit new_users_two_factor_setup_path
-        verify_otp_user
-      }
-
-      context 'with a correct code' do
-        before {
-          click_link('Get started')
-          code = User.find(otp_user.id).direct_otp
-          fill_in('Enter 6 digit code', with: code)
-          click_button('Verify')
-        }
-
-        it 'redirects to intercepted page' do
-          expect(current_path).to eq(new_users_two_factor_setup_path)
-        end
       end
     end
   end
