@@ -28,7 +28,6 @@ details.swiss {
 }
 
 .accordion-group {
-
   details {
     width: 100%;
   }
@@ -36,13 +35,15 @@ details.swiss {
   &.show-open  .open-all-accordions {
     cursor: pointer;
     color: $body-text-colour;
-    border-bottom: 1px solid;
+    //border-bottom: 1px solid;
+    text-decoration: underline;
   }
 
   &.show-close .close-all-accordions {
     cursor: pointer;
     color: $body-text-colour;
-    border-bottom: 1px solid;
+    //border-bottom: 1px solid;
+    text-decoration: underline;
   }
 
   .open-all-accordions, .close-all-accordions {
@@ -54,11 +55,13 @@ details.swiss {
     font-size: rem(14);
     padding: 0;
     line-height: 1.4;
-    height: auto;
+    //height: auto;
+    height: 1.65 * $base-spacing;
     font-weight: 300;
     float: right;
     margin-right: 0;
     margin-left: $base-spacing;
+    margin-bottom: $small-spacing;
 
     &:hover, &:focus {
       background-color: #fff;
