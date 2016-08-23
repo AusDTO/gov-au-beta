@@ -9,10 +9,11 @@ This file is influenced by http://keepachangelog.com/.
 - Phone number verification when changing numbers
 
 ### Changed
+- Upgrade Rails to v5.0.0.1
 
 ### Fixed
-
 - Fixed leaking email addresses on password reset and resend email confirmation pages
+- Remove instances of permit! mass assignment
 
 
 ## [v1.1.0] - 2016-08-23
