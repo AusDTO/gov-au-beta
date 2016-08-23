@@ -22,10 +22,9 @@
       %p
         We’ve also worked on some
         =link_to "agency ‘corporate’ content", departments_path
-
         and
-        %a{href: '/ministers'}
-          minister pages.
+        =link_to "minister pages.", ministers_path
+
 
     %ul.list-vertical--thirds
       - @categories.each do |category|
