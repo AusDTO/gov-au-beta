@@ -33,7 +33,7 @@
             %h3
               = link_to(category.name, category_path(category.slug))
             %p
-              = category.summary
+              = category.short_summary
 
     %h2 What’s coming next?
     %p.abstract
@@ -49,7 +49,7 @@
               %span.placeholder-link
                 = category.name
             %p
-              = category.summary
+              = category.short_summary
 
   %section.about-australia
     %h2.home-heading About Australia
@@ -76,22 +76,25 @@
         %article
           %h3
             %a{:href => "#"} Just had a baby?
-          %p Get your baby on your Medicare card, registered for child care
-          payments and immunised.
+          %p
+            Get your baby on your Medicare card, registered for child care
+            payments and immunised.
           %a{:href => "#", :role => "button"} Get started
       %li
         %article
           %h3
             %a{:href => "#"} Helping an older person?
-          %p Find support for older Australians wanting to stay at home or
-          needing other living arrangements.
+          %p
+            Find support for older Australians wanting to stay at home or
+            needing other living arrangements.
           %a{:href => "#", :role => "button"} Get started
       %li
         %article
           %h3
             %a{:href => "#"} Starting a business?
-          %p Tell us about your business idea and we'll match the right
-          government information to your set-up.
+          %p
+            Tell us about your business idea and we'll match the right
+            government information to your set-up.
           %a{:href => "#", :role => "button"} Get started
 
   %section.home-news-list
