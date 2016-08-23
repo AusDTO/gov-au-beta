@@ -21,14 +21,14 @@ module Users
     def update
       if authenticate_code
         current_user.confirm_identity!
-
+        flash[:notice] = 'Thanks. You account has been verified.'
         if session[:target_redirect].present?
           redirect_to session.delete(:target_redirect) and return
         else
           redirect_to :root and return
         end
       else
-        flash[:alert] = 'There was an error with the verification code.'
+        flash[:alert] = "Sorry, your code didn't work. Please try again."
         redirect_to confirm_users_two_factor_verification_path
       end
     end

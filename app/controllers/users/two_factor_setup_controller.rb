@@ -40,6 +40,7 @@ module Users
         redirect_to root_path
       else
         # TODO: limit opportunities to re-try
+        flash[:alert] = "Sorry, your code didn't work. Please try again."
         render :confirm
       end
     end
