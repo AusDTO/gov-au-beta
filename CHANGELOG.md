@@ -19,6 +19,7 @@ This file is influenced by http://keepachangelog.com/.
 - The page preview in the editor does not allow javascript to be previewed
 - Don't let admins search on password hash
 - Update visual design of admin sign-in form
+- Images of states crests on homepage look correct in IE8
 
 ## [v1.0.3] - 2016-08-16
 ### Added
