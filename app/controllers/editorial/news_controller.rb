@@ -106,7 +106,7 @@ module Editorial
     end
 
     def news_params
-      params.required(:node).permit(:section_id, :section_ids, :parent_id, :name, :short_summary,
+      params.required(:node).permit(:section_id, {section_ids: []}, :parent_id, :name, :short_summary,
                                     :summary, :content_body, :options, :release_date)
     end
   end
