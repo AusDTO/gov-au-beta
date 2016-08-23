@@ -8,7 +8,7 @@ details.swiss {
     color: $body-text-colour;
     font-size: rem(20);
 
-    &:before {
+    &::before {
       background-image: asset-url('chevron-black.svg');
     }
   }
@@ -27,45 +27,45 @@ details.swiss {
   }
 }
 
+
+//Accordion group open and close buttons
 .accordion-group {
+
   details {
     width: 100%;
   }
 
-  &.show-open  .open-all-accordions {
-    cursor: pointer;
-    color: $body-text-colour;
-    //border-bottom: 1px solid;
-    text-decoration: underline;
-  }
-
+  &.show-open  .open-all-accordions,
   &.show-close .close-all-accordions {
-    cursor: pointer;
     color: $body-text-colour;
-    //border-bottom: 1px solid;
+    cursor: pointer;
     text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $body-text-colour;
+    }
+
   }
 
-  .open-all-accordions, .close-all-accordions {
-    background-color: #fff;
-    border: none;
-    color: #717171;
+  .open-all-accordions,
+  .close-all-accordions {
+    background-color: $white;
+    border: 0;
+    color: $button-bg-colour--disabled;
     cursor: not-allowed;
-    text-transform: uppercase;
-    font-size: rem(14);
-    padding: 0;
-    line-height: 1.4;
-    //height: auto;
-    height: 1.65 * $base-spacing;
-    font-weight: 300;
     float: right;
-    margin-right: 0;
-    margin-left: $base-spacing;
-    margin-bottom: $small-spacing;
+    font-size: rem(14);
+    font-weight: $base-font-weight;
+    height: 1.65 * $base-spacing;
+    margin: 0 0 $small-spacing $base-spacing;
+    padding: 0;
+    text-transform: uppercase;
 
-    &:hover, &:focus {
-      background-color: #fff;
-      color: #717171;
+    &:hover,
+    &:focus {
+      background-color: $white;
+      color: $button-bg-colour--disabled;
     }
   }
 }

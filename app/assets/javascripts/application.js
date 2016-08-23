@@ -38,7 +38,7 @@ function close_accordions() {
 }
 
 //detect screen width and close or open accordions appropriately
-function resizeFn() {
+function screen_width_accordions() {
   var accordion_containers = document.getElementsByClassName('accordion-group');
   if (window.innerWidth<width) {
     close_accordions();
@@ -54,7 +54,7 @@ function resizeFn() {
 }
 
 //insert 'Open all' and 'Close all' buttons into the DOM
-function toggle_accordions() {
+function toggle_accordions_buttons() {
 
   var x = document.querySelectorAll(".accordion-group");
 
@@ -162,10 +162,15 @@ function find_accordion(){
 }
 
 window.onload = function() {
-  resizeFn();
-  toggle_accordions();
+  screen_width_accordions();
+  toggle_accordions_buttons();
   find_accordion();
 }
+
+
+
+//TO DO find replacement for classList as it doesn't work with IE9 and below
+// investigate if we could use className += " class"
 
 //shim for classList to work in IE9 https://developer.mozilla.org/en/docs/Web/API/Element/classList
 /*
