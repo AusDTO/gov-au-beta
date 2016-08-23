@@ -33,7 +33,7 @@
             %h3
               = link_to(category.name, category_path(category.slug))
             %p
-              = category.summary
+              = category.short_summary
 
     %h2 What’s coming next?
     %p.abstract
@@ -49,7 +49,7 @@
               %span.placeholder-link
                 = category.name
             %p
-              = category.summary
+              = category.short_summary
 
   %section.about-australia
     %h2.home-heading About Australia
