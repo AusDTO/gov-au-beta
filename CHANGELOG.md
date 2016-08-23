@@ -4,6 +4,14 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.1.0] - 2016-08-23
+### Added
 - Added ability to group topics into categories
 - Added collecting test metadata for CircleCI
 - Added ability to mark pages as placeholders that appear in navigation
