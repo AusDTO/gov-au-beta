@@ -18,6 +18,7 @@ class CategoryDashboard < Administrate::BaseDashboard
       sections: Field::HasMany,
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
+      placeholder: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,7 +29,8 @@ class CategoryDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
       :id,
       :name,
-      :parent
+      :parent,
+      :placeholder
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -43,7 +45,8 @@ class CategoryDashboard < Administrate::BaseDashboard
       :children,
       :sections,
       :created_at,
-      :updated_at
+      :updated_at,
+      :placeholder
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -53,7 +56,8 @@ class CategoryDashboard < Administrate::BaseDashboard
       :name,
       :short_summary,
       :summary,
-      :parent
+      :parent,
+      :placeholder
   ].freeze
 
 

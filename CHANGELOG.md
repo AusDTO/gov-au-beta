@@ -14,6 +14,7 @@ This file is influenced by http://keepachangelog.com/.
 - Removed optional content editors like editor.md and trumbowyg
 - Deleted summary text on Minister and Departments listing pages
 - Improvements to the database scrubbing script
+- Added new demo category layout to the homepage
 
 ### Fixed
 - The page preview in the editor does not allow javascript to be previewed

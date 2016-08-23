@@ -1,4 +1,12 @@
-$light-teal: #00a1bb;
+$light-teal: #0098b0;
+
+.home-category-list {
+  .abstract {
+    border-bottom: 0;
+    padding-bottom: 0;
+    max-width: 770px
+  }
+}
 
 .home-category-list li {
   border-left: 1px solid $border-colour;
@@ -99,7 +107,7 @@ $light-teal: #00a1bb;
     }
 
     .population-statistic {
-      color: #00a1bb;
+      color: $light-teal;
       font-weight: $heading-font-weight;
       font-size: rem(26);
       padding-left: 0;
@@ -136,7 +144,7 @@ $light-teal: #00a1bb;
     text-align: center;
 
     .event-title {
-      background-color: #00a1bb;
+      background-color: $light-teal;
       color: $white;
       display: block;
       font-size: rem(20);
@@ -146,9 +154,9 @@ $light-teal: #00a1bb;
 
     time {
       background-color: $white;
-      border: $small-spacing solid #00a1bb;
+      border: $small-spacing solid $light-teal;
       border-top: 0;
-      color: #00a1bb;
+      color: $light-teal;
       display: block;
       font-size: rem(20);
       line-height: 1;
