@@ -35,8 +35,8 @@ details.swiss {
     width: 100%;
   }
 
-  &.show-open  .open-all-accordions,
-  &.show-close .close-all-accordions {
+  &.disable-close-button  .open-all-accordions,
+  &.disable-open-button .close-all-accordions {
     color: $body-text-colour;
     cursor: pointer;
     text-decoration: underline;

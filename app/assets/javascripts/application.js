@@ -18,7 +18,6 @@
 //set breakpoint for accordions to collapse at
 var width = 520;
 
-
 //open every accordion on the page
 function open_accordions() {
   var b = document.querySelectorAll("details");
@@ -43,12 +42,12 @@ function screen_width_accordions() {
   if (window.innerWidth<width) {
     close_accordions();
     for (var i=0; i < accordion_containers.length; i++) {
-      accordion_containers[i].classList.add('show-open');
+      accordion_containers[i].classList.add('disable-close-button');
     }
   } else {
     open_accordions();
     for (var i=0; i < accordion_containers.length; i++) {
-      accordion_containers[i].classList.add('show-close');
+      accordion_containers[i].classList.add('disable-open-button');
     }
   }
 }
@@ -88,8 +87,8 @@ function toggle_accordions_buttons() {
     e.preventDefault();
 
     var c = this.parentNode.classList
-    c.add('show-close')
-    c.remove('show-open');
+    c.add('disable-open-button')
+    c.remove('disable-close-button');
 
     var b = this.parentNode.querySelectorAll('details');
 
@@ -110,8 +109,8 @@ function toggle_accordions_buttons() {
     e.preventDefault();
 
     var c = this.parentNode.classList
-    c.add('show-open')
-    c.remove('show-close');
+    c.add('disable-close-button')
+    c.remove('disable-open-button');
 
     var b = this.parentNode.querySelectorAll('details');
 
@@ -148,14 +147,14 @@ function find_accordion(){
       var c = this.parentNode;
 
       if (open_count > 0) {
-        c.classList.add('show-close');
+        c.classList.add('disable-open-button');
       } else {
-        c.classList.remove('show-close');
+        c.classList.remove('disable-open-button');
       }
       if (close_count > 0) {
-        c.classList.add('show-open');
+        c.classList.add('disable-close-button');
       } else {
-        c.classList.remove('show-open');
+        c.classList.remove('disable-close-button');
       }
     }
   }
