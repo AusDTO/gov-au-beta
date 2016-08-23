@@ -5,7 +5,7 @@ RSpec.describe ApplicationController, type: :controller do
   controller do
     def initialize(*args)
       super
-      @some_data = Fabricate(:node)
+      @some_data = Fabricate(:general_content)
     end
 
     def show
