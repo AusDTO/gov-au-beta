@@ -16,6 +16,7 @@ module Editorial
       unless can? :review_in, @section
         @submissions = @submissions.for(current_user)
       end
+      bustable_fresh_when(@submissions)
     end
 
     def create
@@ -31,7 +32,7 @@ module Editorial
     end
 
     def new
-      @editor = params[:editor] || 'simple'
+
     end
 
     def update

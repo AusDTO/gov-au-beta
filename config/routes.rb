@@ -33,12 +33,15 @@ Rails.application.routes.draw do
       end
     end
 
+    # keep these alphabetically sorted
+    # code order determines order in the UI
+    resources :categories
+    resources :custom_template_nodes
     resources :departments
     resources :general_contents
     resources :ministers
     resources :news_articles
     resources :nodes
-    resources :custom_template_nodes
     resources :requests
     resources :revisions
     resources :roles
@@ -60,8 +63,7 @@ Rails.application.routes.draw do
   resources :departments, only: :index
   resources :ministers, only: :index
 
-  #FIXME Hard-coded category routes - static content
-  get 'categories/infrastructure-and-telecommunications' => 'categories#infrastructure_and_telecommunications'
+  get 'categories/:slug' => 'categories#show', as: :category
 
   get root 'nodes#home'
   get '/preview/:token' => 'nodes#preview', as: :previews

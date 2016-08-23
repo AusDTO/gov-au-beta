@@ -1,4 +1,12 @@
-$light-teal: #00a1bb;
+$light-teal: #0098b0;
+
+.home-category-list {
+  .abstract {
+    border-bottom: 0;
+    padding-bottom: 0;
+    max-width: 770px
+  }
+}
 
 .home-category-list li {
   border-left: 1px solid $border-colour;
@@ -33,6 +41,10 @@ $light-teal: #00a1bb;
 .about-australia {
 
   @include outer-container;
+
+  h3 {
+    font-size: rem(24);
+  }
 
   .population {
     @include media($tablet) {
@@ -95,7 +107,7 @@ $light-teal: #00a1bb;
     }
 
     .population-statistic {
-      color: #00a1bb;
+      color: $light-teal;
       font-weight: $heading-font-weight;
       font-size: rem(26);
       padding-left: 0;
@@ -132,7 +144,7 @@ $light-teal: #00a1bb;
     text-align: center;
 
     .event-title {
-      background-color: #00a1bb;
+      background-color: $light-teal;
       color: $white;
       display: block;
       font-size: rem(20);
@@ -142,9 +154,9 @@ $light-teal: #00a1bb;
 
     time {
       background-color: $white;
-      border: $small-spacing solid #00a1bb;
+      border: $small-spacing solid $light-teal;
       border-top: 0;
-      color: #00a1bb;
+      color: $light-teal;
       display: block;
       font-size: rem(20);
       line-height: 1;
@@ -204,54 +216,55 @@ $light-teal: #00a1bb;
     li {
       border-top: 0;
 
-      &.nsw:before,
-      &.vic:before,
-      &.qld:before,
-      &.sa:before,
-      &.wa:before,
-      &.tas:before,
-      &.nt:before,
-      &.act:before {
-        background-repeat: no-repeat;
-        background-size: contain;
-        content: ' ';
-        top: 0;
-        display: block;
-        height: 60px;
-        left: 0;
-        position: relative;
-        width: 60px;
+      &.nsw,
+      &.vic,
+      &.qld,
+      &.sa,
+      &.wa,
+      &.tas,
+      &.nt,
+      &.act {
+        .image {
+          background-repeat: no-repeat;
+          background-size: contain;
+          top: 0;
+          display: block;
+          height: 60px;
+          left: 0;
+          position: relative;
+          width: 60px;
+        }
       }
 
-      &.nsw:before {
+      &.nsw .image {
         background-image: asset-url('home/nsw.png');
       }
 
-      &.vic:before {
+      &.vic .image {
         background-image: asset-url('home/vic.png');
       }
 
-      &.qld:before {
+      &.qld .image {
         background-image: asset-url('home/qld.png');
       }
 
-      &.sa:before {
+      &.sa .image {
         background-image: asset-url('home/sa.png');
       }
 
-      &.wa:before {
+      &.wa .image {
         background-image: asset-url('home/wa.png');
       }
 
-      &.tas:before {
+      &.tas .image {
         background-image: asset-url('home/tas.png');
       }
 
-      &.nt:before {
+      &.nt .image {
         background-image: asset-url('home/nt.png');
       }
 
-      &.act:before {
+      &.act .image {
         background-image: asset-url('home/act.png');
       }
 
@@ -281,7 +294,7 @@ $light-teal: #00a1bb;
     linear-gradient(transparent, transparent);
 
   }
-  
+
   .list-vertical--thirds li,
   .state-government li {
     display: inline-block;
@@ -349,6 +362,42 @@ $light-teal: #00a1bb;
     }
     .state-government {
       width: 70%;
+    }
+    ul {
+      li {
+        &.nsw .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nsw.png')}', sizingMethod='scale');
+        }
+
+        &.vic .image {
+          height: 35px;
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/vic.png')}', sizingMethod='scale');
+        }
+
+        &.qld .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/qld.png')}', sizingMethod='scale');
+        }
+
+        &.sa .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/sa.png')}', sizingMethod='scale');
+        }
+
+        &.wa .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/wa.png')}', sizingMethod='scale');
+        }
+
+        &.tas .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/tas.png')}', sizingMethod='scale');
+        }
+
+        &.nt .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nt.png')}', sizingMethod='scale');
+        }
+
+        &.act .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/act.png')}', sizingMethod='scale');
+        }
+      }
     }
   }
 }

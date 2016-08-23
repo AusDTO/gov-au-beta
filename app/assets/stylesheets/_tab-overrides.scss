@@ -1,0 +1,16 @@
+.inline-tab-nav {
+
+  a {
+    font-size: $small-font-size;
+    padding: .75 * $small-spacing .75 * $base-spacing;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    padding-right: .75 * $base-spacing;
+  }
+}

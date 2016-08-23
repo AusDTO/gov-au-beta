@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802053241) do
+ActiveRecord::Schema.define(version: 20160826021046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "short_summary"
+    t.text     "summary"
+    t.integer  "parent_id"
+    t.integer  "children_count"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "placeholder",    default: false, null: false
+    t.index ["slug"], name: "index_categories_on_slug", using: :btree
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -91,6 +104,13 @@ ActiveRecord::Schema.define(version: 20160802053241) do
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
     t.index ["name"], name: "index_roles_on_name", using: :btree
+  end
+
+  create_table "section_categories", id: false, force: :cascade do |t|
+    t.integer "section_id"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_section_categories_on_category_id", using: :btree
+    t.index ["section_id"], name: "index_section_categories_on_section_id", using: :btree
   end
 
   create_table "section_connections", force: :cascade do |t|

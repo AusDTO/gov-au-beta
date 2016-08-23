@@ -15,7 +15,6 @@ RSpec.describe 'demo', type: :feature do
 
     expect(page.current_path).to eql("/")
     expect(page.title).to eql("GOV.AU")
-    expect(page).to have_css('h2', :text => 'Information and services')
     expect(page).to have_css('h2', :text => 'About Australia')
     page.find('.next-holiday a').click
 

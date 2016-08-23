@@ -10,19 +10,27 @@ require 'synergy/cms_import'
 
 RootNode.find_or_create_by!(state: 'published')
 
-topic = Topic.find_or_create_by!(name: "Business")
+category = Category.find_or_create_by!(name: 'Infrastructure and telecommunications',
+                                       short_summary: 'Transport safety, television reception, telecommunications.',
+                                       summary: 'Australian Government information and services related to infrastructure and telecommunications.')
+category.save
+subcategory = category.children.find_or_create_by!(name:'Infrastructure')
+leaf_category = subcategory.children.find_or_create_by!(name: 'Road')
+
+topic = Topic.find_or_create_by!(name: 'Business')
 topic.summary = 'The business section covers a range of business-related topics.'
+topic.categories << leaf_category
 topic.save
 
 news1 = NewsArticle.with_name(
-    "Business News"
+    'Business News'
   ).find_or_create_by!(
     {
       section: topic,
       state: :published,
     }
   ) do |news_article|
-    news_article.name = "Business News"
+    news_article.name = 'Business News'
     news_article.release_date = Date.today
   end
 news1.update(release_date: Date.today) if news1.release_date.blank?
@@ -41,10 +49,10 @@ def make_node(parent, name, klass = GeneralContent)
     end
 end
 
-node1 = make_node(topic.home_node, "Starting a Business")
-node2 = make_node(node1, "Finding Staff")
+node1 = make_node(topic.home_node, 'Starting a Business')
+node2 = make_node(node1, 'Finding Staff')
 node2.revise!(content_body: 'lorem ipsum').apply!
-node3 = make_node(node2, "Types of Employment")
+node3 = make_node(node2, 'Types of Employment')
 
 times = Topic.find_or_create_by!(name: 'Times and dates') do |topic|
   topic.summary = 'Australian times and dates'
@@ -62,6 +70,12 @@ public_hols_act = make_node(public_hols, 'Australian Capital Territory', CustomT
 public_hols_act.update(template: 'custom/public_holidays_act', options: {suppress_in_nav: true})
 public_hols_vic = make_node(public_hols, 'Victoria', CustomTemplateNode)
 public_hols_vic.update(template: 'custom/public_holidays_vic', options: {suppress_in_nav: true})
+public_hols_nt = make_node(public_hols, 'Northern Territory', CustomTemplateNode)
+public_hols_nt.update(template: 'custom/public_holidays_nt', options: {suppress_in_nav: true})
+public_hols_sa = make_node(public_hols, 'South Australia', CustomTemplateNode)
+public_hols_sa.update(template: 'custom/public_holidays_sa', options: {suppress_in_nav: true})
+public_hols_wa = make_node(public_hols, 'Western Australia', CustomTemplateNode)
+public_hols_wa.update(template: 'custom/public_holidays_wa', options: {suppress_in_nav: true})
 daylight_saving = make_node(times.home_node, 'Australian daylight saving', CustomTemplateNode)
 daylight_saving.update(template: 'custom/daylight_savings_tas')
 daylight_saving_tas = make_node(daylight_saving, 'Tasmania', CustomTemplateNode)
@@ -74,6 +88,12 @@ daylight_saving_act = make_node(daylight_saving, 'Australian Capital Territory',
 daylight_saving_act.update(template: 'custom/daylight_savings_act', options: {suppress_in_nav: true})
 daylight_saving_nsw = make_node(daylight_saving, 'New South Wales', CustomTemplateNode)
 daylight_saving_nsw.update(template: 'custom/daylight_savings_nsw', options: {suppress_in_nav: true})
+daylight_saving_wa = make_node(daylight_saving, 'Western Australia', CustomTemplateNode)
+daylight_saving_wa.update(template: 'custom/daylight_savings_wa', options: {suppress_in_nav: true})
+daylight_saving_sa = make_node(daylight_saving, 'South Australia', CustomTemplateNode)
+daylight_saving_sa.update(template: 'custom/daylight_savings_sa', options: {suppress_in_nav: true})
+daylight_saving_nt = make_node(daylight_saving, 'Northern Territory', CustomTemplateNode)
+daylight_saving_nt.update(template: 'custom/daylight_savings_nt', options: {suppress_in_nav: true})
 school_hols = make_node(times.home_node, 'School holidays and term dates', CustomTemplateNode)
 school_hols.update(template: 'custom/school_holidays_tas')
 school_hols_tas = make_node(school_hols, 'Tasmania', CustomTemplateNode)
@@ -84,24 +104,32 @@ school_hols_nsw = make_node(school_hols, 'New South Wales', CustomTemplateNode)
 school_hols_nsw.update(template: 'custom/school_holidays_nsw', options: {suppress_in_nav: true})
 school_hols_act = make_node(school_hols, 'Australian Capital Territory', CustomTemplateNode)
 school_hols_act.update(template: 'custom/school_holidays_act', options: {suppress_in_nav: true})
+school_hols_vic = make_node(school_hols, 'Victoria', CustomTemplateNode)
+school_hols_vic.update(template: 'custom/school_holidays_vic', options: {suppress_in_nav: true})
+school_hols_nt = make_node(school_hols, 'Northern Territory', CustomTemplateNode)
+school_hols_nt.update(template: 'custom/school_holidays_nt', options: {suppress_in_nav: true})
+school_hols_sa = make_node(school_hols, 'South Australia', CustomTemplateNode)
+school_hols_sa.update(template: 'custom/school_holidays_sa', options: {suppress_in_nav: true})
+school_hols_wa = make_node(school_hols, 'Western Australia', CustomTemplateNode)
+school_hols_wa.update(template: 'custom/school_holidays_wa', options: {suppress_in_nav: true})
 
 password = ENV['SEED_USER_PASSWORD']
-raise "SEED_USER_PASSWORD cannot be empty" if password.blank?
+raise 'SEED_USER_PASSWORD cannot be empty' if password.blank?
 
-unless admin = User.find_by(email: "admin@example.gov.au")
-  admin = User.create!(email: "admin@example.gov.au", password: password)
+unless admin = User.find_by(email: 'admin@example.gov.au')
+  admin = User.create!(email: 'admin@example.gov.au', password: password)
 end
 
-unless author = User.find_by(email: "author@example.gov.au")
-  author = User.create!(email: "author@example.gov.au", password: password)
+unless author = User.find_by(email: 'author@example.gov.au')
+  author = User.create!(email: 'author@example.gov.au', password: password)
 end
 
-unless reviewer = User.find_by(email: "reviewer@example.gov.au")
-  reviewer = User.create!(email: "reviewer@example.gov.au", password: password)
+unless reviewer = User.find_by(email: 'reviewer@example.gov.au')
+  reviewer = User.create!(email: 'reviewer@example.gov.au', password: password)
 end
 
-unless owner = User.find_by(email: "owner@example.gov.au")
-  owner = User.create!(email: "owner@example.gov.au", password: password)
+unless owner = User.find_by(email: 'owner@example.gov.au')
+  owner = User.create!(email: 'owner@example.gov.au', password: password)
 end
 
 admin.add_role :admin

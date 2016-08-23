@@ -6,8 +6,8 @@ source 'https://rubygems.org'
 # Other sources
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-editor.md'
   gem 'rails-assets-webfontloader'
+  gem 'rails-assets-showdown'
 end
 
 # Core gems
@@ -55,6 +55,7 @@ gem 'rubyzip', '>= 1.0.0'
 gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
+gem 'aws-sdk', '~> 2'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
@@ -98,7 +99,8 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'with_model', '~> 1.2.1'
   gem 'axe-matchers'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
+  gem 'rspec_junit_formatter', '0.2.3'
 end
 
 platforms :mingw, :mswin do

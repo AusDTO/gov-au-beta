@@ -6,12 +6,14 @@ class Section < ApplicationRecord
   has_many :requests
   has_many :news_distributions, as: :distribution
   has_many :news_articles, through: :news_distributions
+  has_and_belongs_to_many :categories, join_table: :section_categories
+  has_one :home_node, class_name: 'SectionHome'
 
   has_and_belongs_to_many :sections,
-        class_name: 'Section',
-        join_table: :section_connections,
-        foreign_key: :section_id,
-        association_foreign_key: :connection_id
+      class_name: 'Section',
+      join_table: :section_connections,
+      foreign_key: :section_id,
+      association_foreign_key: :connection_id
 
   delegate :slug, to: :home_node, allow_nil: true
 
@@ -24,24 +26,10 @@ class Section < ApplicationRecord
 
   # Finds the users with a role on this Section
   def users
+    # TODO there has to be a one hit way to get these results
     Section.find_roles.pluck(:name).inject(Array.new) do |result, role|
       result += User.with_role(role, self)
     end.uniq
-  end
-
-  def home_node
-    nodes.with_sectionless_parent.first
-  end
-
-  # we can't use delegate :name, to home_node because we have to create the Section before the SectionHome
-  # we can't have the SectionHome delegate :name to the section because that doesn't work with the revisable system
-  # So manually override name to delegate to the home_node if it exists
-  def name
-    if home_node
-      home_node.name
-    else
-      super
-    end
   end
 
   def news_node

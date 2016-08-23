@@ -2,16 +2,54 @@
 
 %article.content-listing
   %section.home-category-list
-    %h2 Information and services
+    %h2 What is GOV.AU Beta?
+    .abstract
+      %p
+        GOV.AU Beta is a small imagining of what a whole-of-government platform
+        could look like. Its goal is to make Australian Government information
+        and services simpler, clearer and faster.
+      %p
+        We're designing GOV.AU in phases and this Beta version is a very early
+        release. This means we can launch new features swiftly, speak to users
+        regularly and get feedback as we go – helping us create the best
+        possible experience for everyone.
 
-    %ul.list-vertical--thirds
+    %h2 What’s available now?
+    .abstract
+      %p
+        GOV.AU Beta includes some examples of user-focussed information and
+        services content that we’ve grouped into categories.
+      %p
+        We’ve also worked on some
+        =link_to "agency ‘corporate’ content", departments_path
+        and
+        =link_to "minister pages.", ministers_path
+
+
+    %ul.list-vertical--thirds.real-list
       - @categories.each do |category|
         %li
           %article
             %h3
-              = link_to(category.name, category.path || 'javascript:void(0)')
+              = link_to(category.name, category_path(category.slug))
             %p
-              = category.summary
+              = category.short_summary
+
+    %h2 What’s coming next?
+    %p.abstract
+      We have plans to expand our information and services content. This will
+      involve pulling in content from multiple government agencies to focus on
+      what users need to know about a particular topic.
+
+    %ul.list-vertical--thirds.placeholder-list
+      - @categories_coming_soon.each do |category|
+        %li
+          %article
+            %h3
+              %span.placeholder-link
+                = category.name
+            %p
+              = category.short_summary
 
   %section.about-australia
     %h2.home-heading About Australia
@@ -38,19 +76,25 @@
         %article
           %h3
             %a{:href => "#"} Just had a baby?
-          %p Get your baby on your Medicare card, registered for child care payments and immunised.
+          %p
+            Get your baby on your Medicare card, registered for child care
+            payments and immunised.
           %a{:href => "#", :role => "button"} Get started
       %li
         %article
           %h3
             %a{:href => "#"} Helping an older person?
-          %p Find support for older Australians wanting to stay at home or needing other living arrangements.
+          %p
+            Find support for older Australians wanting to stay at home or
+            needing other living arrangements.
           %a{:href => "#", :role => "button"} Get started
       %li
         %article
           %h3
             %a{:href => "#"} Starting a business?
-          %p Tell us about your business idea and we'll match the right government information to your set-up.
+          %p
+            Tell us about your business idea and we'll match the right
+            government information to your set-up.
           %a{:href => "#", :role => "button"} Get started
 
   %section.home-news-list
@@ -85,26 +129,34 @@
       %h2.home-heading.small State and territory governments
       %ul.list-vertical
         %li.nsw
+          %span.image
           %h3.state-title New South Wales
           %a{href: 'https://www.nsw.gov.au/'} www.nsw.gov.au
         %li.vic
+          %span.image
           %h3.state-title Victoria
           %a{href: 'http://www.vic.gov.au/'} www.vic.gov.au
         %li.qld
+          %span.image
           %h3.state-title Queensland
           %a{href: 'http://www.qld.gov.au/'} www.qld.gov.au
         %li.sa
+          %span.image
           %h3.state-title South Australia
           %a{href: 'http://www.sa.gov.au/'} www.sa.gov.au
         %li.wa
+          %span.image
           %h3.state-title Western Australia
           %a{href: 'https://www.wa.gov.au/'} www.wa.gov.au
         %li.tas
+          %span.image
           %h3.state-title Tasmania
           %a{href: 'http://www.tas.gov.au/'} www.tas.gov.au
         %li.nt
+          %span.image
           %h3.state-title Northern Territory
           %a{href: 'https://nt.gov.au/'} www.nt.gov.au
         %li.act
+          %span.image
           %h3.state-title Australian Capital Territory
           %a{href: 'http://www.act.gov.au/'} www.act.gov.au

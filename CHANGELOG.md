@@ -9,6 +9,27 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+
+## [v1.1.0] - 2016-08-23
+### Added
+- Added ability to group topics into categories
+- Added collecting test metadata for CircleCI
+- Added ability to mark pages as placeholders that appear in navigation
+- Rake task for dumping, santising, and uploading the database to AWS S3
+
+### Changed
+- Upgrade UI kit to v1.7.4
+- Removed optional content editors like editor.md and trumbowyg
+- Deleted summary text on Minister and Departments listing pages
+- Improvements to the database scrubbing script
+- Added new demo category layout to the homepage
+
+### Fixed
+- The page preview in the editor does not allow javascript to be previewed
+- Don't let admins search on password hash
+- Update visual design of admin sign-in form
+- Images of states crests on homepage look correct in IE8
+
 ## [v1.0.3] - 2016-08-16
 ### Added
 - Include git tag and sha1 on editorial footer

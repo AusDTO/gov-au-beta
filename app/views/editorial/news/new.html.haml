@@ -15,4 +15,4 @@
     = f.collection_check_boxes :section_ids, @sections, :id, :name
     = f.submit 'Create news article', role: 'button'
 
-= render 'editorial/nodes/editor_injection'
+= javascript_include_tag 'editor'
