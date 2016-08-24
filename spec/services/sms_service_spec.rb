@@ -9,7 +9,7 @@ RSpec.describe SMSService, type: :service do
         to_return(:status => 200, :body => "", :headers => {})
   }
 
-  let!(:authenticate_request) {
+  let!(:valid_authenticate_request) {
     stub_request(:post, Rails.configuration.sms_authenticate_url).
         with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
              :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
@@ -18,24 +18,47 @@ RSpec.describe SMSService, type: :service do
 
   subject { SMSService.new }
 
-  before {
-    # Reset SMSService
-    SMSService.class_variable_set :@@token_expires_at, nil
-    SMSService.class_variable_set :@@token, nil
-  }
+  context 'with correct credentials' do
+    before {
+      # Reset SMSService
+      SMSService.class_variable_set :@@token_expires_at, nil
+      SMSService.class_variable_set :@@token, nil
+    }
 
-  it {
-    expect { subject }.to change { SMSService.token }.to('somereallyspecialtoken')
-  }
+    it {
+      expect { subject }.to change { SMSService.token }.to('somereallyspecialtoken')
+    }
 
-  it {
-    expect { subject }.to change { SMSService.token_expiry }
-  }
+    it {
+      expect { subject }.to change { SMSService.token_expiry }
+    }
 
-  it 'made the request' do
-    subject
-    expect(authenticate_request).to have_been_requested
+    it 'made the request' do
+      subject
+      expect(valid_authenticate_request).to have_been_requested
+    end
   end
+
+
+  context 'with incorrect credentials' do
+    let!(:invalid_authenticate_request) {
+      stub_request(:post, 'https://badurl.com').
+          with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
+               :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
+          to_return(:status => 400, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
+    }
+
+    before {
+      Rails.configuration.sms_authenticate_url = 'https://badurl.com'
+      SMSService.class_variable_set :@@token_expires_at, nil
+      SMSService.class_variable_set :@@token, nil
+    }
+
+    it 'should raise an error' do
+      expect { subject }.to raise_error('error getting token')
+    end
+  end
+
 
   context 'with a user with correct details' do
     context 'when sending an sms' do
