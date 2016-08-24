@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   def create_direct_otp_for(field)
     otp_service = OtpService.new(self)
-    otp_service.create_otp(field)
+    otp_service.create_direct_otp!(field)
   end
 
 

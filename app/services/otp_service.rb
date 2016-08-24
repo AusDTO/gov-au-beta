@@ -15,11 +15,6 @@ class OtpService
   end
 
 
-  def create_otp(field)
-    create_direct_otp(field)
-  end
-
-
   def authenticate_otp(code_field, code)
     # Should only ever receive a symbol defined in code, not by the user
     direct_otp = @user.send(code_field)
@@ -45,9 +40,7 @@ class OtpService
   end
 
 
-  private
-
-  def create_direct_otp(field, options = {})
+  def create_direct_otp!(field, options = {})
     digits = options[:length] || self.class.direct_otp_length || 6
     @user.update_attributes(
       field.to_sym => random_base10(digits),
@@ -55,6 +48,7 @@ class OtpService
     )
   end
 
+  private
 
   def random_base10(digits)
     SecureRandom.random_number(10**digits).to_s.rjust(digits, '0')
