@@ -156,25 +156,39 @@ ActiveRecord::Schema.define(version: 20160826021046) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                                default: "",    null: false
+    t.string   "encrypted_password",                   default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                        default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.text     "confirmation_token"
     t.text     "unconfirmed_email"
+    t.integer  "second_factor_attempts_count",         default: 0
+    t.string   "encrypted_otp_secret_key"
+    t.string   "encrypted_otp_secret_key_iv"
+    t.string   "encrypted_otp_secret_key_salt"
+    t.string   "direct_otp"
+    t.datetime "direct_otp_sent_at"
+    t.string   "phone_number"
+    t.boolean  "bypass_tfa",                           default: false
+    t.boolean  "account_verified"
+    t.string   "unconfirmed_phone_number"
+    t.string   "unconfirmed_phone_number_otp"
+    t.datetime "unconfirmed_phone_number_otp_sent_at"
+    t.datetime "identity_verified_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["encrypted_otp_secret_key"], name: "index_users_on_encrypted_otp_secret_key", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 

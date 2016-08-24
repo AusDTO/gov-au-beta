@@ -1,0 +1,9 @@
+%article.verify
+  %h1 Before you can continue, you will need to verify your account
+
+  %p
+    Keep your account secure by using both your password and your mobile phone.
+
+  %section.sign-in-form
+    .form-footer-actions
+      = link_to 'Get started', users_two_factor_verification_path, method: :post, role: :button

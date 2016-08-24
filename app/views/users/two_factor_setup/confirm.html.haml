@@ -1,0 +1,23 @@
+%article.verify
+  %h1 Please verify your account
+
+  %p
+    A text message with a verification code was just sent to
+    #{sanitized_unconfirmed_phone_number(current_user)}
+
+  %section.sign-in-form
+    = form_tag([:users, :two_factor_setup], method: :put) do
+      = label_tag 'code', 'Enter 6 digit code'
+      = text_field_tag  :code, nil, autocomplete: :off
+
+      .form-footer-actions
+        .form-options
+          %p
+            = submit_tag 'Verify', role: :button
+
+      .sign-in-footer-links
+        %p= link_to 'Resend verification code', resend_code_users_two_factor_setup_path, method: :post
+
+        - unless current_user.account_verified
+          %p
+            = link_to 'Use a different number', new_users_two_factor_setup_path

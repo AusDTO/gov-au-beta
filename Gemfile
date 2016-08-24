@@ -55,6 +55,7 @@ gem 'rubyzip', '>= 1.0.0'
 gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
+gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
 gem 'aws-sdk', '~> 2'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:

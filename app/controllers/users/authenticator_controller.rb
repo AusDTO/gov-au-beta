@@ -1,0 +1,3 @@
+module Users
+
+end

@@ -1,0 +1,27 @@
+%article.verify
+  %h1 Please verify your account
+  - if current_user.direct_otp
+    %p
+      A text message with a verification code was just sent to
+      #{sanitized_phone_number(current_user)}
+  - else
+    %p Enter the code from your authenticator app
+
+  %section.sign-in-form
+    = form_tag([:users, :two_factor_verification], method: :put) do
+      = label_tag 'code', 'Enter 6 digit code'
+      = text_field_tag :code, nil, autocomplete: :off
+
+      .form-footer-actions
+        .form-options
+          %p= submit_tag 'Verify', role: :button
+
+
+    .sign-in-footer-links
+      - if current_user.direct_otp
+        Didn't receive your verification code?
+        = link_to 'Resend now', resend_code_users_two_factor_verification_path, method: :post
+      - else
+        = link_to 'Send me a code instead', resend_code_users_two_factor_verification_path, method: :post
+
+

@@ -52,3 +52,6 @@ engines/synergy/spec/dummy/log
 # ignore sitemap because it's based on the database
 public/sitemap.xml*
 public/sitemaps/*
+
+# Ignore SQL files
+*.sql

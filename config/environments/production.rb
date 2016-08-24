@@ -104,4 +104,8 @@ Rails.application.configure do
 
   config.version_tag = ENV['CIRCLE_TAG']
   config.version_sha = ENV['CIRCLE_SHA1']
+
+  # Set SMS provider
+  config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
+  config.sms_send_message_url = ENV['SMS_SEND_MESSAGE_URL']
 end

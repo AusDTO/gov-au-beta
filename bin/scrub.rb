@@ -33,6 +33,16 @@ while line = gets
       parts[col_index[:last_name]] = 'Nameless'
       parts[col_index[:confirmation_token]] = '\N'
       parts[col_index[:unconfirmed_email]] = '\N'
+      parts[col_index[:phone_number]] = '0412345678'
+      parts[col_index[:encrypted_otp_secret_key]] = '\N'
+      parts[col_index[:encrypted_otp_secret_key_iv]] = '\N'
+      parts[col_index[:encrypted_otp_secret_key_salt]] = '\N'
+      parts[col_index[:direct_otp]] = '\N'
+      parts[col_index[:direct_otp_sent_at]] = '\N'
+      parts[col_index[:unconfirmed_phone_number]] = '\N'
+      parts[col_index[:unconfirmed_phone_number_otp]] = '\N'
+      parts[col_index[:unconfirmed_phone_number_otp_sent_at]] = '\N'
+      parts[col_index[:unconfirmed_phone_number_otp_sent_at]] = '\N'
       line = parts.join "\t"
       idx += 1
     end

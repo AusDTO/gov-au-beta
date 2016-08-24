@@ -1,0 +1,17 @@
+%article.verify
+  %h1
+    - if current_user.account_verified
+      Change your phone number
+    - else
+      To sign up, you will need to verify your account
+
+  %p
+    Keep your account secure by using both your password and mobile phone
+
+  %section.sign-in-form
+    = form_tag([:users, :two_factor_setup], method: :post) do
+      = label_tag 'phone_number'
+      = text_field_tag :phone_number, nil, maxlength: 10
+      .form-footer-actions
+        .form-options
+          %p= submit_tag 'Send code', role: :button

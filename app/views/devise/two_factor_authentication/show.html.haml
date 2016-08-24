@@ -1,0 +1,27 @@
+%article.sign-in
+  %h1 Two-factor confirmation
+  - if current_user.direct_otp
+    %p Enter the code that was sent to you
+  - else
+    %p Enter the code from your authenticator app
+
+  %section.sign-in-form
+    = form_tag([resource_name, :two_factor_authentication], method: :put) do
+      = label_tag 'code', 'Enter 6 digit code'
+      = text_field_tag :code, nil, autocomplete: :off
+
+      .form-footer-actions
+        .form-options
+          = submit_tag 'Verify', role: :button
+
+      .sign-in-footer-links
+        .background-border-heading
+          %span.inner
+            Or
+        - if current_user.direct_otp
+          Didn't receive your code?
+          = link_to 'Resend now', resend_code_user_two_factor_authentication_path
+        - else
+          = link_to 'Send me a code instead', resend_code_user_two_factor_authentication_path
+        %p= link_to 'Sign out', destroy_user_session_path, :method => :delete
+
