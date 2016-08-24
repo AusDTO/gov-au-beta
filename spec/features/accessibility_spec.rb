@@ -58,6 +58,7 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
     let!(:topic_home) { Fabricate(:section_home, section: topic) }
     let!(:news_article) { Fabricate(:news_article, parent: department_home, sections: [department, minister]) }
     let!(:general_content) { Fabricate(:general_content, parent: department_home) }
+    let!(:placeholder_content) { Fabricate(:general_content, parent: department_home, placeholder: true) }
 
     include_examples 'is accessible', 'root_path', true
     include_examples 'is accessible', 'departments_path', true
