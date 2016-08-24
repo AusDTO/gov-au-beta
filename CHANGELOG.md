@@ -4,6 +4,9 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+- Added two-factor authentication via SMS and authenticator to sign-in/up and verification
+- Verification of identity when accessing protected pages
+- Phone number verification when changing numbers
 
 ### Changed
 
@@ -16,7 +19,6 @@ This file is influenced by http://keepachangelog.com/.
 - Added collecting test metadata for CircleCI
 - Added ability to mark pages as placeholders that appear in navigation
 - Rake task for dumping, santising, and uploading the database to AWS S3
-- Added two-factor authentication to sign-in/up and verification
 
 ### Changed
 - Upgrade UI kit to v1.7.4
