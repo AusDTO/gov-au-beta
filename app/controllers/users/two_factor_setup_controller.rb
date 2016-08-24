@@ -11,13 +11,16 @@ module Users
 
     # Send SMS and redirect to confirm if valid number
     def create
-      current_user.unconfirmed_phone_number =  params[:phone_number]
+      unless params[:phone_number].nil?
+        current_user.unconfirmed_phone_number =  params[:phone_number]
 
-      if current_user.save
-        current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
-        redirect_to confirm_users_two_factor_setup_path and return
+        if current_user.save
+          current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
+          redirect_to confirm_users_two_factor_setup_path and return
+        end
       end
 
+      flash[:alert] = "Your phone number didn't look right. Please try again."
       render :new
     end
 
