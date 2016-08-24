@@ -12,6 +12,7 @@ end
 
 # Core gems
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
+gem 'activerecord-session_store'
 gem 'pg', '>= 0.19.0.beta'
 gem 'puma', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
