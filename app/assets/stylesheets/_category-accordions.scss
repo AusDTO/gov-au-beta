@@ -1,3 +1,7 @@
+%icon-chevron-down--black {
+  @include inline-background-image('chevron-black');
+}
+
 details.swiss {
   margin-top: -1px;
 
@@ -9,7 +13,7 @@ details.swiss {
     font-size: rem(20);
 
     &::before {
-      background-image: asset-url('chevron-black.svg');
+      @extend %icon-chevron-down--black;
     }
   }
 
