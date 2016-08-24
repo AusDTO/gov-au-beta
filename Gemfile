@@ -27,8 +27,6 @@ gem 'dry-types'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
 gem 'cf-app-utils' # cloudfoundry utils
-gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rails-4
-gem 'rails_12factor'
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'mini_magick'
 gem 'friendly_id', github: 'norman/friendly_id', ref: '8531cdce'
