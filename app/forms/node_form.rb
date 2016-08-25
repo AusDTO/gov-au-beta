@@ -11,5 +11,4 @@ class NodeForm < Reform::Form
   property :options, form: OptionsForm
   validates :name, presence: true
   validates :short_summary, presence: true
-  #validates :content_body, content_analysis: true #FIXME: restore once we have feedback and/or ability to ignore
 end

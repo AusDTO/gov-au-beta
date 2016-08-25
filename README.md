@@ -7,14 +7,12 @@ Foo This project provides the user facing frontend to the GOV.AU content site.
 ## GOV.AU stack
 If you're contributing to this repo, then you'll most likely be contributing to the other GOV.AU repos in the stack:
 
-* [GOV.AU Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis)
 * [Experimental GOV.AU Authoring Tool](https://github.com/AusDTO/gov-au-beta-authoring)
 
 ## Dependencies
 
  - Ruby 2.3.1
  - PostgreSQL 9.4
- - [Content Analysis](https://github.com/AusDTO/gov-au-beta-content-analysis)
 
 
 ## Local Ruby on Rails development environment on Mac OSX
@@ -113,7 +111,7 @@ CircleCI will run the test suite and deploy to production on pass.
 ## Migrating data between RDS instances
 
 There may occasionally be a need to migrate data from one RDS instance to another.
-In these instanes, you will require:
+In these instances, you will require:
 
 * CF access to the environments the RDS instances run on
 * Access to a jumpbox  to connect directly to the amazon RDS instances
