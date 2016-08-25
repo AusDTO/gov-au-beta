@@ -23,7 +23,7 @@ module Editorial
     def create
       @form = RequestForm.new(Request.new)
 
-      if @form.validate(params.require(:request).permit!)
+      if @form.validate(request_params)
         # Check for existing request for the user & section
         request = @section.requests.find_by(user: current_user)
 
@@ -85,7 +85,7 @@ module Editorial
     private
 
     def request_params
-      params.required(:request).permit(:state)
+      params.required(:request).permit(:message)
     end
 
   end
