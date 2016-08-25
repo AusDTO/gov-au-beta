@@ -6,9 +6,9 @@
 
       .govau--logo.home
         = image_tag 'icons/logo-crest-2x.png', width: '65'
-      .feedback{tabindex:1}
-        %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
-          Feedback
+
+      = render 'feedback_link'
+
       .homeintro
         %h1
           %span.govau--text{class: sunstate_class}

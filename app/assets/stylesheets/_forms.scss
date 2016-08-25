@@ -1,0 +1,11 @@
+
+form {
+  legend {
+    font-size: 24px;
+    font-weight: 700;
+
+    @media (min-width: 768px) {
+      font-size: 26px;
+    }
+  }
+}

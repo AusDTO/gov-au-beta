@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :feedback, controller: 'feedback'
+
   namespace :editorial do
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article
@@ -50,6 +52,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :custom_template_nodes
     resources :departments
+    resources :feedbacks
     resources :general_contents
     resources :ministers
     resources :news_articles

@@ -32,7 +32,7 @@ module Editorial
 
       # TODO: Handle draft submissions with no sections.
       # This could be handled via a user's context under /editorial/submissions.
-      if @form.validate(params.require(:node).permit!)
+      if @form.validate(news_params)
         if current_user.is_member?(Section.find(@form.section_id))
           # TODO: move this into a form validator
           @form.section_ids.reject! do |s_id|
@@ -103,6 +103,11 @@ module Editorial
     # which should be formed based on the user's membership access.
     def set_sections_by_membership
       @sections = current_user.member_of_sections
+    end
+
+    def news_params
+      params.required(:node).permit(:section_id, {section_ids: []}, :parent_id, :name, :short_summary,
+                                    :summary, :content_body, :options, :release_date)
     end
   end
 end

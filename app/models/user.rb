@@ -50,9 +50,11 @@ class User < ApplicationRecord
 
   # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
-    Thread.new do
-      SMSService.new.send_two_factor_confirmation_code!(self)
+    thread = Thread.new do
+      SMSService.new.send_two_factor_confirmation_code!(self.phone_number, code)
     end
+
+    thread.abort_on_exception = true
   end
 
 
@@ -77,9 +79,11 @@ class User < ApplicationRecord
     code_field = "#{phone_number_field}_otp" if code_field.nil?
     create_direct_otp_for(code_field)
 
-    Thread.new do
+    thread = Thread.new do
       SMSService.new.send_two_factor_confirmation_code_for!(phone_number_field, code_field, self)
     end
+
+    thread.abort_on_exception = true
   end
 
 
