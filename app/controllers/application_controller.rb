@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { redirect_to root_url, :alert => exception.message }
-      format.json { render status: :unauthorized, json: {message: exception.message} }
+      format.json { render status: :unauthorized, json: { message: exception.message } }
     end
   end
 
@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
   def decorated_current_user
     current_user.try(:decorate)
   end
+
 
   protected
   def confirm_two_factor!

@@ -3,6 +3,8 @@ module IncompleteTfaSetup
 
   #TODO: eventually move this into a Warden after_authentication method
   def complete_two_factor_setup
+    return unless Rails.configuration.use_2fa
+
     whitelist = [
         destroy_user_session_path
     ]
