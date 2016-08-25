@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 - Verification of identity when accessing protected pages
 - Phone number verification when changing numbers
 - Simple feedback system and admin
+- Rendering # links as placeholder spans
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
