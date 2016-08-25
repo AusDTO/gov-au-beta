@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20160826021046) do
     t.index ["slug"], name: "index_categories_on_slug", using: :btree
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "url"
+    t.string   "role"
+    t.string   "organisation"
+    t.string   "email"
+    t.text     "comment"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false

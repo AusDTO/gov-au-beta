@@ -31,9 +31,15 @@ class ApplicationController < ActionController::Base
   #TODO: move this into a Warden after_authentication method
   # This seems like a stop-gap but works technically
   def complete_two_factor_setup
+    whitelist = [
+      destroy_user_session_path
+    ]
+
     if current_user && !current_user.account_verified && current_user.confirmed_at
       # Users need to be able to verify their tfa code
-      unless request.path.start_with?(users_two_factor_setup_path)
+      unless request.path.start_with?(users_two_factor_setup_path) ||
+        whitelist.include?(request.path)
+
         redirect_to new_users_two_factor_setup_path
       end
     end
