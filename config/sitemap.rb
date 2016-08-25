@@ -14,6 +14,7 @@ SitemapGenerator::Sitemap.create do
     add departments_path
     add ministers_path
     add news_articles_path
+    add new_feedback_path
 
     Category.roots.find_each do |category|
       add category_path(category.slug)

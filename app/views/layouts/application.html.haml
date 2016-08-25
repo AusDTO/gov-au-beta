@@ -17,6 +17,7 @@
     %a{href: "#content"}
       Skip to main content
   %header{role: 'banner'}
+
     = render 'application/signed_in_nav' if user_signed_in?
     %section.prerelease-govau--header
       - if content_for?(:header)
@@ -28,9 +29,9 @@
             .brandbar.default
               .b1
               .b2
-          .feedback{tabindex:1}
-            %a.button--feedback{href:ENV.fetch('FEEDBACK_URL','')+request.url, role:"button"}
-              Feedback
+
+          = render 'feedback_link'
+
         %nav.breadcrumbs--inverted{'aria-label' => 'breadcrumb'}
           .wrapper
             = breadcrumbs style: :ul, class: nil
