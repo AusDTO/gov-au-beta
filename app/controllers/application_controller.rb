@@ -28,8 +28,7 @@ class ApplicationController < ActionController::Base
     current_user.try(:decorate)
   end
 
-  #TODO: move this into a Warden after_authentication method
-  # This seems like a stop-gap but works technically
+  #TODO: eventually move this into a Warden after_authentication method
   def complete_two_factor_setup
     whitelist = [
       destroy_user_session_path
