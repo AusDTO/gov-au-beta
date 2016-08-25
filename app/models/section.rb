@@ -46,10 +46,11 @@ class Section < ApplicationRecord
 
   # FIXME: this should be done in a controller to break a circular dependency.
   # Fabricators cannot create a SectionHome which creates a Section which creates a SectionHome!
+  # Perhaps a better way is to use a Creator service object (DD)
   def generate_home_node
     unless Rails.env.test?  # <-- added this to avoid breaking specs
       unless home_node.present?
-        SectionHome.create! do |node|
+        create_home_node! do |node|
           node.name = name
           node.content_body = ''
           node.section = self

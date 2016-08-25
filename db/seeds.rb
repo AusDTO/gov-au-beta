@@ -20,7 +20,7 @@ leaf_category = subcategory.children.find_or_create_by!(name: 'Road')
 topic = Topic.find_or_create_by!(name: 'Business')
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.categories << leaf_category
-topic.save
+topic.save!
 
 news1 = NewsArticle.with_name(
     'Business News'
