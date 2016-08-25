@@ -7,6 +7,19 @@ RSpec.describe 'signing in 2fa', type: :feature do
   let!(:otp_user) { Fabricate(:user, bypass_tfa: false) }
   let!(:totp_user) { Fabricate(:totp_user, bypass_tfa: false) }
 
+  let!(:valid_authenticate_request) {
+    stub_request(:post, Rails.configuration.sms_authenticate_url).
+        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
+             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
+        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
+  }
+
+  let!(:send_sms_request) {
+    stub_request(:post, Rails.configuration.sms_send_message_url).
+        with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
+        to_return(:status => 200, :body => "", :headers => {})
+  }
+
   describe 'two factor authentication as otp user' do
     before {
       login_as(otp_user)
@@ -38,6 +51,7 @@ RSpec.describe 'signing in 2fa', type: :feature do
 
 
     context 'with the correct code' do
+
       before {
         fill_in('Enter 6 digit code', with: User.find(otp_user).direct_otp)
         click_button('Verify')
@@ -45,7 +59,9 @@ RSpec.describe 'signing in 2fa', type: :feature do
 
       it 'should redirect to root' do
         expect(current_path).to eq(root_path)
-        expect(page).to have_content(otp_user.email)
+        expect(page).to have_link('Sign out')
+
+        expect(send_sms_request).to have_been_requested
       end
     end
   end

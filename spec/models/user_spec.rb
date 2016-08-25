@@ -55,4 +55,34 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+
+  describe 'send_two_factor_authentication_code' do
+    let!(:user) { Fabricate(:user, bypass_tfa: false, phone_number: '0423456789',
+                            direct_otp: '123456', account_verified: true)
+    }
+
+    let!(:send_sms_request) {
+      stub_request(:post, Rails.configuration.sms_send_message_url).
+          with(:body => "{\"to\":\"#{user.phone_number}\",\"body\":\"Your GOV.AU two-factor authentication code is #{user.direct_otp}\"}",
+               :headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
+          to_return(:status => 200, :body => "", :headers => {})
+    }
+
+    let!(:valid_authenticate_request) {
+      stub_request(:post, Rails.configuration.sms_authenticate_url).
+          with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
+               :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
+          to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
+    }
+
+    context 'for a configured user signing in' do
+      subject {
+        user.send_two_factor_authentication_code(user.direct_otp)
+      }
+
+
+      it { expect{ subject }.to_not raise_error }
+    end
+  end
 end
