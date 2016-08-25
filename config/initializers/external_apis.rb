@@ -7,10 +7,8 @@ Rails.application.configure do
     url
   end
 
-  if !Rails.env.static?
-    config.content_analysis_base_url = check_format(ENV['CONTENT_ANALYSIS_BASE_URL'], 'content analysis base url')
-  else
-    config.content_analysis_base_url = "https://dummy"
-  end
+  # Re-enable when we are using CAS
+  # config.content_analysis_base_url = check_format(ENV['CONTENT_ANALYSIS_BASE_URL'], 'content analysis base url')
+  config.content_analysis_base_url = "https://dummy"
 
 end
