@@ -16,15 +16,21 @@ class SMSService
 
   def send_two_factor_confirmation_code_for!(phone_number_field, code_field, user)
     # Should only ever receive a symbol defined in code, not by the user
-    if user.send(phone_number_field) != nil && user.send(code_field) != nil
-      send_sms(
-        # Should only ever receive a symbol defined in code, not by the user
-        user.send(phone_number_field),
-        "Your GOV.AU two-factor authentication code is #{user.send(code_field)}"
-      )
+    phone_number = user.send(phone_number_field)
+    code = user.send(code_field)
+    if phone_number != nil && code != nil
+      send_two_factor_confirmation_code!(phone_number, code)
     else
       raise "Phone number or OTP not set"
     end
+  end
+
+
+  def send_two_factor_confirmation_code!(phone_number, code)
+    send_sms(
+      phone_number,
+      "Your GOV.AU two-factor authentication code is #{code}"
+    )
   end
 
 
