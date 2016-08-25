@@ -62,6 +62,7 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
     include_examples 'is accessible', 'root_path', true
     include_examples 'is accessible', 'departments_path', true
     include_examples 'is accessible', 'ministers_path', true
+    include_examples 'is accessible', 'new_feedback_path', true
     include_examples 'is accessible', 'news_articles_path', true
     include_examples 'is accessible', 'public_node_path(news_article)', true
     include_examples 'is accessible', 'public_node_path(department.home_node)', true

@@ -79,9 +79,10 @@ end
 group :test, :development do
   gem 'rspec-rails', '>= 3.5.0.beta4'
   gem 'rspec-collection_matchers', '~> 1.1', '>= 1.1.2'
+  gem 'rspec-its'
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
-  gem 'faker', '~> 1.6.3'
+  gem 'faker', '~> 1.6.6'
   gem 'webmock', '~> 2.0.1'
   gem 'simplecov', '~> 0.11.2'
   gem 'capybara', '~> 2.7'
