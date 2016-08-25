@@ -15,7 +15,7 @@ RSpec.describe 'signing in 2fa', type: :feature do
   }
 
   let!(:send_sms_request) {
-    stub_request(:post, "https://smsapi.com/send").
+    stub_request(:post, Rails.configuration.sms_send_message_url).
         with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => "", :headers => {})
   }

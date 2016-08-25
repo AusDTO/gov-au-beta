@@ -23,7 +23,7 @@ RSpec.describe 'changing phone number', type: :feature do
 
   describe 'two_factor_setup#new' do
     let!(:sms_send_request) {
-      stub_request(:post, "https://smsapi.com/send").
+      stub_request(:post, Rails.configuration.sms_send_message_url).
           with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
           to_return(:status => 200, :body => "", :headers => {})
     }

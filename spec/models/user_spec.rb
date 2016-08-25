@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
     }
 
     let!(:send_sms_request) {
-      stub_request(:post, "https://smsapi.com:80/send").
+      stub_request(:post, Rails.configuration.sms_send_message_url).
           with(:body => "{\"to\":\"#{user.phone_number}\",\"body\":\"Your GOV.AU two-factor authentication code is #{user.direct_otp}\"}",
                :headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
           to_return(:status => 200, :body => "", :headers => {})
