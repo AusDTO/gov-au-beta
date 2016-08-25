@@ -13,7 +13,7 @@
             - if topic.respond_to? :url
               = link_to(topic.name, topic.url)
             - else
-              = link_to(topic.name, '#')
+              %span.placeholder-link= topic.name
   %p
     - our_role = node.children.find {|n| n.slug == 'our-role' }
     - if our_role.present?
