@@ -3,10 +3,11 @@
     = yield
 
   = content_for :after_header do
-    %div{class: "hero-med #{hero_class(@section)}"}
-      .wrapper
-        %h1
-          = @section.name
+    - unless @section.is_a? RootSection
+      %div{class: "hero-med #{hero_class(@section)}"}
+        .wrapper
+          %h1
+            = @section.name
 
   - if node.short_summary
     = content_for :meta_description do

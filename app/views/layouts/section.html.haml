@@ -3,10 +3,11 @@
     = yield
 
   = content_for :after_header do
-    %div{class: "hero-sml #{hero_class(@section)}"}
-      .wrapper
-        %p
-          = @section.name
+    - unless @section.is_a? RootSection
+      %div{class: "hero-sml #{hero_class(@section)}"}
+        .wrapper
+          %p
+            = @section.name
 
 
   = content_for :meta_description do

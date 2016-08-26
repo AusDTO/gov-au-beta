@@ -12,17 +12,18 @@
 
 
 = content_for(:after_header) do
-  - if @section
-    %div{class: "hero-sml #{hero_class(@section)}"}
-      .wrapper
-        %p
-          = @section.name
-  - else
-    .hero-med
-      .wrapper
-        %h1 News
-        %p
-          Announcements, media releases, interviews, speeches and more from the Australian Government.
+  - unless @section.is_a? RootSection
+    - if @section
+      %div{class: "hero-sml #{hero_class(@section)}"}
+        .wrapper
+          %p
+            = @section.name
+    - else
+      .hero-med
+        .wrapper
+          %h1 News
+          %p
+            Announcements, media releases, interviews, speeches and more from the Australian Government.
 
 %article#content{class: "#{news_article_class}"}
   -# H1 not included in the hero bar for section news lists so include it here
