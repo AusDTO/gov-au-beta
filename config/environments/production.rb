@@ -108,4 +108,7 @@ Rails.application.configure do
   # Set SMS provider
   config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
   config.sms_send_message_url = ENV['SMS_SEND_MESSAGE_URL']
+
+  #Set use of two-factor auth
+  config.use_2fa = !ENV['DISABLE_2FA'].present?
 end
