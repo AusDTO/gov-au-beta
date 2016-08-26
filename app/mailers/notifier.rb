@@ -14,4 +14,13 @@ class Notifier < ApplicationMailer
       end
     end
   end
+
+  def user_invite(user, reset_token)
+    @user = user
+    @url = user_confirmation_url(confirmation_token: @user.confirmation_token, reset_password_token: reset_token)
+    mail(to: user.email, subject: "Invitation to GOV.AU Beta") do |format|
+      format.text
+      format.html
+    end
+  end
 end
