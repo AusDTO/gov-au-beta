@@ -1,5 +1,5 @@
 
-%section#content.content-main.form_wrapper{role: "main"}
+%section#content.content-main.form_wrapper{role: "main", tabindex: -1}
   %h1 Your feedback
   = simple_form_for(@form, url: feedback_path) do |f|
     = f.input :comment, as: :text
