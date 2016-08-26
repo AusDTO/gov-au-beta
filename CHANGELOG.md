@@ -12,6 +12,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
+- Upgrade UI kit to v1.7.5
 
 ### Fixed
 - Fixed leaking email addresses on password reset and resend email confirmation pages
