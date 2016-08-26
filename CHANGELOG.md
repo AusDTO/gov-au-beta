@@ -9,6 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 - Phone number verification when changing numbers
 - Simple feedback system and admin
 - Rendering # links as placeholder spans
+- Root level pages able to be created 
 
 ### Changed
 - Upgrade Rails to v5.0.0.1

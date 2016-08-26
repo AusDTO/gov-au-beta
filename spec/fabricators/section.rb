@@ -5,6 +5,10 @@ Fabricator(:section) do
   after_build { Fabricate(:root_node) unless Node.root_node }
 end
 
+Fabricator(:root_section, from: :section, class_name: :root_section) do
+  name { Fabricate.sequence(:root_section_name) { |i| "root_section-#{i}" } }
+end
+
 Fabricator(:agency, from: :section, class_name: :agency) do
   name { Fabricate.sequence(:agency_name) { |i| "agency-#{i}" } }
 end

@@ -4,7 +4,7 @@
       %nav.controls
         %p.inline-links--inverted
           = link_to('Editorial', editorial_root_path)
-          - if @section
+          - if @section and not @section.is_a? RootSection
             %b  /
             = link_to @section.name, editorial_section_path(@section)
         = yield :toolbar_actions
