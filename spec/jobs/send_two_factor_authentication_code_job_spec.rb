@@ -26,7 +26,6 @@ RSpec.describe SendTwoFactorAuthenticationCodeJob, type: :job do
 
     it 'sends the api request' do
       subject
-      expect(valid_authenticate_request).to have_been_requested
       expect(send_sms_request).to have_been_requested
     end
   end
