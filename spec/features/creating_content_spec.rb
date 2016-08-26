@@ -5,14 +5,6 @@ RSpec.describe 'creating content:', type: :feature do
   Warden.test_mode!
 
   before :each do
-    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /Bad.*Content/i)
-        .to_return(:headers => {'Content-Type' => 'application/json'},
-                   :body => '{"Bad Content" : "Good Content"}')
-    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /(Good|Random).*Content/i)
-        .to_return(:headers => {'Content-Type' => 'application/json'},
-                   :body => '{}')
     login_as(author_user, scope: :user)
   end
 
@@ -77,16 +69,6 @@ RSpec.describe 'creating content:', type: :feature do
         end
       end
     end
-
-    # FIXME: restore this spec once CAS validation is restored
-    # context 'with invalid data' do
-    #   it 'return to the edit form' do
-    #     fill_in('Name', with: name)
-    #     fill_in('Body', with: 'Bad Content')
-    #     click_button('Create')
-    #     expect(page).to have_content(/failed.*content.*analysis/i)
-    #   end
-    # end
 
     it_behaves_like 'robust to XSS'
   end
