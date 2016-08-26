@@ -59,13 +59,7 @@ class User < ApplicationRecord
 
 
   def need_two_factor_authentication?(request)
-    if Rails.env.development?
-      unless Rails.configuration.force_2fa.present?
-        return false
-      end
-    end
-
-    return !self.bypass_tfa && self.account_verified
+    Rails.configuration.use_2fa && !self.bypass_tfa && self.account_verified
   end
 
 

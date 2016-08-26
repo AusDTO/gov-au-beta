@@ -64,5 +64,6 @@ Rails.application.configure do
   config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
   config.sms_send_message_url = ENV['SMS_SEND_MESSAGE_URL']
 
-  config.force_2fa = ENV['FORCE_2FA']
+  #Set use of two-factor auth
+  config.use_2fa = ENV['FORCE_2FA'].present?
 end
