@@ -9,19 +9,6 @@ RSpec.describe Users::TwoFactorSetupController, type: :controller do
               phone_number: nil, account_verified: false)
   }
 
-  let!(:valid_authenticate_request) {
-    stub_request(:post, Rails.configuration.sms_authenticate_url).
-        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
-             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
-        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
-  }
-
-  let!(:send_sms_request) {
-    stub_request(:post, Rails.configuration.sms_send_message_url).
-        with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
-        to_return(:status => 200, :body => "", :headers => {})
-  }
-
   describe 'post #create' do
     context 'with a valid phone number' do
       before { sign_in(incomplete_user) }

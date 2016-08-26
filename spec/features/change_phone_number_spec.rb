@@ -13,22 +13,8 @@ RSpec.describe 'changing phone number', type: :feature do
     click_button('Verify')
   }
 
-  let!(:sms_authenticate_request) {
-    stub_request(:post, Rails.configuration.sms_authenticate_url).
-        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
-             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
-        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
-  }
-
 
   describe 'two_factor_setup#new' do
-    let!(:sms_send_request) {
-      stub_request(:post, Rails.configuration.sms_send_message_url).
-          with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
-          to_return(:status => 200, :body => "", :headers => {})
-    }
-
-
     before {
       login_as(user)
       visit new_users_two_factor_setup_path
