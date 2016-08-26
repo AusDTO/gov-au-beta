@@ -6,7 +6,10 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
+    include ::IncompleteTfaSetup
+
     before_action ->() { authorize! :manage, :all }
+    before_action :complete_two_factor_setup
 
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
