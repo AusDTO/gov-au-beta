@@ -56,4 +56,7 @@ Rails.application.configure do
   # Set SMS provider
   config.sms_authenticate_url = 'https://smsapi.com/auth'
   config.sms_send_message_url = 'https://smsapi.com/send'
+
+  #Set use of two-factor auth
+  config.use_2fa = true
 end

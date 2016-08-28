@@ -12,11 +12,15 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
+- Upgrade UI kit to v1.7.5
+- Improvements to Category landing page layout including collapsing regions
+- Remove references to content analysis service
 
 ### Fixed
 - Fixed leaking email addresses on password reset and resend email confirmation pages
 - Remove instances of permit! mass assignment
 
+- Improved accessibility
 
 ## [v1.1.0] - 2016-08-23
 ### Added

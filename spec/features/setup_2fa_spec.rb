@@ -14,6 +14,38 @@ RSpec.describe 'two factor setup', type: :feature do
               phone_number: '0423456789', identity_verified_at: Time.now.utc)
   }
 
+  let!(:sms_authenticate_request) {
+    stub_request(:post, Rails.configuration.sms_authenticate_url).
+        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
+             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
+        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
+  }
+
+  let!(:sms_sms_request) {
+    stub_request(:post, Rails.configuration.sms_send_message_url).
+        with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
+        to_return(:status => 200, :body => "", :headers => {})
+  }
+
+
+  describe 'incomplete admin 2fa setup' do
+    let!(:admin) { Fabricate(:user, is_admin: true, bypass_tfa: false,
+                              account_verified: false, phone_number: nil)
+    }
+
+    context 'when signing in' do
+      before {
+        login_as(admin)
+        visit admin_root_path
+      }
+
+      it 'should force 2fa setup' do
+        expect(page).to have_content('To sign up, you will need to verify your account')
+      end
+    end
+  end
+
+
   describe 'complete 2fa' do
     before {
       login_as(incomplete_user)

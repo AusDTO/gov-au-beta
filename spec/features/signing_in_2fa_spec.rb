@@ -20,6 +20,26 @@ RSpec.describe 'signing in 2fa', type: :feature do
         to_return(:status => 200, :body => "", :headers => {})
   }
 
+
+  describe 'two factor authentication as admin' do
+    let!(:admin) { Fabricate(:user, is_admin: true, bypass_tfa: false) }
+
+    context 'when logging in' do
+      before{
+        login_as(admin)
+        visit admin_root_path
+      }
+
+
+      it 'should force user to do 2fa' do
+        expect(page).to have_content('Enter the code that was sent to you')
+        expect(page).to have_field('Enter 6 digit code')
+      end
+    end
+
+  end
+
+
   describe 'two factor authentication as otp user' do
     before {
       login_as(otp_user)
