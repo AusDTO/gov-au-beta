@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe NodesController, :type => :controller do
   describe 'GET #show' do
     let!(:root_node) { Fabricate(:root_node) }
-    let!(:root) { Fabricate(:root_section, name: 'root')}
-    let!(:bar) { Fabricate(:general_content, name: 'bar',section: root, parent: Node.root_node)}
+    let!(:bar) { Fabricate(:general_content, name: 'bar',section: root_node.section, parent: Node.root_node)}
     let!(:foo) { Fabricate(:section, name: 'foo')}
     let!(:section_home) { Fabricate(:section_home, section: foo)}
 
