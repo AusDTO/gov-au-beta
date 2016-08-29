@@ -7,7 +7,8 @@
   Edit #{@form.model.name} metadata
 
 = simple_form_for [:editorial, @form], as: :node, url: editorial_section_node_path(@form.model.section, @form.model)  do |f|
-  = f.input :parent_id, collection: @section.nodes.order(:name), include_blank: true, required: false, selected: @form.parent_id
+  - if @form.model.reparentable?
+    = f.input :parent_id, collection: @section.nodes.order(:name), include_blank: true, required: false, selected: @form.parent_id
   - unless @form.children.empty?
     %fieldset
       %legend

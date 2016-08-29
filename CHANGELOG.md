@@ -24,7 +24,8 @@ This file is influenced by http://keepachangelog.com/.
 - Improved accessibility
 - Switched to database backed session stores for greater security
 - Fixed styling of the active page in the sidebar
-- Confirm seeded users
+- Seeded users do not require email confirmation
+- Fixed bug that was preventing reordering children of a section home
 
 ## [v1.1.0] - 2016-08-23
 ### Added
