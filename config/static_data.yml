@@ -1,7 +1,6 @@
 department_topics:
   department-of-finance:
-    blurb: >
-      The Budget, financial reporting processes, asset management and more.
+    blurb: We provide information and deliver services related to finance.
     topics:
       - name: Budget
         image: related_topics/budget.png
@@ -10,7 +9,7 @@ department_topics:
       - name: Parliamentary entitlements
         image: related_topics/parliamentary_entitlements.png
   department-of-health:
-    blurb: Health conditions, solutions, insurance and more.
+    blurb: We provide information and deliver services related to health, aged care and sport.
     topics:
       - name: Ageing and aged care
         image: related_topics/ageing.png
@@ -19,7 +18,7 @@ department_topics:
       - name: My Health Record
         image: related_topics/health_record.png
   department-of-immigration-and-border-protection:
-    blurb: Visiting, working and studying in Australia and more.
+    blurb: We provide information and deliver services related to immigration and border protection.
     topics:
       - name: Citizenship
         image: related_topics/citizenship.png
@@ -28,21 +27,120 @@ department_topics:
       - name: Visiting Australia
         image: related_topics/visiting_australia.png
   department-of-the-prime-minister-and-cabinet:
-    blurb: Security, public data, climate change and more.
+    blurb: 
     topics:
       - name: Cyber Security
         image: related_topics/cyber_security.png
       - name: National Security
         image: related_topics/national_security.png
-      - name: Climate change
-        image: related_topics/climate_change.png
+      - name: Indigenous affairs
+        image: related_topics/indigenous_affairs.png
   department-of-communications-and-the-arts:
-    blurb: The internet, television, phones, the arts and more.
+    blurb: We provide information and deliver services related to communications and the arts.
     topics:
       - name: Television reception
         image: related_topics/television_reception.png
-        url: /television-tv-reception
+        url: /television-reception
       - name: Online safety
         image: related_topics/online_safety.png
       - name: Arts
         image: related_topics/arts.png
+  attorney-general-s-department:
+    blurb: We provide information and deliver services related to law and justice.
+    topics:
+      - name: Legal system
+        image: related_topics/blank.png
+      - name: Crime and corruption
+        image: related_topics/blank.png
+      - name: Adoption
+        image: related_topics/blank.png
+  department-of-agriculture-and-water-resources:
+    blurb: We provide information and deliver services related to agriculture and water resources.
+    topics:
+      - name: Biosecurity
+        image: related_topics/blank.png
+      - name: Agricultural research
+        image: related_topics/blank.png
+      - name: Water management
+        image: related_topics/blank.png
+  department-of-defence:
+    blurb: We provide information and deliver services related to defence.
+    topics:
+      - name: Intelligence
+        image: related_topics/blank.png
+      - name: Defence
+        image: related_topics/blank.png
+      - name: Technology research
+        image: related_topics/blank.png
+  department-of-education-and-training:
+    blurb: We provide information and deliver services related to education and training.
+    topics:
+      - name: Early childhood education
+        image: related_topics/blank.png
+      - name: Apprenticeships
+        image: related_topics/blank.png
+      - name: Career planning
+        image: related_topics/blank.png
+  department-of-employment:
+    blurb: We provide information and deliver services related to employment.
+    topics:
+      - name: Career planning
+        image: related_topics/blank.png
+      - name: Awards and agreements
+        image: related_topics/blank.png
+      - name: Entitlements
+        image: related_topics/blank.png
+  department-of-foreign-affairs-and-trade:
+    blurb: We provide information and deliver services related to foreign affairs and trade.
+    topics:
+      - name: Countries, economies and regions
+        image: related_topics/blank.png
+      - name: Australian embassies
+        image: related_topics/blank.png
+      - name: Climate change
+        image: related_topics/blank.png
+  department-of-industry-innovation-and-science:
+    blurb: We provide information and deliver services related to industry, innovation and science.
+    topics:
+      - name: Innovation
+        image: related_topics/blank.png
+      - name: Industry development
+        image: related_topics/blank.png
+      - name: Science
+        image: related_topics/blank.png
+  department-of-infrastructure-and-regional-development:
+    blurb: We provide information and deliver services related to infrastructure and regional development.
+    topics:
+      - name: Infrastructure
+        image: related_topics/blank.png
+      - name: Aviation safety and security
+        image: related_topics/blank.png
+      - name: Australian Territories
+        image: related_topics/blank.png
+  department-of-social-services:
+    blurb: We provide information and deliver services related to social services.
+    topics:
+      - name: Immunisation
+        image: related_topics/blank.png
+      - name: Medicare
+        image: related_topics/blank.png
+      - name: Child support
+        image: related_topics/blank.png
+  department-of-the-environment-and-energy:
+    blurb: We provide information and deliver services related to the environment and energy.
+    topics:
+      - name: Climate change
+        image: related_topics/blank.png
+      - name: Renewable energy
+        image: related_topics/blank.png
+      - name: National parks
+        image: related_topics/blank.png
+  department-of-the-treasury:
+    blurb: 
+    topics:
+      - name: Budget
+        image: related_topics/blank.png
+      - name: Tax reform
+        image: related_topics/blank.png
+      - name: Super reform
+        image: related_topics/blank.png
