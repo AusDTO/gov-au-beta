@@ -4,9 +4,15 @@
   %nav.local-nav{'aria-label' => 'main navigation'}
     %h1.is-visuallyhidden
       Menu
+
+    - klass = 'is-active' if !active.nil? && (node == active || (active.options.suppress_in_nav && node == active.parent))
+
+    -# highlight the section header of the navigation if it's the current node
+    - klass += ' is-current' if (node == @section.home_node)
+
     -if menu_nodes.present?
       %ul
         %li
-          = link_to @section.name, public_node_path(@section.home_node), class: 'is-active'
+          = link_to @section.name, public_node_path(@section.home_node), class: klass
           %ul
             = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }
