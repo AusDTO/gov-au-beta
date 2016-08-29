@@ -16,4 +16,7 @@ Rails.application.configure do
       protocol: 'http',
       host: 'localhost:3001'
   }
+
+  #Set use of two-factor auth
+  config.use_2fa = false
 end

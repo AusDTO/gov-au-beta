@@ -10,14 +10,6 @@ RSpec.describe 'editing content', type: :feature do
   let!(:author) { Fabricate(:user, author_of: section) }
 
   before :each do
-    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /Bad.*Content/)
-        .to_return(:headers => {'Content-Type' => 'application/json'},
-                   :body => '{"Bad Content" : "Good Content"}')
-    stub_request(:post, Rails.application.config.content_analysis_base_url + '/api/linters')
-        .with(body: /(Good|Random).*Content/i)
-        .to_return(:headers => {'Content-Type' => 'application/json'},
-                   :body => '{}')
     login_as(author, scope: :user)
   end
 

@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
+  include IncompleteTfaSetup
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -28,22 +29,6 @@ class ApplicationController < ActionController::Base
     current_user.try(:decorate)
   end
 
-  #TODO: move this into a Warden after_authentication method
-  # This seems like a stop-gap but works technically
-  def complete_two_factor_setup
-    whitelist = [
-      destroy_user_session_path
-    ]
-
-    if current_user && !current_user.account_verified && current_user.confirmed_at
-      # Users need to be able to verify their tfa code
-      unless request.path.start_with?(users_two_factor_setup_path) ||
-        whitelist.include?(request.path)
-
-        redirect_to new_users_two_factor_setup_path
-      end
-    end
-  end
 
   protected
   def confirm_two_factor!

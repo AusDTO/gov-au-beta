@@ -8,19 +8,30 @@
     .wrapper
       %h1= @category.name
       %p= @category.summary
-
+      .links-group
+        %h2 Popular now
+        %ul
+          - @category.sections.each do |section|
+            - if not section.home_node.options.suppress_in_nav
+              - if section.home_node.state.draft?
+                %li
+                  %span.placeholder-link= section.name
+              - else
+                %li=link_to(section.name, nodes_path(section.slug))
 
 %article.content-main
   - @category.children.each do |subcategory|
     %h2= subcategory.name
-    - subcategory.children.each do |leaf_category|
-      %h4= leaf_category.name
-      %ul
-        - leaf_category.sections.each do |section|
-          - if not section.home_node.options.suppress_in_nav
-            - if section.home_node.options.placeholder
-              %li
-                %span.placeholder-link= section.name
-            - else
-              %li
-                =link_to(section.name, nodes_path(section.slug))
+    .accordion-group
+      - subcategory.children.each_with_index do |leaf_category, index|
+        %details{"data-label": "category-accordion-#{index}", :class => "swiss", "aria-expanded": "true", "open": ""}
+          %summary= leaf_category.name
+          .accordion-panel
+            %ul
+              - leaf_category.sections.each do |section|
+                - if not section.home_node.options.suppress_in_nav
+                  - if section.home_node.state.draft?
+                    %li
+                      %span.placeholder-link= section.name
+                  - else
+                    %li=link_to(section.name, nodes_path(section.slug))
