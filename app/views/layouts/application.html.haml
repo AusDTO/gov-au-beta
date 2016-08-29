@@ -50,20 +50,16 @@
           .footer-logo
             = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
         .footer-links
-          %nav
-            %ul
-              %li
-                %span.placeholder-link About
-              %li
-                %span.placeholder-link Accessibility
-              %li
-                %span.placeholder-link Copyright
-              %li
-                %span.placeholder-link Help
-              %li
-                %span.placeholder-link Site map
-              %li
-                %span.placeholder-link Terms of use
+          - if about_section
+            %nav
+              %ul
+                %li
+                  =link_to(about_section.name, nodes_path(about_section.slug))
+                - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
+                  %li
+                    %a{ href: public_node_path(node)}
+                      = node.name
+
           %p
             &copy; Commonwealth of Australia
             %br

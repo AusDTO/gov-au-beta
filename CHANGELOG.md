@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 - Rendering # links as placeholder spans
 - Section owners and admins can create new users
 - Importing database dump from S3
+- Footer links can be maintained using a "About GOV.AU" section
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
