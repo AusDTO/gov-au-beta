@@ -51,6 +51,7 @@ describe 'editorial authorisation:' do
         '/editorial/%{section_id}/requests/%{request_id}' => false,
         '/editorial/news'                           => false,
         '/editorial/news/new'                       => false,
+        '/editorial/users/new'                      => false,
     }
   end
 
@@ -70,6 +71,7 @@ describe 'editorial authorisation:' do
           '/editorial/%{section_id}/requests/%{request_id}' => true,
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => false,
+          '/editorial/users/new'                      => false,
       }
     end
 
@@ -87,6 +89,7 @@ describe 'editorial authorisation:' do
           '/editorial/%{section_id}/requests/%{request_id}' => false,
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => true,
+          '/editorial/users/new'                      => false,
       }
     end
 
@@ -104,6 +107,7 @@ describe 'editorial authorisation:' do
           '/editorial/%{section_id}/requests/%{request_id}' => false,
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => false,
+          '/editorial/users/new'                      => false,
       }
     end
 
@@ -121,6 +125,7 @@ describe 'editorial authorisation:' do
           '/editorial/%{section_id}/requests/%{request_id}' => true,
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => false,
+          '/editorial/users/new'                      => true,
       }
     end
 
@@ -138,6 +143,7 @@ describe 'editorial authorisation:' do
           '/editorial/%{section_id}/requests/%{request_id}' => true,
           '/editorial/news'                           => true,
           '/editorial/news/new'                       => true,
+          '/editorial/users/new'                      => true,
       }
     end
   end

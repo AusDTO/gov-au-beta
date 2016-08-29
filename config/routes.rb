@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' }
 
   namespace :users do
     resource :two_factor_setup, only: [:new, :create, :update], controller: 'two_factor_setup' do
@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get '/:section/news/:slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'
+
+    resources :users, only: [:new, :create]
 
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do

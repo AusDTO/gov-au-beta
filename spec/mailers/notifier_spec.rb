@@ -52,4 +52,20 @@ RSpec.describe Notifier, type: :mailer do
       let!(:content) { requester.email }
     end
   end
+
+  describe '#user_invite' do
+    let(:user) { Fabricate(:user) }
+    let(:reset_token) { 'reset_token' }
+    let(:mail) { described_class.user_invite(user, reset_token).deliver_now }
+
+    it_behaves_like 'a multipart email'
+
+    it 'sends to the user' do
+      expect(mail.to).to eq([user.email])
+    end
+
+    it_behaves_like 'has content' do
+      let!(:content) { reset_token }
+    end
+  end
 end
