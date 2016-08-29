@@ -1,10 +1,9 @@
--# locals: nodes, depth, active
+-# locals: nodes, depth, active_chain
 
 - if nodes
   - nodes.reject{|n| n.options.suppress_in_nav}.each do |node|
     %li
-      -# TODO: Handle nav suppression at any level of the hierarchy (not just leaf nodes)
-      - klass = 'is-active current' if !active.nil? && (node == active || (active.options.suppress_in_nav && node == active.parent))
+      - klass = menu_node_class(node, active_chain)
 
       - if node.options.placeholder
         %a{ href: "javascript:return(0)", class: klass }
@@ -15,4 +14,4 @@
 
       - if depth > 1 && node.children.published.present?
         %ul
-          = render partial: 'navbar_part', locals: { nodes: node.children.published, depth: depth - 1, active: active }
+          = render partial: 'navbar_part', locals: { nodes: node.children.published, depth: depth - 1, active_chain: active_chain }

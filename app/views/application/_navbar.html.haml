@@ -1,5 +1,7 @@
 -# locals: menu_nodes, active
 
+- active_chain = menu_active_chain(active)
+
 %aside.sidebar
   %nav.local-nav{'aria-label' => 'main navigation'}
     %h1.is-visuallyhidden
@@ -7,6 +9,6 @@
     -if menu_nodes.present?
       %ul
         %li
-          = link_to @section.name, public_node_path(@section.home_node), class: 'is-active'
+          = link_to @section.name, public_node_path(@section.home_node), class: menu_node_class(@section.home_node, active_chain)
           %ul
-            = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active: active }
+            = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active_chain: active_chain }
