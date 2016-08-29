@@ -2,23 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'signing in 2fa', type: :feature do
   Warden.test_mode!
+  ActiveJob::Base.queue_adapter = :test
 
   let!(:root_node) { Fabricate(:root_node) }
   let!(:otp_user) { Fabricate(:user, bypass_tfa: false) }
   let!(:totp_user) { Fabricate(:totp_user, bypass_tfa: false) }
-
-  let!(:valid_authenticate_request) {
-    stub_request(:post, Rails.configuration.sms_authenticate_url).
-        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
-             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
-        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
-  }
-
-  let!(:send_sms_request) {
-    stub_request(:post, Rails.configuration.sms_send_message_url).
-        with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
-        to_return(:status => 200, :body => "", :headers => {})
-  }
 
 
   describe 'two factor authentication as admin' do
@@ -41,47 +29,53 @@ RSpec.describe 'signing in 2fa', type: :feature do
 
 
   describe 'two factor authentication as otp user' do
-    before {
+    subject {
       login_as(otp_user)
       # Need to navigate somewhere to trigger 2fa login for tests
       visit root_path
     }
 
-    it 'should ask for code input' do
-      expect(page).to have_content('Enter the code that was sent to you')
-      expect(page).to have_field('Enter 6 digit code')
-    end
+    it {
+      expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeForJob)
+    }
 
+    context 'with a sent code' do
+      before { subject }
 
-    it 'should provide a resend link' do
-      expect(page).to have_link('Resend now')
-    end
-
-    context 'with the incorrect code' do
-      before {
-        fill_in('Enter 6 digit code', with: '000000')
-        click_button('Verify')
-      }
-
-      it 'should return an error' do
-        expect(page).to have_content('Attempt failed.')
+      it 'should ask for code input' do
+        expect(page).to have_content('Enter the code that was sent to you')
         expect(page).to have_field('Enter 6 digit code')
       end
-    end
 
 
-    context 'with the correct code' do
+      it 'should provide a resend link' do
+        expect(page).to have_link('Resend now')
+      end
 
-      before {
-        fill_in('Enter 6 digit code', with: User.find(otp_user).direct_otp)
-        click_button('Verify')
-      }
+      context 'with the incorrect code' do
+        before {
+          fill_in('Enter 6 digit code', with: '000000')
+          click_button('Verify')
+        }
 
-      it 'should redirect to root' do
-        expect(current_path).to eq(root_path)
-        expect(page).to have_link('Sign out')
+        it 'should return an error' do
+          expect(page).to have_content('Attempt failed.')
+          expect(page).to have_field('Enter 6 digit code')
+        end
+      end
 
-        expect(send_sms_request).to have_been_requested
+
+      context 'with the correct code' do
+
+        before {
+          fill_in('Enter 6 digit code', with: User.find(otp_user).direct_otp)
+          click_button('Verify')
+        }
+
+        it 'should redirect to root' do
+          expect(current_path).to eq(root_path)
+          expect(page).to have_link('Sign out')
+        end
       end
     end
   end
@@ -129,24 +123,32 @@ RSpec.describe 'signing in 2fa', type: :feature do
     end
 
     context 'with sms requested instead' do
-      before {
+      subject {
         click_link('Send me a code instead')
       }
 
-      it 'ask for sms code input' do
-        expect(page).to have_content('Enter the code that was sent to you')
-      end
+      it {
+        expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeForJob)
+      }
 
-      context 'with the correct code' do
-        before {
-          fill_in('Enter 6 digit code', with: User.find(totp_user).direct_otp)
-          click_button('Verify')
-        }
+      context 'with a sent code' do
+        before { subject }
+
+        it 'ask for sms code input' do
+          expect(page).to have_content('Enter the code that was sent to you')
+        end
+
+        context 'with the correct code' do
+          before {
+            fill_in('Enter 6 digit code', with: User.find(totp_user).direct_otp)
+            click_button('Verify')
+          }
 
 
-        it 'should login user' do
-          expect(current_path).to eq(root_path)
-          expect(page).to have_content(totp_user.email)
+          it 'should login user' do
+            expect(current_path).to eq(root_path)
+            expect(page).to have_content(totp_user.email)
+          end
         end
       end
     end
