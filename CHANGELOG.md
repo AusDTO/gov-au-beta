@@ -19,8 +19,8 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 - Fixed leaking email addresses on password reset and resend email confirmation pages
 - Remove instances of permit! mass assignment
-
 - Improved accessibility
+- Switched to database backed session stores for greater security
 
 ## [v1.1.0] - 2016-08-23
 ### Added

@@ -12,6 +12,7 @@ end
 
 # Core gems
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
+gem 'activerecord-session_store'
 gem 'pg', '>= 0.19.0.beta'
 gem 'puma', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
@@ -55,6 +56,7 @@ gem 'sitemap_generator'
 gem 'newrelic_rpm'
 gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
 gem 'aws-sdk', '~> 2'
+gem 'rufus-scheduler'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
