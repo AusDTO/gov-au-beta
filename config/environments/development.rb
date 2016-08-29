@@ -57,8 +57,13 @@ Rails.application.configure do
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
 
-  config.version_tag = 'dummy_version'
-  config.version_sha = 'dummy_sha'
+  def config.version_tag
+    `git describe --tags` rescue 'dummy_version'
+  end
+
+  def config.version_sha
+    `git rev-parse HEAD`.strip rescue 'dummy_sha'
+  end
 
   # Set SMS provider
   config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
