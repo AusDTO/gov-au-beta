@@ -36,7 +36,7 @@ RSpec.describe 'signing in 2fa', type: :feature do
     }
 
     it {
-      expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeJob)
+      expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeForJob)
     }
 
     context 'with a sent code' do
@@ -128,7 +128,7 @@ RSpec.describe 'signing in 2fa', type: :feature do
       }
 
       it {
-        expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeJob)
+        expect{ subject }.to have_enqueued_job(SendTwoFactorAuthenticationCodeForJob)
       }
 
       context 'with a sent code' do

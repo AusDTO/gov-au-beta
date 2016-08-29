@@ -18,6 +18,10 @@ RSpec.describe SendTwoFactorAuthenticationCodeForJob, type: :job do
     )
   }
 
+  before(:each) do
+    SMSService.class_variable_set :@@token, nil
+  end
+
   describe 'for a confirmed user phone number' do
     subject { described_class.perform_now(:phone_number, :direct_otp, complete_user)}
     let!(:send_sms_request) {
@@ -54,6 +58,7 @@ RSpec.describe SendTwoFactorAuthenticationCodeForJob, type: :job do
 
     it 'should authenticate the sms service and send the sms' do
       subject
+      expect(valid_authenticate_request).to have_been_requested
       expect(send_sms_request).to have_been_requested
     end
   end

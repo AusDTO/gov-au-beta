@@ -50,7 +50,11 @@ class User < ApplicationRecord
 
   # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
-    SendTwoFactorAuthenticationCodeJob.perform_later code, self
+    SendTwoFactorAuthenticationCodeForJob.perform_later(
+       :phone_number.to_s,
+       :direct_otp.to_s,
+       self
+    )
   end
 
 
