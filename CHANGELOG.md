@@ -26,6 +26,10 @@ This file is influenced by http://keepachangelog.com/.
 - Fixed styling of the active page in the sidebar
 - Confirm seeded users
 
+### Removed
+- A user can no longer sign themselves up
+
+
 ## [v1.1.0] - 2016-08-23
 ### Added
 - Added ability to group topics into categories
