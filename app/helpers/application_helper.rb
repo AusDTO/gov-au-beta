@@ -4,6 +4,10 @@ module ApplicationHelper
     render template: "layouts/#{parent_layout}"
   end
 
+  def about_section()
+    Node.find_by(:slug => 'about-gov-au')
+  end
+
   def sunstate_class()
     if ENV['ENABLE_EASTER_EGG']
       today = Time.now
