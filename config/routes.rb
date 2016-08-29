@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' }
+  devise_for :users, controllers: { confirmations: 'confirmations' }, skip: [:registrations]
+  as :user do
+    get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'registrations#update', :as => 'user_registration'
+  end
 
   namespace :users do
     resource :two_factor_setup, only: [:new, :create, :update], controller: 'two_factor_setup' do

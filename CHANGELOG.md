@@ -27,6 +27,10 @@ This file is influenced by http://keepachangelog.com/.
 - Seeded users do not require email confirmation
 - Fixed bug that was preventing reordering children of a section home
 
+### Removed
+- A user can no longer sign themselves up
+
+
 ## [v1.1.0] - 2016-08-23
 ### Added
 - Added ability to group topics into categories

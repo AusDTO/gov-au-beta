@@ -36,10 +36,6 @@ RSpec.describe 'cannot enumerate emails', type: :feature do
     expect(flash1).to eq(flash2)
   end
 
-  it 'on sign up form' do
-    # TODO
-  end
-
   it 'on sign in form' do
     visit new_user_session_path
     fill_in('Email', with: user.email)
