@@ -14,10 +14,8 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
       visit url
       expect(page.status_code).to eq(200)
       # list of rules: https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md
-      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa, 'best-practice').skipping('region')
-      # There are currently issues with the region tests failing on the HTML tag, so we only test that within the body
-      # https://github.com/dequelabs/axe-core/issues/215
-      expect(page).to be_accessible.within('body').checking_only('region')
+      # Bugfix for regions: https://github.com/AusDTO/gov-au-ui-kit/issues/313
+      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa, 'best-practice')
     end
   end
 
