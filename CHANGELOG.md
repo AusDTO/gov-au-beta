@@ -24,7 +24,7 @@ This file is influenced by http://keepachangelog.com/.
 - Improved accessibility
 - Switched to database backed session stores for greater security
 - Fixed styling of the active page in the sidebar
-
+- Confirm seeded users
 
 ## [v1.1.0] - 2016-08-23
 ### Added
