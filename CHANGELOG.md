@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 - Simple feedback system and admin
 - Rendering # links as placeholder spans
 - Section owners and admins can create new users
+- Importing database dump from S3
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
