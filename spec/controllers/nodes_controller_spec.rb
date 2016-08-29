@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe NodesController, :type => :controller do
   describe 'GET #show' do
     let!(:root_node) { Fabricate(:root_node) }
+    let!(:bar) { Fabricate(:general_content, name: 'bar',section: root_node.section, parent: Node.root_node)}
     let!(:foo) { Fabricate(:section, name: 'foo')}
     let!(:section_home) { Fabricate(:section_home, section: foo)}
 
@@ -39,6 +40,13 @@ RSpec.describe NodesController, :type => :controller do
       context 'given a page nested beneath another page' do
         it 'should return the page successfully' do
           get :show, params: { path: 'foo/zero/four/six' }
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context 'given a page nested beneath a root section' do
+        it 'should return the page successfully' do
+          get :show, params: { path: 'bar' }
           expect(response.status).to eq(200)
         end
       end

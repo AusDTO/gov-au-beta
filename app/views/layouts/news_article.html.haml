@@ -6,10 +6,11 @@
     = @node.name
 
   = content_for :after_header do
-    %div{class: "hero-sml #{hero_class(@section)}"}
-      .wrapper
-        %p
-          = @section.name
+    - unless @section.is_a? RootSection
+      %div{class: "hero-sml #{hero_class(@section)}"}
+        .wrapper
+          %p
+            = @section.name
 
   = content_for :toolbar_actions do
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}

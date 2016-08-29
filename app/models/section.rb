@@ -70,6 +70,6 @@ class Section < ApplicationRecord
   end
 end
 
-%w(agency department minister topic).each do |clazz_file|
+%w(agency department minister root_section topic).each do |clazz_file|
   require_dependency clazz_file
 end
