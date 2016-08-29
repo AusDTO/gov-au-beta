@@ -22,6 +22,7 @@ This file is influenced by http://keepachangelog.com/.
 - Remove instances of permit! mass assignment
 - Improved accessibility
 - Switched to database backed session stores for greater security
+- Fixed styling of the active page in the sidebar
 
 
 ## [v1.1.0] - 2016-08-23
