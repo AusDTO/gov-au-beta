@@ -19,6 +19,16 @@ RSpec.describe 'editing node metadata:', type: :feature do
     logout(:user)
   end
 
+  context 'attempting to edit parent node of section home' do
+    before do
+      visit edit_editorial_section_node_path(section, section_home)
+    end
+
+    it 'is not permitted' do
+      expect(page).not_to have_select('Parent')
+    end
+  end
+
   context 'editing a parent node' do
     before do
       visit edit_editorial_section_node_path(section, parent)
