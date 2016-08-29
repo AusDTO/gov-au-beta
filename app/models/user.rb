@@ -96,4 +96,10 @@ class User < ApplicationRecord
     self.identity_verified_at = Time.now.utc
     save!
   end
+
+  def send_invite_email
+    # set_reset_password_token defined in devise recoverable
+    raw_token = set_reset_password_token
+    Notifier.user_invite(self, raw_token).deliver_later
+  end
 end
