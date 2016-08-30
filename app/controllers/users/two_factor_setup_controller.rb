@@ -1,7 +1,7 @@
 module Users
   class TwoFactorSetupController < TwoFactorVerificationController
     before_action :authenticate_user!
-    before_action :redirect_confirmed_users
+    before_action :redirect_verified_users
 
 
     def index
@@ -44,7 +44,9 @@ module Users
 
 
     private
-    def redirect_confirmed_users
+
+    # Only for accounts setting up
+    def redirect_verified_users
       if current_user.account_verified
         redirect_to root_path and return
       end
