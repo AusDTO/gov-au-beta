@@ -59,7 +59,8 @@ module Users
         @totp_secret = session[:setup_totp]
 
         if @totp_secret
-          @qrcode_uri = "otpauth://totp/#{current_user.email}?secret=#{@totp_secret}&issuer=gov.au"
+          issuer = ENV['APP_DOMAIN']
+          @qrcode_uri = "otpauth://totp/#{current_user.email}?secret=#{@totp_secret}&issuer=#{issuer}"
           @qrcode = RQRCode::QRCode.new(@qrcode_uri).as_png(
               fill: 'white',
               color: 'black',
