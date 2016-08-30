@@ -47,11 +47,11 @@ module Users
 
       private
       def authenticate_code(key, code)
-        if !(code.nil? || key.nil?)
-          return ROTP::TOTP.new(key).now == code
+        if code.nil? || key.nil?
+          return false
         end
-
-        return false
+        
+        return ROTP::TOTP.new(key).now == code
       end
 
 
