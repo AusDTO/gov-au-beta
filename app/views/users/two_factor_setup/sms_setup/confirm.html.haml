@@ -16,8 +16,8 @@
             = submit_tag 'Verify', role: :button
 
       .sign-in-footer-links
-        %p= link_to 'Resend verification code', resend_code_users_two_factor_setup_path, method: :post
+        %p= link_to 'Resend verification code', resend_code_users_two_factor_setup_sms_path, method: :post
 
         - unless current_user.account_verified
           %p
-            = link_to 'Use a different number', new_users_two_factor_setup_path
+            = link_to 'Use a different number', new_users_two_factor_setup_sms_path
