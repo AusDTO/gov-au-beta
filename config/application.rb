@@ -30,5 +30,30 @@ module GovAuBeta
     config.time_zone = "Sydney"
 
     config.exceptions_app = self.routes
+
+    #logging
+    config.lograge.enabled = true
+
+    config.lograge.custom_options = lambda do |event|
+      exceptions = %w(controller action format id)
+      {
+          # log all post params https://github.com/roidrage/lograge#what-it-doesnt-do
+          # TODO filter via http://guides.rubyonrails.org/action_controller_overview.html#log-filtering
+          params: event.payload[:params].except(*exceptions),
+          user_id: event.payload[:user_id],
+          user_email: event.payload[:user_email],
+          host: event.payload[:host],
+          fwd: event.payload[:fwd],
+          user_agent: event.payload[:user_agent],
+          cf_request_id: event.payload[:cf_request_id]
+      }
+    end
+    # Catch 404s but only after gems have had a change to modify routes
+    # https://github.com/vidibus/vidibus-routing_error#alternative-two
+    config.after_initialize do |app|
+      app.routes.append{match '*path', :to => 'errors#not_found', :via => :all}
+    end
+
+
   end
 end

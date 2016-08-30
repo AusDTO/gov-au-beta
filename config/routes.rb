@@ -105,4 +105,5 @@ Rails.application.routes.draw do
   get '/:section/news/:slug' => 'news#show', as: :news_article
 
   get '/*path' => 'nodes#show', as: :nodes
+
 end

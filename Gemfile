@@ -60,6 +60,7 @@ gem 'rufus-scheduler'
 gem 'rqrcode'
 gem 'valid_email'
 gem 'paranoia', '~> 2.2.0.pre'
+gem "lograge"
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
