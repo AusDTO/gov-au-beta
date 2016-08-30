@@ -28,9 +28,10 @@
  @import "times-dates-list"; //waiting for https://github.com/AusDTO/gov-au-ui-kit/pull/211 - will require html refactor
  @import "lists-ie-fix"; //github issue raised for these overrides with UI Kit https://github.com/AusDTO/gov-au-ui-kit/issues/258
  @import "tab-overrides"; //treb and Alz will address updating the styling of this in UI Kit
- @import "sign-in";
- @import "category-accordions";
- @import "category-page-popular-now";
+ @import "sign-in"; //UI Kit is not looking at page components like this quite yet
+ @import "category-accordions"; //these can get refactored out when incorporated into UI Kit
+ @import "category-page-popular-now"; //To Do - raise GitHub issue
+ @import "phone-numbers"; //GitHub issue raised https://github.com/AusDTO/gov-au-ui-kit/issues/270
 
  // These have questions raised on ui-kit for whether they want to include it or if it should
  // be our custom stuff
