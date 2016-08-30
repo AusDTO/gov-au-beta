@@ -1,6 +1,6 @@
 module Users
   class TwoFactorSetupController < TwoFactorVerificationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :redirect_verified_users
 
 

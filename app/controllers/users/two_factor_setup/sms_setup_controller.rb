@@ -1,7 +1,7 @@
 module Users
   module TwoFactorSetup
     class SmsSetupController < TwoFactorVerificationController
-      before_action :authenticate_user!
+      #before_action :authenticate_user!
       before_action :confirm_two_factor!
       before_action :verify_direct_otp_sent, only: [:confirm, :update]
 
