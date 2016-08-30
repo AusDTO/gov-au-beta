@@ -21,3 +21,12 @@
       .form-footer-actions
         .form-options
           = submit_tag 'Continue', role: :button
+
+:javascript
+  $(function() {
+    $("input[type='submit']").prop("disabled", true);
+
+    $(":checkbox").on('click', function(){
+      $("input[type='submit']").prop("disabled", $(':checkbox:checked').length == 0);
+    });
+  });

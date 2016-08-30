@@ -50,7 +50,7 @@ module Users
         if code.nil? || key.nil?
           return false
         end
-        
+
         return ROTP::TOTP.new(key).now == code
       end
 
@@ -59,7 +59,12 @@ module Users
         @totp_secret = session[:setup_totp]
 
         if @totp_secret
-          issuer = ENV['APP_DOMAIN']
+          if Rails.env.development?
+            issuer = 'gov.au-dev'
+          else
+            issuer = ENV['APP_DOMAIN']
+          end
+
           @qrcode_uri = "otpauth://totp/#{current_user.email}?secret=#{@totp_secret}&issuer=#{issuer}"
           @qrcode = RQRCode::QRCode.new(@qrcode_uri).as_png(
               fill: 'white',

@@ -10,7 +10,10 @@ module Users
 
     def choice
       session[:setup_2fa] = []
-      redirect_to users_two_factor_setup_path and return if params[:validation].nil?
+      if params[:validation].nil?
+        flash[:alert] = 'You must select at least one 2 factor verification method'
+        redirect_to users_two_factor_setup_path and return
+      end
 
       %w(sms authenticator).each do |type_2fa|
         session[:setup_2fa] += [type_2fa] if params[:validation].keys.include? type_2fa
