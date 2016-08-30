@@ -10,9 +10,19 @@ Rails.application.routes.draw do
   end
 
   namespace :users do
-    resource :two_factor_setup, only: [:new, :create, :update], controller: 'two_factor_setup' do
-      post :resend_code
-      get :confirm
+    resource :two_factor_setup, only: [:index], controller: 'two_factor_setup' do
+      get :index
+      post :choice
+      get :continue_setup
+
+      resource :authenticator, only: [:new, :create, :update], controller: 'two_factor_setup/authenticator_setup' do
+        post :resend_code
+      end
+
+      resource :sms, only: [:new, :create, :update], controller: 'two_factor_setup/sms_setup' do
+        post :resend_code
+        get :confirm
+      end
     end
 
     resource :two_factor_verification, only: [:new, :create, :update], controller: :two_factor_verification do

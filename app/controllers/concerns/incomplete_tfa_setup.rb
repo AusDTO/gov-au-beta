@@ -14,7 +14,7 @@ module IncompleteTfaSetup
       unless request.path.start_with?(users_two_factor_setup_path) ||
           whitelist.include?(request.path)
 
-        redirect_to new_users_two_factor_setup_path
+        redirect_to users_two_factor_setup_path
       end
     end
   end

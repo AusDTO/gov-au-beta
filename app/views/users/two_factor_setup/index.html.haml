@@ -1,0 +1,23 @@
+%article.verify
+  %h1
+    Choose verification method
+
+  %p We need you to choose how you would like us to verify your account.
+
+  = form_tag([:choice, :users, :two_factor_setup], method: :post) do
+    %fieldset
+      = check_box_tag 'validation[sms]'
+      %label{for: 'validation_sms'}
+        Send a text message
+      %p Code will be sent to your mobile.
+      = check_box_tag 'validation[authenticator]'
+      %label{for: 'validation_authenticator'}
+        Google Authenticator app
+      %p
+        Code will be generated in the app even if you're offline.
+        %a What is this app?
+
+    %section.sign-in-form
+      .form-footer-actions
+        .form-options
+          = submit_tag 'Continue', role: :button

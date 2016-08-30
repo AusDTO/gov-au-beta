@@ -24,7 +24,7 @@ RSpec.describe 'verify identity', type: :feature do
       }
 
       context 'when accessing a protected area' do
-        before { visit new_users_two_factor_setup_path }
+        before { visit new_users_two_factor_setup_sms_path }
 
         it 'should redirect to user verification' do
           expect(current_path).to eq(new_users_two_factor_verification_path)
@@ -67,7 +67,7 @@ RSpec.describe 'verify identity', type: :feature do
 
 
             it 'should display the original view' do
-              expect(current_path).to eq(new_users_two_factor_setup_path)
+              expect(current_path).to eq(new_users_two_factor_setup_sms_path)
               expect(page).to have_content('Thanks. You account has been verified.')
             end
           end

@@ -18,32 +18,7 @@
   }
 }
 
-.verify {
-  @include outer-container;
-  @include span-columns(12 of 12);
-  @include link-colours($non-black, $light-aqua, $non-black);
-  @include button-colours($button-bg-colour, $button-bg-colour--hover, $button-bg-colour--active, $button-text-colour);
-  margin-top: 2 * $base-spacing;
 
-  @include media($tablet) {
-    @include span-columns(7 of 12);
-    @include shift(2.5 of 12);
-  }
-
-  @include media($desktop) {
-    @include span-columns(6 of 12);
-    @include shift(3 of 12);
-  }
-  .sign-in-form .form-footer-actions {
-    a[role="button"] {
-      text-align: center;
-      margin-bottom: 0;
-      margin-top: $small-spacing;
-      width: 100%;
-    }
-  }
-
-}
 
 .sign-in-form {
   margin-top: 1.5 * $base-spacing;

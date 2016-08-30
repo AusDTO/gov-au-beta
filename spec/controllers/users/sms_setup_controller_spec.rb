@@ -1,11 +1,25 @@
+require 'rails_helper'
 
-RSpec.describe Users::TwoFactorSetupController, type: :controller do
+RSpec.describe Users::TwoFactorSetup::SmsSetupController, type: :controller do
   render_views
 
   let!(:root_node) { Fabricate(:root_node) }
   let!(:incomplete_user) {
     Fabricate(:user, bypass_tfa: false, confirmed_at: Time.now.utc,
               phone_number: nil, account_verified: false)
+  }
+
+  let!(:valid_authenticate_request) {
+    stub_request(:post, Rails.configuration.sms_authenticate_url).
+        with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
+             :headers => {'Content-Type'=>'application/x-www-form-urlencoded'}).
+        to_return(:status => 200, :body => '{"access_token":"somereallyspecialtoken", "expires_in":"3599"}', :headers => {})
+  }
+
+  let!(:send_sms_request) {
+    stub_request(:post, Rails.configuration.sms_send_message_url).
+        with(:headers => {'Authorization'=>'Bearer somereallyspecialtoken', 'Content-Type'=>'application/json'}).
+        to_return(:status => 200, :body => "", :headers => {})
   }
 
   describe 'post #create' do
@@ -16,7 +30,7 @@ RSpec.describe Users::TwoFactorSetupController, type: :controller do
         post :create, params: { phone_number: '0423456789' }
       }
 
-      it { expect(subject).to redirect_to confirm_users_two_factor_setup_path }
+      it { expect(subject).to redirect_to confirm_users_two_factor_setup_sms_path }
 
       it {
         expect { subject }.to change {
@@ -72,7 +86,7 @@ RSpec.describe Users::TwoFactorSetupController, type: :controller do
     context 'with no code generated' do
       subject { post :update }
 
-      it { expect(subject).to redirect_to new_users_two_factor_setup_path}
+      it { expect(subject).to redirect_to new_users_two_factor_setup_sms_path}
     end
 
 
@@ -84,7 +98,7 @@ RSpec.describe Users::TwoFactorSetupController, type: :controller do
 
       subject {
         post :update, params: {
-          code: User.find(incomplete_user.id).unconfirmed_phone_number_otp
+            code: User.find(incomplete_user.id).unconfirmed_phone_number_otp
         }
       }
 
@@ -135,7 +149,7 @@ RSpec.describe Users::TwoFactorSetupController, type: :controller do
 
     context 'with no code generated' do
 
-      it { expect(subject).to redirect_to new_users_two_factor_setup_path}
+      it { expect(subject).to redirect_to new_users_two_factor_setup_sms_path}
     end
 
 

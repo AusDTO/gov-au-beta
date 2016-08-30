@@ -6,7 +6,7 @@
     #{sanitized_unconfirmed_phone_number(current_user)}
 
   %section.sign-in-form
-    = form_tag([:users, :two_factor_setup], method: :put) do
+    = form_tag([:users, :two_factor_setup_sms], method: :put) do
       = label_tag 'code', 'Enter 6 digit code'
       = text_field_tag  :code, nil, autocomplete: :off
 

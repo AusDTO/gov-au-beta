@@ -124,7 +124,7 @@ RSpec.describe 'two factor setup', type: :feature do
     before {
       login_as(complete_user)
       complete_2fa_login(complete_user)
-      visit new_users_two_factor_setup_path
+      visit new_users_two_factor_setup_sms_path
     }
 
     it 'displays change phone number form' do
