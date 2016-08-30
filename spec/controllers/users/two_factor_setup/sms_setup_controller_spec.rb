@@ -9,6 +9,12 @@ RSpec.describe Users::TwoFactorSetup::SmsSetupController, type: :controller do
               phone_number: nil, account_verified: false)
   }
 
+  let!(:complete_user) {
+    Fabricate(:user, bypass_tfa: false, confirmed_at: Time.now.utc,
+              phone_number: '0423456789', account_verified: true,
+              identity_verified_at: Time.now.utc)
+  }
+
   let!(:valid_authenticate_request) {
     stub_request(:post, Rails.configuration.sms_authenticate_url).
         with(:body => {"client_id"=>"", "client_secret"=>"", "grant_type"=>"client_credentials", "scope"=>"SMS"},
@@ -78,7 +84,41 @@ RSpec.describe Users::TwoFactorSetup::SmsSetupController, type: :controller do
   end
 
 
-  describe 'post #update' do
+  describe 'post #update as a complete user' do
+    before {
+      sign_in(complete_user)
+    }
+
+    context 'with a correct code' do
+      before {
+        complete_user.unconfirmed_phone_number = '0433333333'
+        complete_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
+      }
+
+
+      subject {
+        post :update, params: {
+          code: User.find(complete_user.id).unconfirmed_phone_number_otp
+        }
+      }
+
+      it {
+        expect { subject }.to change {
+          User.find(complete_user.id).phone_number
+        }.to(complete_user.unconfirmed_phone_number)
+      }
+
+      it 'should notify user of success' do
+        subject
+        expect(flash[:notice]).to be_present
+      end
+
+      it { expect(subject).to redirect_to root_path }
+    end
+  end
+
+
+  describe 'post #update as an incomplete user' do
     before {
       sign_in(incomplete_user)
     }
@@ -108,13 +148,17 @@ RSpec.describe Users::TwoFactorSetup::SmsSetupController, type: :controller do
         }.to(incomplete_user.unconfirmed_phone_number)
       }
 
-      it 'should set the account verified' do
+      it 'should reset the temp fields' do
         subject
-        expect(User.find(incomplete_user.id).account_verified).to eq(true)
         expect(User.find(incomplete_user.id).unconfirmed_phone_number).to eq(nil)
         expect(User.find(incomplete_user.id).unconfirmed_phone_number_otp).to eq(nil)
         expect(User.find(incomplete_user.id).unconfirmed_phone_number_otp_sent_at).to eq(nil)
         expect(flash[:notice]).to be_present
+      end
+
+
+      context 'with no other 2fa setup step' do
+        it { expect(subject).to redirect_to continue_setup_users_two_factor_setup_path }
       end
     end
 

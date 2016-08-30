@@ -22,16 +22,16 @@ module Users
             current_user.save!
             session.delete :setup_totp
 
-            if current_user.account_verified
-              flash[:notice] = 'Thanks. You have set and verified your authenticator code.'
+            flash[:notice] = 'Thanks. You have set and verified your authenticator code.'
 
-            else
-              redirect_to continue_setup_users_two_factor_setup_path and return
+            if current_user.account_verified
+              redirect_to root_path and return
             end
 
+            redirect_to continue_setup_users_two_factor_setup_path and return
           end
 
-          @form_error = "Your code didn't look right, try again."
+          @form_error = "Your code didn't work. Please try again."
           render :new and return
         end
 

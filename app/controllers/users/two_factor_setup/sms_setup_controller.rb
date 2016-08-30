@@ -36,16 +36,19 @@ module Users
         if current_user.authenticate_direct_otp_for(:unconfirmed_phone_number_otp, params[:code])
           current_user.phone_number = current_user.unconfirmed_phone_number
           current_user.unconfirmed_phone_number = nil
-          #current_user.account_verified = true
           current_user.save!
 
           flash[:notice] = 'You have successfully verified and saved your phone number'
 
-          redirect_to continue_setup_users_two_factor_setup_path #root_path
+          if current_user.account_verified
+            redirect_to root_path and return
+          end
+
+          redirect_to continue_setup_users_two_factor_setup_path
         else
           # TODO: limit opportunities to re-try
           flash[:alert] = "Sorry, your code didn't work. Please try again."
-          render :confirm
+          render :confirm and return
         end
       end
 
