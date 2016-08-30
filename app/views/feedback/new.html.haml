@@ -5,12 +5,12 @@
     = f.input :comment, as: :text
     = f.hidden_field :url
     %fieldset
-      %legend About You
+      %legend About you
     %p
       %em We won’t share your feedback or personal details outside of the DTO without your permission.
     %p
       Telling us about your job and where you work will help us to better understand you and your organisation’s needs.
     = f.input :role, label: 'Your role'
-    = f.input :organisation, label: 'Your Organisation'
+    = f.input :organisation, label: 'Your organisation'
     = f.input :email, as: :email, hint: 'We may contact you to learn more about your feedback.'
-    = f.button :submit, 'Send Feedback', role: 'button'
+    = f.button :submit, 'Send feedback', role: 'button'
