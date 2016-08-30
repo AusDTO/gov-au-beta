@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :complete_two_factor_setup
   helper_method :decorated_current_user
+  before_filter :set_current
+
+  def set_current
+    LoggingHelper.current_user = current_user
+    LoggingHelper.current_request = request
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -28,7 +34,6 @@ class ApplicationController < ActionController::Base
   def decorated_current_user
     current_user.try(:decorate)
   end
-
 
   protected
   def confirm_two_factor!
@@ -82,15 +87,6 @@ class ApplicationController < ActionController::Base
   # logging payload additions
   def append_info_to_payload(payload)
     super
-    # http headers Host and X-Forwarded-For
-    payload[:host] = request.host
-    payload[:fwd] = request.remote_ip
-    payload[:user_agent] = request.user_agent
-    # Cloudfoundry gives each request an ID in HTTP header X-Cf-Requestid so log it
-    payload[:cf_request_id] = request.try("X-Cf-Requestid")
-    # Add user context if available https://github.com/roidrage/lograge/issues/23
-    payload[:user_id] = current_user.id unless current_user.nil?
-    payload[:user_email] = current_user.email unless current_user.nil?
-
+    LoggingHelper.append_info_to_payload(request,current_user,payload)
   end
 end

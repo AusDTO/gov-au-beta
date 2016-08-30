@@ -32,20 +32,19 @@ module GovAuBeta
     config.exceptions_app = self.routes
 
     #logging
-    config.lograge.enabled = true
 
+    config.lograge.enabled = true
     config.lograge.custom_options = lambda do |event|
       f = ActionDispatch::Http::ParameterFilter.new(Rails.application.config.filter_parameters)
       {
           # log all post params https://github.com/roidrage/lograge#what-it-doesnt-do
           # but filter via http://guides.rubyonrails.org/action_controller_overview.html#log-filtering
-          params: f.filter event.payload[:params],
+          params: f.filter(event.payload[:params]),
           user_id: event.payload[:user_id],
           user_email: event.payload[:user_email],
-          host: event.payload[:host],
-          fwd: event.payload[:fwd],
-          user_agent: event.payload[:user_agent],
-          cf_request_id: event.payload[:cf_request_id]
+          headers: event.payload[:headers],
+          ip: event.payload[:ip],
+          event: 'http_request'
       }
     end
     # Catch 404s but only after gems have had a change to modify routes

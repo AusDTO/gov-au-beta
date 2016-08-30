@@ -10,6 +10,12 @@ module Admin
 
     before_action ->() { authorize! :manage, :all }
     before_action :complete_two_factor_setup
+    before_filter :set_current
+
+    def set_current
+      LoggingHelper.current_user = current_user
+      LoggingHelper.current_request = request
+    end
 
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
@@ -23,19 +29,10 @@ module Admin
         format.json { render status: :unauthorized, json: { message: exception.message } }
       end
     end
-    # logging payload additions
+
     def append_info_to_payload(payload)
       super
-      # http headers Host and X-Forwarded-For
-      payload[:host] = request.host
-      payload[:fwd] = request.remote_ip
-      payload[:user_agent] = request.user_agent
-      # Cloudfoundry gives each request an ID in HTTP header X-Cf-Requestid so log it
-      payload[:cf_request_id] = request.try("X-Cf-Requestid")
-      # Add user context if available https://github.com/roidrage/lograge/issues/23
-      payload[:user_id] = current_user.id unless current_user.nil?
-      payload[:user_email] = current_user.email unless current_user.nil?
-
+      LoggingHelper.append_info_to_payload(request,current_user,payload)
     end
   end
 end

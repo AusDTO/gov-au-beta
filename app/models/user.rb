@@ -103,4 +103,5 @@ class User < ApplicationRecord
     raw_token = set_reset_password_token
     Notifier.user_invite(self, raw_token).deliver_later
   end
+
 end
