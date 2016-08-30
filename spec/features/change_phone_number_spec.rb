@@ -30,7 +30,7 @@ RSpec.describe 'changing phone number', type: :feature do
       }
 
       it 'shows an input for the code' do
-        expect(page).to have_content('A text message with a verification code was just sent to')
+        expect(page).to have_content('A verification code was just sent to the mobile ')
         expect(page).to have_content('**** *** *23')
       end
 

@@ -2,7 +2,7 @@
   %h1 Please verify your account
   - if current_user.direct_otp
     %p
-      A text message with a verification code was just sent to
+      A verification code was just sent to the mobile
       #{sanitized_phone_number(current_user)}
   - else
     %p Enter the code from your authenticator app

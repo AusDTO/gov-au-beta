@@ -139,7 +139,7 @@ RSpec.describe 'two factor setup', type: :feature do
 
 
         it 'redirects to 2fa confirmation' do
-          expect(page).to have_content('A text message with a verification code was just sent to')
+          expect(page).to have_content('A verification code was just sent to the mobile ')
         end
 
 

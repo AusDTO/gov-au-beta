@@ -29,19 +29,19 @@ RSpec.describe 'verify identity', type: :feature do
         it 'should redirect to user verification' do
           expect(current_path).to eq(new_users_two_factor_verification_path)
           expect(page).to have_content(
-            'Before you can continue, you will need to verify your account'
+            'We need to quickly check this is you'
           )
-          expect(page).to have_link('Get started')
+          expect(page).to have_link('Continue')
         end
 
 
         context 'when following start link' do
-          before { click_link('Get started') }
+          before { click_link('Continue') }
 
           it 'should show a code input' do
             expect(page).to have_field('Enter 6 digit code')
             expect(page).to have_content(
-              'A text message with a verification code was just sent to'
+              'A verification code was just sent to the mobile '
             )
           end
 
