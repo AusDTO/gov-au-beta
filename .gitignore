@@ -43,6 +43,7 @@ bower.json
 # IntelliJ IDEA files
 .idea
 **.iml
+railways.cache
 
 # ignore dummy app logs
 engines/synergy/spec/dummy/db/*.sqlite3

@@ -12,6 +12,17 @@ RSpec.describe SectionHome, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  describe 'changing the parent' do
+    let(:section_home_1) { Fabricate(:section_home) }
+    let(:section_home_2) { Fabricate(:section_home) }
+
+    it 'fails for an existing record' do
+      expect(section_home_1.errors_on(:parent_id)).to eql([])
+      section_home_1.parent = section_home_2
+      expect(section_home_1.errors_on(:parent_id)).to eql(["Change of parent not permitted for section home"])
+    end
+  end
+
   describe 'uniqueness' do
     let(:section)                { Fabricate(:section) }
     let!(:existing_section_home) { Fabricate(:section_home, section: section) }

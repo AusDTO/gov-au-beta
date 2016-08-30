@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 - Rendering # links as placeholder spans
 - Section owners and admins can create new users
 - Importing database dump from S3
+- Footer links can be maintained using a "About GOV.AU" section
 
 ### Changed
 - Upgrade Rails to v5.0.0.1
@@ -24,7 +25,12 @@ This file is influenced by http://keepachangelog.com/.
 - Improved accessibility
 - Switched to database backed session stores for greater security
 - Fixed styling of the active page in the sidebar
-- Confirm seeded users
+- Seeded users do not require email confirmation
+- Fixed bug that was preventing reordering children of a section home
+
+### Removed
+- A user can no longer sign themselves up
+
 
 ## [v1.1.0] - 2016-08-23
 ### Added
