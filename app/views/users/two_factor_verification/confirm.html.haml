@@ -22,6 +22,7 @@
         Didn't receive your verification code?
         = link_to 'Resend now', resend_code_users_two_factor_verification_path, method: :post
       - else
-        = link_to 'Send me a code instead', resend_code_users_two_factor_verification_path, method: :post
+        - unless current_user.phone_number.blank?
+          = link_to 'Send me a code instead', resend_code_users_two_factor_verification_path, method: :post
 
 

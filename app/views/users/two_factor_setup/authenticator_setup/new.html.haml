@@ -35,3 +35,6 @@
         .form-options
           %p
             = submit_tag 'Verify', role: :button
+
+  - unless current_user.phone_number.blank? && !current_user.account_verified
+    = link_to 'Skip authenticator setup and just use SMS', continue_setup_users_two_factor_setup_path
