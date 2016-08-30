@@ -35,11 +35,11 @@ module GovAuBeta
     config.lograge.enabled = true
 
     config.lograge.custom_options = lambda do |event|
-      exceptions = %w(controller action format id)
+      f = ActionDispatch::Http::ParameterFilter.new(Rails.application.config.filter_parameters)
       {
           # log all post params https://github.com/roidrage/lograge#what-it-doesnt-do
-          # TODO filter via http://guides.rubyonrails.org/action_controller_overview.html#log-filtering
-          params: event.payload[:params].except(*exceptions),
+          # but filter via http://guides.rubyonrails.org/action_controller_overview.html#log-filtering
+          params: f.filter event.payload[:params],
           user_id: event.payload[:user_id],
           user_email: event.payload[:user_email],
           host: event.payload[:host],
