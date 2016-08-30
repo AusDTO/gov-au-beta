@@ -12,11 +12,9 @@ module Users
       session[:setup_2fa] = []
       redirect_to users_two_factor_setup_path and return if params[:validation].nil?
 
-      params[:validation].reject! { |k, v|
-        !%w(sms authenticator).include? k
-      }.each { |k, v|
-        session[:setup_2fa] += [k] if !session[:setup_2fa].include? k
-      }
+      %w(sms authenticator).each do |type_2fa|
+        session[:setup_2fa] += [type_2fa] if params[:validation].keys.include? type_2fa
+      end
 
       continue_setup
     end
