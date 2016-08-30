@@ -40,7 +40,7 @@ module Users
 
 
       def resend_code
-        session[:setup_totp] = current_user.generate_totp_secret
+        session.delete :setup_totp
         redirect_to new_users_two_factor_setup_authenticator_path
       end
 
