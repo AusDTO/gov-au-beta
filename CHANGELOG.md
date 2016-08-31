@@ -6,6 +6,13 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 
 ### Changed
+
+### Fixed
+
+## [v1.2.1] - 2016-08-31
+### Added
+
+### Changed
 - Removed 30 day grace window on 2FA
 
 ### Fixed
