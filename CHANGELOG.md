@@ -18,6 +18,7 @@ This file is influenced by http://keepachangelog.com/.
 - Upgrade UI kit to v1.7.5
 - Improvements to Category landing page layout including collapsing regions
 - Remove references to content analysis service
+- HTTP basic authentication is now toggleable
 
 ### Fixed
 - Fixed leaking email addresses on password reset and resend email confirmation pages
