@@ -1,7 +1,6 @@
 module Users
   module TwoFactorSetup
     class AuthenticatorSetupController < TwoFactorVerificationController
-      #before_action :authenticate_user!
       before_action :confirm_two_factor!
       before_action :generate_qrcode, only: [:create]
 
