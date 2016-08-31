@@ -36,13 +36,16 @@
           .wrapper
             = breadcrumbs style: :ul, class: nil
 
-  = yield(:after_header)
+  -# TODO: Move this aria role to %main and move the hero into the correct aria landmark once ui-kit resolves
+  -# https://github.com/AusDTO/gov-au-ui-kit/issues/313
+  %div{role: 'main'}
+    = yield(:after_header)
 
-  %main
-    - if content_for?(:navbar)
-      = yield :navbar
-    = render 'application/alerts'
-    = yield
+    %main
+      - if content_for?(:navbar)
+        = yield :navbar
+      = render 'application/alerts'
+      = yield
   %footer{role: "contentinfo"}
     .wrapper
       %section
