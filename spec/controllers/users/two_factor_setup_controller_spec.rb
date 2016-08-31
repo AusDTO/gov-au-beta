@@ -3,150 +3,65 @@ require 'rails_helper'
 RSpec.describe Users::TwoFactorSetupController, type: :controller do
   render_views
 
-  let!(:root_node) { Fabricate(:root_node) }
-  let!(:incomplete_user) {
-    Fabricate(:user, bypass_tfa: false, confirmed_at: Time.now.utc,
-              phone_number: nil, account_verified: false)
-  }
 
-  describe 'post #create' do
-    context 'with a valid phone number' do
-      before { sign_in(incomplete_user) }
+  let!(:user) { Fabricate(:user, account_verified: nil, bypass_tfa: false) }
+  let!(:complete_user) { Fabricate(:user, account_verified: true, bypass_tfa: false) }
 
-      subject {
-        post :create, params: { phone_number: '0423456789' }
-      }
-
-      it { expect(subject).to redirect_to confirm_users_two_factor_setup_path }
-
-      it {
-        expect { subject }.to change {
-          User.find(incomplete_user.id).unconfirmed_phone_number_otp
-        }
-      }
-      it {
-        expect { subject }.to change {
-          User.find(incomplete_user.id).unconfirmed_phone_number_otp_sent_at
-        }
-      }
-
-      it 'sets the users unconfirmed number' do
-        expect { subject }.to change {
-          User.find(incomplete_user.id).unconfirmed_phone_number
-        }.from(nil).to('0423456789')
-      end
-    end
-
-
-    context 'with an invalid phone number' do
-      before { sign_in(incomplete_user) }
-
-      subject {
-        post :create
-      }
-
-      it 'errors' do
-        expect(subject).to render_template :new
-        expect(flash[:alert]).to be_present
-      end
-
-      it 'does not change the users unconfirmed number' do
-        expect { subject }.to_not change {
-          User.find(incomplete_user.id).unconfirmed_phone_number
-        }
-        expect { subject }.to_not change {
-          User.find(incomplete_user.id).unconfirmed_phone_number_otp
-        }
-        expect { subject }.to_not change {
-          User.find(incomplete_user.id).unconfirmed_phone_number_otp_sent_at
-        }
-      end
-    end
-  end
-
-
-  describe 'post #update' do
+  describe 'post #choice for complete user' do
     before {
-      sign_in(incomplete_user)
+      sign_in(complete_user)
     }
 
-    context 'with no code generated' do
-      subject { post :update }
+    subject { post :choice }
 
-      it { expect(subject).to redirect_to new_users_two_factor_setup_path}
-    end
-
-
-    context 'with a correct code' do
-      before {
-        incomplete_user.unconfirmed_phone_number = '0423456789'
-        incomplete_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
-      }
-
-      subject {
-        post :update, params: {
-          code: User.find(incomplete_user.id).unconfirmed_phone_number_otp
-        }
-      }
-
-      it {
-        expect { subject }.to change {
-          User.find(incomplete_user.id).phone_number
-        }.to(incomplete_user.unconfirmed_phone_number)
-      }
-
-      it 'should set the account verified' do
-        subject
-        expect(User.find(incomplete_user.id).account_verified).to eq(true)
-        expect(User.find(incomplete_user.id).unconfirmed_phone_number).to eq(nil)
-        expect(User.find(incomplete_user.id).unconfirmed_phone_number_otp).to eq(nil)
-        expect(User.find(incomplete_user.id).unconfirmed_phone_number_otp_sent_at).to eq(nil)
-        expect(flash[:notice]).to be_present
-      end
-    end
-
-
-    context 'with the incorrect code' do
-      before {
-        incomplete_user.unconfirmed_phone_number = '0423456789'
-        incomplete_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
-      }
-
-      subject {
-        post :update
-      }
-
-      it {
-        expect { subject }.to_not change {
-          User.find(incomplete_user.id).phone_number
-        }
-      }
-
-      it 'should render confirm template' do
-        expect(subject).to render_template :confirm
-        expect(flash[:alert]).to be_present
-      end
-    end
+    it { expect(subject).to redirect_to root_path }
   end
 
 
-  describe 'get #update' do
-    before { sign_in(incomplete_user) }
-    subject { get :confirm }
+  describe 'post #choice' do
+    before {
+      sign_in(user)
+    }
 
-    context 'with no code generated' do
+    context 'with sms and authenticator' do
+      subject {
+        post :choice, params: { validation: { sms: '1', authenticator: '1'}}
+      }
 
-      it { expect(subject).to redirect_to new_users_two_factor_setup_path}
+      it 'should modify session var' do
+        subject
+        expect(session[:setup_2fa]).to match(['authenticator'])
+      end
+
+      it { expect(subject).to redirect_to new_users_two_factor_setup_sms_path }
     end
 
 
-    context 'with a code set' do
-      before {
-        incomplete_user.unconfirmed_phone_number = '0423456789'
-        incomplete_user.create_direct_otp_for(:unconfirmed_phone_number_otp)
+    context 'with sms' do
+      subject {
+        post :choice, params: { validation: { sms: '1'} }
       }
 
-      it { expect(subject).to render_template :confirm }
+      it 'should modify session var' do
+        subject
+        expect(session[:setup_2fa]).to eq([])
+      end
+
+      it { expect(subject).to redirect_to new_users_two_factor_setup_sms_path }
+    end
+
+
+    context 'with authenticator' do
+      subject {
+        post :choice, params: { validation: { authenticator: '1' } }
+      }
+
+      it 'should modify session var' do
+        subject
+        expect(session[:setup_2fa]).to eq([])
+      end
+
+      it { expect(subject).to redirect_to new_users_two_factor_setup_authenticator_path }
     end
   end
 end

@@ -78,13 +78,4 @@ class ApplicationController < ActionController::Base
   def bustable_etag(strong_etag)
     Digest::SHA1.hexdigest("#{etag_seed}#{strong_etag || ""}")
   end
-
-  def after_sign_in_path_for(resource)
-    if resource.has_role?(:admin)
-      admin_root_path
-    else
-      editorial_root_path
-    end
-  end
-
 end

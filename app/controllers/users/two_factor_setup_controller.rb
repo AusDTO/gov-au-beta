@@ -1,65 +1,53 @@
 module Users
   class TwoFactorSetupController < TwoFactorVerificationController
-    before_action :authenticate_user!
-    before_action :confirm_two_factor!
-    before_action :verify_direct_otp_sent, only: [:confirm, :update]
+    before_action :redirect_verified_users
 
-    # Display view to send one-time-password or input authenticator code
-    def new
+
+    def index
     end
 
 
-    # Send SMS and redirect to confirm if valid number
-    def create
-      unless params[:phone_number].nil?
-        current_user.unconfirmed_phone_number =  params[:phone_number]
-
-        if current_user.save
-          current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
-          redirect_to confirm_users_two_factor_setup_path and return
-        end
+    def choice
+      session[:setup_2fa] = []
+      if params[:validation].nil?
+        flash[:alert] = 'You must select at least one 2 factor verification method'
+        redirect_to users_two_factor_setup_path and return
       end
 
-      flash[:alert] = "Your phone number didn't look right. Please try again."
-      render :new
+      %w(sms authenticator).each do |type_2fa|
+        session[:setup_2fa] += [type_2fa] if params[:validation].keys.include? type_2fa
+      end
+
+      continue_setup
     end
 
 
-    # Give form to input one-time-password
-    def confirm
-    end
+    def continue_setup
+      unless session[:setup_2fa].blank?
+        # Redirect to setup of session[:setup_2fa].first
+        redirect_to send("new_users_two_factor_setup_#{session[:setup_2fa].shift}_path") and return
+      end
 
-
-    # Validate one-time-password and redirect if successful
-    def update
-      if current_user.authenticate_direct_otp_for(:unconfirmed_phone_number_otp, params[:code])
-        current_user.phone_number = current_user.unconfirmed_phone_number
-        current_user.unconfirmed_phone_number = nil
+      if current_user.phone_number.present? || current_user.totp_enabled?
         current_user.account_verified = true
-        current_user.save!
-
-        flash[:notice] = 'You have successfully verified and saved your phone number'
-
-        redirect_to root_path
-      else
-        # TODO: limit opportunities to re-try
-        flash[:alert] = "Sorry, your code didn't work. Please try again."
-        render :confirm
+        current_user.save
       end
-    end
 
+      if current_user.account_verified
+        flash[:notice] = 'Thanks. Your account has been verified. You are now signed in.'
+        redirect_to root_path and return
+      end
 
-    def resend_code
-      current_user.send_new_direct_otp_for(:unconfirmed_phone_number)
-      redirect_to confirm_users_two_factor_setup_path
+      redirect_to users_two_factor_setup_path
     end
 
 
     private
-    # Don't let users skip ahead of being sent an actual code
-    def verify_direct_otp_sent
-      if current_user.unconfirmed_phone_number_otp == nil
-        redirect_to new_users_two_factor_setup_path
+
+    # Only for accounts setting up
+    def redirect_verified_users
+      if current_user.account_verified
+        redirect_to root_path and return
       end
     end
   end

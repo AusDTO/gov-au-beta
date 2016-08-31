@@ -17,11 +17,11 @@ RSpec.describe 'changing phone number', type: :feature do
   describe 'two_factor_setup#new' do
     before {
       login_as(user)
-      visit new_users_two_factor_setup_path
+      visit new_users_two_factor_setup_sms_path
       verify_user
     }
 
-    it { expect(current_path).to eq(new_users_two_factor_setup_path) }
+    it { expect(current_path).to eq(new_users_two_factor_setup_sms_path) }
 
     context 'entering a valid phone number' do
       before {
@@ -30,7 +30,7 @@ RSpec.describe 'changing phone number', type: :feature do
       }
 
       it 'shows an input for the code' do
-        expect(page).to have_content('A text message with a verification code was just sent to')
+        expect(page).to have_content('A verification code was just sent to the mobile ')
         expect(page).to have_content('**** *** *23')
       end
 

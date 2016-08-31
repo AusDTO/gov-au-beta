@@ -57,6 +57,7 @@ gem 'newrelic_rpm'
 gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
 gem 'aws-sdk', '~> 2'
 gem 'rufus-scheduler'
+gem 'rqrcode'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
