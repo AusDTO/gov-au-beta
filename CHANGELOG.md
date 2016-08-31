@@ -4,6 +4,14 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.2.0] - 2016-08-31
+### Added
 - Added two-factor authentication via SMS and authenticator to sign-in/up and verification
 - Verification of identity when accessing protected pages
 - Phone number verification when changing numbers
