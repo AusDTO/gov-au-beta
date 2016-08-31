@@ -16,6 +16,15 @@ class User < ApplicationRecord
   validates :phone_number, aus_phone_number: true
   validates :unconfirmed_phone_number, aus_phone_number: true
 
+  after_save :after_save
+
+  def after_save
+    #TODO describe changes to users eg. password/email change
+    data = {event:"user_update", record_id: self.id, record_type: self.class, record_name: self.name}
+    #get current user and request from the Thread
+    LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
+  end
+
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end
