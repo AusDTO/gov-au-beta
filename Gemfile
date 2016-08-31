@@ -12,6 +12,7 @@ end
 
 # Core gems
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
+gem 'activerecord-session_store'
 gem 'pg', '>= 0.19.0.beta'
 gem 'puma', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
@@ -27,8 +28,6 @@ gem 'dry-types'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
 gem 'cf-app-utils' # cloudfoundry utils
-gem 'rails_serve_static_assets' # http://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rails-4
-gem 'rails_12factor'
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'mini_magick'
 gem 'friendly_id', github: 'norman/friendly_id', ref: '8531cdce'
@@ -55,7 +54,10 @@ gem 'rubyzip', '>= 1.0.0'
 gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
+gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
 gem 'aws-sdk', '~> 2'
+gem 'rufus-scheduler'
+gem 'rqrcode'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
@@ -80,9 +82,10 @@ end
 group :test, :development do
   gem 'rspec-rails', '>= 3.5.0.beta4'
   gem 'rspec-collection_matchers', '~> 1.1', '>= 1.1.2'
+  gem 'rspec-its'
   gem 'spinach', '~> 0.8.10'
   gem 'fabrication', '~> 2.15.0'
-  gem 'faker', '~> 1.6.3'
+  gem 'faker', '~> 1.6.6'
   gem 'webmock', '~> 2.0.1'
   gem 'simplecov', '~> 0.11.2'
   gem 'capybara', '~> 2.7'

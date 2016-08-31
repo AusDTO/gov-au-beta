@@ -1,0 +1,11 @@
+Hi <%= @user.first_name %>,
+
+Welcome to GOV.AU Beta.
+
+To get started as a content author or reviewer please confirm your email address and follow the instructions.
+
+<<%= @url.html_safe %>>
+
+Thank you
+
+The GOV.AU Team

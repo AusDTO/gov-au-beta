@@ -2,22 +2,26 @@ require 'net/http'
 require 'zip'
 
 namespace :ui_kit do
-  desc 'Sets up UI kit with updates'
+  desc 'Sets up UI kit with updates. To download from a custom url (eg circleci), define UI_KIT_URL.'
 
   task :update do
     def download_asset(name, destination)
-      ui_kit_url = "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
-      file = File.new "vendor/assets/"+destination, 'wb+'
+      ui_kit_url = ENV['UI_KIT_URL'] || "http://gov-au-ui-kit.apps.staging.digital.gov.au/latest/"
+      path_to_file = "vendor/assets/"+destination
+      File.delete(path_to_file) if File.exist?(path_to_file)
+      file = File.new path_to_file, 'wb+'
       file.write Net::HTTP.get(URI.parse(ui_kit_url+name))
       puts destination +" updated"
     end
 
-    def patch_inline_images(destination)
+    def patch_scss(destination)
       file_name = "vendor/assets/"+destination
       text = File.read(file_name)
-      text = text.gsub("asset-data-url('build/latest/img/icons/'", "asset-data-url('icons/'")
-      text = text.gsub("asset-data-url('assets/img/icons/'", "asset-data-url('icons/'")
       text = text.gsub("url('../latest/img/", "asset-url('")
+      text = text.gsub("background-image: url(image-url('icons/' + $img + '.png'));",
+                       "background-image: image-url('icons/' + $img + '.png');")
+      text = text.gsub("background-image: none, url(image-url('icons/' + $img + '.svg'))",
+                       "background-image: none, image-url('icons/' + $img + '.svg')")
       file = File.new file_name, 'wb+'
       file.write text
 
@@ -41,7 +45,7 @@ namespace :ui_kit do
 
     download_asset("ui-kit.js", "javascripts/ui-kit.js")
     download_asset("_ui-kit.scss", "stylesheets/_ui-kit.scss")
-    patch_inline_images("stylesheets/_ui-kit.scss")
+    patch_scss("stylesheets/_ui-kit.scss")
     download_asset("images.zip", "images.zip")
     unzip("images.zip")
   end

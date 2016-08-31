@@ -1,0 +1,14 @@
+= content_for :title do
+  = "Create a user"
+
+- breadcrumb :new_editorial_user
+
+%h1 Create a user
+%p Invite a new user to join GOV.AU
+
+%div.form_wrapper
+  = simple_form_for([:editorial, @form]) do |f|
+    = f.input :email, as: :email
+    = f.input :first_name, required: false
+    = f.input :last_name, required: false
+    = f.button :button, 'Send invite'

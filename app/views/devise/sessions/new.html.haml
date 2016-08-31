@@ -31,9 +31,3 @@
       - if devise_mapping.confirmable? && controller_name != 'confirmations'
         = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
 
-      %h2.background-border-heading
-        %span.inner
-          Or
-
-      - if devise_mapping.registerable? && controller_name != 'registrations'
-        = link_to "Sign up", new_registration_path(resource_name), :class => "primary-link"

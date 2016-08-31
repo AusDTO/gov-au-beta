@@ -14,3 +14,6 @@
         = link_to(section.name, editorial_section_path(section))
         - if can? :create_in, section
           = link_to('Create new page', prepare_editorial_section_nodes_path(section))
+
+- if can? :create, :user
+  = link_to('Create new user', new_editorial_user_path)

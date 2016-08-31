@@ -181,47 +181,4 @@ RSpec.describe 'admin features', type: :feature do
       end
     end
   end
-
-  context 'a non-admin user' do
-    let!(:non_admin_user) { Fabricate(:user, is_admin: false) }
-
-    before do
-      login_as(non_admin_user, scope: :user)
-      visit admin_root_path
-    end
-
-    after do
-      logout(:user)
-    end
-
-    it 'should have been redirected to editorial' do
-      expect(page.current_path).to eq(editorial_root_path)
-    end
-  end
-
-  context 'when logging in' do
-    let!(:admin_user) { Fabricate(:user, is_admin: true) }
-    let!(:non_admin_user) { Fabricate(:user, is_admin: false) }
-
-    context 'as an admin user' do
-      it 'redirect to admin interface' do
-        visit admin_root_path
-        fill_in('Email', with: admin_user.email)
-        fill_in('Password', with: admin_user.password)
-        click_button('Sign in')
-        expect(current_path).to eq(admin_root_path)
-      end
-    end
-
-    context 'as a non-admin user' do
-      it 'redirect to editorial path' do
-        visit admin_root_path
-        fill_in('Email', with: non_admin_user.email)
-        fill_in('Password', with: non_admin_user.password)
-        click_button('Sign in')
-        expect(current_path).to eq(editorial_root_path)
-      end
-    end
-  end
-
 end

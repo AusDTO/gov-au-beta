@@ -43,6 +43,7 @@ bower.json
 # IntelliJ IDEA files
 .idea
 **.iml
+railways.cache
 
 # ignore dummy app logs
 engines/synergy/spec/dummy/db/*.sqlite3
@@ -52,3 +53,6 @@ engines/synergy/spec/dummy/log
 # ignore sitemap because it's based on the database
 public/sitemap.xml*
 public/sitemaps/*
+
+# Ignore SQL files
+*.sql

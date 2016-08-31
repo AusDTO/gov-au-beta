@@ -20,7 +20,7 @@ leaf_category = subcategory.children.find_or_create_by!(name: 'Road')
 topic = Topic.find_or_create_by!(name: 'Business')
 topic.summary = 'The business section covers a range of business-related topics.'
 topic.categories << leaf_category
-topic.save
+topic.save!
 
 news1 = NewsArticle.with_name(
     'Business News'
@@ -117,19 +117,27 @@ password = ENV['SEED_USER_PASSWORD']
 raise 'SEED_USER_PASSWORD cannot be empty' if password.blank?
 
 unless admin = User.find_by(email: 'admin@example.gov.au')
-  admin = User.create!(email: 'admin@example.gov.au', password: password)
+  admin = User.create!(email: 'admin@example.gov.au',
+                       password: password,
+                       confirmed_at: DateTime.now)
 end
 
 unless author = User.find_by(email: 'author@example.gov.au')
-  author = User.create!(email: 'author@example.gov.au', password: password)
+  author = User.create!(email: 'author@example.gov.au',
+                        password: password,
+                        confirmed_at: DateTime.now)
 end
 
 unless reviewer = User.find_by(email: 'reviewer@example.gov.au')
-  reviewer = User.create!(email: 'reviewer@example.gov.au', password: password)
+  reviewer = User.create!(email: 'reviewer@example.gov.au',
+                          password: password,
+                          confirmed_at: DateTime.now)
 end
 
 unless owner = User.find_by(email: 'owner@example.gov.au')
-  owner = User.create!(email: 'owner@example.gov.au', password: password)
+  owner = User.create!(email: 'owner@example.gov.au',
+                       password: password,
+                       confirmed_at: DateTime.now)
 end
 
 admin.add_role :admin

@@ -94,6 +94,11 @@ crumb :new_editorial_request do |section|
   parent :editorial_root
 end
 
+crumb :new_editorial_user do
+  link 'Create user', new_editorial_user_path
+  parent :editorial_root
+end
+
 crumb :public_news_articles do
   link 'News', news_articles_path
   parent :public_node, Node.root_node

@@ -57,7 +57,7 @@ module Editorial
       @form = new_form
       @form.prepopulate!
       authorize! :create_in, @section
-      if @form.validate(params.require(:node).permit!)
+      if @form.validate(nodes_params)
         submission = NodeCreator.new(@section, @form).perform!(current_user)
         redirect_to editorial_section_submission_path(@section, submission)
       else
@@ -115,8 +115,18 @@ module Editorial
     end
 
     def try_save
-      return false unless @form.validate(params.require(:node).permit!)
+      return false unless @form.validate(nodes_params)
       @form.save
+    end
+
+    private
+
+    def nodes_params
+      # to debug, uncomment action_on_unpermitted_parameters
+      # ActionController::Parameters.action_on_unpermitted_parameters = :raise
+      params.required(:node).permit(:section_id, :parent_id, :name, :short_summary, :summary, :content_body,
+                                    children_attributes: [:order_num, :id],
+                                    options_attributes: [:toc,:suppress_in_nav,:placeholder])
     end
   end
 end

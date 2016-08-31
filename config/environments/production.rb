@@ -98,10 +98,19 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use '::Rack::Auth::Basic' do |u, p|
-    [u, p] == [ENV["HTTP_USERNAME"], ENV["HTTP_PASSWORD"]]
+  if ENV["HTTP_USERNAME"] && ENV["HTTP_PASSWORD"]
+    config.middleware.use '::Rack::Auth::Basic' do |u, p|
+      [u, p] == [ENV["HTTP_USERNAME"], ENV["HTTP_PASSWORD"]]
+    end
   end
-
+  
   config.version_tag = ENV['CIRCLE_TAG']
   config.version_sha = ENV['CIRCLE_SHA1']
+
+  # Set SMS provider
+  config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
+  config.sms_send_message_url = ENV['SMS_SEND_MESSAGE_URL']
+
+  #Set use of two-factor auth
+  config.use_2fa = !ENV['DISABLE_2FA'].present?
 end

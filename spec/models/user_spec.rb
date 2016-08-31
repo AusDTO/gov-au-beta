@@ -55,4 +55,20 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+
+  describe 'one time passwords' do
+    let!(:user) {
+      Fabricate(:user, bypass_tfa: false, confirmed_at: Time.now.utc,
+                phone_number: '0423456789', account_verified: true,
+                identity_verified_at: Time.now.utc)
+    }
+
+
+    before {
+      user.unconfirmed_phone_number = '0433333333'
+      user.create_direct_otp_for(:unconfirmed_phone_number_otp)
+    }
+
+  end
 end

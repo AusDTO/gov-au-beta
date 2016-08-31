@@ -31,8 +31,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
+  port = ENV['PORT'] || 3000
+  config.action_mailer.default_url_options = { host: 'localhost', port: port }
+  Rails.application.routes.default_url_options = { host: 'localhost', port: port }
 
   config.action_mailer.delivery_method = :letter_opener
 
@@ -57,6 +58,18 @@ Rails.application.configure do
   config.active_job.queue_adapter     = :async
   config.active_job.queue_name_prefix = "gov-au-beta_#{Rails.env}"
 
-  config.version_tag = 'dummy_version'
-  config.version_sha = 'dummy_sha'
+  def config.version_tag
+    `git describe --tags` rescue 'dummy_version'
+  end
+
+  def config.version_sha
+    `git rev-parse HEAD`.strip rescue 'dummy_sha'
+  end
+
+  # Set SMS provider
+  config.sms_authenticate_url = ENV['SMS_AUTHENTICATE_URL']
+  config.sms_send_message_url = ENV['SMS_SEND_MESSAGE_URL']
+
+  #Set use of two-factor auth
+  config.use_2fa = ENV['FORCE_2FA'].present?
 end

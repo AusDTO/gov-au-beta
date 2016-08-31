@@ -126,6 +126,12 @@ class Node < ApplicationRecord
     return RootNode.first
   end
 
+  # Returns true if the parent of the node is editable.
+  # Override this in subclasses as required.
+  def reparentable?
+    true
+  end
+
   private
 
   # Override this method in subclasses to have different routes per subclass.

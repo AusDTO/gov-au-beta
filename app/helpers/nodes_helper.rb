@@ -12,6 +12,20 @@ module NodesHelper
     end
   end
 
+  # Note: this returns active first and root last
+  def menu_active_chain(active)
+    if active
+      active.self_and_ancestors.reject{|n| n.options.suppress_in_nav}
+    else
+      []
+    end
+  end
+
+  def menu_node_class(node, active_chain)
+    return 'is-active is-current' if node == active_chain.first
+    return 'is-active' if active_chain.include?(node)
+  end
+
   def public_node_path(node, opts = {})
     opts[:path] = node.path
     Rails.application.routes.url_helpers.nodes_path opts

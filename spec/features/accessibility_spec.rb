@@ -13,9 +13,9 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
       end
       visit url
       expect(page.status_code).to eq(200)
-      # TODO: Remove skip clause once ui-kit colours are updated
-      # See https://github.com/AusDTO/gov-au-ui-kit/issues/271
-      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa).skipping('color-contrast')
+      # list of rules: https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md
+      # Bugfix for regions: https://github.com/AusDTO/gov-au-ui-kit/issues/313
+      expect(page).to be_accessible.according_to(:wcag2a, :wcag2aa, 'best-practice')
     end
   end
 
@@ -58,11 +58,14 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
     let!(:topic_home) { Fabricate(:section_home, section: topic) }
     let!(:news_article) { Fabricate(:news_article, parent: department_home, sections: [department, minister]) }
     let!(:general_content) { Fabricate(:general_content, parent: department_home) }
+    let!(:placeholder_content) { Fabricate(:general_content, parent: department_home, placeholder: true) }
 
     include_examples 'is accessible', 'root_path', true
     include_examples 'is accessible', 'departments_path', true
     include_examples 'is accessible', 'ministers_path', true
+    include_examples 'is accessible', 'new_feedback_path', true
     include_examples 'is accessible', 'news_articles_path', true
+    include_examples 'is accessible', 'section_news_articles_path(department.slug)', true
     include_examples 'is accessible', 'public_node_path(news_article)', true
     include_examples 'is accessible', 'public_node_path(department.home_node)', true
     include_examples 'is accessible', 'public_node_path(minister.home_node)', true

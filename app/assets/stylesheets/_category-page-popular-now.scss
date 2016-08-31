@@ -1,0 +1,18 @@
+.hero-med .wrapper *:first-child {
+  padding-top: $tiny-spacing;
+}
+
+.hero-med .links-group {
+  h2,
+  h3,
+  h4 {
+    font-size: rem(17);
+    font-weight: 700;
+  }
+
+  a {
+    color: $white;
+    padding-top: 0!important; //remove when ui kit doesn't overspecificy first child padding
+  }
+
+}

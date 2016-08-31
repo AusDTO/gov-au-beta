@@ -20,6 +20,23 @@ RSpec.describe MarkdownHelper do
       it { is_expected.to have_css('table.content-table') }
     end
 
+    context 'renders links' do
+      subject { markdown_content('[a link](http://example.com)') }
+      it { is_expected.to have_link('a link', href: 'http://example.com') }
+    end
+
+    context 'renders links without xss' do
+      subject { markdown_content('[<script>alert("Foo")</script>](http://example.com)') }
+      it { is_expected.not_to have_css('script') }
+    end
+
+    context 'changes # links to placeholder span' do
+      subject { markdown_content('[a placeholder link](#)') }
+      it { is_expected.not_to have_link('a placeholder link', href: '#') }
+      it { is_expected.to have_css('span.placeholder-link') }
+      it { is_expected.to match('a placeholder link') }
+    end
+
     context 'strips script tags' do
       subject { markdown_content('Stuff<script>alert()</script>') }
       it { is_expected.to match('Stuff') }
@@ -32,9 +49,9 @@ RSpec.describe MarkdownHelper do
     end
 
     context 'handles tel: telephone links' do
-      subject { markdown_content('<a href="tel:133 677">National Relay Service - TTY/voice calls</a>')}
-      it {is_expected.to have_link('National Relay Service - TTY/voice calls',
-                                   :href => "tel:133%20677")}
+      subject { markdown_content('<a href="tel:133 677">National Relay Service - TTY/voice calls</a>') }
+      it { is_expected.to have_link('National Relay Service - TTY/voice calls',
+                                    :href => "tel:133%20677") }
     end
 
     context 'creates toc data' do

@@ -71,6 +71,11 @@ class Ability
       can :review_in, Section do |section|
         user.has_cached_role? :reviewer, section
       end
+
+      can :create, :user do
+        # if owner of any section
+        user.roles.where(name: :owner).count > 0
+      end
     end
 
     # Everyone (signed in or not) can view published pages.

@@ -1,49 +1,89 @@
 namespace :db do
 
-  desc 'Dumps the database to file'
-  task :dump => :environment do
+  desc 'Uploads a scrubbed database dump to S3'
+  task :'s3:upload', [:key] => :environment do |t, args|
+    args.with_defaults(:key => "db_#{ENV['APP_DOMAIN']}.sql")
 
-    url = ActiveRecord::Base.connection_config[:url]
-    host = ActiveRecord::Base.connection_config[:host]
-    db = ActiveRecord::Base.connection_config[:database]
+    Tempfile.open(['dump', '.sql']) do |dump_file|
+      puts "Dumping database to #{dump_file.path}..."
+      cmd = "pg_dump --no-owner --no-acl -v -c -f #{dump_file.path} --no-password #{connection_info}"
+      unless system cmd
+        raise 'Database dump failed'
+      end
 
-    cmd = "pg_dump --no-owner --no-acl -v -c -f #{dump_file} --no-password "
-    # Adapt the app database config for pg_dump. Use the db connection url, or
-    # fallback to using a local unix socket.
-    cmd += url || "--host #{host} --dbname #{db}"
+      Tempfile.open(['scrub', '.sql']) do |scrub_file|
+        puts 'Scrubbing...'
+        unless system "#{Rails.root}/bin/scrub.rb #{dump_file.path} > #{scrub_file.path}"
+          raise 'Database scrub failed'
+        end
 
-    puts 'Running pg_dump...'
-    unless system cmd
-      raise 'Database dump failed'
+        puts "Uploading to S3 as '#{args.key}'..."
+        s3 = Aws::S3::Resource.new
+        s3.bucket(s3_bucket).object(args.key).upload_file(scrub_file.path)
+        puts 'Upload complete'
+      end
     end
   end
 
-  desc 'Scrubs database dump file and uploads to S3'
-  task :s3upload => :dump do
-    begin
-      scrubbed_file = File.join(Dir.tmpdir, 'db_scrubbed.sql')
-      s3_key = "db_#{ENV['APP_DOMAIN']}.sql"
-      s3_bucket = ENV['AWS_DB_S3UPLOAD_BUCKET']
-
-      raise 'AWS_DB_S3UPLOAD_BUCKET cannot be empty' if s3_bucket.blank?
-
-      unless system "#{Rails.root}/bin/scrub.rb #{dump_file} > #{scrubbed_file}"
-        raise 'Database scrub failed'
-      end
-
-      puts 'Uploading to S3...'
-      s3 = Aws::S3::Resource.new
-      s3.bucket(s3_bucket).object(s3_key).upload_file(scrubbed_file)
-    ensure
-      File.delete(dump_file) if File.exist?(dump_file)
-      File.delete(scrubbed_file) if File.exist?(scrubbed_file)
+  desc 'Import a database dump from S3'
+  task :'s3:import', [:key] => :environment do |taskname, args|
+    unless args.key.present?
+      abort "You must specify an S3 key to import e.g. rake #{taskname}[db_gov-au-beta.example.gov.au.sql]"
     end
+
+    s3 = Aws::S3::Client.new
+
+    Tempfile.open(['downloaded', '.sql']) do |file|
+      puts "Downloading '#{args.key}' from S3..."
+      s3.get_object(response_target: file.path, bucket: s3_bucket, key: args.key)
+
+      Rake::Task['db:drop'].invoke
+      Rake::Task['db:create'].invoke
+
+      puts 'Running restore...'
+      unless system "psql #{connection_info} < #{file.path}"
+        raise 'Database restore failed'
+      end
+    end
+
+    # It is recommended to run Analyze after a restore
+    unless system "psql #{connection_info} -c 'ANALYZE'"
+      raise 'Analyze failed'
+    end
+
+    puts 'Running migrations...'
+    Rake::Task['db:migrate'].invoke
+
+    # Passwords should have been sanitized, so reset them all to something valid
+    password = ENV['SEED_USER_PASSWORD']
+    raise 'SEED_USER_PASSWORD cannot be empty' if password.blank?
+    User.all.each { |user| user.update!(password: password,
+                                        password_confirmation: password,
+                                        bypass_tfa: true) }
+
+    # An Admin user might be handy
+    admin = User.create!(email: 'admin@example.gov.au',
+                         password: password,
+                         confirmed_at: DateTime.now,
+                         bypass_tfa: true)
+    admin.add_role :admin
+
+    puts 'Restore complete'
   end
 
   private
 
-  def dump_file
-    File.join(Dir.tmpdir, 'db_dump.sql')
+  def s3_bucket
+    s3_bucket = ENV['AWS_DB_S3UPLOAD_BUCKET']
+    raise 'AWS_DB_S3UPLOAD_BUCKET cannot be empty' if s3_bucket.blank?
+    s3_bucket
+  end
+
+  # Database connection info for psql and pg_dump
+  def connection_info
+    # Use the db connection url, or fallback to using a local unix socket.
+    ActiveRecord::Base.connection_config[:url] ||
+        "--host #{ActiveRecord::Base.connection_config[:host]} --dbname #{ActiveRecord::Base.connection_config[:database]}"
   end
 
 end

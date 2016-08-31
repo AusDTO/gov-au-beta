@@ -3,13 +3,43 @@ Rails.application.routes.draw do
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  devise_for :users
+  devise_for :users, controllers: { confirmations: 'confirmations' }, skip: [:registrations]
+  as :user do
+    get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'registrations#update', :as => 'user_registration'
+  end
+
+  namespace :users do
+    resource :two_factor_setup, only: [:index], controller: 'two_factor_setup' do
+      get :index
+      post :choice
+      get :continue_setup
+
+      resource :authenticator, only: [:new, :create, :update], controller: 'two_factor_setup/authenticator_setup' do
+        post :resend_code
+      end
+
+      resource :sms, only: [:new, :create, :update], controller: 'two_factor_setup/sms_setup' do
+        post :resend_code
+        get :confirm
+      end
+    end
+
+    resource :two_factor_verification, only: [:new, :create, :update], controller: :two_factor_verification do
+      post :resend_code
+      get :confirm
+    end
+  end
+
+  resource :feedback, controller: 'feedback'
 
   namespace :editorial do
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article
 
     post '/news' => 'news#create'
+
+    resources :users, only: [:new, :create]
 
     get ':section_id' => 'sections#show', as: 'section'
     scope ':section_id', as: 'section' do
@@ -38,6 +68,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :custom_template_nodes
     resources :departments
+    resources :feedbacks
     resources :general_contents
     resources :ministers
     resources :news_articles

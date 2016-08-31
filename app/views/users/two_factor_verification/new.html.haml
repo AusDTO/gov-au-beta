@@ -1,0 +1,9 @@
+%article.verify
+  %h1 We need to quickly check this is you
+
+  %p
+    Please continue to verify your account.
+
+  %section.sign-in-form
+    .form-footer-actions
+      = link_to 'Continue', users_two_factor_verification_path, method: :post, role: :button

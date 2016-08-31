@@ -1,10 +1,11 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
+  include IncompleteTfaSetup
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :complete_two_factor_setup
   helper_method :decorated_current_user
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -15,17 +16,30 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    user = super
-    if user
-      User.includes(:roles).find(user.id)
-    end
+    super
+
+    # TODO: this breaks lots of assumptions about current_user
+    # being writeable, and requires more thought.
+    # if user
+    #   User.includes(:roles).find(user.id)
+    # end
   end
 
   def decorated_current_user
     current_user.try(:decorate)
   end
 
+
   protected
+  def confirm_two_factor!
+    if current_user.account_verified && !current_user.bypass_tfa
+      # Check identity last checked date
+      if current_user.identity_expired?
+        session[:target_redirect] = request.path
+        redirect_to new_users_two_factor_verification_path
+      end
+    end
+  end
 
   # Calls *stale?* but modifies any supplied *strong_etag* by prepending the value of 
   # ApplicationController#etag_seed.
@@ -37,10 +51,6 @@ class ApplicationController < ActionController::Base
   # ApplicationController#etag_seed.
   def bustable_fresh_when(object = nil, **kwd_args)
     !etag_disabled? && fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   end
 
   private
@@ -67,13 +77,5 @@ class ApplicationController < ActionController::Base
 
   def bustable_etag(strong_etag)
     Digest::SHA1.hexdigest("#{etag_seed}#{strong_etag || ""}")
-  end
-
-  def after_sign_in_path_for(resource)
-    if resource.has_role?(:admin)
-      admin_root_path
-    else
-      editorial_root_path
-    end
   end
 end

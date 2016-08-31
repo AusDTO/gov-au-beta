@@ -76,7 +76,7 @@ Devise.setup do |config|
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
-  # config.paranoid = true
+  config.paranoid = true
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
@@ -266,4 +266,12 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  config.max_login_attempts = 3  # Maximum second factor attempts count.
+  config.allowed_otp_drift_seconds = 30  # Allowed TOTP time drift between client and server.
+  config.otp_length = 6  # TOTP code length
+  config.direct_otp_valid_for = 5.minutes  # Time before direct OTP becomes invalid
+  config.direct_otp_length = 6  # Direct OTP code length
+  config.remember_otp_session_for_seconds = 30.days  # Time before browser has to perform 2fA again. Default is 0.
+  config.otp_secret_encryption_key = Rails.application.secrets.two_factor_encryption_key
 end

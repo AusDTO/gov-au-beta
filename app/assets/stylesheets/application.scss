@@ -17,14 +17,24 @@
  @import "page_controls";
  @import "tab";
  @import "homepage";
+ @import "forms";
  @import "content-listing";
  @import "logo-link";
  @import "ie";
 
  //all of the below sass will need to be removed once it is added to UI Kit
- @import "callout-basic"; // not yet added to UI Kit - this callout exists on the QLD daylight saving page
+ @import "callout-basic"; // GitHub issue raised for this https://github.com/AusDTO/gov-au-ui-kit/issues/301
  @import "daylight-savings-callout"; // https://github.com/AusDTO/gov-au-ui-kit/pull/209 changing callout--icon-left to callout--reminder
  @import "times-dates-list"; //waiting for https://github.com/AusDTO/gov-au-ui-kit/pull/211 - will require html refactor
  @import "lists-ie-fix"; //github issue raised for these overrides with UI Kit https://github.com/AusDTO/gov-au-ui-kit/issues/258
  @import "tab-overrides"; //treb and Alz will address updating the styling of this in UI Kit
  @import "sign-in";
+ @import "two-factor";
+ @import "category-accordions";
+ @import "category-page-popular-now";
+ @import "phone-numbers"; //GitHub issue raised view more info at https://github.com/AusDTO/gov-au-ui-kit/pull/319
+
+ // These have questions raised on ui-kit for whether they want to include it or if it should
+ // be our custom stuff
+ @import "news-listing"; // https://github.com/AusDTO/gov-au-ui-kit/issues/299
+ @import "content"; // https://github.com/AusDTO/gov-au-ui-kit/issues/300

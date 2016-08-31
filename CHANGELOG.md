@@ -10,6 +10,37 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 
+## [v1.2.0] - 2016-08-31
+### Added
+- Added two-factor authentication via SMS and authenticator to sign-in/up and verification
+- Verification of identity when accessing protected pages
+- Phone number verification when changing numbers
+- Simple feedback system and admin
+- Rendering # links as placeholder spans
+- Section owners and admins can create new users
+- Importing database dump from S3
+- Footer links can be maintained using a "About GOV.AU" section
+
+### Changed
+- Upgrade Rails to v5.0.0.1
+- Upgrade UI kit to v1.7.5
+- Improvements to Category landing page layout including collapsing regions
+- Remove references to content analysis service
+- HTTP basic authentication is now toggleable
+
+### Fixed
+- Fixed leaking email addresses on password reset and resend email confirmation pages
+- Remove instances of permit! mass assignment
+- Improved accessibility
+- Switched to database backed session stores for greater security
+- Fixed styling of the active page in the sidebar
+- Seeded users do not require email confirmation
+- Fixed bug that was preventing reordering children of a section home
+
+### Removed
+- A user can no longer sign themselves up
+
+
 ## [v1.1.0] - 2016-08-23
 ### Added
 - Added ability to group topics into categories
