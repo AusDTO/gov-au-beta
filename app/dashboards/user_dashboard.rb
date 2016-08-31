@@ -26,6 +26,7 @@ class UserDashboard < Administrate::BaseDashboard
     password_confirmation: PasswordField,
     first_name: Field::String,
     last_name: Field::String,
+    bypass_tfa: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -56,6 +57,7 @@ class UserDashboard < Administrate::BaseDashboard
     :confirmation_sent_at,
     :created_at,
     :updated_at,
+    :bypass_tfa,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -70,6 +72,7 @@ class UserDashboard < Administrate::BaseDashboard
     :confirmed_at,
     :confirmation_sent_at,
     :roles,
+    :bypass_tfa
   ].freeze
 
   # Overwrite this method to customize how users are displayed
