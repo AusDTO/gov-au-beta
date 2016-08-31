@@ -24,6 +24,9 @@
       %th Value
   %tbody
     %tr
+      %td Id
+      %td= node.token
+    %tr
       %td Section
       %td= link_to(node.section.name, editorial_section_path(node.section))
     %tr

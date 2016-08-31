@@ -1,0 +1,6 @@
+-# locals: node
+%div.abstract
+  %p
+    = node.short_summary
+    - if node.rendered[:summary]
+      != node.rendered[:summary].content

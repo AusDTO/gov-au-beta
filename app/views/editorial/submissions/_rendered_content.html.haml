@@ -1,0 +1,10 @@
+- if rendered_content.content.blank?
+  none
+- else
+  %div.content-block
+    != rendered_content.content
+  - if rendered_content.errors.present?
+    %dl
+      %dt Errors
+      - rendered_content.errors.each do |error|
+        %dd.liquid-error= Liquid::Error.render(error)

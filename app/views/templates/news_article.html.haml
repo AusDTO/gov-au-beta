@@ -9,11 +9,7 @@
 %h1
   =node.name
 
-%div.abstract
-  %p
-    =node.short_summary
-    - if node.summary
-      != markdown_content node.summary
+= render partial: 'templates/abstract', locals: {node: node}
 
 %ul.announcement-info
   - if node.release_date
@@ -23,6 +19,4 @@
     %a= link_to(node.section.name, public_node_path(node.section.home_node))
 
 
-= render partial: 'templates/content_body', object: node.content_body
-
-=@hierarchy
+!= node.rendered[:content_body].content

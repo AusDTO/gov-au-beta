@@ -3,14 +3,10 @@
 
 - breadcrumb :public_node, node
 
-%div.abstract
-  %p
-    =node.short_summary
-    - if node.summary
-      != markdown_content node.summary
+= render partial: 'templates/abstract', locals: {node: node}
 
 = render partial: 'templates/related_topics'
-= render partial: 'templates/content_body', object: node.content_body
+!= node.rendered[:content_body].content
 
 %h2 News
 %p Announcements, media releases, interviews, speeches and more.

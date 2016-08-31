@@ -22,4 +22,24 @@ class NodeDecorator < Draper::Decorator
       "#{object.name}"
     end
   end
+
+  # Note: The result of #rendered is cached and will not reflect changes to the content.
+  # If this becomes a problem, revisit how this function works.
+  def rendered
+    unless @rendered
+      @rendered = {}
+      renderable_fields.each do |field|
+        @rendered[field] = RenderedContent.new(object, object.send(field))
+      end
+    end
+    @rendered
+  end
+
+  protected
+
+  # Override in subclass to render additional fields
+  def renderable_fields
+    [:content_body, :summary]
+  end
+
 end

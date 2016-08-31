@@ -1,4 +1,4 @@
--# locals: content : RevisionContent, defaults : Hash
+-# locals: content : RevisionContent, node : Node
 - if content.blank?
   %div
     none
@@ -7,7 +7,7 @@
     %dt Name
     %dd
       - if content[:name].nil?
-        = defaults[:name]
+        = node.name
       - else
         = content[:name]
 
@@ -20,19 +20,11 @@
 
     %dt Summary
     %dd
-      - if content[:summary].nil?
-        none
-      - else
-        %div.content-block
-          != markdown_content content[:summary]
+      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:summary])
 
     %dt Body
     %dd
-      - if content[:content_body].nil?
-        none
-      - else
-        %div.content-block
-          != markdown_content content[:content_body]
+      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:content_body])
 
     - content.optional_keys_in_order.each do |key|
       %dt= key.to_s.titleize

@@ -4,6 +4,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+- Added ability to link to another page by id
+- Added EDITOR.md as a central location for documenting the editor
 
 ### Changed
 
