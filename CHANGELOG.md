@@ -17,6 +17,8 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 - Fixed issue where the 'Popular now' heading on Category pages was displaying even if there were no Popular now links
+- Fixed visual defect with box-shadow being incorrectly displayed on School holiday highlighted list items
+
 
 ## [v1.2.0] - 2016-08-31
 ### Added
