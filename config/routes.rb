@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :root_nodes
     resources :section_homes
     resources :sections
+    resources :sessions
     resources :submissions
     resources :topics
     resources :users
