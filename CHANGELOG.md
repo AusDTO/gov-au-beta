@@ -16,7 +16,7 @@ This file is influenced by http://keepachangelog.com/.
 - Removed 30 day grace window on 2FA
 
 ### Fixed
-
+- Fixed issue where the 'Popular now' heading on Category pages was displaying even if there were no Popular now links
 
 ## [v1.2.0] - 2016-08-31
 ### Added
