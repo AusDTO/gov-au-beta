@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826021047) do
+ActiveRecord::Schema.define(version: 20160901012051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,4 +217,19 @@ ActiveRecord::Schema.define(version: 20160826021047) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "news_distributions", "nodes", column: "news_article_id"
+  add_foreign_key "nodes", "nodes", column: "parent_id"
+  add_foreign_key "requests", "sections"
+  add_foreign_key "requests", "users"
+  add_foreign_key "requests", "users", column: "approver_id"
+  add_foreign_key "revisions", "revisions", column: "parent_id"
+  add_foreign_key "section_categories", "categories"
+  add_foreign_key "section_categories", "sections"
+  add_foreign_key "section_connections", "sections"
+  add_foreign_key "section_connections", "sections", column: "connection_id"
+  add_foreign_key "submissions", "revisions"
+  add_foreign_key "submissions", "users", column: "reviewer_id"
+  add_foreign_key "submissions", "users", column: "submitter_id"
+  add_foreign_key "users_roles", "roles"
+  add_foreign_key "users_roles", "users"
 end
