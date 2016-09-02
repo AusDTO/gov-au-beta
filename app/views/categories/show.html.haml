@@ -8,16 +8,17 @@
     .wrapper
       %h1= @category.name
       %p= @category.summary
-      .links-group
-        %h2 Popular now
-        %ul
-          - @category.sections.each do |section|
-            - if not section.home_node.options.suppress_in_nav
-              - if section.home_node.state.draft?
-                %li
-                  %span.placeholder-link= section.name
-              - else
-                %li=link_to(section.name, nodes_path(section.slug))
+      - if not @category.sections.empty?
+        .links-group
+          %h2 Popular now
+          %ul
+            - @category.sections.each do |section|
+              - if not section.home_node.options.suppress_in_nav
+                - if section.home_node.state.draft?
+                  %li
+                    %span.placeholder-link= section.name
+                - else
+                  %li=link_to(section.name, nodes_path(section.slug))
 
 %article.content-main
   - @category.children.each do |subcategory|
