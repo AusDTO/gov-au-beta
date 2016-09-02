@@ -29,6 +29,19 @@ module Users
           redirect_to :root and return
         end
       else
+        current_user.second_factor_attempts_count += 1
+        current_user.save
+
+        # Taken from https://github.com/Houdini/two_factor_authentication/blob/master/app/controllers/devise/two_factor_authentication_controller.rb#L64
+        @limit = current_user.max_login_attempts
+        if current_user.max_login_attempts?
+          # We should reset the OTP if one exists
+          OtpService.new(current_user).clear_direct_otp(:direct_otp) if current_user.direct_otp.present?
+
+          sign_out(current_user)
+          render 'devise/two_factor_authentication/max_login_attempts_reached' and return
+        end
+
         flash[:alert] = "Sorry, your code didn't work. Please try again."
         redirect_to confirm_users_two_factor_verification_path
       end
@@ -50,7 +63,7 @@ module Users
 
 
     def authenticate_code
-      return true if current_user.direct_otp && current_user.authenticate_otp(params[:code])
+      return true if current_user.direct_otp && current_user.authenticate_direct_otp(params[:code])
       return true if current_user.totp_enabled? && current_user.authenticate_totp(params[:code])
       false
     end
