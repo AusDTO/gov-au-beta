@@ -38,6 +38,8 @@ class NewsController < ApplicationController
 
   private
   def set_section
-    @section = SectionHome.find_by!(slug: params[:section]).section
+    Rollbar.silenced {
+      @section = SectionHome.find_by!(slug: params[:section]).section
+    }
   end
 end

@@ -19,10 +19,30 @@ class User < ApplicationRecord
   after_save :after_save
 
   def after_save
-    #TODO describe changes to users eg. password/email change
-    data = {event:"user_update", record_id: self.id, record_type: self.class, record_name: self.name}
-    #get current user and request from the Thread
-    LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
+    redact_keys = ['encrypted_password', 'reset_password_token','confirmation_token','encrypted_otp_secret_key','encrypted_otp_secret_key_iv','encrypted_otp_secret_key_salt']
+    changes = self.changes.inject({}) { |h, (k, v)|
+      if redact_keys.include?(k)
+        h[k] =['REDACTED', 'REDACTED']
+      else
+        h[k] =v
+      end
+      h
+    }
+
+
+    if changes['encrypted_password']
+      event = 'user_password_update'
+    elsif changes['reset_password_token']
+      event = 'user_password_reset'
+    elsif changes['email']
+      event = 'user_email_update'
+    elsif changes
+      event = 'user_update'
+    end
+    if event
+      data = {event: 'user_update', record_id: self.id, record_type: self.class, record_name: self.email, changes: changes}
+      LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
+    end
   end
 
   def password_required?
@@ -60,9 +80,9 @@ class User < ApplicationRecord
   # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
     SendTwoFactorAuthenticationCodeForJob.perform_later(
-       :phone_number.to_s,
-       :direct_otp.to_s,
-       self
+        :phone_number.to_s,
+        :direct_otp.to_s,
+        self
     )
   end
 
@@ -79,13 +99,13 @@ class User < ApplicationRecord
 
 
   def send_new_direct_otp_for(phone_number_field, code_field=nil)
-    code_field = "#{phone_number_field}_otp" if code_field.nil?
+    code_field = '#{phone_number_field}_otp' if code_field.nil?
     create_direct_otp_for(code_field)
 
     SendTwoFactorAuthenticationCodeForJob.perform_later(
-      phone_number_field.to_s,
-      code_field.to_s,
-      self
+        phone_number_field.to_s,
+        code_field.to_s,
+        self
     )
   end
 

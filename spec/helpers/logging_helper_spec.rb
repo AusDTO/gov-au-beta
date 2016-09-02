@@ -1,0 +1,1 @@
+expect(Rails.logger).to receive(:error).with(/error message/)

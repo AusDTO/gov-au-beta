@@ -84,7 +84,6 @@ class ApplicationController < ActionController::Base
     Digest::SHA1.hexdigest("#{etag_seed}#{strong_etag || ""}")
   end
 
-  # logging payload additions
   def append_info_to_payload(payload)
     super
     LoggingHelper.append_info_to_payload(request,current_user,payload)
