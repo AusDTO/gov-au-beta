@@ -1,5 +1,61 @@
 $light-teal: #0098b0;
 
+.beta-callout {
+  background-color: $lighter-aqua;
+
+  //override odd content listing css
+  .content-listing {
+    float: none;
+    padding-bottom: 2 * $base-spacing;
+
+    &:last-child {
+      margin-right: auto;
+    }
+  }
+
+  h2 {
+    margin-bottom: $small-spacing;
+    margin-top: 0;
+    padding-top: $base-spacing;
+  }
+
+  .abstract {
+    border-bottom: 0;
+    margin: 0;
+
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+  }
+
+  .content {
+    @include media($tablet) {
+      @include span-columns(8 of 12);
+      border-left: 1px solid $border-colour;
+      padding-left: $base-spacing;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .read-more {
+      font-size: rem(19);
+      font-weight: $heading-font-weight;
+
+      @include media($tablet) {
+        font-size: rem(21);
+      }
+    }
+  }
+
+  article {
+    @include outer-container;
+    padding: 0 $base-spacing;
+  }
+}
+
 .home-category-list {
   .abstract {
     border-bottom: 0;
