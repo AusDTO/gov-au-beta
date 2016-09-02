@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe "modifications" do
+    it "records log messages" do
+      persisted_user = Fabricate(:user)
+      expect(Rails.logger).to receive(:info).with(/event=user_update/)
+      persisted_user.email = "a@b.gov.au"
+      persisted_user.save!
+    end
+  end
+
   describe "password validations" do
     it "always requires a password for a new user" do
       unpersisted_user = User.new
