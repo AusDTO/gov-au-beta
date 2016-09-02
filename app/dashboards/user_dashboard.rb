@@ -29,6 +29,7 @@ class UserDashboard < Administrate::BaseDashboard
     bypass_tfa: Field::Boolean,
     account_verified: Field::Boolean,
     phone_number: Field::String,
+    second_factor_attempts_count: Field::Number,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -62,6 +63,7 @@ class UserDashboard < Administrate::BaseDashboard
     :bypass_tfa,
     :account_verified,
     :phone_number,
+    :second_factor_attempts_count,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -78,7 +80,8 @@ class UserDashboard < Administrate::BaseDashboard
     :roles,
     :bypass_tfa,
     :account_verified,
-    :phone_number
+    :phone_number,
+    :second_factor_attempts_count,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
