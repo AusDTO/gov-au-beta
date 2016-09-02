@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- Markdown support for images with links
 
 ## [v1.2.1] - 2016-08-31
 ### Added
