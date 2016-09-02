@@ -94,7 +94,7 @@ class User < ApplicationRecord
 
   def confirm_identity!
     self.identity_verified_at = Time.now.utc
-    self.second_factor_atutempts_count = 0
+    self.second_factor_attempts_count = 0
     save!
   end
 
