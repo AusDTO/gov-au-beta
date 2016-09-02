@@ -29,7 +29,6 @@ class User < ApplicationRecord
       h
     }
 
-
     if changes['encrypted_password']
       event = 'user_password_update'
     elsif changes['reset_password_token']
