@@ -6,6 +6,8 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 - Admin dashboard for sessions
 - Added 'What is GOV.AU Beta?' callout to homepage
+- Improved request and data change logging
+
 
 ### Changed
 - Incorrect attempts at verifying identity locks the user out
