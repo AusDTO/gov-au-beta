@@ -10,7 +10,7 @@ module Admin
 
     before_action ->() { authorize! :manage, :all }
     before_action :complete_two_factor_setup
-    before_filter :set_current
+    before_action :set_current
 
     def set_current
       LoggingHelper.current_user = current_user
