@@ -1,0 +1,25 @@
+.actions {
+  border-bottom: 4px solid $aqua;
+  text-align: right;
+  margin-bottom: $base-spacing;
+
+  button {
+    margin-bottom: $tiny-spacing / 2;
+    margin-right: 0;
+  }
+}
+
+.summary ul {
+  padding-left: 1.5 * $small-spacing;
+}
+
+.news-article .abstract {
+  border-bottom: 0;
+}
+
+.announcement-info {
+  border-top: 1px dashed $border-colour;
+  border-bottom: 1px dashed $border-colour;
+  padding: $small-spacing 0;
+  list-style: none;
+}

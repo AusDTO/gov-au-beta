@@ -3,8 +3,7 @@
 
 - breadcrumb :public_news_article, node
 
-%div.list-horizontal
-  = render partial: 'templates/related_sections', locals: {node: node}
+= render partial: 'application/news_article_actions'
 
 %h1
   =node.name
@@ -18,5 +17,7 @@
     Published by:
     %a= link_to(node.section.name, public_node_path(node.section.home_node))
 
-
 != node.rendered[:content_body].content
+
+%div.list-horizontal
+  = render partial: 'templates/related_sections', locals: {node: node}
