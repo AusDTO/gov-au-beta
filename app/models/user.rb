@@ -98,7 +98,7 @@ class User < ApplicationRecord
 
 
   def send_new_direct_otp_for(phone_number_field, code_field=nil)
-    code_field = '#{phone_number_field}_otp' if code_field.nil?
+    code_field = "#{phone_number_field}_otp" if code_field.nil?
     create_direct_otp_for(code_field)
 
     SendTwoFactorAuthenticationCodeForJob.perform_later(

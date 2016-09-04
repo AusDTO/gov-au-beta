@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :complete_two_factor_setup
   helper_method :decorated_current_user
-  before_filter :set_current
+  before_action :set_current
 
   def set_current
     LoggingHelper.current_user = current_user

@@ -19,7 +19,7 @@ module AuditLogging
   end
 
   def audit(record,action)
-    data = {event:action, record_id: record.id, record_type: record.class, record_name: record.try("name"), record_slug: record.try("slug")}
+    data = {event:action, record_id: record.id, record_type: record.class}
     #get current user and request from the Thread
     LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
   end
