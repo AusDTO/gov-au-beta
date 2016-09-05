@@ -39,7 +39,7 @@ class User < ApplicationRecord
       event = 'user_update'
     end
     if event
-      data = {event: 'user_update', record_id: self.id, record_type: self.class, record_name: self.email, changes: changes}
+      data = {event: event, record_id: self.id, record_type: self.class, record_name: self.email, changes: changes}
       LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
     end
   end
