@@ -9,6 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Incorrect attempts at verifying identity locks the user out
+- Change git merge strategy for CHANGELOG.md to reduce conflicts
 
 ### Fixed
 - Markdown support for images with links
