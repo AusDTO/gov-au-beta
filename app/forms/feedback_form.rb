@@ -6,4 +6,5 @@ class FeedbackForm < Reform::Form
   property :organisation
 
   validates :email, :comment, :role, :organisation, presence: true
+  validates :email, :email => true
 end
