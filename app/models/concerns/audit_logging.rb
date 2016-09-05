@@ -1,15 +1,17 @@
 module AuditLogging
   extend ActiveSupport::Concern
 
+  # The sequence for calling ActiveRecord::Base#save for an existing record is similar, except
+  # that each _create callback is replaced by the corresponding _update callback.
   # http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
   included do
-    after_save :after_save
+    after_update :after_update
     after_create :after_create
     after_destroy :after_destroy
   end
 
-  def after_save
-    audit(self, "save_record")
+  def after_update
+    audit(self, "update_record")
   end
   def after_create
     audit(self, "create_record")
