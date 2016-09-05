@@ -13,7 +13,7 @@ RSpec.describe Node, type: :model do
   describe "modifications" do
     let(:node) { Fabricate(:general_content, parent: section_home, content_body: 'foo') }
     it "records log messages" do
-      expect(Rails.logger).to receive(:info).with(/event=save_record/).at_least(:once)
+      expect(Rails.logger).to receive(:info).with(/event=update_record/).at_least(:once)
       expect(Rails.logger).to receive(:info).with(/event=create_record/).at_least(:once)
       node.name = "NewName"
       node.save!
