@@ -17,7 +17,7 @@
   %li
     %span
       Published by
-    %a= link_to(node.section.name, public_node_path(node.section.home_node))
+    %a= link_to(node.section.name, section_news_articles_path(section: @section.home_node.slug))
 
 != node.rendered[:content_body].content
 
