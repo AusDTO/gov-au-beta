@@ -1,8 +1,9 @@
 .news-article {
 
-  //need to override :firstchild on artcile that ui kit uses to float
+  //need to override :firstchild on artcile that ui kit uses to float an aside
+  //that follows an article in the markup
   &.content-main {
-    float:left;
+    float: left;
     margin-left: 0;
   }
 
@@ -19,13 +20,14 @@
     padding-left: 1.5 * $small-spacing;
   }
 
+  //news article metadata
   .announcement-info {
     border-bottom: 1px dashed $border-colour;
     border-top: 1px dashed $border-colour;
     font-weight: $bold-font-weight;
     list-style: none;
-    padding: $small-spacing 0;
     margin: 1.5 * $base-spacing 0;
+    padding: $small-spacing 0;
 
     li {
       font-size: rem(16);
@@ -37,17 +39,18 @@
     }
   }
 
+  //related articles
   + .sidebar {
     @include link-colours($non-black, $light-aqua, $non-black);
 
     //need to revisit vertical alignment here
     h2 {
-      margin-top: 0;
-      margin-bottom: $small-spacing;
-      padding-top: 1.3 * $base-spacing;
       border-top: 6px solid $aqua;
       font-size: rem(22);
       font-weight: $heading-font-weight;
+      margin-bottom: $small-spacing;
+      margin-top: 0;
+      padding-top: 1.3 * $base-spacing;
     }
 
     ul {
