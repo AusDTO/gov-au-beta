@@ -39,7 +39,7 @@ gem 'hashie'
 gem 'odyssey'
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
-gem 'enumerize', '~> 1.1.1'
+gem 'enumerize', '~> 2.0.0'
 gem 'cancancan'
 gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)

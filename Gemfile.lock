@@ -214,7 +214,7 @@ GEM
       inflecto (~> 0.0.0, >= 0.0.2)
     dumb_delegator (0.8.0)
     encryptor (3.0.0)
-    enumerize (1.1.1)
+    enumerize (2.0.0)
       activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
@@ -496,7 +496,7 @@ DEPENDENCIES
   dotenv-rails
   draper!
   dry-types
-  enumerize (~> 1.1.1)
+  enumerize (~> 2.0.0)
   fabrication (~> 2.15.0)
   faker (~> 1.6.6)
   friendly_id!
