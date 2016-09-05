@@ -291,6 +291,8 @@ GEM
       require_all
     oj (2.12.14)
     orm_adapter (0.5.0)
+    paranoia (2.2.0.pre)
+      activerecord (>= 4.0, < 5.1)
     pg (0.19.0.pre20160820113039)
     pkg-config (1.1.7)
     poltergeist (1.10.0)
@@ -519,6 +521,7 @@ DEPENDENCIES
   nokogiri (= 1.6.8.rc3)
   odyssey
   oj (~> 2.12.14)
+  paranoia (~> 2.2.0.pre)
   pg (>= 0.19.0.beta)
   poltergeist
   prometheus-client
