@@ -12,6 +12,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 - Markdown support for images with links
+- GTM tag is now in <body>
 
 ## [v1.2.1] - 2016-08-31
 ### Added
