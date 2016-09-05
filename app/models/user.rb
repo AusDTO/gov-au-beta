@@ -33,7 +33,7 @@ class User < ApplicationRecord
       event = 'user_password_update'
     elsif changes['reset_password_token']
       event = 'user_password_reset'
-    elsif changes['email']
+    elsif changes['unconfirmed_email']
       event = 'user_email_update'
     elsif changes
       event = 'user_update'
