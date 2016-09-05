@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   describe "modifications" do
     it "records log messages" do
       persisted_user = Fabricate(:user)
-      expect(Rails.logger).to receive(:info).with(/event=update_record record_id=1 record_type=User/).at_least(:once)
+      expect(Rails.logger).to receive(:info).with(/event=update_record/).at_least(:once)
       expect(Rails.logger).to receive(:info).with(/event=user_email_update/).at_least(:once)
       persisted_user.email = "a@b.gov.au"
       persisted_user.save!
