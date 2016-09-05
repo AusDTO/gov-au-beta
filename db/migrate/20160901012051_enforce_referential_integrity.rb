@@ -26,8 +26,7 @@ class EnforceReferentialIntegrity < ActiveRecord::Migration[5.0]
     # NOTE: cannot add constraint on revisable_type & revisable_id (polymorphic relationship)
     add_foreign_key :revisions, :revisions, column: :parent_id
 
-    # Some submissions have dangling submitter_ids after users were deleted.
-    # So we assign all of those submissions to a lucky user.
+    # Deletes orhaned submissions
     execute <<-SQL
       delete from submissions where id in (
         select s.id from submissions as s left join users as u on (s.submitter_id = u.id) where u.id is null
