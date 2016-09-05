@@ -8,8 +8,10 @@ This file is influenced by http://keepachangelog.com/.
 - Added 'What is GOV.AU Beta?' callout to homepage
 
 ### Changed
+- Incorrect attempts at verifying identity locks the user out
 
 ### Fixed
+- Markdown support for images with links
 
 ## [v1.2.1] - 2016-08-31
 ### Added

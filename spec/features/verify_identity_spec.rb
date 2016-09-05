@@ -13,6 +13,33 @@ RSpec.describe 'verify identity', type: :feature do
     Fabricate(:totp_user, bypass_tfa: false, account_verified: true)
   }
 
+  describe 'verification with no more attempts' do
+    include_context 'shared_two_factor_login'
+
+    let!(:user) {
+      Fabricate(:user, bypass_tfa: false, account_verified: true,
+                phone_number: '0423456789')
+    }
+
+    before {
+      login_as(user)
+      complete_2fa_login(user)
+      visit new_users_two_factor_setup_sms_path
+      click_link('Continue')
+
+      Rails.configuration.devise.max_login_attempts.times do
+        fill_in('Enter 6 digit code', with: 'nocode')
+        click_button('Verify')
+      end
+    }
+
+    context 'verifying self' do
+      it 'should lock user out' do
+        expect(page).to have_content 'Access completely denied as you have reached your attempts'
+      end
+    end
+  end
+
 
   describe 'two_factor_verification' do
     include_context 'shared_two_factor_login'
