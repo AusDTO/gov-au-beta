@@ -25,9 +25,34 @@ RSpec.describe MarkdownHelper do
       it { is_expected.to have_link('a link', href: 'http://example.com') }
     end
 
-    context 'renders links without xss' do
+    context 'renders links with a quote' do
+      subject { markdown_content('[a "link"](http://example.com)') }
+      it { is_expected.to have_link('a "link"', href: 'http://example.com') }
+    end
+
+    context 'renders links with an apostrophe' do
+      subject { markdown_content("[a link's text](http://example.com)") }
+      it { is_expected.to have_link("a link's text", href: 'http://example.com') }
+    end
+
+    context 'renders links with a space' do
+      subject { markdown_content('[a link](http://example.com/a thing)') }
+      it { is_expected.to have_link('a link', href: 'http://example.com/a%20thing') }
+    end
+
+    context 'renders links with an img' do
+      subject { markdown_content('[![Foo](https://example.com/image.png)](http://example.com)') }
+      it { is_expected.to match('<a href="http://example.com"><img src="https://example.com/image.png" alt="Foo"></a>') }
+    end
+
+    context 'renders links without script' do
       subject { markdown_content('[<script>alert("Foo")</script>](http://example.com)') }
       it { is_expected.not_to have_css('script') }
+    end
+
+    context 'renders links without iframe' do
+      subject { markdown_content('[<iframe src="https://bad.com/">foo</iframe>](http://example.com)') }
+      it { is_expected.not_to have_css('iframe') }
     end
 
     context 'changes # links to placeholder span' do
