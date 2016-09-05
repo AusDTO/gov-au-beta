@@ -12,6 +12,7 @@
 <html lang="en-AU" class="no-js"><!--<![endif]-->
 = render 'head', title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU Editorial" : 'GOV.AU Editorial' )
 %body
+  = render 'application/google_tag_manager'
   %header{role: 'banner', class: 'navigation'}
     = render 'application/signed_in_nav'
     %section.govau--header

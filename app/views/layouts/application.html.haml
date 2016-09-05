@@ -13,6 +13,7 @@
 
 = render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
 %body
+  = render 'application/google_tag_manager'
   %div.skip-to
     %a{href: "#content"}
       Skip to main content
