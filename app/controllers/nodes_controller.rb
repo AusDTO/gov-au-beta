@@ -6,9 +6,9 @@ class NodesController < ApplicationController
   decorates_assigned :menu_nodes, with: NodeDecorator
 
   def show
-    Rollbar.silenced {
-    @node = Node.find_by_path! params[:path] || ''
-    }
+    Rollbar.silenced do
+      @node = Node.find_by_path! params[:path] || ''
+    end
     raise ActiveRecord::RecordNotFound unless can? :read_public, @node
     @section = @node.section
 

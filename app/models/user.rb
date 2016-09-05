@@ -19,7 +19,7 @@ class User < ApplicationRecord
   after_save :after_save
 
   def after_save
-    redact_keys = ['encrypted_password', 'reset_password_token','confirmation_token','encrypted_otp_secret_key','encrypted_otp_secret_key_iv','encrypted_otp_secret_key_salt']
+    redact_keys = ['encrypted_password', 'reset_password_token', 'confirmation_token', 'encrypted_otp_secret_key', 'encrypted_otp_secret_key_iv', 'encrypted_otp_secret_key_salt']
     changes = self.changes.inject({}) { |h, (k, v)|
       if redact_keys.include?(k)
         h[k] =['REDACTED', 'REDACTED']
@@ -79,9 +79,9 @@ class User < ApplicationRecord
   # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
     SendTwoFactorAuthenticationCodeForJob.perform_later(
-        :phone_number.to_s,
-        :direct_otp.to_s,
-        self
+      :phone_number.to_s,
+      :direct_otp.to_s,
+      self
     )
   end
 
