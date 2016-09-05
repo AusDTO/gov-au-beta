@@ -1,4 +1,5 @@
 = inside_layout :application do
+
   %article#content{class: "content-main news-article", tabindex: -1}
     = yield
 
@@ -12,3 +13,5 @@
     - if node.short_summary
       = content_for :meta_description do
         = node.short_summary
+
+  -# = render partial: 'templates/related_news_articles', locals: {node: node}

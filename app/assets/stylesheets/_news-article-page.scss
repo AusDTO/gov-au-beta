@@ -1,25 +1,62 @@
-.actions {
-  border-bottom: 4px solid $aqua;
-  text-align: right;
-  margin-bottom: $base-spacing;
+.news-article {
 
-  button {
-    margin-bottom: $tiny-spacing / 2;
-    margin-right: 0;
+  //need to override :firstchild on artcile that ui kit uses to float
+  &.content-main {
+    float:left;
+    margin-left: 0;
   }
-}
 
-.summary ul {
-  padding-left: 1.5 * $small-spacing;
-}
+  h1 {
+    border-top: 6px solid $aqua;
+    padding-top: 1.5 * $small-spacing;
+  }
 
-.news-article .abstract {
-  border-bottom: 0;
-}
+  .abstract {
+    border-bottom: 0;
+  }
 
-.announcement-info {
-  border-top: 1px dashed $border-colour;
-  border-bottom: 1px dashed $border-colour;
-  padding: $small-spacing 0;
-  list-style: none;
+  .summary ul {
+    padding-left: 1.5 * $small-spacing;
+  }
+
+  .announcement-info {
+    border-bottom: 1px dashed $border-colour;
+    border-top: 1px dashed $border-colour;
+    font-weight: $bold-font-weight;
+    list-style: none;
+    padding: $small-spacing 0;
+    margin: 1.5 * $base-spacing 0;
+
+    li {
+      font-size: rem(16);
+      margin-bottom: .5 * $tiny-spacing;
+    }
+
+    span {
+      color: $grey;
+    }
+  }
+
+  + .sidebar {
+    @include link-colours($non-black, $light-aqua, $non-black);
+
+    //need to revisit vertical alignment here
+    h2 {
+      margin-top: 0;
+      margin-bottom: $small-spacing;
+      padding-top: 1.3 * $base-spacing;
+      border-top: 6px solid $aqua;
+      font-size: rem(22);
+      font-weight: $heading-font-weight;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    a {
+      //@include link-colours($non-black, $light-aqua, $non-black);
+    }
+  }
 }
