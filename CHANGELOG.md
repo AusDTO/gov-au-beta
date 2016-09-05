@@ -5,6 +5,7 @@ This file is influenced by http://keepachangelog.com/.
 ## [Unreleased]
 ### Added
 - Admin dashboard for sessions
+- Added 'What is GOV.AU Beta?' callout to homepage
 
 ### Changed
 

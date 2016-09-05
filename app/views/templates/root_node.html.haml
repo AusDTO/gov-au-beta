@@ -1,113 +1,36 @@
 - breadcrumb :public_node, node
 
-%article.content-listing#content{tabindex: -1}
+%article.content-listing
+
+
   %section.home-category-list
-    %h2 What is GOV.AU Beta?
-    .abstract
-      %p
-        GOV.AU Beta is a small imagining of what a whole-of-government platform
-        could look like. Its goal is to make Australian Government information
-        and services simpler, clearer and faster.
-      %p
-        We're designing GOV.AU in phases and this Beta version is a very early
-        release. This means we can launch new features swiftly, speak to users
-        regularly and get feedback as we go – helping us create the best
-        possible experience for everyone.
+    %h2.home-heading
+      Information and services
 
-    %h2 What’s available now?
-    .abstract
-      %p
-        GOV.AU Beta includes some examples of user-focussed information and
-        services content that we’ve grouped into categories.
-      %p
-        We’ve also worked on some
-        =link_to "agency ‘corporate’ content", departments_path
-        and
-        =link_to "minister pages.", ministers_path
+      %h3
+        What content is available now?
 
+      %ul.list-vertical--thirds.real-list
+        - @categories.each do |category|
+          %li
+            %article
+              %h3
+                = link_to(category.name, category_path(category.slug))
+              %p
+                = category.short_summary
 
-    %ul.list-vertical--thirds.real-list
-      - @categories.each do |category|
-        %li
-          %article
-            %h3
-              = link_to(category.name, category_path(category.slug))
-            %p
-              = category.short_summary
+      %h3
+        What content is coming soon?
 
-    %h2 What’s coming next?
-    %p.abstract
-      We have plans to expand our information and services content. This will
-      involve pulling in content from multiple government agencies to focus on
-      what users need to know about a particular topic.
-
-    %ul.list-vertical--thirds.placeholder-list
-      - @categories_coming_soon.each do |category|
-        %li
-          %article
-            %h3
-              %span.placeholder-link
-                = category.name
-            %p
-              = category.short_summary
-
-  %section.about-australia
-    %h2.home-heading About Australia
-    .population
-      %h3 Population (December 2015)
-      %ul
-        %li.population-infographic 23,940,300
-        %li.population-statistic <strong>96,300 </strong>more females <br>than males
-
-    .public-holiday
-      %h3 Next national public holiday
-      .next-holiday
-        %a{href: '/times-and-dates/australian-public-holidays'}
-          .calendar
-            %span.event-title Christmas Day
-            %time(datetime='2016-12-25') Friday <span>25</span> December
-
-  %a.see-more More about Australia
-
-  %section.life-changes
-    %h2.home-heading Life changes
-    %ul.list-vertical--thirds
-      %li
-        %article
-          %h3
-            %a{:href => "#"} Just had a baby?
-          %p
-            Get your baby on your Medicare card, registered for child care
-            payments and immunised.
-          %a{:href => "#", :role => "button"} Get started
-      %li
-        %article
-          %h3
-            %a{:href => "#"} Helping an older person?
-          %p
-            Find support for older Australians wanting to stay at home or
-            needing other living arrangements.
-          %a{:href => "#", :role => "button"} Get started
-      %li
-        %article
-          %h3
-            %a{:href => "#"} Starting a business?
-          %p
-            Tell us about your business idea and we'll match the right
-            government information to your set-up.
-          %a{:href => "#", :role => "button"} Get started
-
-  %section.home-news-list
-    %h2.home-heading News
-    - if @news.empty?
-      %p No current news articles
-    %ul.list-vertical--fourths
-      - @news.all.each do |news|
-        %li
-          %article
-            %h3= link_to news.name, public_node_path(news)
-            .meta= l(news.release_date, format: :news)
-    =link_to 'All news', news_articles_path, :class => "see-more"
+      %ul.list-vertical--thirds.placeholder-list
+        - @categories_coming_soon.each do |category|
+          %li
+            %article
+              %h3
+                %span.placeholder-link
+                  = category.name
+              %p
+                = category.short_summary
 
   %section.government-links
     .federal-government
@@ -160,3 +83,64 @@
           %span.image
           %h3.state-title Australian Capital Territory
           %a{href: 'http://www.act.gov.au/'} www.act.gov.au
+
+
+  %section.life-changes
+    %h2.home-heading Life changes
+    %ul.list-vertical--thirds
+      %li
+        %article
+          %h3
+            %a{:href => "#"} Just had a baby?
+          %p
+            Get your baby on your Medicare card, registered for child care
+            payments and immunised.
+          %a{:href => "#", :role => "button"} Get started
+      %li
+        %article
+          %h3
+            %a{:href => "#"} Helping an older person?
+          %p
+            Find support for older Australians wanting to stay at home or
+            needing other living arrangements.
+          %a{:href => "#", :role => "button"} Get started
+      %li
+        %article
+          %h3
+            %a{:href => "#"} Starting a business?
+          %p
+            Tell us about your business idea and we'll match the right
+            government information to your set-up.
+          %a{:href => "#", :role => "button"} Get started
+
+  %section.about-australia
+    %h2.home-heading About Australia
+    .population
+      %h3 Population (December 2015)
+      %ul
+        %li.population-infographic 23,940,300
+        %li.population-statistic <strong>96,300 </strong>more females <br>than males
+
+    .public-holiday
+      %h3 Next national public holiday
+      .next-holiday
+        %a{href: '/times-and-dates/australian-public-holidays'}
+          .calendar
+            %span.event-title Christmas Day
+            %time(datetime='2016-12-25') Friday <span>25</span> December
+
+  %a.see-more More about Australia
+
+
+
+  %section.home-news-list
+    %h2.home-heading News
+    - if @news.empty?
+      %p No current news articles
+    %ul.list-vertical--fourths
+      - @news.all.each do |news|
+        %li
+          %article
+            %h3= link_to news.name, public_node_path(news)
+            .meta= l(news.release_date, format: :news)
+    =link_to 'All news', news_articles_path, :class => "see-more"
