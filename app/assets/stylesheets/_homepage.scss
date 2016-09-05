@@ -67,17 +67,10 @@ $light-teal: #0098b0;
 .home-category-list li {
   border-left: 1px solid $border-colour;
   border-top: 0;
-  margin: $base-spacing 0;
+  margin-top: $base-spacing;
+  margin-bottom: $base-spacing;
   padding: $tiny-spacing $base-spacing;
 
-  @include media($tablet) {
-    max-width: ((100% - $list-vertical-gutter * 2) / 3);
-  }
-
-  p {
-    min-height: 0;
-    margin-bottom: $small-spacing;
-  }
 }
 
 .home-heading {
@@ -357,6 +350,7 @@ $light-teal: #0098b0;
     *display: inline;
     zoom: 1;
     width: 27%;
+    font-size: 16px;
   }
   .list-vertical--fourths li {
     display: inline-block;

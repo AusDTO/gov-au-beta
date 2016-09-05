@@ -1,6 +1,6 @@
 /*
 
-UI-Kit version: 1.7.5
+UI-Kit version: 1.7.6
 
 */
 
@@ -3516,7 +3516,6 @@ $grid-columns: 4 !global;
 $max-width: em(1200) !global;
 $gutter: em(32);
 
-
 /*
 Responsive breakpoints
 
@@ -3808,11 +3807,55 @@ $mobile-minwidth: 420px;
 $tablet-minwidth: 768px;
 $desktop-minwidth: 1200px;
 
-$mobile: new-breakpoint(min-width $mobile-minwidth, 8);
-$mobile-only: new-breakpoint(min-width $mobile-minwidth max-width $tablet-minwidth - 1, 8);
-$tablet: new-breakpoint(min-width $tablet-minwidth, 12);
-$tablet-only: new-breakpoint(min-width $tablet-minwidth max-width $desktop-minwidth - 1, 12);
-$desktop: new-breakpoint(min-width $max-width, 16);
+$mobile-grid-columns: 8;
+$tablet-grid-columns: 12;
+$content-grid-columns: $tablet-grid-columns;
+$desktop-grid-columns: 16;
+
+$mobile: new-breakpoint(min-width $mobile-minwidth, $mobile-grid-columns);
+$mobile-only: new-breakpoint(min-width $mobile-minwidth max-width $tablet-minwidth - 1, $mobile-grid-columns);
+$tablet: new-breakpoint(min-width $tablet-minwidth, $tablet-grid-columns);
+$tablet-only: new-breakpoint(min-width $tablet-minwidth max-width $desktop-minwidth - 1, $tablet-grid-columns);
+$desktop: new-breakpoint(min-width $max-width, $desktop-grid-columns);
+
+/*
+Helpers
+
+Style guide: Grid.4 Helpers
+*/
+
+/*
+Omega Reset
+
+When applying grid-columns to responsive layouts you may find yourself needing to reset the [omega properties applied by Neat](http://thoughtbot.github.io/neat-docs/latest/#omega):
+
+```
+.grid-item {
+  @include span-columns(2 of 4);
+  @include omega(2n);
+
+  @include media($desktop) {
+    @include omega-reset(2n);
+    @include span-columns(4 of 12);
+    @include omega(3n);
+  }
+}
+```
+
+Style guide: Grid.4 Helpers.1 Font stacks
+*/
+
+@mixin omega-reset($nth) {
+  $nth-plus-one: '#{$nth}+1';
+
+  &:nth-child(#{$nth}) {
+    margin-right: flex-gutter($content-grid-columns);
+  }
+
+  &:nth-child(#{$nth-plus-one}) {
+    clear: none;
+  }
+}
 
 /*
 Debugging
@@ -3825,7 +3868,7 @@ $visual-grid: true;
 
 See the example <a href="http://neat.bourbon.io/examples/" rel="external">Bourbon Neat working grid layout</a>.
 
-Style guide: Grid.4 Debugging
+Style guide: Grid.4 Helpers.2 Debugging
 */
 
 // Toggle visibility of your grid columns for development/debugging.
@@ -5484,7 +5527,7 @@ We are currently testing all styles for legibility and readability.
 
 Markup: templates/heading-body-styles.hbs
 
-Style guide: Typography.2 Headings & body copy
+Style guide: Typography.4 Headings & body copy
 */
 
 // Styling for headings
@@ -5617,21 +5660,51 @@ h6 {
   }
 }
 
-// a {
-//   color: $link-colour;
-//   text-decoration: none;
-//   border-bottom: 1px solid;
-//
-//   &:visited {
-//     color: $link-colour;
-//   }
-//
-//   &:hover,
-//   &:active {
-//     color: $link-hover-colour;
-//   }
-//
-// }
+/*
+Line length
+
+UI Kit applies a maximum width to typographic elements that appear within the main content container. This maintains a readable line length.
+
+A max-width of 38rem (about 70 characters) is applied to these elements:
+- h1 - h5
+- p
+- li
+- dl
+
+<div class="callout">
+
+If you'd like to include an element that spans across the maximum available space, apply the class `.content-full-width`.
+
+</div>
+
+### Resources
+- [Typography -  Accessibility](/section-typography.html#guide-typography-1-typeface-2-accessibility)
+- <a href="https://www.smashingmagazine.com/2014/09/balancing-line-length-font-size-responsive-web-design/#line-length-measure-and-reading" rel="external">Size Matters, Smashing Magazine</a>
+
+Markup: templates/content-full-width.hbs
+
+Style guide: Typography.4 Line length
+*/
+
+.content-main {
+  @include media($desktop) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    li,
+    dl {
+      max-width: 38rem;
+    }
+
+    .content-full-width {
+      max-width: none;
+      width: 100%;
+    }
+  }
+}
 
 code,
 pre,
@@ -5664,7 +5737,7 @@ Markup: Copy text to clipboard using <kbd>Ctrl</kbd> + <kbd>C</kbd>.
   </div>
 </details>
 
-Style guide: Typography.8 Keyboard input
+Style guide: Typography.5 Keyboard input
 */
 
 kbd {
@@ -5754,7 +5827,7 @@ More [complex list styles](section-list-styles.html) are available.
 
 Markup: templates/list-examples.hbs
 
-Style guide: Typography.4 Lists
+Style guide: Typography.6 Lists
 */
 
 ul,
@@ -5831,7 +5904,7 @@ Markup: templates/callouts-examples.hbs
   </div>
 </details>
 
-Style guide: Typography.5 Callouts & warnings
+Style guide: Typography.7 Callouts & warnings
 */
 
 %base-callout {
@@ -5906,7 +5979,7 @@ Markup: templates/badges.hbs
   </div>
 </details>
 
-Style guide: Typography.6 Badges
+Style guide: Typography.8 Badges
 */
 
 $badges: (
@@ -5964,7 +6037,7 @@ Markup: templates/quotation-examples.hbs
   </div>
 </details>
 
-Style guide: Typography.7 Quotations
+Style guide: Typography.9 Quotations
 */
 
 blockquote {
@@ -6066,7 +6139,7 @@ article {
 }
 
 @mixin wrapper-padding {
-  @include pad(0 $base-spacing);
+  @include pad(0 $gutter);
   width: 100%;
   box-sizing: border-box;
 
@@ -6205,10 +6278,10 @@ main {
       }
 
       @include media($desktop) {
-        @include span-columns(10 of 16);
-        @include shift(2);
+        @include span-columns(12 of 16);
       }
 
+      // Know what this is for?
       &:first-child {
 
         @include reset-layout-direction;
@@ -6830,7 +6903,7 @@ Text input
 
 Single line text inputs.
 
-They can be limited to number input only by setting the `type` attribute to `number`. For telephone numbers set the `type` attribute to `tel`. To trigger the num-pad on iPhones, add a pattern attribute to the input element: `pattern="[0-9]*"`.
+They can be limited to number input only by setting the `type` attribute to `number`. For telephone numbers set the `type` attribute to `tel`. To explicityly trigger the num-pad on iPhones, omit the `type` attribute and add a pattern attribute to the input element: `pattern="[0-9]*"`.
 
 Markup: templates/text-input-single-line.hbs
 
@@ -8112,7 +8185,7 @@ Style guide: List styles.4 Highlighted word style
 
 %base-list {
   list-style: none;
-  margin: ($base-spacing * 2) 0;
+  //margin: ($base-spacing * 2) 0;
   padding: 0;
 
   .tags {
@@ -8156,7 +8229,7 @@ Style guide: List styles.4 Highlighted word style
   }
 
   > li {
-    padding: $base-spacing 0;
+    padding: 4% 0; //Was `padding: $base-spacing 0;` changed to match gutter
     border-bottom: solid 1px $border-colour;
     margin-bottom: 0;
   }
@@ -8179,10 +8252,15 @@ Style guide: List styles.4 Highlighted word style
   }
 }
 
+
+
 .list-horizontal {
   @extend %base-list;
 
   > li {
+
+    width: 100%;
+    max-width: none;
 
     @include media($tablet) {
       display: flex;
@@ -8216,41 +8294,18 @@ Style guide: List styles.4 Highlighted word style
         }
       }
     }
-
   }
-
 }
 
-$list-vertical-gutter: 4%;
 
-.list-vertical {
+%base-vertical-list {
   @extend %base-list;
-
-  &.no-border {
-    li:nth-child(-n+2) {
-      border-top: none;
-      padding-top: 0;
-    }
-  }
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  @include outer-container;
 
   > li {
 
     border-top: 4px solid $border-colour;
     border-bottom: none;
-    margin: 0;
-    flex: 0 0 100%;
-
-    @include media($tablet) {
-      flex-basis: ((100% - $list-vertical-gutter) / 2);
-
-      &:not(:nth-child(2n)) {
-        margin-right: $list-vertical-gutter;
-      }
-    }
 
     article {
       display: flex;
@@ -8289,8 +8344,27 @@ $list-vertical-gutter: 4%;
   }
 }
 
+.list-vertical {
+  @extend %base-vertical-list;
+
+  &.no-border {
+    li:nth-child(-n+2) {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+
+  > li {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+      @include omega(2n);
+    }
+  }
+}
+
+
 .list-vertical--thirds {
-  @extend .list-vertical;
+  @extend %base-vertical-list;
 
   &.no-border {
     li:nth-child(-n+3) {
@@ -8301,21 +8375,20 @@ $list-vertical-gutter: 4%;
 
   > li {
     @include media($tablet) {
-      flex: 0 0 ((100% - $list-vertical-gutter * 2) / 3);
-
-      &:not(:nth-child(2n)) {
-        margin-right: 0;
-      }
-
-      &:not(:nth-child(3n)) {
-        margin-right: $list-vertical-gutter;
-      }
+      @include span-columns(6 of 12);
+      @include omega(2n);
+    }
+    @include media($desktop) {
+      @include omega-reset(2n);
+      @include span-columns(4 of 12);
+      @include omega(3n);
     }
   }
 }
 
+
 .list-vertical--fourths {
-  @extend .list-vertical;
+  @extend %base-vertical-list;
 
   &.no-border {
     li:nth-child(-n+4) {
@@ -8326,19 +8399,17 @@ $list-vertical-gutter: 4%;
 
   > li {
     @include media($tablet) {
-      flex: 0 0 ((100% - $list-vertical-gutter * 3) / 4);
-
-      &:not(:nth-child(2n)),
-      &:not(:nth-child(3n)) {
-        margin-right: 0;
-      }
-
-      &:not(:nth-child(4n)) {
-        margin-right: $list-vertical-gutter;
-      }
+      @include span-columns(6 of 12);
+      @include omega(2n);
+    }
+    @include media($desktop) {
+      @include omega-reset(2n);
+      @include span-columns(3 of 12);
+      @include omega(4n);
     }
   }
 }
+
 
 .list-small {
   @extend %base-list;
@@ -9015,23 +9086,18 @@ footer[role='contentinfo'] {
     border-bottom: 1px solid $border-colour;
 
     nav {
-      display: flex;
-      box-sizing: border-box;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
+      @extend %base-vertical-list;
 
       ul {
-        flex: 0 0 100%;
-        margin: 0;
-        padding-right: $base-spacing;
-
-        @include media($mobile) {
-          flex-basis: 50%;
+        @include media($tablet) {
+          @include span-columns(6 of 12);
+          @include omega(2n);
         }
 
-        @include media($tablet) {
-          flex-basis: 25%;
+        @include media($desktop) {
+          @include omega-reset(2n);
+          @include span-columns(3 of 12);
+          @include omega(5n);
         }
       }
 
