@@ -38,6 +38,7 @@ This file is influenced by http://keepachangelog.com/.
 - users are now soft deleted to preserve relationship with submissions
 - Upgrade UI kit to v1.7.6
 - User sessions timeout after 90 minutes idle
+- Update News article page template
 
 ### Fixed
 - Markdown support for images with links
