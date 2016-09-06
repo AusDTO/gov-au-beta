@@ -11,7 +11,13 @@ module NewsHelper
     if section.present?
       section.news_articles.published.by_release_date.by_published_at
     else
-      NewsArticle.published.by_release_date.by_published_at
+      NewsArticle
+          .includes(:news_distributions,
+                    sections: [:home_node]
+          )
+          .published
+          .by_release_date
+          .by_published_at
     end
   end
 end
