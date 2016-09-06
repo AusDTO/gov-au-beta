@@ -1,19 +1,20 @@
 module LoggingHelper
 
-  def self.current_user
-    RequestStore.fetch(:current_user) { nil }
+  def self.begin_request(request, current_user)
+    RequestStore.store[:current_request] = request
+    RequestStore.store[:current_user] = current_user
   end
 
-  def self.current_user=(user)
-    RequestStore.store[:current_user] = user
+  def self.current_user
+    RequestStore.fetch(:current_user) { nil }
   end
 
   def self.current_request
     RequestStore.fetch(:current_request) { nil }
   end
 
-  def self.current_request=(request)
-    RequestStore.store[:current_request] = request
+  def self.cleanup
+    RequestStore.clear!
   end
 
   def self.log_event(request,current_user,data)

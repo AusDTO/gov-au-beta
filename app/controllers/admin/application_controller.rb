@@ -10,11 +10,16 @@ module Admin
 
     before_action ->() { authorize! :manage, :all }
     before_action :complete_two_factor_setup
-    before_action :set_current
+    around_action :setup_logging
 
-    def set_current
-      LoggingHelper.current_user = current_user
-      LoggingHelper.current_request = request
+    def setup_logging
+      begin
+        LoggingHelper.begin_request(request, current_user)
+        yield
+      ensure
+        # cleanup happens whether or not there is an error
+        LoggingHelper.cleanup
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
