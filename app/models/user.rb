@@ -16,6 +16,12 @@ class User < ApplicationRecord
   validates :phone_number, aus_phone_number: true
   validates :unconfirmed_phone_number, aus_phone_number: true
 
+  after_save :after_save
+
+  def after_save
+    UserChangeLogger.new(self).perform
+  end
+
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end
@@ -51,9 +57,9 @@ class User < ApplicationRecord
   # Required hook for two_factor_authentication gem
   def send_two_factor_authentication_code(code)
     SendTwoFactorAuthenticationCodeForJob.perform_later(
-       :phone_number.to_s,
-       :direct_otp.to_s,
-       self
+      :phone_number.to_s,
+      :direct_otp.to_s,
+      self
     )
   end
 
@@ -74,9 +80,9 @@ class User < ApplicationRecord
     create_direct_otp_for(code_field)
 
     SendTwoFactorAuthenticationCodeForJob.perform_later(
-      phone_number_field.to_s,
-      code_field.to_s,
-      self
+        phone_number_field.to_s,
+        code_field.to_s,
+        self
     )
   end
 
@@ -103,4 +109,5 @@ class User < ApplicationRecord
     raw_token = set_reset_password_token
     Notifier.user_invite(self, raw_token).deliver_later
   end
+
 end

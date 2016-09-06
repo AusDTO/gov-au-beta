@@ -38,6 +38,12 @@ class NewsController < ApplicationController
 
   private
   def set_section
-    @section = SectionHome.find_by!(slug: params[:section]).section
+    # silence these RecordNotFound exceptions in rollbar as they are generic 404s
+    begin
+      @section = SectionHome.find_by!(slug: params[:section]).section
+    rescue ActiveRecord::RecordNotFound => e
+      e.instance_variable_set(:@_rollbar_do_not_report, true)
+      raise
+    end
   end
 end

@@ -6,7 +6,14 @@ class NodesController < ApplicationController
   decorates_assigned :menu_nodes, with: NodeDecorator
 
   def show
-    @node = Node.find_by_path! params[:path] || ''
+    # silence these RecordNotFound exceptions in rollbar as they are generic 404s
+    begin
+      @node = Node.find_by_path! params[:path] || ''
+    rescue ActiveRecord::RecordNotFound => e
+      e.instance_variable_set(:@_rollbar_do_not_report, true)
+      raise
+    end
+
     raise ActiveRecord::RecordNotFound unless can? :read_public, @node
     @section = @node.section
 
