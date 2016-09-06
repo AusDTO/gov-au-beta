@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   rolify
+  acts_as_paranoid
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :two_factor_authenticatable, :database_authenticatable, :registerable,
@@ -18,7 +20,6 @@ class User < ApplicationRecord
     !persisted? || password.present? || password_confirmation.present?
   end
 
-
   def member_of_sections
     # Admins are implicit members of all sections
     if has_role? :admin
@@ -27,7 +28,6 @@ class User < ApplicationRecord
       roles.map { |role| role.resource }.reject(&:nil?).uniq
     end
   end
-
 
   def is_member?(section)
     member_of_sections.include? section

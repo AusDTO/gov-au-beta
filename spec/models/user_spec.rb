@@ -69,6 +69,21 @@ RSpec.describe User, type: :model do
       user.unconfirmed_phone_number = '0433333333'
       user.create_direct_otp_for(:unconfirmed_phone_number_otp)
     }
+  end
 
+  describe 'after User#destroy' do
+    let!(:user) { Fabricate(:user) }
+
+    before(:each) do
+      user.destroy
+    end
+
+    it 'should not be possible to find a deleted user via normal means' do 
+      expect(->(){User.find(user.id)}).to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'should not hard-delete users' do
+      expect(User.with_deleted.find(user.id).deleted?).to be(true)
+    end
   end
 end

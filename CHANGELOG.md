@@ -10,6 +10,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 - Incorrect attempts at verifying identity locks the user out
 - Change git merge strategy for CHANGELOG.md to reduce conflicts
+- users are now soft deleted to preserve relationship with submissions
 
 ### Fixed
 - Markdown support for images with links
