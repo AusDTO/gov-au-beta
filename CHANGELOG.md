@@ -13,6 +13,7 @@ This file is influenced by http://keepachangelog.com/.
 - Change git merge strategy for CHANGELOG.md to reduce conflicts
 - users are now soft deleted to preserve relationship with submissions
 - Upgrade UI kit to v1.7.6
+- User sessions timeout after 90 minutes idle
 
 ### Fixed
 - Markdown support for images with links
