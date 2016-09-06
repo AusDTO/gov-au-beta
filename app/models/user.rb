@@ -19,29 +19,7 @@ class User < ApplicationRecord
   after_save :after_save
 
   def after_save
-    redact_keys = ['encrypted_password', 'reset_password_token', 'confirmation_token', 'encrypted_otp_secret_key', 'encrypted_otp_secret_key_iv', 'encrypted_otp_secret_key_salt']
-    changes = self.changes.inject({}) { |h, (k, v)|
-      if redact_keys.include?(k)
-        h[k] =['REDACTED', 'REDACTED']
-      else
-        h[k] =v
-      end
-      h
-    }
-
-    if changes['encrypted_password']
-      event = 'user_password_update'
-    elsif changes['reset_password_token']
-      event = 'user_password_reset'
-    elsif changes['unconfirmed_email']
-      event = 'user_email_update'
-    elsif changes
-      event = 'user_update'
-    end
-    if event
-      data = {event: event, record_id: self.id, record_type: self.class, record_name: self.email, changes: changes}
-      LoggingHelper.log_event(LoggingHelper.current_request, LoggingHelper.current_user, data)
-    end
+    UserChangeLogger.new(self).perform
   end
 
   def password_required?
