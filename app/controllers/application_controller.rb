@@ -23,12 +23,7 @@ class ApplicationController < ActionController::Base
     LoggingHelper.log_event(request, current_user, {event: event}.merge(attrs))
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    respond_to do |format|
-      format.html { redirect_to root_url, :alert => exception.message }
-      format.json { render status: :unauthorized, json: { message: exception.message } }
-    end
-  end
+  include AccessDeniedConcern
 
   def current_user
     super
