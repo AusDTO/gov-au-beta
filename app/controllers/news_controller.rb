@@ -1,7 +1,8 @@
 class NewsController < ApplicationController
   include NodesHelper
   include NewsHelper
-  
+
+  before_action :set_section, only: [:index, :show]
   before_action :set_filters, only: [:index]
 
   decorates_assigned :node
@@ -33,7 +34,6 @@ class NewsController < ApplicationController
   # of :release_date-:slug, to ensure that we avoid clashes of news articles
   # between sections as well as within a section over time.
   def show
-    set_section
     @node = NewsArticle.find_by!(
       slug: params[:slug],
       section: @section
@@ -65,14 +65,9 @@ class NewsController < ApplicationController
   end
 
 
-  def filtered_articles
-    if @filters.present?
-      news_articles
-        .includes(:sections)
-        .references(:sections)
-        .where('sections.id IN (?)', @filters.collect(&:id))
-    else
-      news_articles
+  def set_section
+    if params[:section].present?
+      @section = SectionHome.find_by!(slug: params[:section]).section
     end
   end
 end
