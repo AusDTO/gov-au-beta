@@ -1,12 +1,5 @@
 .news-article {
 
-  //need to override :firstchild on artcile that ui kit uses to float an aside
-  //that follows an article in the markup
-  &.content-main {
-    float: left;
-    margin-left: 0;
-  }
-
   h1 {
     border-top: 6px solid $aqua;
     padding-top: 1.5 * $small-spacing;
@@ -29,11 +22,6 @@
     margin: 1.5 * $base-spacing 0;
     padding: $small-spacing 0;
 
-    li {
-      font-size: rem(16);
-      margin-bottom: .5 * $tiny-spacing;
-    }
-
     span,
     dt {
       color: $grey;
@@ -50,8 +38,14 @@
       display: inline;
       margin-left: 0;
       margin-right: $tiny-spacing;
-      font-size: rem(16);
     }
+  }
+
+  //need to override :firstchild on artcile that ui kit uses to float an aside
+  //that follows an article in the markup
+  &.content-main {
+    float: left;
+    margin-left: 0;
   }
 
   //related articles
