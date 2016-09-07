@@ -41,6 +41,7 @@ Fabricator(:news_article, from: :abstract_node, class_name: :news_article) do
   name { Fabricate.sequence(:news_name) { |i| "news-#{i}" } }
   short_summary 'foo'
   release_date Date.today
+  published_at Time.now.utc
   summary 'foobar'
 end
 
