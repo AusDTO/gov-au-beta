@@ -23,7 +23,8 @@ class SectionDashboard < Administrate::BaseDashboard
     cms_url: Field::String,
     cms_path: Field::String,
     image_url: Field::String,
-    categories: Field::HasMany
+    categories: Field::HasMany,
+    itself: ImportGovcmsField
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -35,6 +36,7 @@ class SectionDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :nodes,
+    :itself
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -51,7 +53,8 @@ class SectionDashboard < Administrate::BaseDashboard
     :cms_url,
     :cms_path,
     :image_url,
-    :categories
+    :categories,
+    :itself
   ].freeze
 
   # FORM_ATTRIBUTES
