@@ -4,6 +4,14 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.3.0] - 2016-09-07
+### Added
 - Admin dashboard for sessions
 - Added 'What is GOV.AU Beta?' callout to homepage
 - Improved request and data change logging
