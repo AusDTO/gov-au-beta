@@ -3,7 +3,15 @@ class NewsArticle < Node
   has_many :sections, through: :news_distributions, source: :distribution,
            source_type: 'Section'
 
+  # def related_sections
+  #   sections.where("sections.id != #{publisher.id}")
+  # end
+  has_many :related_sections, -> (news_article) { where("sections.id != #{news_article.section.id}") },
+           through: :news_distributions, source: :distribution,
+           source_type: 'Section'
+
   alias_method :publisher, :section
+
   store_attribute :data, :release_date, Date
 
   friendly_id :date_and_name, use: [:slugged, :scoped], routes: :default, scope: :section
