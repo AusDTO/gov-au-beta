@@ -57,14 +57,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'agencies#index'
-    resources :agencies do
-      member do
-        post 'import'
-      end
-    end
 
     # keep these alphabetically sorted
     # code order determines order in the UI
+    resources :agencies
     resources :categories
     resources :custom_template_nodes
     resources :departments
@@ -77,8 +73,14 @@ Rails.application.routes.draw do
     resources :revisions
     resources :roles
     resources :root_nodes
+
+    resources :sections do
+      member do
+        post 'import'
+      end
+    end
+
     resources :section_homes
-    resources :sections
     resources :sessions
     resources :submissions
     resources :topics
