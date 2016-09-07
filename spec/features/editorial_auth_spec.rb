@@ -13,7 +13,7 @@ describe 'editorial authorisation:' do
   let!(:request) { Fabricate(:request, section: section, user: no_roles_user) }
 
   shared_examples_for 'as not authenticated' do |path_map|
-    path_map.each do |path, is_authorized|
+    path_map.each do |path, is_authorised|
       context "on #{path}" do
         before { visit (path % {section_id: section.id, node_id: section.home_node.id, request_id: request.id}) }
         it 'as not authenticated' do
@@ -23,26 +23,26 @@ describe 'editorial authorisation:' do
     end
   end
 
-  shared_examples_for 'as not authorized' do
-    it 'as not authorized' do
-      expect(page).to have_content('You are not authorized to access this page.')
+  shared_examples_for 'as not authorised' do
+    it 'as not authorised' do
+      expect(page).to have_content('You are not authorised to access this page.')
     end
   end
 
-  shared_examples_for 'as authorized' do
-    it 'as authorized' do
-      expect(page).to have_no_content('You are not authorized to access this page.')
+  shared_examples_for 'as authorised' do
+    it 'as authorised' do
+      expect(page).to have_no_content('You are not authorised to access this page.')
     end
   end
 
   shared_examples 'verify authorization' do |path_map|
-    path_map.each do |path, is_authorized|
+    path_map.each do |path, is_authorised|
       context "on #{path}" do
         before { visit (path % {section_id: section.id, node_id: section.home_node.id, request_id: request.id}) }
-        if is_authorized
-          include_examples 'as authorized'
+        if is_authorised
+          include_examples 'as authorised'
         else
-          include_examples 'as not authorized'
+          include_examples 'as not authorised'
         end
       end
     end

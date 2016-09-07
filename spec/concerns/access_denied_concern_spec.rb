@@ -34,7 +34,7 @@ RSpec.describe AccessDeniedConcern, type: :controller do
     end
   end
 
-  context 'when user is signed in but not authorized' do
+  context 'when user is signed in but not authorised' do
     before(:each) do
       ability.cannot :read, :index
       allow(@controller).to receive(:current_ability).and_return(ability) 
@@ -48,7 +48,7 @@ RSpec.describe AccessDeniedConcern, type: :controller do
     context 'the controller' do
       before { get :index }
       subject { @controller }
-      it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
+      it { is_expected.to set_flash[:alert].to("You are not authorised to access this page.") }
     end
 
     context 'the response' do

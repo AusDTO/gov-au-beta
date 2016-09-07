@@ -6,7 +6,7 @@ module AccessDeniedConcern
       respond_to do |format|
         format.html do
           if user_signed_in?
-            flash[:alert] = "You are not authorized to access this page."
+            flash[:alert] = "You are not authorised to access this page."
             render 'errors/unauthorized', :status => :unauthorized
           else
             redirect_to new_user_session_path, :alert =>  "You must sign in to access the requested page."
