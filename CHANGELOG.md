@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- Auth failure in /editorial now redirected to /users/sign_in
 
 
 ## [v1.3.0] - 2016-09-07
