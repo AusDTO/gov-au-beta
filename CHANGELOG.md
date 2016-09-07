@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- Performance of /news
 
 
 ## [v1.3.1] - 2016-09-07
