@@ -23,4 +23,16 @@ module NewsHelper
       .by_published_at
       .by_name
   end
+
+
+  # List of Ministers for filtering
+  def ministers_list
+    Minister.order(:name).decorate.sort_by! { |minister| minister.sort_order }
+  end
+
+
+  # List of Departments for filtering
+  def departments_list
+    Department.order(:name)
+  end
 end
