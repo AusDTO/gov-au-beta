@@ -42,15 +42,5 @@ RSpec.describe Editorial::EditorialController, type: :controller do
         end
       end
     end
-
-    context 'when user is not authenticated' do
-      before do
-        authenticated_request
-      end
-
-      it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
-    end
   end
-
-
 end
