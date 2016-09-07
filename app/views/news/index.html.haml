@@ -31,7 +31,7 @@
   - if @section
     %h1 News
   %ul.news-listing
-    - articles.each do |article|
+    - @articles.each do |article|
       %li
         %article
           %h2= link_to article.name, public_node_path(article)

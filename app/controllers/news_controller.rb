@@ -5,7 +5,6 @@ class NewsController < ApplicationController
   before_action :set_section, only: [:show]
 
   decorates_assigned :node
-  decorates_assigned :articles
 
   def index
     # TODO: this will be refactored out once node-hierarchy nav is implemented
