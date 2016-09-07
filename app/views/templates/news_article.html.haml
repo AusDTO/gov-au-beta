@@ -18,6 +18,8 @@
     %span
       Published by
     %a= link_to(node.section.name, section_news_articles_path(section: @section.home_node.slug))
+  %li
+    = render partial: 'templates/related_sections', locals: {node: node}
 
 != node.rendered[:content_body].content
 

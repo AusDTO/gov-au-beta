@@ -34,8 +34,23 @@
       margin-bottom: .5 * $tiny-spacing;
     }
 
-    span {
+    span,
+    dt {
       color: $grey;
+      margin-right: .5 * ($tiny-spacing);
+    }
+
+    dl,
+    dt,
+    dd {
+      margin-bottom: .5 * ($tiny-spacing);
+    }
+
+    dd {
+      display: inline;
+      margin-left: 0;
+      margin-right: $tiny-spacing;
+      font-size: rem(16);
     }
   }
 
