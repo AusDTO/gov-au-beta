@@ -1,5 +1,5 @@
 - if related_ministers.present?
-  %h2 Our ministers
+  %h2= 'Our ' + (related_ministers.count == 1 ? 'minister': 'ministers')
   %ul.list-horizontal
     - related_ministers.each do |minister|
       - id = "minister-summary-#{minister.name.parameterize}"
