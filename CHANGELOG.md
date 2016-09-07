@@ -9,6 +9,26 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+
+## [v1.3.0] - 2016-09-07
+### Added
+- Admin dashboard for sessions
+- Added 'What is GOV.AU Beta?' callout to homepage
+- Improved request and data change logging
+
+### Changed
+- Incorrect attempts at verifying identity locks the user out
+- Change git merge strategy for CHANGELOG.md to reduce conflicts
+- users are now soft deleted to preserve relationship with submissions
+- Upgrade UI kit to v1.7.6
+- User sessions timeout after 90 minutes idle
+
+### Fixed
+- Markdown support for images with links
+- GTM tag is now in <body>
+- email address is now validated on feedback form
+- removed prompt to sign up when unauthenticated
+
 ## [v1.2.1] - 2016-08-31
 ### Added
 
@@ -16,6 +36,8 @@ This file is influenced by http://keepachangelog.com/.
 - Removed 30 day grace window on 2FA
 
 ### Fixed
+- Fixed issue where the 'Popular now' heading on Category pages was displaying even if there were no Popular now links
+- Fixed visual defect with box-shadow being incorrectly displayed on School holiday highlighted list items
 
 
 ## [v1.2.0] - 2016-08-31

@@ -18,7 +18,8 @@ class ContentMarkdown < Redcarpet::Render::HTML
     if link == "#"
       content_tag(:span, content, {:class => "placeholder-link", :title => title})
     else
-      content_tag(:a, content, {:href => link, :title => title})
+      #To avoid escaping apostrophes and img links in content, we must disable escaping
+      content_tag(:a, content, {:href => link, :title => title}, escape = false)
     end
   end
 end

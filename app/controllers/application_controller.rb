@@ -7,6 +7,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :complete_two_factor_setup
   helper_method :decorated_current_user
+  around_action :setup_logging
+
+  def setup_logging
+    begin
+      LoggingHelper.begin_request(request, current_user)
+      yield
+    ensure
+      # cleanup happens whether or not there is an error
+      LoggingHelper.cleanup
+    end
+  end
+
+  def log_event(event, attrs = {})
+    LoggingHelper.log_event(request, current_user, {event: event}.merge(attrs))
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -28,7 +43,6 @@ class ApplicationController < ActionController::Base
   def decorated_current_user
     current_user.try(:decorate)
   end
-
 
   protected
   def confirm_two_factor!
@@ -77,5 +91,10 @@ class ApplicationController < ActionController::Base
 
   def bustable_etag(strong_etag)
     Digest::SHA1.hexdigest("#{etag_seed}#{strong_etag || ""}")
+  end
+
+  def append_info_to_payload(payload)
+    super
+    LoggingHelper.append_info_to_payload(request,current_user,payload)
   end
 end

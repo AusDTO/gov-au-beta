@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  devise_for :users, controllers: { confirmations: 'confirmations' }, skip: [:registrations]
+  devise_for :users, controllers: { confirmations: 'confirmations', :sessions => "sessions" }, skip: [:registrations]
   as :user do
     get 'users/edit' => 'registrations#edit', :as => 'edit_user_registration'
     put 'users' => 'registrations#update', :as => 'user_registration'
@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :root_nodes
     resources :section_homes
     resources :sections
+    resources :sessions
     resources :submissions
     resources :topics
     resources :users
@@ -104,4 +105,5 @@ Rails.application.routes.draw do
   get '/:section/news/:slug' => 'news#show', as: :news_article
 
   get '/*path' => 'nodes#show', as: :nodes
+
 end

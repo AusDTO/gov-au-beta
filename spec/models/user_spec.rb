@@ -1,6 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
+  describe "changes their email" do
+    it "records log messages" do
+      persisted_user = Fabricate(:user)
+      expect(Rails.logger).to receive(:info).with(/event=update_record/).at_least(:once)
+      expect(Rails.logger).to receive(:info).with(/event=user_email_update/).at_least(:once)
+      persisted_user.email = "a@b.gov.au"
+      persisted_user.save!
+    end
+  end
+
+  describe "resets their password" do
+    it "records log messages" do
+      persisted_user = Fabricate(:user)
+      expect(Rails.logger).to receive(:info).with(/event=update_record/).at_least(:once)
+      expect(Rails.logger).to receive(:info).with(/event=user_password_reset/).at_least(:once)
+      expect(Rails.logger).to_not receive(:info).with(/secret_token/)
+      persisted_user.reset_password_token = 'secret_token'
+      persisted_user.save!
+    end
+  end
+
   describe "password validations" do
     it "always requires a password for a new user" do
       unpersisted_user = User.new
@@ -69,6 +91,21 @@ RSpec.describe User, type: :model do
       user.unconfirmed_phone_number = '0433333333'
       user.create_direct_otp_for(:unconfirmed_phone_number_otp)
     }
+  end
 
+  describe 'after User#destroy' do
+    let!(:user) { Fabricate(:user) }
+
+    before(:each) do
+      user.destroy
+    end
+
+    it 'should not be possible to find a deleted user via normal means' do 
+      expect(->(){User.find(user.id)}).to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'should not hard-delete users' do
+      expect(User.with_deleted.find(user.id).deleted?).to be(true)
+    end
   end
 end

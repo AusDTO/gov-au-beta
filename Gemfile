@@ -39,7 +39,7 @@ gem 'hashie'
 gem 'odyssey'
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
-gem 'enumerize', '~> 1.1.1'
+gem 'enumerize', '~> 2.0.0'
 gem 'cancancan'
 gem 'rolify'
 gem 'storext', github: 'micapam/storext', ref: '3e69a6b6' # force bundle to work (Rails 5)
@@ -58,6 +58,10 @@ gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
 gem 'aws-sdk', '~> 2'
 gem 'rufus-scheduler'
 gem 'rqrcode'
+gem 'valid_email'
+gem 'paranoia', '~> 2.2.0.pre'
+gem 'lograge'
+gem 'request_store_rails'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config

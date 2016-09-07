@@ -10,6 +10,16 @@ RSpec.describe Node, type: :model do
   let!(:section) { Fabricate(:section, name: "tango") }
   let!(:section_home) { Fabricate(:section_home, section: section) }
 
+  describe "modifications" do
+    let(:node) { Fabricate(:general_content, parent: section_home, content_body: 'foo') }
+    it "records log messages" do
+      expect(Rails.logger).to receive(:info).with(/event=update_record/).at_least(:once)
+      expect(Rails.logger).to receive(:info).with(/event=create_record/).at_least(:once)
+      node.name = "NewName"
+      node.save!
+    end
+  end
+
   describe 'Sibling order' do
     %w(zero one two three four five).each_with_index do |num, idx|
       let(num.to_sym) { Fabricate(:general_content, parent: section_home, order_num: idx) }
