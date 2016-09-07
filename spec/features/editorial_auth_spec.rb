@@ -12,46 +12,57 @@ describe 'editorial authorisation:' do
   let!(:no_roles_user) { Fabricate(:user) }
   let!(:request) { Fabricate(:request, section: section, user: no_roles_user) }
 
-  shared_examples_for 'as not authorized' do
-    it 'as not authorized' do
-      expect(page.current_path).to eq('/')
-      expect(page).to have_content('You are not authorized to access this page')
+  shared_examples_for 'as not authenticated' do |path_map|
+    path_map.each do |path, is_authorised|
+      context "on #{path}" do
+        before { visit (path % {section_id: section.id, node_id: section.home_node.id, request_id: request.id}) }
+        it 'as not authenticated' do
+          expect(page).to have_content('You must sign in to access the requested page.')
+        end
+      end
     end
   end
 
-  shared_examples_for 'as authorized' do
-    it 'as authorized' do
-      expect(page).to have_no_content('You are not authorized to access this page')
+  shared_examples_for 'as not authorised' do
+    it 'as not authorised' do
+      expect(page).to have_content('You are not authorised to access this page.')
+    end
+  end
+
+  shared_examples_for 'as authorised' do
+    it 'as authorised' do
+      expect(page).to have_no_content('You are not authorised to access this page.')
     end
   end
 
   shared_examples 'verify authorization' do |path_map|
-    path_map.each do |path, is_authorized|
+    path_map.each do |path, is_authorised|
       context "on #{path}" do
         before { visit (path % {section_id: section.id, node_id: section.home_node.id, request_id: request.id}) }
-        if is_authorized
-          include_examples 'as authorized'
+        if is_authorised
+          include_examples 'as authorised'
         else
-          include_examples 'as not authorized'
+          include_examples 'as not authorised'
         end
       end
     end
   end
 
   context 'an unauthenticated user' do
-    it_behaves_like 'verify authorization', {
-        '/editorial'                                => false,
-        '/editorial/%{section_id}'                  => false,
-        '/editorial/%{section_id}/nodes/prepare'    => false,
-        '/editorial/%{section_id}/nodes/new'        => false,
-        '/editorial/%{section_id}/nodes/%{node_id}' => false,
-        '/editorial/%{section_id}/nodes/%{node_id}/edit' => false,
-        '/editorial/%{section_id}/submissions/new?node_id=%{node_id}' => false,
-        '/editorial/%{section_id}/requests/new'     => false,
-        '/editorial/%{section_id}/requests/%{request_id}' => false,
-        '/editorial/news'                           => false,
-        '/editorial/news/new'                       => false,
-        '/editorial/users/new'                      => false,
+    before { logout }
+    it_behaves_like 'as not authenticated', {
+      '/editorial'                                => false,
+      '/editorial/%{section_id}'                  => false,
+      '/editorial/%{section_id}/nodes/prepare'    => false,
+      '/editorial/%{section_id}/nodes/new'        => false,
+      '/editorial/%{section_id}/nodes/%{node_id}' => false,
+      '/editorial/%{section_id}/nodes/%{node_id}/edit' => false,
+      '/editorial/%{section_id}/submissions/new?node_id=%{node_id}' => false,
+      '/editorial/%{section_id}/requests/new'     => false,
+      '/editorial/%{section_id}/requests/%{request_id}' => false,
+      '/editorial/news'                           => false,
+      '/editorial/news/new'                       => false,
+      '/editorial/users/new'                      => false,
     }
   end
 

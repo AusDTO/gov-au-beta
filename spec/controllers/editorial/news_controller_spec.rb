@@ -10,25 +10,6 @@ RSpec.describe Editorial::NewsController, type: :controller do
   let!(:section_c) { Fabricate(:section) }
   let!(:user) { Fabricate(:user, author_of: section_a, reviewer_of: section_b) }
 
-  describe 'GET #new' do
-    context 'when a user is authorised' do
-      before { sign_in(user) }
-
-      context 'with a blank form' do
-        subject { get :new }
-
-        it { is_expected.to be_success }
-      end
-    end
-
-    context 'when a user is not authorised' do
-      before { get :new }
-
-      it { is_expected.to redirect_to(root_path) }
-      it { is_expected.to set_flash[:alert].to('You are not authorized to access this page.') }
-    end
-  end
-
   describe 'POST #create' do
     context 'when a user is authorised' do
       context 'with valid date' do
@@ -83,40 +64,6 @@ RSpec.describe Editorial::NewsController, type: :controller do
         }
 
         it { is_expected.to render_template :new }
-      end
-    end
-
-    context 'when a user is not authorised' do
-      let(:post_action) {
-        post :create, node: {
-            name: 'Test',
-            section_id: section_a.id,
-            short_summary: 'foo',
-            summary: 'bar',
-            content_body: 'foobar',
-            release_date: Date.today,
-            section_ids: [section_b.id]
-        }
-      }
-      let!(:submission) { Fabricate(:submission) }
-
-      before do
-        post_action
-      end
-
-      it { is_expected.to set_flash[:alert].to('You are not authorized to access this page.') }
-      it { is_expected.to redirect_to(root_path) }
-
-      it 'should not create a submission' do
-        expect {
-          post_action
-        }.to_not change(Submission, :count)
-      end
-
-      it 'should not create a node' do
-        expect {
-          post_action
-        }.to_not change(Node, :count)
       end
     end
   end
@@ -175,17 +122,6 @@ RSpec.describe Editorial::NewsController, type: :controller do
           expect(news.section_ids).to match_array([section_a.id, section_b.id])
         end
       end
-    end
-
-    context 'when a user is not authenticated' do
-      let!(:post_action) {
-        post :update, id: article.id, node: {
-          section_id: section_a
-        }
-      }
-
-      it { is_expected.to redirect_to root_path }
-      it { is_expected.to set_flash[:alert].to('You are not authorized to access this page.') }
     end
   end
 end

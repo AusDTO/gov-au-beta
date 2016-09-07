@@ -10,6 +10,16 @@ This file is influenced by http://keepachangelog.com/.
 ### Fixed
 
 
+## [v1.3.1] - 2016-09-07
+### Added
+
+### Changed
+- Update homepage
+
+### Fixed
+- Auth failure in /editorial now redirected to /users/sign_in
+
+
 ## [v1.3.0] - 2016-09-07
 ### Added
 - Admin dashboard for sessions
