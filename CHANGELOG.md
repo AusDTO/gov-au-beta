@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
+- Performance of /news
 
 
 ## [v1.3.0] - 2016-09-07
@@ -28,7 +29,6 @@ This file is influenced by http://keepachangelog.com/.
 - GTM tag is now in <body>
 - email address is now validated on feedback form
 - removed prompt to sign up when unauthenticated
-- Performance of /news
 
 ## [v1.2.1] - 2016-08-31
 ### Added
