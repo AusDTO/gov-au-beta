@@ -112,13 +112,11 @@ class Node < ApplicationRecord
 
   def layout
     if section.present?
-
       if section.layout.present?
         section.layout
       else
-        return 'section'
+        'section'
       end
-
     end
   end
 
