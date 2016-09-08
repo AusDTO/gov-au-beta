@@ -13,13 +13,6 @@ class NewsController < ApplicationController
     # TODO: this will be refactored out once node-hierarchy nav is implemented
     # For now, this is the quickest way to get the same outcome
     if params[:section].present?
-      begin
-        @section = SectionHome.find_by!(slug: params[:section]).section
-      rescue ActiveRecord::RecordNotFound => e
-        e.instance_variable_set(:@_rollbar_do_not_report, true)
-        raise
-      end
-
       set_menu_nodes
       @filters = [@section]
       @articles = preload_news_articles(@section.news_articles)
@@ -68,7 +61,12 @@ class NewsController < ApplicationController
 
   def set_section
     if params[:section].present?
-      @section = SectionHome.find_by!(slug: params[:section]).section
+      begin
+        @section = SectionHome.find_by!(slug: params[:section]).section
+      rescue ActiveRecord::RecordNotFound => e
+        e.instance_variable_set(:@_rollbar_do_not_report, true)
+        raise
+      end
     end
   end
 end
