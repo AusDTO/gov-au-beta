@@ -146,7 +146,7 @@ RSpec.describe 'admin features', type: :feature do
             visit admin_agency_path(agency)
             expect(page).to have_css('form')
             expect(find('form')['method']).to eq('post')
-            expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+            expect(find('form')['action']).to eq(import_admin_section_path(agency))
           end
         end
 
@@ -156,7 +156,7 @@ RSpec.describe 'admin features', type: :feature do
             within('table') do
               expect(page).to have_css('form')
               expect(find('form')['method']).to eq('post')
-              expect(find('form')['action']).to eq(import_admin_agency_path(agency))
+              expect(find('form')['action']).to eq(import_admin_section_path(agency))
             end
           end
         end

@@ -27,12 +27,6 @@ RSpec.describe Editorial::NodesController, type: :controller do
       it { is_expected.to assign_to(:nodes).with section.nodes.decorate }
     end
 
-    context 'when user is not authorised' do
-      before { authenticated_request }
-
-      it { is_expected.to set_flash[:alert].to("You are not authorized to access this page.") }
-    end
-
     context 'when user is a reviewer' do
       before { sign_in(reviewer) }
       after { sign_out(reviewer) }

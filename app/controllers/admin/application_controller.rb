@@ -7,6 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     include ::IncompleteTfaSetup
+    include ::AccessDeniedConcern
 
     before_action ->() { authorize! :manage, :all }
     before_action :complete_two_factor_setup
@@ -17,13 +18,6 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
-
-    rescue_from CanCan::AccessDenied do |exception|
-      respond_to do |format|
-        format.html { redirect_to new_user_session_path, :alert => exception.message }
-        format.json { render status: :unauthorized, json: { message: exception.message } }
-      end
-    end
 
     def append_info_to_payload(payload)
       super

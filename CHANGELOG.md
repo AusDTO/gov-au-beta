@@ -4,6 +4,24 @@ This file is influenced by http://keepachangelog.com/.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+
+## [v1.3.1] - 2016-09-07
+### Added
+
+### Changed
+- Update homepage
+
+### Fixed
+- Auth failure in /editorial now redirected to /users/sign_in
+
+
+## [v1.3.0] - 2016-09-07
+### Added
 - Admin dashboard for sessions
 - Added 'What is GOV.AU Beta?' callout to homepage
 - Improved request and data change logging
@@ -13,6 +31,7 @@ This file is influenced by http://keepachangelog.com/.
 - Change git merge strategy for CHANGELOG.md to reduce conflicts
 - users are now soft deleted to preserve relationship with submissions
 - Upgrade UI kit to v1.7.6
+- User sessions timeout after 90 minutes idle
 
 ### Fixed
 - Markdown support for images with links
