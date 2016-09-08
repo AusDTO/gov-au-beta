@@ -8,7 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Changed
 
 ### Fixed
-
+- Pluralise 'ministers' only where appropriate
 
 ## [v1.3.1] - 2016-09-07
 ### Added
