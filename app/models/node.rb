@@ -123,7 +123,7 @@ class Node < ApplicationRecord
   end
 
   def self.root_node
-    return RootNode.first
+    RootNode.first
   end
 
   # Returns true if the parent of the node is editable.

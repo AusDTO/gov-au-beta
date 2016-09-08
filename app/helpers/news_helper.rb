@@ -8,10 +8,18 @@ module NewsHelper
   end
 
   def news_articles(section: nil)
-    if section.present?
-      section.news_articles.published.by_release_date.by_published_at
-    else
-      NewsArticle.published.by_release_date.by_published_at
-    end
+    query_root = if section.present?
+                   section.news_articles
+                 else
+                   NewsArticle
+                 end
+    query_root
+      .preload([
+        {:section =>  {:home_node => :parent}},
+        {:sections => {:home_node => :parent}}])
+      .published
+      .by_release_date
+      .by_published_at
+      .by_name
   end
 end
