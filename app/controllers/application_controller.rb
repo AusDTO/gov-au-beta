@@ -9,15 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method :decorated_current_user
   around_action :setup_logging
 
-  def setup_logging
-    begin
-      LoggingHelper.begin_request(request, current_user)
-      yield
-    ensure
-      # cleanup happens whether or not there is an error
-      LoggingHelper.cleanup
-    end
-  end
 
   def log_event(event, attrs = {})
     LoggingHelper.log_event(request, current_user, {event: event}.merge(attrs))
@@ -63,6 +54,16 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def setup_logging
+    begin
+      LoggingHelper.begin_request(request, current_user)
+      yield
+    ensure
+      # cleanup happens whether or not there is an error
+      LoggingHelper.cleanup
+    end
+  end
 
   if Rails.env.development?
     def etag_disabled?
