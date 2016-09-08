@@ -44,13 +44,14 @@ class NewsController < ApplicationController
   # with section ids
   def set_filters
     @filters = []
+    section_ids = Section.all.collect(&:id)
 
     [:ministers, :departments].each do |filter_type|
       if params[filter_type].present?
         id_list = params[filter_type].map(&:to_i)
 
         id_list.reject! do |item|
-          !Section.exists?(item)
+          !section_ids.include? item
         end
 
         @filters += Section.where(id: id_list)
