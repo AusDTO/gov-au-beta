@@ -19,7 +19,7 @@ class NewsController < ApplicationController
     else
       @articles = preload_news_articles
     end
-    
+
     bustable_fresh_when(@articles)
   end
 
