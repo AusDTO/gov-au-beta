@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908003332) do
+ActiveRecord::Schema.define(version: 20160908043306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assets", force: :cascade do |t|
+    t.integer  "uploader_id"
+    t.string   "asset_file_file_name"
+    t.string   "asset_file_content_type"
+    t.integer  "asset_file_file_size"
+    t.datetime "asset_file_updated_at"
+    t.string   "asset_file_meta"
+    t.string   "asset_file_fingerprint"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"

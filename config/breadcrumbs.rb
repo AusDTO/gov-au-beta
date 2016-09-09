@@ -99,6 +99,11 @@ crumb :new_editorial_user do
   parent :editorial_root
 end
 
+crumb :new_asset do
+  link 'Create asset', new_editorial_asset_path
+  parent :editorial_root
+end
+
 crumb :public_news_articles do
   link 'News', news_articles_path
   parent :public_node, Node.root_node
