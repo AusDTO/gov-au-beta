@@ -17,7 +17,8 @@
   %li
     %span
       Published by
-    %a= link_to(node.section.name, public_node_path(node.section.home_node))
+    - node.publishers.each do |publisher|
+      = link_to(publisher.name, public_node_path(publisher.home_node))
   %li
     = render partial: 'templates/related_sections', locals: {node: node}
 
