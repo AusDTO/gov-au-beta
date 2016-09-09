@@ -11,9 +11,9 @@ class NewsController < ApplicationController
     if params[:section].present?
       set_section
       set_menu_nodes
-      @articles = news_articles section: @section
+      @articles = preload_news_articles(@section.news_articles)
     else
-      @articles = news_articles
+      @articles = preload_news_articles
     end
     bustable_fresh_when(@articles)
   end
