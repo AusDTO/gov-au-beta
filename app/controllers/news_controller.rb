@@ -44,7 +44,7 @@ class NewsController < ApplicationController
   # with section ids
   def set_filters
     @filters = []
-    section_ids = Section.all.collect(&:id)
+    section_ids = Section.pluck(:id)
 
     [:ministers, :departments].each do |filter_type|
       if params[filter_type].present?
