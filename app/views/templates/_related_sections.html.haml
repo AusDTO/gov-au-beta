@@ -1,7 +1,5 @@
 -# locals: node : NewsArticle
-- if node.related_topics.any?
-  %div.tags
-    %dl
-      %dt Related to
-      - node.related_topics.each do |section|
-        %dd= link_to section.name, public_node_path(section.home_node)
+%dl
+  %dt Related to
+  - node.related_topics.each do |section|
+    %dd= link_to section.name, public_node_path(section.home_node)

@@ -21,8 +21,9 @@
       - node.publishers.each do |publisher|
         %dd
           = link_to(publisher.name, public_node_path(publisher.home_node))
-  %li
-    = render partial: 'templates/related_sections', locals: {node: node}
+  - if node.related_topics.any?
+    %li
+      = render partial: 'templates/related_sections', locals: {node: node}
 
 != node.rendered[:content_body].content
 
