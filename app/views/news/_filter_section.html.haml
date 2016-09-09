@@ -1,7 +1,8 @@
-%details{open: nil, data: {label: "#{section_type}"}, aria: {expanded: true}}
+%details.accordion--controls{open: nil, data: {label: "#{section_type}"}, aria: {expanded: true}}
   %summary= section_title
   .accordion-panel{style: "overflow: scroll; max-height: 350px;"}
     %fieldset
+      %legend.is-visuallyhidden= "Filter by #{section_type}"
       - sections.each do |s|
         - if @filters.present?
           - checked = @filters.include?(s)
