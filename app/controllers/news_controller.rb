@@ -17,7 +17,12 @@ class NewsController < ApplicationController
       @filters = [@section]
       @articles = preload_news_articles(@section.news_articles)
     else
-      @articles = preload_news_articles
+      @articles = filtered_articles
+    end
+
+    if @filters.present?
+      @articles = @articles
+
     end
 
     bustable_fresh_when(@articles)
@@ -68,6 +73,18 @@ class NewsController < ApplicationController
         e.instance_variable_set(:@_rollbar_do_not_report, true)
         raise
       end
+    end
+  end
+
+
+  def filtered_articles
+    if @filters.present?
+      preload_news_articles
+        .includes(:sections)
+        .references(:sections)
+        .where('sections.id IN (?)', @filters.collect(&:id))
+    else
+      preload_news_articles
     end
   end
 end
