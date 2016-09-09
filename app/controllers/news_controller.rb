@@ -75,7 +75,6 @@ class NewsController < ApplicationController
   def filtered_articles
     if @filters.present?
       preload_news_articles
-        .includes(:sections)
         .references(:sections)
         .where('sections.id IN (?)', @filters.collect(&:id))
     else

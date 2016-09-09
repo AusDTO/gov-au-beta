@@ -5,6 +5,7 @@ module NewsHelper
   # To load articles for a Section, use `preload_news_articles(section.news_articles)`
   def preload_news_articles(query_root = NewsArticle)
     query_root
+      .includes(:sections)
       .preload([
         {:section  => {:home_node => :parent}},
         {:sections => {:home_node => :parent}}])
