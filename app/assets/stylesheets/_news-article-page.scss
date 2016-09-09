@@ -68,3 +68,18 @@
     }
   }
 }
+
+.publishers {
+  display: inline;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: inline;
+    margin-right: $tiny-spacing;
+  }
+
+  a {
+    font-size: $small-font-size;
+  }
+}
