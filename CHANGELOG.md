@@ -14,6 +14,7 @@ This file is influenced by http://keepachangelog.com/.
 - Pluralise 'ministers' only where appropriate
 - Fixed HSTS settings so we don't force every gov.au subdomain to run over https
 - Performance of /news page
+- Updated layout of news article page
 
 
 ## [v1.3.1] - 2016-09-07
