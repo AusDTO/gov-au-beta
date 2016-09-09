@@ -15,10 +15,12 @@
         Date published
       #{l(node.release_date, format: :news)}
   %li
-    %span
-      Published by
-    - node.publishers.each do |publisher|
-      = link_to(publisher.name, public_node_path(publisher.home_node))
+    %dl
+      %dt
+        Published by
+      - node.publishers.each do |publisher|
+        %dd
+          = link_to(publisher.name, public_node_path(publisher.home_node))
   %li
     = render partial: 'templates/related_sections', locals: {node: node}
 
