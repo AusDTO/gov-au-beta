@@ -6,6 +6,7 @@ This file is influenced by http://keepachangelog.com/.
 ### Added
 - Added ability to link to another page by id
 - Added EDITOR.md as a central location for documenting the editor
+- News lists can be filtered by ministers and departments
 
 ### Changed
 

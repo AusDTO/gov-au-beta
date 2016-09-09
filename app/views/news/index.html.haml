@@ -24,12 +24,21 @@
         %p
           Announcements, media releases, interviews, speeches and more from the Australian Government.
 
-%article#content{class: "#{news_article_class}", tabindex: -1}
+
+%article.content-main#content{tabindex: -1}
   -# H1 not included in the hero bar for section news lists so include it here
   -# TODO: include a tagline/abstract once we know what it should be
   -# (may be section specific)
   - if @section
     %h1 News
+
+  - if @filters.present? && @section.nil?
+    .list-horizontal
+      .tags
+        %dt Search filters
+        - @filters.each do |distrib|
+          %dl
+            %dd= link_to distrib.name, public_node_path(distrib.home_node)
   %ul.news-listing
     - articles.each do |article|
       %li
@@ -42,3 +51,12 @@
             #{article.short_summary}
           %footer
             = render partial: 'templates/related_sections', locals: {node: article}
+
+
+- if @section.nil?
+  %article.sidebar
+    = form_tag([:news, :articles], method: :get) do
+      = render partial: 'filter_section', locals: {section_type: 'ministers', section_title: 'Ministers', sections: ministers_list}
+      = render partial: 'filter_section', locals: {section_type: 'departments', section_title: 'Departments', sections: departments_list}
+
+      = submit_tag 'Filter', role: :button, name: nil

@@ -67,4 +67,82 @@ RSpec.describe NewsController, type: :controller do
       end
     end
   end
+
+
+  describe 'GET #index with filters' do
+    let!(:department_a) { Fabricate(:department) }
+    let!(:department_b) { Fabricate(:department) }
+    let!(:minister_c) { Fabricate(:minister) }
+    let!(:minister_d) { Fabricate(:minister) }
+
+    let!(:a_home_node) { Fabricate(:section_home, section: department_a) }
+    let!(:b_home_node) { Fabricate(:section_home, section: department_b) }
+    let!(:c_home_node) { Fabricate(:section_home, section: minister_c) }
+    let!(:d_home_node) { Fabricate(:section_home, section: minister_d) }
+
+    let!(:article_a) { Fabricate(:news_article, state: 'published', section: department_a)}
+    let!(:article_b) { Fabricate(:news_article, state: 'published', section: department_b)}
+    let!(:article_c) { Fabricate(:news_article, state: 'published', section: minister_c)}
+    let!(:article_d) { Fabricate(:news_article, state: 'published', section: minister_d)}
+
+    context 'with no filter' do
+      before { get :index }
+
+      it { expect(assigns(:filters)).to eq [] }
+      it { expect(assigns(:articles)).to match_array([article_a, article_b, article_c, article_d]) }
+    end
+
+
+    context 'with only ministers filter' do
+      before { get :index, params: {
+          ministers: [minister_c.id, minister_d.id],
+        }
+      }
+
+      it {
+        expect(assigns(:filters)).to match_array([minister_c, minister_d])
+      }
+
+      it {
+        expect(assigns(:articles)).to match_array([article_c, article_d])
+      }
+    end
+
+
+    context 'with only departments filter' do
+      before { get :index, params: {
+          departments: [department_a.id, department_b.id]
+        }
+      }
+
+      it { expect(assigns(:filters)).to match_array([department_a, department_b])}
+      it { expect(assigns(:articles)).to match_array([article_a, article_b]) }
+    end
+
+
+    context 'with a mix of filters' do
+      before { get :index, params:
+        { departments: [department_a.id], ministers: [minister_c.id] }
+      }
+
+      it { expect(assigns(:filters)).to match_array([department_a, minister_c]) }
+      it { expect(assigns(:articles)).to match_array([article_a, article_c]) }
+    end
+
+
+    context 'with some invalid filters' do
+      before { get :index, params: { departments: [12345], ministers: [minister_d.id] } }
+
+      it { expect(assigns(:filters)).to match_array [minister_d] }
+      it { expect(assigns(:articles)).to match_array [article_d] }
+    end
+
+
+    context 'with a section' do
+      before { get :index, params: { section: a_home_node.slug }, ministers: [minister_c.id] }
+
+      it { expect(assigns(:filters)).to eq [department_a] }
+      it { expect(assigns(:articles)).to eq [article_a] }
+    end
+  end
 end
