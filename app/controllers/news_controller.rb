@@ -20,11 +20,6 @@ class NewsController < ApplicationController
       @articles = filtered_articles
     end
 
-    if @filters.present?
-      @articles = @articles
-
-    end
-
     bustable_fresh_when(@articles)
   end
 
