@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901062337) do
+ActiveRecord::Schema.define(version: 20160908003332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
+    t.index ["type"], name: "index_nodes_on_type", using: :btree
   end
 
   create_table "requests", force: :cascade do |t|
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.string   "cms_url"
     t.string   "cms_path"
     t.text     "image_url"
+    t.index ["type"], name: "index_sections_on_type", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|

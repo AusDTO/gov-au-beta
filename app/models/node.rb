@@ -112,18 +112,16 @@ class Node < ApplicationRecord
 
   def layout
     if section.present?
-
       if section.layout.present?
         section.layout
       else
-        return 'section'
+        'section'
       end
-
     end
   end
 
   def self.root_node
-    return RootNode.first
+    RootNode.first
   end
 
   # Returns true if the parent of the node is editable.

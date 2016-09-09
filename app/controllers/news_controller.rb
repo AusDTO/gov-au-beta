@@ -2,8 +2,6 @@ class NewsController < ApplicationController
   include NodesHelper
   include NewsHelper
   
-  before_action :set_section, only: [:show]
-
   decorates_assigned :node
   decorates_assigned :articles
 
@@ -13,9 +11,9 @@ class NewsController < ApplicationController
     if params[:section].present?
       set_section
       set_menu_nodes
-      @articles = news_articles section: @section
+      @articles = preload_news_articles(@section.news_articles)
     else
-      @articles = news_articles
+      @articles = preload_news_articles
     end
     bustable_fresh_when(@articles)
   end
@@ -25,6 +23,7 @@ class NewsController < ApplicationController
   # of :release_date-:slug, to ensure that we avoid clashes of news articles
   # between sections as well as within a section over time.
   def show
+    set_section
     @node = NewsArticle.find_by!(
       slug: params[:slug],
       section: @section

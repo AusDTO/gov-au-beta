@@ -18,7 +18,7 @@ class NodesController < ApplicationController
     @section = @node.section
 
     if @section
-      @news = news_articles(section: @section).limit(3)
+      @news = preload_news_articles(@section.news_articles).limit(3)
     end
 
     set_menu_nodes
@@ -28,7 +28,7 @@ class NodesController < ApplicationController
   end
 
   def home
-    @news = news_articles.limit(8)
+    @news = preload_news_articles.limit(8)
     @ministers = Minister.all
     @departments = Department.all
     @agencies = Agency.all
