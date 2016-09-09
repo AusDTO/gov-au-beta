@@ -80,10 +80,10 @@ RSpec.describe NewsController, type: :controller do
     let!(:c_home_node) { Fabricate(:section_home, section: minister_c) }
     let!(:d_home_node) { Fabricate(:section_home, section: minister_d) }
 
-    let!(:article_a) { Fabricate(:news_article, state: 'published', section: department_a, sections: [department_a]) }
-    let!(:article_b) { Fabricate(:news_article, state: 'published', section: department_b, sections: [department_b]) }
-    let!(:article_c) { Fabricate(:news_article, state: 'published', section: minister_c, sections: [minister_c]) }
-    let!(:article_d) { Fabricate(:news_article, state: 'published', section: minister_d, sections: [minister_d]) }
+    let!(:article_a) { Fabricate(:news_article, state: 'published', section: department_a)}
+    let!(:article_b) { Fabricate(:news_article, state: 'published', section: department_b)}
+    let!(:article_c) { Fabricate(:news_article, state: 'published', section: minister_c)}
+    let!(:article_d) { Fabricate(:news_article, state: 'published', section: minister_d)}
 
     context 'with no filter' do
       before { get :index }

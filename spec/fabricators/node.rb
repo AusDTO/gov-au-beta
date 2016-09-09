@@ -43,6 +43,12 @@ Fabricator(:news_article, from: :abstract_node, class_name: :news_article) do
   release_date Date.today
   published_at Time.now.utc
   summary 'foobar'
+
+  after_build do |article, _transients|
+    if article.sections.blank?
+      article.sections = [article.section]
+    end
+  end
 end
 
 Fabricator(:root_node, class_name: :root_node) do
