@@ -16,4 +16,11 @@ RSpec.describe NodeDecorator, type: :decorator do
       it { is_expected.to eq('news_article') }
     end
   end
+
+  describe '#rendered' do
+    let(:node) { Fabricate(:general_content).decorate }
+    it 'caches the results' do
+      expect(node.rendered).to be(node.rendered)
+    end
+  end
 end

@@ -33,8 +33,7 @@
       %td Reviewed at
       %td= l(submission.reviewed_at) unless submission.reviewed_at.blank?
 
--# default to the published name if no name is set
-- locals = {defaults: {name: submission.revisable.name}}
+- locals = {node: submission.revisable}
 
 %h2 Original content
 = render partial: 'content', object: submission.original_content, locals: locals
