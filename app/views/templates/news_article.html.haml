@@ -3,9 +3,6 @@
 
 - breadcrumb :public_news_article, node
 
-%div.list-horizontal
-  = render partial: 'templates/related_sections', locals: {node: node}
-
 %h1
   =node.name
 
@@ -13,10 +10,22 @@
 
 %ul.announcement-info
   - if node.release_date
-    %li Published date: #{l(node.release_date, format: :news)}
+    %li
+      %span
+        Date published
+      #{l(node.release_date, format: :news)}
   %li
-    Published by:
-    %a= link_to(node.section.name, public_node_path(node.section.home_node))
-
+    %dl
+      %dt
+        Published by
+      - node.publishers.each do |publisher|
+        %dd
+          = link_to(publisher.name, public_node_path(publisher.home_node))
+  - if node.related_topics.any?
+    %li
+      = render partial: 'templates/related_sections', locals: {node: node}
 
 != node.rendered[:content_body].content
+
+-#%div.list-horizontal
+  = render partial: 'templates/related_sections', locals: {node: node}
