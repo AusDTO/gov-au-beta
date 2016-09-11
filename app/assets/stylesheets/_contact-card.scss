@@ -1,0 +1,23 @@
+//this element could ideally sit inside a <footer> within an <article>
+.contact-card {
+  background-color: $non-white;
+  border-bottom: 1px solid $border-colour;
+  border-top: 1px solid $border-colour;
+  margin: 1.5 * $base-spacing 0;
+  padding: (1.5 * $base-spacing) $base-spacing;
+
+  .contact-title {
+    font-size: rem(24);
+    font-weight: $heading-font-weight;
+    margin-bottom: $small-spacing;
+    margin-top: 0;
+
+    @include media($tablet) {
+      font-size: rem(26);
+    }
+  }
+
+  address {
+    font-style: normal;
+  }
+}

@@ -1,20 +1,16 @@
 = inside_layout :application do
-  %article#content{class: "content-main", tabindex: -1}
+
+  %article#content{class: "content-main news-article", tabindex: -1}
     = yield
 
   = content_for :title do
     = @node.name
 
-  = content_for :after_header do
-    %div{class: "hero-sml #{hero_class(@section)}"}
-      .wrapper
-        %p
-          = @section.name
-
   = content_for :toolbar_actions do
     = render partial: 'application/page_actions', locals: {section: @section, node: @node}
 
-  = content_for :meta_description do
-    - if node.short_summary
-      = content_for :meta_description do
-        = node.short_summary
+  - if node.short_summary
+    = content_for :meta_description do
+      = node.short_summary
+
+  -# = render partial: 'templates/related_news_articles', locals: {node: node}

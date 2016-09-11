@@ -3,4 +3,5 @@
   %p
     = node.short_summary
     - if node.rendered[:summary]
-      != node.rendered[:summary].content
+      .summary
+        != node.rendered[:summary].content
