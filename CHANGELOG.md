@@ -9,6 +9,7 @@ This file is influenced by http://keepachangelog.com/.
 - News lists can be filtered by ministers and departments
 
 ### Changed
+- Updated ui-kit to v1.8.0
 
 ### Fixed
 - Pluralise 'ministers' only where appropriate

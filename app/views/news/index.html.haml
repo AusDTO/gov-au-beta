@@ -39,7 +39,7 @@
         - @filters.each do |distrib|
           %dl
             %dd= link_to distrib.name, public_node_path(distrib.home_node)
-  %ul.news-listing
+  %ul.list-horizontal
     - articles.each do |article|
       %li
         %article
