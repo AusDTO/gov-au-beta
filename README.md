@@ -56,6 +56,20 @@ $EDITOR .env
 
 ```
 
+### Prevent accidental commits of security credentials
+
+1. Install "git secrets"
+
+		$ brew install git-secrets
+		$ cd $YOUR_PROJECT_WORKDIR
+		$ git secrets --install
+		$ git secrets --add-provider ./git-secret-patterns.rb
+		$ git secrets --register-aws
+
+2. Commits that introduce files containing matching illegal patterns will be aborted.
+
+To force the commit for false positives, run `git commit --no-verify`.
+
 ### Mailtrap
 
 We use [Mailtrap](https://mailtrap.io) for development email testing.
