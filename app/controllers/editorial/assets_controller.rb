@@ -8,8 +8,6 @@ module Editorial
     end
 
     def create
-      Paperclip.options[:use_exif_orientation] = false
-
       @form = AssetForm.new(Asset.new)
       if @form.validate(asset_params)
         @form.sync
