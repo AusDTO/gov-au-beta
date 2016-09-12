@@ -123,7 +123,7 @@ Rails.application.configure do
                                 path: "/assets/:fingerprint-:style.:extension",
                                 # path determines location on S3
                                 # https://github.com/thoughtbot/paperclip/tree/master/lib/paperclip/interpolations.rb#L159
-                                s3_host_alias: "s3-#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ASSET_S3_BUCKET']}",
+                                s3_host_alias: ENV['ASSET_DOMAIN'] || "s3-#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ASSET_S3_BUCKET']}",
                                 # The fully-qualified domain name (FQDN) that is the alias to the S3 domain of your bucket.
                                 url: ":s3_alias_url"
                             }

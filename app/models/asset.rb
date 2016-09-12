@@ -1,9 +1,10 @@
 class Asset < ActiveRecord::Base
-  #belongs_to :uploader, class_name: "User"
+  belongs_to :uploader, class_name: "User"
 
   has_attached_file :asset_file,
                     adapter_options: {hash_digest: Digest::SHA1},
-                    styles: {medium: "300x300>", thumb: "125x125>"} # https://www.imagemagick.org/Usage/resize/#resize
+                    styles: {medium: "300x300>", thumb: "125x125>"}
+                    # styles resize syntax: https://www.imagemagick.org/Usage/resize/#resize
 
   validates_attachment :asset_file,
                        presence: true,
