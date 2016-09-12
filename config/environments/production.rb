@@ -113,4 +113,18 @@ Rails.application.configure do
 
   #Set use of two-factor auth
   config.use_2fa = !ENV['DISABLE_2FA'].present?
+
+  # use s3 for file uploads
+  config.paperclip_defaults = { storage: :s3,
+                                s3_region: ENV['AWS_REGION'],
+                                s3_credentials: {:bucket => ENV['AWS_ASSET_S3_BUCKET'],
+                                                 :access_key_id => ENV['AWS_S3_ACCESS_KEY_ID'],
+                                                 :secret_access_key => ENV['AWS_S3_SECRET_ACCESS_KEY']},
+                                path: "/assets/:fingerprint-:style.:extension",
+                                # path determines location on S3
+                                # https://github.com/thoughtbot/paperclip/tree/master/lib/paperclip/interpolations.rb#L159
+                                s3_host_alias: "s3-#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ASSET_S3_BUCKET']}",
+                                # The fully-qualified domain name (FQDN) that is the alias to the S3 domain of your bucket.
+                                url: ":s3_alias_url"
+                            }
 end
