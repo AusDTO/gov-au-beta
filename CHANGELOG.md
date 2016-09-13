@@ -11,6 +11,7 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Changed
 - Updated ui-kit to v1.8.0
+- Now adds Cache-Control headers (public, max-age 5 mins) to supplement ETAGs.
 
 ### Fixed
 - Pluralise 'ministers' only where appropriate
