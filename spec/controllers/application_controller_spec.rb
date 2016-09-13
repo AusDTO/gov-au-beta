@@ -9,7 +9,7 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     def show
-      if bustable_stale?(@some_data)
+      with_caching(@some_data) do
         render :text => "Oh hi there!"
       end
     end

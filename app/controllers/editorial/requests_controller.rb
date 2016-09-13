@@ -47,7 +47,7 @@ module Editorial
       @requestor = @rqst.user
       @approver = @rqst.approver.decorate unless @rqst.approver.nil?
       @owners = User.with_role(:owner, @rqst.section)
-      bustable_fresh_when([@rqst, @requestor, @approver, *@owners])
+      with_caching([@rqst, @requestor, @approver, *@owners])
     end
 
     def update

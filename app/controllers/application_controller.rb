@@ -41,16 +41,41 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Calls *stale?* but modifies any supplied *strong_etag* by prepending the value of 
-  # ApplicationController#etag_seed.
-  def bustable_stale?(object = nil, **kwd_args)
-    etag_disabled? || stale?(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
-  end
-
-  # Calls *fresh_when?* but modifies any supplied *strong_etag* by prepending the value of 
-  # ApplicationController#etag_seed.
-  def bustable_fresh_when(object = nil, **kwd_args)
-    !etag_disabled? && fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+  # Sets ETAG & Cache-Control headers when caching is enabled globally.
+  #
+  # Cache-Control is set to max-age of 5 minutes and public.  When pass a
+  # block,the block will be yielded to in order to perform the render.  When a
+  # block is not passed then Rails will perform the default rendering.  The
+  # ETAG is busted when a new version of the application is deployed, but the
+  # cache-control header will prevent conditional GETs to the server for five
+  # minutes.
+  #
+  # Examples:
+  #
+  ## sets cache headers and renders with default renderer
+  # with_caching([@resource1, @resource2])
+  #
+  ## sets cache headers and renders with explicit renderer
+  # with_caching([@resource1, @resource2]) do
+  #   render_this_way_instead
+  # end
+  #
+  def with_caching(object = nil, **kwd_args)
+    if caching_enabled?
+      if block_given?
+        if stale?(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+          expires_in 5.minutes, public: true
+          yield
+        end
+      else
+        fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+        expires_in 5.minutes, public: true
+      end
+    else
+      if block_given?
+        yield
+      end
+    end
   end
 
   private
@@ -66,12 +91,12 @@ class ApplicationController < ActionController::Base
   end
 
   if Rails.env.development?
-    def etag_disabled?
-      true
+    def caching_enabled?
+      false
     end
   else
-    def etag_disabled?
-      user_signed_in? || flash.present?
+    def caching_enabled?
+      !(user_signed_in? || flash.present?)
     end
   end
 

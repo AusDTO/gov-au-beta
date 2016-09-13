@@ -20,7 +20,7 @@ class NewsController < ApplicationController
       @articles = filtered_articles
     end
 
-    bustable_fresh_when(@articles)
+    with_caching(@articles)
   end
 
 
@@ -33,7 +33,7 @@ class NewsController < ApplicationController
       section: @section
     )
     raise ActiveRecord::RecordNotFound unless can? :read_public, @node
-    if bustable_stale?([@node, @section])
+    with_caching([@node, @section]) do
       render_node node
     end
   end

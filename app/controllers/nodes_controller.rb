@@ -22,7 +22,7 @@ class NodesController < ApplicationController
     end
 
     set_menu_nodes
-    if bustable_stale?([@node, @section, *@news, *@ministers, *@departments, *@agencies, *@categories])
+    with_caching([@node, @section, *@news, *@ministers, *@departments, *@agencies, *@categories]) do
       render_node node
     end
   end

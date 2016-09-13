@@ -9,14 +9,14 @@ module Editorial
 
     def show
       @filter = %w(my_pages submissions).detect { |f| f == params[:filter] }
-      bustable_fresh_when(@section)  
+      with_caching(@section)  
     end
 
     # TODO this should be a show/index on another resource.
     def collaborators
       @pending = Request.where(section: @section, state: :requested)
       @users = @section.users
-      bustable_fresh_when([*@pending, *@users])
+      with_caching([*@pending, *@users])
     end
 
     protected

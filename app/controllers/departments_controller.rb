@@ -5,6 +5,6 @@ class DepartmentsController < ApplicationController
 
   def index
     @departments = Department.all.order(:name)
-    bustable_fresh_when(@departments)
+    with_caching(@departments)
   end
 end
