@@ -6,8 +6,6 @@
 # To install git-secrets, run `brew install git-secrets` then in the project directory
 # run `git secrets --install`, then `git secrets --add-provider ./git-secret-patterns.rb`.
 #
-# Additionally patterns for AWS may be installed by running `git secrets --register-aws`.
-#
 # This file contains a list of patterns that will cause a commit to be aborted
 # if any change that the commit introduces contains lines matching any of these
 # patterns.
