@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160908043306) do
     t.string   "asset_file_content_type"
     t.integer  "asset_file_file_size"
     t.datetime "asset_file_updated_at"
-    t.string   "asset_file_meta"
     t.string   "asset_file_fingerprint"
     t.datetime "created_at"
     t.datetime "updated_at"

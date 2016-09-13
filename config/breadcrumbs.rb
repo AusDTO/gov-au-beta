@@ -100,6 +100,7 @@ crumb :new_editorial_user do
 end
 
 crumb :new_asset do
+  link 'Assets', editorial_assets_path
   link 'Create asset', new_editorial_asset_path
   parent :editorial_root
 end

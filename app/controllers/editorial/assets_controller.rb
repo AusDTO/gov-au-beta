@@ -3,6 +3,10 @@ module Editorial
 
     before_action ->() { authorize! :create, :asset }, only: [:new, :create]
 
+    def index
+
+    end
+
     def new
       @form = AssetForm.new(Asset.new)
     end
@@ -12,7 +16,7 @@ module Editorial
       if @form.validate(asset_params)
         @form.sync
         asset = @form.model
-        asset.uploader_id = current_user.id
+        asset.uploader = current_user
         if asset.save
           flash[:notice] = "Asset created, available at https:#{asset.asset_file.url}"
           redirect_to editorial_root_path and return
