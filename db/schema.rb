@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20160908043306) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "assets", "users", column: "uploader_id"
   add_foreign_key "news_distributions", "nodes", column: "news_article_id"
   add_foreign_key "nodes", "nodes", column: "parent_id"
   add_foreign_key "requests", "sections"

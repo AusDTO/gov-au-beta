@@ -5,9 +5,10 @@ class CreateAssets < ActiveRecord::Migration
 
       t.attachment :asset_file
       t.string :asset_file_content_type
-      t.string :asset_file_fingerprint
+      t.string :asset_file_fingerprint, unique: true
 
       t.timestamps
     end
+    add_foreign_key :assets, :users, column: :uploader_id
   end
 end
