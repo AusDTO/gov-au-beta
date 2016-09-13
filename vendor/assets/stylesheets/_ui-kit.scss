@@ -5975,7 +5975,7 @@ form {
       height: 1px;
       // hide the native widget but keep it in the tab order
       left: -10000px;
-      position: absolute;
+      position: relative;
       visibility: visible;
       width: 1px;
 
