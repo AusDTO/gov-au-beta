@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resource :feedback, controller: 'feedback'
 
   namespace :editorial do
+    resources :assets, only: [:index, :new, :create]
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article
 
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
     # keep these alphabetically sorted
     # code order determines order in the UI
     resources :agencies
+    resources :assets
     resources :categories
     resources :custom_template_nodes
     resources :departments

@@ -28,8 +28,6 @@ gem 'dry-types'
 gem 'draper', git: 'https://github.com/coderdan/draper.git'
 gem 'devise'
 gem 'cf-app-utils' # cloudfoundry utils
-gem 'refile', require: ['refile/rails', 'refile/image_processing']
-gem 'mini_magick'
 gem 'friendly_id', github: 'norman/friendly_id', ref: '8531cdce'
 gem 'acts_as_tree', '~> 2.4.0'
 gem 'haml', '~> 4.0.7'
@@ -55,7 +53,7 @@ gem 'ruby-sun-times', require: 'sun_times'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
 gem 'two_factor_authentication', github: 'Houdini/two_factor_authentication'
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk', '~> 2.5.0'
 gem 'rufus-scheduler'
 gem 'rqrcode'
 gem 'valid_email'
@@ -63,6 +61,7 @@ gem 'paranoia', '~> 2.2.0.pre'
 gem 'lograge'
 gem 'request_store_rails'
 gem 'liquid', '>= 4.0.0.rc2', '< 5'
+gem 'paperclip', '~> 5.1.0'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config
