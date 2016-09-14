@@ -39,25 +39,21 @@
         - @filters.each do |distrib|
           %dl
             %dd= link_to distrib.name, public_node_path(distrib.home_node)
-  %ul.list-horizontal
-    - articles.each do |article|
-      %li
-        %article
-          %h2= link_to article.name, public_node_path(article)
-          %div.meta
-            %time{ datetime: "#{article.release_date}" } #{l(article.release_date, format: :news)}
-            %ul.publishers
-              - article.publishers.each do |publisher|
-                %li
-                  = link_to publisher.name, public_node_path(publisher.home_node), { rel: :author }
-            - if article.short_summary
-              %p
-                #{article.short_summary}
-            - if article.related_topics.any?
-              %footer
-                %div.tags
-                  = render partial: 'templates/related_sections', locals: {node: article}
 
+  - if @section.nil?
+    %ul.list-horizontal
+      - articles.each do |article|
+        %li
+          = render partial: 'news_snippet', locals: {article: article}
+  - else
+    %ul.list-horizontal.news-listing
+      - articles.each_with_index do |article, index|
+        - if index == 0
+          %li.highlighted-item
+            = render partial: 'news_snippet', locals: {article: article}
+        - else
+          %li
+            = render partial: 'news_snippet', locals: {article: article}
 
 - if @section.nil?
   %article.sidebar
