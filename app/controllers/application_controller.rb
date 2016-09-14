@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Sets ETAG & Cache-Control headers when caching is enabled globally.
+  # Enforces the app-wide caching policy. Sets ETag & Cache-Control headers.
   #
   # Cache-Control is set to max-age of 5 minutes and public.  When pass a
   # block,the block will be yielded to in order to perform the render.  When a
@@ -60,15 +60,19 @@ class ApplicationController < ActionController::Base
   #   render_this_way_instead
   # end
   #
-  def with_caching(object = nil, **kwd_args)
+  ## caching works on single or mutliple objects
+  # with_caching(@resource)
+  # with_caching([@resource1, @resource2])
+  #
+  def with_caching(object)
     if caching_enabled?
       if block_given?
-        if stale?(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+        if stale?(strong_etag: sha1_bustable_on_new_release(last_modified(object)))
           expires_in 5.minutes, public: true
           yield
         end
       else
-        fresh_when(object, strong_etag: bustable_etag(kwd_args[:strong_etag]), **kwd_args)
+        fresh_when(strong_etag: sha1_bustable_on_new_release(last_modified(object)))
         expires_in 5.minutes, public: true
       end
     else
@@ -79,6 +83,18 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # Gets the max updated_at from an object or array of objects (or nil if no objects).
+  def last_modified(object)
+    [*object].compact.map do |obj|
+      # expand ActiveRecord::Relations
+      obj.try(:maximum, :updated_at) ||
+      # fallback so single objects
+      obj.try(:updated_at)
+    end
+    .compact
+    .max
+  end
 
   def setup_logging
     begin
@@ -110,8 +126,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def bustable_etag(strong_etag)
-    Digest::SHA1.hexdigest("#{etag_seed}#{strong_etag || ""}")
+  def sha1_bustable_on_new_release(data)
+    Digest::SHA1.hexdigest("#{etag_seed}#{data.to_s || ""}")
   end
 
   def append_info_to_payload(payload)
