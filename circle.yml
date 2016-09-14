@@ -22,7 +22,7 @@ deployment:
       - cf api https://api.system.staging.digital.gov.au
       - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
       - cf target -o govau -s platform
-      - curl -f https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
+      - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
       - ./bin/deploy-staging.sh
@@ -34,7 +34,7 @@ deployment:
       - cf auth $CF_USER_PROD $CF_PASSWORD_PROD
       - cf target -o $CF_ORG_PROD
       - cf target -s $CF_SPACE_PROD
-      - curl -f https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_PROD_ACCESS_TOKEN
+      - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_PROD_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
       - ./bin/deploy-prod.sh
