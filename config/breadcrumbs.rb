@@ -99,10 +99,14 @@ crumb :new_editorial_user do
   parent :editorial_root
 end
 
-crumb :new_asset do
+crumb :assets do
   link 'Assets', editorial_assets_path
-  link 'Create asset', new_editorial_asset_path
   parent :editorial_root
+end
+
+crumb :new_asset do
+  link 'Create asset', new_editorial_asset_path
+  parent :assets
 end
 
 crumb :public_news_articles do
