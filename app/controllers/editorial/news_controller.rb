@@ -6,7 +6,7 @@ module Editorial
 
     def index
       # TODO: return news editorial index
-      bustable_fresh_when(@sections)
+      with_caching(@sections)
     end
 
     def show
@@ -15,7 +15,7 @@ module Editorial
         slug: params[:slug]
       )
       authorize! :read, @article
-      bustable_fresh_when([*@sections, @article])
+      with_caching([*@sections, @article])
     end
 
     def new
