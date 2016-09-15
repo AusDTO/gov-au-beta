@@ -9,7 +9,7 @@
   - if article.short_summary.present?
     %p
       #{article.short_summary}
-  - if article.related_topics.any? && @section.nil?
+  - if article.related_topics.any?
     %footer
       %div.tags
         = render partial: 'templates/related_sections', locals: {node: article}
