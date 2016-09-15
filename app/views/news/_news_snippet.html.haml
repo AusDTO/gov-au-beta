@@ -6,7 +6,7 @@
       - article.publishers.each do |publisher|
         %li
           = link_to publisher.name, public_node_path(publisher.home_node), { rel: :author }
-  - if article.short_summary
+  - if article.short_summary.present?
     %p
       #{article.short_summary}
   - if article.related_topics.any? && @section.nil?
