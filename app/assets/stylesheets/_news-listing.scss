@@ -36,18 +36,22 @@
       @include media($mobile) {
         order: -1;
       }
+
+      time {
+        color: $non-black;
+        font-weight: $heading-font-weight;
+
+        @include media($mobile) {
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: auto;
+        }
+      }
     }
 
-    time {
+    footer .tags dt {
       color: $non-black;
-      font-weight: $heading-font-weight;
-
-      @include media($mobile) {
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: auto;
-      }
     }
   }
 }
