@@ -1,6 +1,7 @@
 .news-listing {
 
   > li {
+    max-width: 100%;
     padding-left: 0;
 
     @include media($mobile) {
@@ -24,7 +25,7 @@
     width: 100%;
 
     @include media($mobile) {
-      padding-left: 35%;
+      padding-left: 30%;
     }
 
     h2 {
