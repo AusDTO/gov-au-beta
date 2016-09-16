@@ -8,6 +8,7 @@ This file is influenced by http://keepachangelog.com/.
 - Added EDITOR.md as a central location for documenting the editor
 - News lists can be filtered by ministers and departments
 - Image upload function available in editorial
+- Toggle to require all visitors to have an invite
 
 ### Changed
 - Updated ui-kit to v1.8.0

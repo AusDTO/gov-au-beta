@@ -18,6 +18,8 @@ class Ability
       cannot :create_in, Section do |section|
         section.cms_type != Section::COLLABORATE_CMS
       end
+
+      can :create, Invite
     end
 
     if user.id
