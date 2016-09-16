@@ -38,7 +38,7 @@
       }
 
       time {
-        color: $non-black;
+        color: $black;
         font-weight: $heading-font-weight;
 
         @include media($mobile) {
@@ -51,7 +51,7 @@
     }
 
     footer .tags dt {
-      color: $non-black;
+      color: $black;
     }
   }
 }
