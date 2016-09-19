@@ -16,12 +16,9 @@
       %article
         %h3
           =asset.asset_file_file_name
-        %b
-          URL:
-        = link_to(" #{asset.asset_file.url}", asset.asset_file.url)
         %br
         %b
           Markdown:
-        = "{{image #{asset.asset_file_fingerprint}}}"
+        = "{%image #{asset.asset_file_fingerprint}%}"
 
 =paginate @assets
