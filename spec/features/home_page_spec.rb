@@ -14,18 +14,10 @@ RSpec.describe 'home page', type: :feature do
 
   describe 'categories' do
 
-    it 'test if real categories are working correctly' do
+    it 'test if categories are working correctly' do
       within('.real-list') do
         expect(page).to have_link("real category", href: category_path(real_category.slug))
         expect(page).to have_css("p", text: "real summary")
-      end
-    end
-
-    it 'test if placeholder categories are working correctly' do
-      within('.placeholder-list') do
-        expect(page).to have_css(".placeholder-link", text: "placeholder category")
-        expect(page).to have_no_link("placeholder category")
-        expect(page).to have_css("p", text: "placeholder summary")
       end
     end
 
