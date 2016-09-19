@@ -1,14 +1,10 @@
 - breadcrumb :public_node, node
 
-%article.content-listing
-
+%article.content-listing#content{tabindex: -1}
 
   %section.home-category-list
-    %h2.home-heading
+    %h2
       Information and services
-
-      %h3
-        What content is available now?
 
       %ul.list-vertical--thirds.real-list
         - @categories.each do |category|
@@ -19,125 +15,106 @@
               %p
                 = category.short_summary
 
-      %h3
-        What content is coming soon?
-
-      %ul.list-vertical--thirds.placeholder-list
-        - @categories_coming_soon.each do |category|
-          %li
-            %article
-              %h3
-                %span.placeholder-link
-                  = category.name
-              %p
-                = category.short_summary
-
   %section.government-links
+    %h2
+      Entry points
     .federal-government
-      %h2.home-heading.small Australian Government
-      %ul
-        %li
-          %a{href: '/departments'}
-            %span= @departments.count
-            Departments
-        %li
-          %a{href: '#'}
-            %span= @agencies.count
-            Agencies
-        %li
-          %a{href: '/ministers'}
-            %span= @ministers.count
-            Ministers
+      %h3.home-heading.small Australian Government
+      %ul.list-horizontal
+        %li.ausgov
+          %span.image
+          %article
+            %h3
+              %a{href: 'http://www.australia.gov.au/'} www.australia.gov.au
+            %p Entry point for people to find Australian Government information.
+        %li.busgov
+          %span.image
+          %article
+            %h3
+              %a{href: 'https://www.business.gov.au/'} www.business.gov.au
+            %p Helps businesses to find all the information and tools they need from government.
+        %li.mygov
+          %span.image
+          %article
+            %h3
+              %a{href: 'https://my.gov.au/'} my.gov.au
+            %p Lets you link a range of Australian Government services, all in one place.
     .state-government
-      %h2.home-heading.small State and territory governments
+      %h3.home-heading.small State and territory governments
       %ul.list-vertical
         %li.nsw
           %span.image
-          %h3.state-title New South Wales
-          %a{href: 'https://www.nsw.gov.au/'} www.nsw.gov.au
+          %article
+            %h3.state-title New South Wales
+            %a{href: 'https://www.nsw.gov.au/'} www.nsw.gov.au
         %li.vic
           %span.image
-          %h3.state-title Victoria
-          %a{href: 'http://www.vic.gov.au/'} www.vic.gov.au
+          %article
+            %h3.state-title Victoria
+            %a{href: 'http://www.vic.gov.au/'} www.vic.gov.au
         %li.qld
           %span.image
-          %h3.state-title Queensland
-          %a{href: 'http://www.qld.gov.au/'} www.qld.gov.au
+          %article
+            %h3.state-title Queensland
+            %a{href: 'http://www.qld.gov.au/'} www.qld.gov.au
         %li.sa
           %span.image
-          %h3.state-title South Australia
-          %a{href: 'http://www.sa.gov.au/'} www.sa.gov.au
+          %article
+            %h3.state-title South Australia
+            %a{href: 'http://www.sa.gov.au/'} www.sa.gov.au
         %li.wa
           %span.image
-          %h3.state-title Western Australia
-          %a{href: 'https://www.wa.gov.au/'} www.wa.gov.au
+          %article
+            %h3.state-title Western Australia
+            %a{href: 'https://www.wa.gov.au/'} www.wa.gov.au
         %li.tas
           %span.image
-          %h3.state-title Tasmania
-          %a{href: 'http://www.tas.gov.au/'} www.tas.gov.au
+          %article
+            %h3.state-title Tasmania
+            %a{href: 'http://www.tas.gov.au/'} www.tas.gov.au
         %li.nt
           %span.image
-          %h3.state-title Northern Territory
-          %a{href: 'https://nt.gov.au/'} www.nt.gov.au
+          %article
+            %h3.state-title Northern Territory
+            %a{href: 'https://nt.gov.au/'} www.nt.gov.au
         %li.act
           %span.image
-          %h3.state-title Australian Capital Territory
-          %a{href: 'http://www.act.gov.au/'} www.act.gov.au
+          %article
+            %h3.state-title Australian Capital Territory
+            %a{href: 'http://www.act.gov.au/'} www.act.gov.au
+  %section.local-government
+    %h3.home-heading.small Local government
+    %p
+      The six states and the Northern Territory have established one further
+      level of Government. Local government (also known as city, shire, town or
+      municipal councils) handle community needs like waste collection, public
+      recreation facilities and town planning.
+    %p
+      The
+      %strong
+        %a{href: 'http://alga.asn.au/'}Australian Local Government Association
+      is the national voice of local government, representing 560 councils
+      across the country. State local government directories provide links to
+      local council sites:
 
-
-  %section.life-changes
-    %h2.home-heading Life changes
-    %ul.list-vertical--thirds
+    %ul
       %li
-        %article
-          %h3
-            %span.placeholder-link
-              Just had a baby?
-          %p
-            Get your baby on your Medicare card, registered for child care
-            payments and immunised.
-          %a{:href => "#", :role => "button", :disabled => true} Get started
+        %a{href: 'https://www.olg.nsw.gov.au/local-government-directory'} New South Wales local government directory
       %li
-        %article
-          %h3
-            %span.placeholder-link
-              Helping an older person?
-          %p
-            Find support for older Australians wanting to stay at home or
-            needing other living arrangements.
-          %a{:href => "#", :role => "button", :disabled => true} Get started
+        %a{href: 'https://dlgcs.nt.gov.au/'} Northern Territory local government directory
       %li
-        %article
-          %h3
-            %span.placeholder-link
-              Starting a business?
-          %p
-            Tell us about your business idea and we'll match the right
-            government information to your set-up.
-          %a{:href => "#", :role => "button", :disabled => true} Get started
-
-  %section.about-australia
-    %h2.home-heading About Australia
-    .population
-      %h3 Population (December 2015)
-      %ul
-        %li.population-infographic 23,940,300
-        %li.population-statistic <strong>96,300 </strong>more females <br>than males
-
-    .public-holiday
-      %h3 Next national public holiday
-      .next-holiday
-        %a{href: '/times-and-dates/australian-public-holidays'}
-          .calendar
-            %span.event-title Christmas Day
-            %time(datetime='2016-12-25') Friday <span>25</span> December
-
-  %a.see-more More about Australia
-
-
+        %a{href: 'http://www.dilgp.qld.gov.au/local-government-directory/'} Queensland local government directory
+      %li
+        %a{href: 'http://www.lga.sa.gov.au/councils'} South Australia local government directory
+      %li
+        %a{href: 'http://www.dpac.tas.gov.au/divisions/local_government/local_government_directory'} Tasmania local government directory
+      %li
+        %a{href: 'http://www.dtpli.vic.gov.au/local-government'} Victoria local government directory
+      %li
+        %a{href: 'http://walga.asn.au/About-Local-Government/LG-Directory.aspx'} Western Australia local government directory
 
   %section.home-news-list
-    %h2.home-heading News
+    %h2 News
     - if @news.empty?
       %p No current news articles
     %ul.list-vertical--fourths

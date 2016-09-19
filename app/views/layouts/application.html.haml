@@ -20,10 +20,10 @@
   %header{role: 'banner'}
 
     = render 'application/signed_in_nav' if user_signed_in?
-    %section.prerelease-govau--header
-      - if content_for?(:header)
-        = yield(:header)
-      - else
+    - if content_for?(:header)
+      = yield(:header)
+    - else
+      %section.prerelease-govau--header
         .wrapper
           %a.govau--logo{href: "/"}
             = image_tag 'icons/logo-govau-full-2x.png', width: '270'
