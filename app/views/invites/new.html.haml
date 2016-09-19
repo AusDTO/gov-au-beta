@@ -1,0 +1,12 @@
+= content_for :title do
+  = 'Send an invite'
+
+- breadcrumb :invite
+
+%section#content.content-main.form_wrapper{tabindex: -1}
+  %h1
+    Send an invite
+  = simple_form_for(@form) do |f|
+    = f.input :email
+    = f.button :button, 'Send invite'
+

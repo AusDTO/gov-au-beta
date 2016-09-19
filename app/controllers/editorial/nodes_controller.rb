@@ -15,7 +15,7 @@ module Editorial
       end
 
       @nodes = @section.nodes.order(updated_at: :desc).decorate
-      bustable_fresh_when([*@nodes, @section])
+      with_caching([*@nodes, @section])
     end
 
     def show
@@ -26,7 +26,7 @@ module Editorial
         @news = NewsArticle.published_for_section(@section).limit(3)
       end
       set_menu_nodes
-      bustable_fresh_when([*@nodes, *@news, @section])
+      with_caching([*@nodes, *@news, @section])
     end
 
     def prepare

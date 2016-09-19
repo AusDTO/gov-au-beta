@@ -28,6 +28,11 @@ crumb :category do |name|
   parent :public_node, Node.root_node
 end
 
+crumb :invite do |name|
+  link 'Invite', invites_path
+  parent :public_node, Node.root_node
+end
+
 crumb :editorial_root do
   link 'Editorial Home', editorial_root_path
 end
@@ -97,6 +102,16 @@ end
 crumb :new_editorial_user do
   link 'Create user', new_editorial_user_path
   parent :editorial_root
+end
+
+crumb :assets do
+  link 'Assets', editorial_assets_path
+  parent :editorial_root
+end
+
+crumb :new_asset do
+  link 'Create asset', new_editorial_asset_path
+  parent :assets
 end
 
 crumb :public_news_articles do

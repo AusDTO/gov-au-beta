@@ -64,7 +64,6 @@ $EDITOR .env
 		$ cd $YOUR_PROJECT_WORKDIR
 		$ git secrets --install
 		$ git secrets --add-provider ./git-secret-patterns.rb
-		$ git secrets --register-aws
 
 2. Commits that introduce files containing matching illegal patterns will be aborted.
 
