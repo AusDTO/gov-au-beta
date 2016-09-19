@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Editorial::AssetsController, type: :controller do
 
   let(:owner) { Fabricate(:user, is_admin: true) }
+  let(:asset) { Fabricate(:asset)}
 
   before do
     sign_in(owner)
@@ -28,7 +29,7 @@ RSpec.describe Editorial::AssetsController, type: :controller do
         Fabricate.attributes_for( :asset )
       end
 
-      it { is_expected.to redirect_to(editorial_root_path) }
+      it { is_expected.to redirect_to(editorial_assets_path) }
 
       it 'creates the asset' do
         expect { subject }.to change(Asset, :count).by(1)
