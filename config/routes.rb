@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  concern :paginatable do
+    get '(page/:page)', :action => :index, :on => :collection, :as => ''
+  end
+
   match "/404", :to => "errors#not_found", :via => :all
   match "/422", :to => "errors#change_rejected", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
@@ -34,7 +38,7 @@ Rails.application.routes.draw do
   resource :feedback, controller: 'feedback'
 
   namespace :editorial do
-    resources :assets, only: [:index, :new, :create]
+    resources :assets, only: [:index, :new, :create], :concerns => :paginatable
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article
 

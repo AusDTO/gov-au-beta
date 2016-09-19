@@ -4,7 +4,7 @@ module Editorial
     before_action ->() { authorize! :create, :asset }, only: [:new, :create]
 
     def index
-
+      @assets = Asset.order(updated_at: :desc).page params[:page]
     end
 
     def new
@@ -18,8 +18,8 @@ module Editorial
         asset = @form.model
         asset.uploader = current_user
         if asset.save
-          flash[:notice] = "Asset created, available at https:#{asset.asset_file.url}"
-          redirect_to editorial_root_path and return
+          flash[:notice] = "Asset successfully created"
+          redirect_to editorial_assets_path and return
         end
       end
 
