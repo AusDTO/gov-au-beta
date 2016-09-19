@@ -22,7 +22,11 @@ header .prerelease-govau--header.home {
 
   .wrapper {
     padding-top: $small-spacing;
-    padding-bottom: 1.5 * $base-spacing;
+    padding-bottom: 1.5 * $small-spacing;
+
+    @include media($tablet) {
+      padding-bottom: 1.5 * $base-spacing;
+    }
   }
 
   .home-header-content {
