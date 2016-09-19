@@ -1,5 +1,4 @@
 namespace :db do
-
   desc 'Uploads a scrubbed database dump to S3'
   task :'s3:upload', [:key] => :environment do |t, args|
     args.with_defaults(:key => "db_#{ENV['APP_DOMAIN']}.sql")
@@ -18,7 +17,8 @@ namespace :db do
         end
 
         puts "Uploading to S3 as '#{args.key}'..."
-        s3 = Aws::S3::Resource.new
+
+        s3 = Aws::S3::Resource.new(:credentials => aws_creds)
         s3.bucket(s3_bucket).object(args.key).upload_file(scrub_file.path)
         puts 'Upload complete'
       end
@@ -31,7 +31,7 @@ namespace :db do
       abort "You must specify an S3 key to import e.g. rake #{taskname}[db_gov-au-beta.example.gov.au.sql]"
     end
 
-    s3 = Aws::S3::Client.new
+    s3 = Aws::S3::Client.new(:credentials => aws_creds)
 
     Tempfile.open(['downloaded', '.sql']) do |file|
       puts "Downloading '#{args.key}' from S3..."
@@ -81,9 +81,10 @@ namespace :db do
 
   # Database connection info for psql and pg_dump
   def connection_info
-    # Use the db connection url, or fallback to using a local unix socket.
-    ActiveRecord::Base.connection_config[:url] ||
-        "--host #{ActiveRecord::Base.connection_config[:host]} --dbname #{ActiveRecord::Base.connection_config[:database]}"
+    ENV['DATABASE_URL']
   end
 
+  def aws_creds
+    Aws::Credentials.new(ENV['AWS_S3_ACCESS_KEY_ID'], ENV['AWS_S3_SECRET_ACCESS_KEY'])
+  end
 end
