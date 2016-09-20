@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require menus
 //= require "ui-kit"
 //= require "cable"
 
@@ -409,3 +410,5 @@ if (objCtr.defineProperty) {
 }
 
 }
+
+
