@@ -4,5 +4,21 @@
 - breadcrumb :assets
 
 %h1 Assets
-%p
-  =link_to "Upload an image for use on GOV.AU", new_editorial_asset_path
+
+%a{href: new_editorial_asset_path, role: 'button'}
+  Upload an image for use on GOV.AU
+
+- @assets.each do |asset|
+  %ul.list-horizontal
+    %li
+      %figure
+        = image_tag asset.asset_file.url(:thumb)
+      %article
+        %h3
+          =asset.asset_file_file_name
+        %br
+        %b
+          Markdown:
+        = "{%image #{asset.asset_file_fingerprint}%}"
+
+=paginate @assets

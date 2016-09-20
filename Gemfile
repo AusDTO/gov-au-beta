@@ -62,6 +62,7 @@ gem 'lograge'
 gem 'request_store_rails'
 gem 'liquid', '>= 4.0.0.rc2', '< 5'
 gem 'paperclip', '~> 5.1.0'
+gem 'kaminari'
 
 #TODO switch to thoughtbot's latest release once PRs are merged & released:
 # - https://github.com/thoughtbot/administrate/pull/580 # sidebar config

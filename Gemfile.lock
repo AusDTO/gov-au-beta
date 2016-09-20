@@ -523,6 +523,7 @@ DEPENDENCIES
   httparty (~> 0.13.0)
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   launchy
   letter_opener
   liquid (>= 4.0.0.rc2, < 5)
