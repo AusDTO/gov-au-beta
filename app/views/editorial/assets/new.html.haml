@@ -9,4 +9,5 @@
 %div.form_wrapper
   = simple_form_for ([:editorial, @form]) do |f|
     = f.input :asset_file, as: :file
+    = f.input :alttext, label: "Alternative text for this image"
     = f.button :button, 'Create asset'

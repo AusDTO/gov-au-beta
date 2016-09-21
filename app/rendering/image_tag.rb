@@ -8,7 +8,7 @@ class ImageTag < Liquid::Tag
   def render(context)
     image = Asset.find_by(:asset_file_fingerprint => @image_fingerprint)
     if image
-      "<img src='#{image.asset_file.url}/>"
+      "<img alt='#{CGI.escapeHTML(image.alttext)}' src='#{image.asset_file.url}/>"
     else
       raise "Unknown image fingerprint: #{@image_fingerprint}"
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914232210) do
+ActiveRecord::Schema.define(version: 20160921001553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160914232210) do
     t.string   "asset_file_fingerprint"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alttext"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -243,6 +244,7 @@ ActiveRecord::Schema.define(version: 20160914232210) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "assets", "users", column: "uploader_id"
   add_foreign_key "news_distributions", "nodes", column: "news_article_id"
   add_foreign_key "nodes", "nodes", column: "parent_id"
   add_foreign_key "requests", "sections"

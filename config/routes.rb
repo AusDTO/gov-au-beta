@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resource :feedback, controller: 'feedback'
 
   namespace :editorial do
-    resources :assets, only: [:index, :new, :create], :concerns => :paginatable
+    resources :assets, only: [:index, :new, :create, :update, :edit], :concerns => :paginatable
     resources :news, only: [:index, :new, :edit, :update]
     get '/:section/news/:slug' => 'news#show', as: :news_article
 

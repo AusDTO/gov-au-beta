@@ -19,6 +19,11 @@
         %br
         %b
           Markdown:
-        = "{%image #{asset.asset_file_fingerprint}%}"
+        = "{% image #{asset.asset_file_fingerprint} %}"
+        %b
+          Alternative Text:
+        = asset.alttext
+        %br
+        = link_to('Edit Asset', edit_editorial_asset_url(asset))
 
 =paginate @assets
