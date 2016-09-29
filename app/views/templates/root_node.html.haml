@@ -2,18 +2,18 @@
 
 %article.content-listing#content{tabindex: -1}
 
-  %section.home-category-list
-    %h2
-      Information and services
-
-      %ul.list-vertical--thirds.real-list
-        - @categories.each do |category|
-          %li
-            %article
-              %h3
-                = link_to(category.name, category_path(category.slug))
-              %p
-                = category.short_summary
+  -#%section.home-category-list
+  -#  %h2
+  -#    Information and services
+  -#
+  -#    %ul.list-vertical--thirds.real-list
+  -#      - @categories.each do |category|
+  -#        %li
+  -#          %article
+  -#            %h3
+  -#              = link_to(category.name, category_path(category.slug))
+  -#            %p
+  -#              = category.short_summary
 
   %section.government-links
     %h2
@@ -113,14 +113,14 @@
       %li
         %a{href: 'http://walga.asn.au/About-Local-Government/LG-Directory.aspx'} Western Australia local government directory
 
-  %section.home-news-list
-    %h2 News
-    - if @news.empty?
-      %p No current news articles
-    %ul.list-vertical--fourths
-      - @news.all.each do |news|
-        %li
-          %article
-            %h3= link_to news.name, public_node_path(news)
-            .meta= l(news.release_date, format: :news)
-    =link_to 'All news', news_articles_path, :class => "see-more"
+  -#%section.home-news-list
+  -#  %h2 News
+  -#  - if @news.empty?
+  -#    %p No current news articles
+  -#  %ul.list-vertical--fourths
+  -#    - @news.all.each do |news|
+  -#      %li
+  -#        %article
+  -#          %h3= link_to news.name, public_node_path(news)
+  -#          .meta= l(news.release_date, format: :news)
+  -#  =link_to 'All news', news_articles_path, :class => "see-more"
