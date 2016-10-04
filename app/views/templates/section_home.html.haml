@@ -8,10 +8,11 @@
 = render partial: 'templates/related_topics'
 != node.rendered[:content_body].content
 
-%h2 News
-%p Announcements, media releases, interviews, speeches and more.
 
 - if @news.any?
+  %h2 News
+  %p Announcements, media releases, interviews, speeches and more.
+
   %ul.list-vertical--thirds
     - @news.each do |news|
       %li
