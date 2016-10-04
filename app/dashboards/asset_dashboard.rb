@@ -9,7 +9,7 @@ class AssetDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
       id: Field::Number,
-      uploader: Field::HasOne,
+      uploader: Field::HasOne.with_options(class_name: "User"),
       asset_file_file_name: Field::String,
       asset_file_content_type: Field::String,
       asset_file_file_size: Field::String,
