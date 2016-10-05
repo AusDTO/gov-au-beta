@@ -269,7 +269,9 @@ header .prerelease-govau--header.home {
 .ie6 {
   main,
   .content-listing,
-  footer .wrapper {
+  footer .wrapper,
+  .government-links,
+  .list-vertical {
     zoom: 1;
     overflow: auto;
   }
