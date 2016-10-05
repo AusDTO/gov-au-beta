@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
+  before { ENV['ENABLE_CACHING'] = 'true' }
+  after  { ENV['ENABLE_CACHING'] = 'false' }
 
   controller do
     def initialize(*args)
@@ -15,6 +17,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
+  # TODO: Test last modified rather than expire 5 minutes from now
+
   shared_examples_for "does not generate an ETAG" do
     it "does not generate an ETAG" do
       get :show, :id => "ignored"
@@ -28,7 +32,9 @@ RSpec.describe ApplicationController, type: :controller do
       get :show, :id => "ignored"
       assert_response 200, @response.body
       etag = @response.headers["ETag"]
+      last_modified = @response.headers['Last-Modified']
       @request.env["HTTP_IF_NONE_MATCH"] = etag
+      @request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified
       get :show, :id => "ignored"
       assert_response 304, @response.body
     end
@@ -41,7 +47,9 @@ RSpec.describe ApplicationController, type: :controller do
         get :show, :id => "ignored"
         assert_response 200, @response.body
         etag = @response.headers["ETag"]
+        last_modified = @response.headers['Last-Modified']
         @request.env["HTTP_IF_NONE_MATCH"] = etag
+        @request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified
         get :show, :id => "ignored"
         assert_response 304, @response.body
 

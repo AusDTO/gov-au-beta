@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   helper_method :decorated_current_user
   around_action :setup_logging
 
+  # Sets additional data to generate etags
+  # This ensures we bust etags over releases
+  # See http://api.rubyonrails.org/classes/ActionController/ConditionalGet/ClassMethods.html#method-i-etag
+  etag { etag_seed }
 
   def log_event(event, attrs = {})
     LoggingHelper.log_event(request, current_user, {event: event}.merge(attrs))
@@ -68,15 +72,16 @@ class ApplicationController < ActionController::Base
   def with_caching(object)
     if caching_enabled?
       if block_given?
-        if stale?(strong_etag: sha1_bustable_on_new_release(last_modified(object)))
+        if stale?(strong_etag: object, last_modified: last_modified(object))
           expires_in 5.minutes, public: true
           yield
         end
       else
-        fresh_when(strong_etag: sha1_bustable_on_new_release(last_modified(object)))
+        fresh_when(strong_etag: object, last_modified: last_modified(object))
         expires_in 5.minutes, public: true
       end
     else
+      puts "NO CACHE"
       if block_given?
         yield
       end
@@ -107,28 +112,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  if Rails.env.development?
-    def caching_enabled?
-      false
+  # Decide whether a request is eligible for caching
+  def caching_enabled?
+    if ENV.has_key?('ENABLE_CACHING')
+      return false unless ENV['ENABLE_CACHING'] == 'true' || ENV['ENABLE_CACHING'] == '1'
+    else
+      return false if Rails.env.development?
+      return false if Rails.env.test?
     end
-  else
-    def caching_enabled?
-      !(user_signed_in? || flash.present?)
-    end
+    cacheable_response?
   end
 
-  if Rails.env.development? || Rails.env.test?
-    def etag_seed
-      ""
-    end
-  else
-    def etag_seed
-      Rails.configuration.version_tag
-    end
+  # Decide if the response should be cached
+  def cacheable_response?
+    !(user_signed_in? || flash.present?)
   end
 
-  def sha1_bustable_on_new_release(data)
-    Digest::SHA1.hexdigest("#{etag_seed}#{data.to_s || ""}")
+  def etag_seed
+    Rails.configuration.version_tag
   end
 
   def append_info_to_payload(payload)
