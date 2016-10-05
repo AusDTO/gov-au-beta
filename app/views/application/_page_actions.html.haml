@@ -1,15 +1,15 @@
 - if show_view_editorial_link?
-  %li.highlight
+  %li
     = link_to 'View in editorial', editorial_section_node_path(node.section, node)
 
 - if show_new_page_link?
-  %li.highlight
+  %li
     = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
-  %li.highlight
+  %li
     = link_to 'New news article', new_editorial_news_path(publisher: @section.id)
 
 -if show_edit_page_link?
-  %li.highlight
+  %li
     - if @node.submissions.open.present?
       - if @node.submission_exists_for?(current_user)
         = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
@@ -24,4 +24,4 @@
   - if current_user.pending_request_for?(@section)
     %li= link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
   - else
-    %li.highlight= link_to 'Request membership', new_editorial_section_request_path(@section)
+    %li= link_to 'Request membership', new_editorial_section_request_path(@section)

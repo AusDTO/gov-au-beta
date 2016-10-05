@@ -21,6 +21,9 @@
 
     %section.right
       %ul
-        = yield :toolbar_actions
+        %li.dropdown
+          %a{href: '#'} Page actions
+          %ul
+            = yield :toolbar_actions
 
 
