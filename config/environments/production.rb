@@ -10,9 +10,6 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  # Ensure static assets are cached (10 minutes)
-  config.static_cache_control = 'public, max-age=600'
-
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -20,6 +17,18 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
+  # We won't rely on the webserver to serve assets but rather let rails serve them.
+  # This only makes sense when we have an aggressive cache time and a CDN but
+  # what it means is that we have full control over etags and cache control headers.
+  # For example, google page speed will look for these tags
+  # etags will be the same as the asset fingerprints under this approach
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=172800'
+  }
+
+  # FIXME: This should probably be a redis instance at some point
+  config.cache_store = :memory_store
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
