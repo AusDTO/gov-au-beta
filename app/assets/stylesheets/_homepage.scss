@@ -347,6 +347,18 @@ header .prerelease-govau--header.home {
     }
     ul {
       li {
+        &.ausgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
+        }
+
+        &.busgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/business-gov.png')}', sizingMethod='scale');
+        }
+
+        &.mygov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/mygov.png')}', sizingMethod='scale');
+        }
+
         &.nsw .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nsw.png')}', sizingMethod='scale');
         }
