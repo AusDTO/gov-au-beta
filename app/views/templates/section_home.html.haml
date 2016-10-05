@@ -8,10 +8,11 @@
 = render partial: 'templates/related_topics'
 != node.rendered[:content_body].content
 
-%h2 News
-%p Announcements, media releases, interviews, speeches and more.
 
 - if @news.any?
+  %h2 News
+  %p Announcements, media releases, interviews, speeches and more.
+
   %ul.list-vertical--thirds
     - @news.each do |news|
       %li
@@ -20,7 +21,6 @@
           .meta= l(news.release_date, format: :news)
   %p
     =link_to 'More news', section_news_articles_path(section: @section.home_node.slug)
-- else
-  %p No current news articles
+
 
 = render partial: 'templates/related_ministers', object: @section.try(:ministers)
