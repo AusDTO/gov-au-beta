@@ -263,6 +263,20 @@ header .prerelease-govau--header.home {
   }
 }
 
+
+.ie8,
+.ie7,
+.ie6 {
+  main,
+  .content-listing,
+  footer .wrapper,
+  .government-links,
+  .list-vertical {
+    zoom: 1;
+    overflow: auto;
+  }
+}
+
 .ie7, .ie8 {
   .govau--logo.home {
     height: 79px;
@@ -335,7 +349,6 @@ header .prerelease-govau--header.home {
       display: inline-block;
       *display: inline;
       zoom: 1;
-
     }
     .federal-government {
       width: 25%;
@@ -347,6 +360,18 @@ header .prerelease-govau--header.home {
     }
     ul {
       li {
+        &.ausgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
+        }
+
+        &.busgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/business-gov.png')}', sizingMethod='scale');
+        }
+
+        &.mygov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/mygov.png')}', sizingMethod='scale');
+        }
+
         &.nsw .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nsw.png')}', sizingMethod='scale');
         }
