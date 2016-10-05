@@ -1,7 +1,8 @@
 -# locals: node
-%div.abstract
-  %p
-    = node.short_summary
-    - if node.rendered[:summary]
-      .summary
-        != node.rendered[:summary].content
+- if node.short_summary
+  %div.abstract
+    %p
+      = node.short_summary
+      - if node.rendered[:summary]
+        .summary
+          != node.rendered[:summary].content
