@@ -263,6 +263,17 @@ header .prerelease-govau--header.home {
   }
 }
 
+
+.ie8,
+.ie7,
+.ie6 {
+  main,
+  .content-listing,
+  footer .wrapper {
+    zoom: 1;
+  }
+}
+
 .ie7, .ie8 {
   .govau--logo.home {
     height: 79px;
@@ -335,7 +346,6 @@ header .prerelease-govau--header.home {
       display: inline-block;
       *display: inline;
       zoom: 1;
-
     }
     .federal-government {
       width: 25%;
