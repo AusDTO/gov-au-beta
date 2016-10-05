@@ -20,10 +20,6 @@
               %li.highlight= link_to('Sign out', destroy_user_session_path, method: :delete)
 
     %section.right
-      %ul
-        %li.dropdown
-          %a{href: '#'} Page actions
-          %ul
-            = yield :toolbar_actions
+      = yield :toolbar_actions
 
 
