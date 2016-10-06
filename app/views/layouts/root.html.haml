@@ -2,21 +2,21 @@
   = yield
 
   = content_for :header do
-    %section.prerelease-govau--header.home
+    %section
+      //.prerelease-govau--header.home
       .wrapper
-
-        = render 'feedback_link'
 
         .home-header-content
           .govau--logo.home
-            = image_tag 'icons/gov-au-white-2x-markless.png', width: '200', alt: "GOV.AU crest logo"
+            = image_tag 'icons/gov-au-white-2x.png', alt: "GOV.AU crest logo"
 
           .homeintro
-            %h1
-              %span.is-visuallyhidden
-                GOV.AU homepage
+            %h1.is-visuallyhidden
+              GOV.AU homepage
             %p
-              A listing of websites for governments in Australia
+              A listing of websites for governments in&nbsp;Australia
+
+          = render 'feedback_link'
 
 
   - if node.short_summary
