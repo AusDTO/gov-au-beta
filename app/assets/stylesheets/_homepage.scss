@@ -264,20 +264,32 @@ header .prerelease-govau--header.home {
 }
 
 
-.ie8,
-.ie7,
-.ie6 {
+.ie7, .ie8 {
+
+  .wrapper,
+  main {
+    width: 90%;
+    padding: 0;
+  }
+
+  //Temp clearfix
   main,
   .content-listing,
   footer .wrapper,
+   .wrapper section,
   .government-links,
-  .list-vertical {
-    zoom: 1;
-    overflow: auto;
+  .list-vertical,
+  .footer-links,
+  .footer-links p,
+  footer figure,
+  footer figure img {
+    display: table;
   }
-}
 
-.ie7, .ie8 {
+  .content-listing {
+    margin: 0;
+  }
+
   .govau--logo.home {
     height: 79px;
     width: 65px;
@@ -344,6 +356,11 @@ header .prerelease-govau--header.home {
       float:right;
     }
   }
+
+  .footer-logo {
+    margin-right: $large-spacing;
+  }
+
   .government-links {
     div {
       display: inline-block;
@@ -353,12 +370,14 @@ header .prerelease-govau--header.home {
     .federal-government {
       width: 25%;
       float: left;
-      margin-right: 10px;
+      //margin-right: 10px;
     }
     .state-government {
       width: 70%;
+      float: right;
     }
     ul {
+      margin: 0;
       li {
         &.ausgov .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
