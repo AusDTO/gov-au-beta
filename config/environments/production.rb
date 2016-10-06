@@ -14,6 +14,9 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Allow HTTP compression of assets
+  config.assets.gzip = true
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
@@ -22,9 +25,11 @@ Rails.application.configure do
   # This only makes sense when we have an aggressive cache time and a CDN but
   # what it means is that we have full control over etags and cache control headers.
   # For example, google page speed will look for these tags
-  # etags will be the same as the asset fingerprints under this approach
+  # etag is hardcoded to satisfy come caching checks but the asset etag will never expire
+  # Cache control is set to 30 days
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=172800'
+    'Cache-Control' => 'public, max-age=2592000',
+    'ETag' => 'fingerprint'
   }
 
   # FIXME: This should probably be a redis instance at some point
