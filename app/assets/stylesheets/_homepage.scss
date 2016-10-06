@@ -344,7 +344,10 @@
     *display: inline;
     zoom: 1;
     width: 27%;
+    margin-right: 6%;
+    margin-left: -1px; //fix for % sub pixel rounding
     font-size: 16px;
+    vertical-align: top;
   }
   .list-vertical--fourths li {
     display: inline-block;
@@ -413,7 +416,18 @@
     }
     ul {
       margin: 0;
+
+      article {
+        padding-left: 60px;
+      }
+
       li {
+
+        .image {
+          width: 40px;
+          height: 40px;
+        }
+
         &.ausgov .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
         }
@@ -431,7 +445,7 @@
         }
 
         &.vic .image {
-          height: 35px;
+          height: 23px;
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/vic.png')}', sizingMethod='scale');
         }
 
