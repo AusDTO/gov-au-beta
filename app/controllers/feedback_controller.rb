@@ -1,4 +1,7 @@
 class FeedbackController < ApplicationController
+
+  layout 'root'
+
   def new
     @feedback = Feedback.new(url: request.referrer)
     @form = FeedbackForm.new(@feedback)

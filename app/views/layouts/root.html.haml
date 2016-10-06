@@ -15,13 +15,8 @@
               GOV.AU homepage
             %p
               A listing of websites for governments in&nbsp;Australia
-
           = render 'feedback_link'
 
-
-  - if node.short_summary
-    = content_for :meta_description do
-      = node.short_summary
 
   = content_for :after_header do
     .brandbar.default{class: sunstate_class}

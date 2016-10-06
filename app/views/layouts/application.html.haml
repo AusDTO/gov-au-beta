@@ -50,9 +50,8 @@
   %footer{role: "contentinfo"}
     .wrapper
       %section
-        %figure
-          .footer-logo
-            = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
+        .footer-logo
+          = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
         .footer-links
           - unless ported_pages.blank?
             %nav

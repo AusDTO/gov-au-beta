@@ -1,73 +1,3 @@
-/*$light-teal: #0098b0;
-
-//override ui kit header
-header .prerelease-govau--header.home {
-  background-image: none;
-  background-color: $white;
-  color: $non-black;
-  padding-top: 0;
-
-  a[role="button"] {
-    border: 1px solid $light-teal;
-    color: $grey;
-    font-size: rem(15);
-    white-space: nowrap;
-
-    &:hover,
-    &:focus {
-      background-color: $light-teal;
-      color: $white;
-    }
-  }
-
-  .wrapper {
-    padding-top: $small-spacing;
-    padding-bottom: 1.5 * $small-spacing;
-
-    @include media($tablet) {
-      padding-bottom: 1.5 * $base-spacing;
-    }
-  }
-
-  .home-header-content {
-    width: 100%;
-    position: relative;
-    display: table;
-  }
-
-  .home {
-    @include media($tablet) {
-      display: table-cell;
-      padding-top: 0;
-      width: 300px;
-    }
-  }
-
-  .homeintro {
-    @include media($tablet) {
-      display: table-cell;
-      vertical-align: middle;
-    }
-
-    h1 {
-      margin: 0;
-    }
-
-    p {
-      margin-bottom: 0;
-      margin-top: $small-spacing;
-
-      @include media($tablet) {
-
-        border-left: 1px solid $border-colour;
-        margin-bottom: 0;
-        margin-left: $base-spacing;
-        margin-top: 0;
-        padding-left: $small-spacing;
-      }
-    }
-  }
-}*/
 
 
 .home-header-content {
@@ -119,6 +49,7 @@ header .prerelease-govau--header.home {
     }
   }
 }
+
 
 .homeintro {
 
@@ -337,7 +268,64 @@ header .prerelease-govau--header.home {
   }
 }
 
+
+// =========================== IE Support
 .ie7, .ie8 {
+
+  .wrapper,
+  main {
+    width: 90%;
+    padding: 0;
+  }
+
+  //Temp clearfix
+  main,
+  .content-listing,
+  footer .wrapper,
+   .wrapper section,
+  .government-links,
+  .list-vertical,
+  .footer-links,
+  .footer-links p,
+  footer figure,
+  footer figure img {
+    display: table;
+  }
+
+  //Header layout for no-media-queries
+  .home-header-content {
+    display: table;
+    width: 100%;
+    .govau--logo,
+    .homeintro,
+    .feedback{
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+
+  .homeintro {
+      padding:0 48px;
+
+      p {
+        border-left: 1px solid $border-colour;
+        padding-left: 48px;
+      }
+    }
+
+
+
+  //Feedback button sizing issues
+  .button--feedback {
+    height: auto; //box-sizeing not supported
+    width: auto;
+  }
+
+  .content-listing {
+    margin: 0;
+  }
+
   .govau--logo.home {
     height: 79px;
     width: 65px;
@@ -356,7 +344,10 @@ header .prerelease-govau--header.home {
     *display: inline;
     zoom: 1;
     width: 27%;
+    margin-right: 6%;
+    margin-left: -1px; //fix for % sub pixel rounding
     font-size: 16px;
+    vertical-align: top;
   }
   .list-vertical--fourths li {
     display: inline-block;
@@ -404,29 +395,57 @@ header .prerelease-govau--header.home {
       float:right;
     }
   }
+
+  .footer-logo {
+    margin-right: $large-spacing;
+  }
+
   .government-links {
     div {
       display: inline-block;
       *display: inline;
       zoom: 1;
-
     }
     .federal-government {
       width: 25%;
       float: left;
-      margin-right: 10px;
     }
     .state-government {
       width: 70%;
+      float: right;
     }
     ul {
+      margin: 0;
+
+      article {
+        padding-left: 60px;
+      }
+
       li {
+
+        .image {
+          width: 40px;
+          height: 40px;
+        }
+
+        &.ausgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
+        }
+
+        &.busgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/business-gov.png')}', sizingMethod='scale');
+        }
+
+        &.mygov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/mygov.png')}', sizingMethod='scale');
+        }
+
         &.nsw .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nsw.png')}', sizingMethod='scale');
         }
 
         &.vic .image {
-          height: 35px;
+          height: 23px;
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/vic.png')}', sizingMethod='scale');
         }
 
