@@ -49,6 +49,7 @@
       = yield
   %footer{role: "contentinfo"}
     .wrapper
+<<<<<<< HEAD
       .footer-logo
         = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
       .footer-links
@@ -61,6 +62,27 @@
                 %li
                   %a{ href: public_node_path(node)}
                     = node.name
+=======
+      %section
+        %figure
+          .footer-logo
+            = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
+        .footer-links
+          - unless ported_pages.blank?
+            %nav
+              %ul
+                - ported_pages.each do |page|
+                  %li= link_to(page.name, nodes_path(page.slug))
+          -#- if about_section
+          -#  %nav
+          -#    %ul
+          -#      %li
+          -#        =link_to(about_section.name, nodes_path(about_section.slug))
+          -#      - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
+          -#        %li
+          -#          %a{ href: public_node_path(node)}
+          -#            = node.name
+>>>>>>> develop
 
         %p
           &copy; Commonwealth of Australia

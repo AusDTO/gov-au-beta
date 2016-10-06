@@ -1,8 +1,8 @@
 [class^='controls'] {
   padding: 0 !important;
 }
-@media screen and (min-width: 75em) {
-  [class^='controls'] {
+
+[class^='controls'] {
   section.left {
     width: 75% ;
   }
@@ -10,7 +10,7 @@
     width: 20% ;
   }
 }
-}
+
 nav.controls {
   background: none;
 

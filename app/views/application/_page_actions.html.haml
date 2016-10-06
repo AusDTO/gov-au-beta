@@ -1,27 +1,32 @@
-- if show_view_editorial_link?
-  %li.highlight
-    = link_to 'View in editorial', editorial_section_node_path(node.section, node)
+- if show_view_editorial_link? || show_new_page_link? || show_edit_page_link? || show_request_controls?
+  %ul
+    %li.dropdown
+      %a{href: '#'} Page actions
+      %ul
+        - if show_view_editorial_link?
+          %li
+            = link_to 'View in editorial', editorial_section_node_path(node.section, node)
 
-- if show_new_page_link?
-  %li.highlight
-    = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
-  %li.highlight
-    = link_to 'New news article', new_editorial_news_path(publisher: @section.id)
+        - if show_new_page_link?
+          %li
+            = link_to 'New page', prepare_editorial_section_nodes_path(@section, parent_id: @node)
+          %li
+            = link_to 'New news article', new_editorial_news_path(publisher: @section.id)
 
--if show_edit_page_link?
-  %li.highlight
-    - if @node.submissions.open.present?
-      - if @node.submission_exists_for?(current_user)
-        = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
-      - else
-        = link_to "Open submission (#{@node.submissions.last.submitter.email})", editorial_section_submission_path(@section, @node.submissions.open.last)
-    - else
-      = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
-  %li
-    = link_to 'Edit metadata', edit_editorial_section_node_path(@section, @node)
+        -if show_edit_page_link?
+          %li
+            - if @node.submissions.open.present?
+              - if @node.submission_exists_for?(current_user)
+                = link_to 'View submission', editorial_section_submission_path(@section, @node.submissions.open.for(current_user).last)
+              - else
+                = link_to "Open submission (#{@node.submissions.last.submitter.email})", editorial_section_submission_path(@section, @node.submissions.open.last)
+            - else
+              = link_to 'Edit', new_editorial_section_submission_path(@section, node_id: @node)
+          %li
+            = link_to 'Edit metadata', edit_editorial_section_node_path(@section, @node)
 
-- if show_request_controls?
-  - if current_user.pending_request_for?(@section)
-    %li= link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
-  - else
-    %li.highlight= link_to 'Request membership', new_editorial_section_request_path(@section)
+        - if show_request_controls?
+          - if current_user.pending_request_for?(@section)
+            %li= link_to 'Membership requested', editorial_section_request_path(@section, current_user.pending_request_for(@section))
+          - else
+            %li= link_to 'Request membership', new_editorial_section_request_path(@section)

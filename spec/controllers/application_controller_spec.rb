@@ -17,8 +17,6 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  # TODO: Test last modified rather than expire 5 minutes from now
-
   shared_examples_for "does not generate an ETAG" do
     it "does not generate an ETAG" do
       get :show, :id => "ignored"
