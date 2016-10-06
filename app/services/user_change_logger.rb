@@ -11,6 +11,8 @@ class UserChangeLogger
       event = 'user_password_update'
     elsif @changes['reset_password_token']
       event = 'user_password_reset'
+    elsif @changes['second_factor_attempts_count'] && @changes['second_factor_attempts_count'][1] > @changes['second_factor_attempts_count'][0]
+      event = 'user_2fa_failed_attempt'
     elsif @changes['unconfirmed_email']
       event = 'user_email_update'
     elsif @changes

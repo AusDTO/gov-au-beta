@@ -20,10 +20,10 @@
   %header{role: 'banner'}
 
     = render 'application/signed_in_nav' if user_signed_in?
-    %section.prerelease-govau--header
-      - if content_for?(:header)
-        = yield(:header)
-      - else
+    - if content_for?(:header)
+      = yield(:header)
+    - else
+      %section.prerelease-govau--header
         .wrapper
           %a.govau--logo{href: "/"}
             = image_tag 'icons/logo-govau-full-2x.png', width: '270'
@@ -50,19 +50,23 @@
   %footer{role: "contentinfo"}
     .wrapper
       %section
-        %figure
-          .footer-logo
-            = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
+        .footer-logo
+          = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
         .footer-links
-          - if about_section
+          - unless ported_pages.blank?
             %nav
               %ul
-                %li
-                  =link_to(about_section.name, nodes_path(about_section.slug))
-                - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
-                  %li
-                    %a{ href: public_node_path(node)}
-                      = node.name
+                - ported_pages.each do |page|
+                  %li= link_to(page.name, nodes_path(page.slug))
+          -#- if about_section
+          -#  %nav
+          -#    %ul
+          -#      %li
+          -#        =link_to(about_section.name, nodes_path(about_section.slug))
+          -#      - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
+          -#        %li
+          -#          %a{ href: public_node_path(node)}
+          -#            = node.name
 
           %p
             &copy; Commonwealth of Australia

@@ -9,6 +9,24 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+## [v1.4.0]
+### Added
+- Added ability to link to another page by id
+- Added EDITOR.md as a central location for documenting the editor
+- News lists can be filtered by ministers and departments
+- Image upload function available in editorial
+- Toggle to require all visitors to have an invite
+
+### Changed
+- Updated ui-kit to v1.8.0
+- Now adds Cache-Control headers (public, max-age 5 mins) to supplement ETAGs.
+
+### Fixed
+- Pluralise 'ministers' only where appropriate
+- Fixed HSTS settings so we don't force every gov.au subdomain to run over https
+- Performance of /news page
+- Updated layout of news article page
+
 
 ## [v1.3.1] - 2016-09-07
 ### Added
@@ -32,6 +50,7 @@ This file is influenced by http://keepachangelog.com/.
 - users are now soft deleted to preserve relationship with submissions
 - Upgrade UI kit to v1.7.6
 - User sessions timeout after 90 minutes idle
+- Update News article page template
 
 ### Fixed
 - Markdown support for images with links

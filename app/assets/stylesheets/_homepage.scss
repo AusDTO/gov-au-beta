@@ -1,77 +1,90 @@
-$light-teal: #0098b0;
 
-.beta-callout {
-  background-color: $lighter-aqua;
 
-  //override odd content listing css
-  .content-listing {
-    float: none;
-    padding-bottom: 2 * $base-spacing;
+.home-header-content {
+  padding: $base-spacing 0;
 
-    &:last-child {
-      margin-right: auto;
+  @include media($tablet) {
+    padding: $large-spacing 0;
+  }
+
+  .feedback {
+    display: inline-block;;
+  }
+
+  .button--feedback {
+    border: 1px solid $aqua;
+    color: $grey;
+    font-size: rem(15);
+    white-space: nowrap;
+    float: right;
+    color: $aqua;
+
+    &:hover,
+    &:focus {
+      background-color: $aqua;
+      color: $white;
     }
   }
 
-  h2 {
-    margin-bottom: $small-spacing;
-    margin-top: 0;
-    padding-top: $base-spacing;
+  .govau--logo {
+    max-width: 200px;
+
+    img {
+      display: block;
+      width: 100%;
+      min-width: 190px;
+    }
   }
 
-  .abstract {
-    border-bottom: 0;
+  @include media($tablet) {
+    display: table;
+    width: 100%;
+
+    .govau--logo,
+    .homeintro,
+    .feedback{
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+}
+
+
+.homeintro {
+
+  p {
+    padding: $small-spacing 0;
     margin: 0;
-
-    @include media($tablet) {
-      @include span-columns(4 of 12);
-    }
   }
 
-  .content {
-    @include media($tablet) {
-      @include span-columns(8 of 12);
+  @include media($tablet) {
+    padding:0 48px;
+
+    p {
       border-left: 1px solid $border-colour;
-      padding-left: $base-spacing;
+      padding-left: 48px;
     }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .read-more {
-      font-size: rem(19);
-      font-weight: $heading-font-weight;
-
-      @include media($tablet) {
-        font-size: rem(21);
-      }
-    }
-  }
-
-  article {
-    @include outer-container;
-    padding: 0 $base-spacing;
   }
 }
 
 .home-category-list {
   .abstract {
     border-bottom: 0;
+    max-width: 770px;
     padding-bottom: 0;
-    max-width: 770px
   }
 }
 
 .home-category-list li {
   border-left: 1px solid $border-colour;
   border-top: 0;
-  margin-top: $base-spacing;
   margin-bottom: $base-spacing;
+  margin-top: $base-spacing;
   padding: $tiny-spacing $base-spacing;
 
 }
+
 
 .home-heading {
   border-bottom: 6px solid $light-aqua;
@@ -86,184 +99,113 @@ $light-teal: #0098b0;
   }
 }
 
-//controls column layout
-.about-australia {
-
-  @include outer-container;
-
-  h3 {
-    font-size: rem(24);
-  }
-
-  .population {
-    @include media($tablet) {
-      @include span-columns(8 of 12);
-    }
-  }
-
-  .public-holiday {
-    @include media($tablet) {
-      @include span-columns(4 of 12);
-    }
-  }
-}
-
-//About Australia section
-
-.population {
-
-  ul {
-    text-align: center;
-    display: block;
-    list-style: none;
-    background-color: $background-secondary-colour;
-    margin-bottom: 2 * $base-spacing;
-    padding: 1.7 * $base-spacing $base-spacing;
-
-    @include media($tablet) {
-      display: table;
-      width: 100%;
-      height: 309px;
-
-      li {
-        display: table-cell;
-        text-align: left;
-        vertical-align: middle;
-      }
-    }
-
-    .population-infographic {
-      background: asset-url('home/australia-map.png');
-      background-image: none, asset-url('home/australia-map.svg'),
-      linear-gradient(transparent, transparent);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      color: $white;
-      font-size: rem(32);
-      font-weight: $heading-font-weight;
-      text-align: center;
-      display: table-cell;
-      vertical-align: middle;
-      width: 1%; //I have no idea what I'm doing
-      height: 300px;
-
-      @include media($tablet) {
-        width: 50%;
-        display: table-cell;
-        height: auto;
-      }
-    }
-
-    .population-statistic {
-      color: $light-teal;
-      font-weight: $heading-font-weight;
-      font-size: rem(26);
-      padding-left: 0;
-
-      @include media($tablet) {
-        padding-left: $base-spacing;
-      }
-
-      strong {
-        display: block;
-        font-size: rem(62);
-        line-height: 1.2;
-      }
-    }
-  }
-}
-
-//Calendar thing
-.public-holiday {
-  a {
-    text-decoration: none;
-  }
-  .next-holiday {
-    background-color: $background-secondary-colour;
-    margin-bottom: 2 * $base-spacing;
-    padding: 2 * $base-spacing $base-spacing;
-  }
-
-  .calendar {
-    font-weight: $heading-font-weight;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 240px;
-    text-align: center;
-
-    .event-title {
-      background-color: $light-teal;
-      color: $white;
-      display: block;
-      font-size: rem(20);
-      font-weight: $heading-font-weight;
-      padding: $small-spacing;
-    }
-
-    time {
-      background-color: $white;
-      border: $small-spacing solid $light-teal;
-      border-top: 0;
-      color: $light-teal;
-      display: block;
-      font-size: rem(20);
-      line-height: 1;
-      padding: .75 * $small-spacing $small-spacing;
-
-      span {
-        display: block;
-        font-size: rem(62);
-        line-height: 1;
-      }
-    }
-  }
-}
-
 .government-links {
   @include outer-container;
 
+  .list-horizontal,
+  .list-vertical {
+    > li {
+      padding: $small-spacing 0;
+    }
+  }
+
   .federal-government {
-    @include media($tablet) {
+    @include media($desktop) {
       @include span-columns(4 of 12);
     }
   }
 
   .state-government {
-    @include media($tablet) {
+    @include media($desktop) {
       @include span-columns(8 of 12);
     }
   }
 }
 
 .federal-government ul {
+
   list-style-type: none;
-  padding-left: 0;
   margin-top: $base-spacing;
+  padding-left: 0;
 
   li {
-    margin-bottom: 2rem;
+    border-bottom: 0;
 
-    a {
-      font-size: rem(36);
-      font-weight: 700;
-      color: $light-teal;
+    article {
+      position: relative;
     }
 
-    span {
-      display: block;
-      font-size: rem(56);
-      line-height: 1.5;
+    &.ausgov,
+    &.busgov,
+    &.mygov {
+
+      .image {
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: block;
+        height: 60px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 60px;
+      }
     }
+
+    &.ausgov .image {
+      background-image: asset-url('home/aus-gov.png');
+    }
+
+    &.busgov .image {
+      background-image: asset-url('home/business-gov.png');
+    }
+
+    &.mygov .image {
+      background-image: asset-url('home/mygov.png');
+    }
+  }
+
+  article {
+    padding-left: 80px;
+  }
+}
+
+.local-government {
+
+  ul {
+    font-weight: $heading-font-weight;
+    padding-left: $medium-spacing;
+
+    li {
+      margin-bottom: $small-spacing;
+    }
+  }
+
+  .home-heading {
+    margin-bottom: $base-spacing;
+  }
+
+  p {
+    max-width: 770px;
   }
 }
 
 .state-government {
+
+  article {
+    position: relative;
+    padding-left: 70px;
+  }
+
+  h3 {
+    margin-bottom: 0;
+  }
+
   ul {
     margin-top: $base-spacing;
 
     li {
       border-top: 0;
+      margin-bottom: $medium-spacing;
 
       &.nsw,
       &.vic,
@@ -273,15 +215,16 @@ $light-teal: #0098b0;
       &.tas,
       &.nt,
       &.act {
+
         .image {
           background-repeat: no-repeat;
           background-size: contain;
-          top: 0;
           display: block;
-          height: 60px;
+          position: absolute;
           left: 0;
-          position: relative;
-          width: 60px;
+          top: 0;
+          height: 56px;
+          width: 56px;
         }
       }
 
@@ -316,12 +259,6 @@ $light-teal: #0098b0;
       &.act .image {
         background-image: asset-url('home/act.png');
       }
-
-      .state-title {
-        margin-bottom: 0;
-        min-height: 0;
-        margin-top: $small-spacing;
-      }
     }
   }
 
@@ -331,14 +268,71 @@ $light-teal: #0098b0;
   }
 }
 
+
+// =========================== IE Support
 .ie7, .ie8 {
+
+  .wrapper,
+  main {
+    width: 90%;
+    padding: 0;
+  }
+
+  //Temp clearfix
+  main,
+  .content-listing,
+  footer .wrapper,
+   .wrapper section,
+  .government-links,
+  .list-vertical,
+  .footer-links,
+  .footer-links p,
+  footer figure,
+  footer figure img {
+    display: table;
+  }
+
+  //Header layout for no-media-queries
+  .home-header-content {
+    display: table;
+    width: 100%;
+    .govau--logo,
+    .homeintro,
+    .feedback{
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+
+  .homeintro {
+      padding:0 48px;
+
+      p {
+        border-left: 1px solid $border-colour;
+        padding-left: 48px;
+      }
+    }
+
+
+
+  //Feedback button sizing issues
+  .button--feedback {
+    height: auto; //box-sizeing not supported
+    width: auto;
+  }
+
+  .content-listing {
+    margin: 0;
+  }
+
   .govau--logo.home {
     height: 79px;
     width: 65px;
   }
   .govau--text {
     display: block;
-    background: asset-url('icons/logo-gov-au.png');
+    background: asset-url('icons/logo-gov-au-1x.png');
     background-image: none, asset-url('icons/logo-gov-au-2x.png'),
     linear-gradient(transparent, transparent);
 
@@ -350,7 +344,10 @@ $light-teal: #0098b0;
     *display: inline;
     zoom: 1;
     width: 27%;
+    margin-right: 6%;
+    margin-left: -1px; //fix for % sub pixel rounding
     font-size: 16px;
+    vertical-align: top;
   }
   .list-vertical--fourths li {
     display: inline-block;
@@ -398,29 +395,57 @@ $light-teal: #0098b0;
       float:right;
     }
   }
+
+  .footer-logo {
+    margin-right: $large-spacing;
+  }
+
   .government-links {
     div {
       display: inline-block;
       *display: inline;
       zoom: 1;
-
     }
     .federal-government {
       width: 25%;
       float: left;
-      margin-right: 10px;
     }
     .state-government {
       width: 70%;
+      float: right;
     }
     ul {
+      margin: 0;
+
+      article {
+        padding-left: 60px;
+      }
+
       li {
+
+        .image {
+          width: 40px;
+          height: 40px;
+        }
+
+        &.ausgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/aus-gov.png')}', sizingMethod='scale');
+        }
+
+        &.busgov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/business-gov.png')}', sizingMethod='scale');
+        }
+
+        &.mygov .image {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/mygov.png')}', sizingMethod='scale');
+        }
+
         &.nsw .image {
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/nsw.png')}', sizingMethod='scale');
         }
 
         &.vic .image {
-          height: 35px;
+          height: 23px;
           filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{asset-path('home/vic.png')}', sizingMethod='scale');
         }
 

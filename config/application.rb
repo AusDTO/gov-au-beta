@@ -31,6 +31,8 @@ module GovAuBeta
 
     config.exceptions_app = self.routes
 
+    config.require_invite = ENV["REQUIRE_INVITE"].present?
+
     #logging
 
     config.lograge.enabled = true
@@ -53,6 +55,7 @@ module GovAuBeta
       app.routes.append{match '*path', :to => 'errors#not_found', :via => :all}
     end
 
-
+    # Compress responses
+    config.middleware.use Rack::Deflater
   end
 end

@@ -1,0 +1,85 @@
+.news-article {
+
+  h1 {
+    border-top: 6px solid $aqua;
+    padding-top: 1.5 * $small-spacing;
+  }
+
+  .abstract {
+    border-bottom: 0;
+  }
+
+  .summary ul {
+    padding-left: 1.5 * $small-spacing;
+  }
+
+  //news article metadata
+  .announcement-info {
+    border-bottom: 1px dashed $border-colour;
+    border-top: 1px dashed $border-colour;
+    font-weight: $bold-font-weight;
+    list-style: none;
+    margin: 1.5 * $base-spacing 0;
+    padding: $small-spacing 0;
+
+    span,
+    dt {
+      color: $grey;
+      margin-right: .5 * ($tiny-spacing);
+    }
+
+    dl,
+    dt,
+    dd {
+      margin-bottom: .5 * ($tiny-spacing);
+    }
+
+    dd {
+      display: inline;
+      margin-left: 0;
+      margin-right: $tiny-spacing;
+    }
+  }
+
+  //need to override :firstchild on artcile that ui kit uses to float an aside
+  //that follows an article in the markup
+  &.content-main {
+    float: left;
+    margin-left: 0;
+  }
+
+  //related articles
+  + .sidebar {
+    @include link-colours($non-black, $light-aqua, $non-black);
+
+    //need to revisit vertical alignment here
+    h2 {
+      border-top: 6px solid $aqua;
+      font-size: rem(22);
+      font-weight: $heading-font-weight;
+      margin-bottom: $small-spacing;
+      margin-top: 0;
+      padding-top: 1.3 * $base-spacing;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+  }
+}
+
+.publishers {
+  display: inline;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: inline;
+    margin-right: $tiny-spacing;
+  }
+
+  a {
+    font-size: $small-font-size;
+  }
+}

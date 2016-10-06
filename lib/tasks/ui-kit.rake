@@ -17,11 +17,8 @@ namespace :ui_kit do
     def patch_scss(destination)
       file_name = "vendor/assets/"+destination
       text = File.read(file_name)
-      text = text.gsub("url('../latest/img/", "asset-url('")
-      text = text.gsub("background-image: url(image-url('icons/' + $img + '.png'));",
-                       "background-image: image-url('icons/' + $img + '.png');")
-      text = text.gsub("background-image: none, url(image-url('icons/' + $img + '.svg'))",
-                       "background-image: none, image-url('icons/' + $img + '.svg')")
+      # strip out the ui-kit image-url function which overrides the rails one
+      text = text.gsub(/@function image-url\(\$url\) {.*?^}/m, '')
       file = File.new file_name, 'wb+'
       file.write text
 

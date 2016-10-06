@@ -2,76 +2,23 @@
   = yield
 
   = content_for :header do
-    .wrapper
+    %section
+      //.prerelease-govau--header.home
+      .wrapper
 
-      .govau--logo.home
-        = image_tag 'icons/logo-crest-2x.png', width: '65', alt: "GOV.AU crest logo"
+        .home-header-content
+          .govau--logo.home
+            = image_tag 'icons/gov-au-white-2x.png', alt: "GOV.AU crest logo"
 
-      = render 'feedback_link'
+          .homeintro
+            %h1.is-visuallyhidden
+              GOV.AU homepage
+            %p
+              A listing of websites for governments in&nbsp;Australia
+          = render 'feedback_link'
 
-      .homeintro
-        %h1
-          %span.govau--text{class: sunstate_class}
-          %span.is-visuallyhidden
-            GOV.AU homepage
-        %p
-          Your guide to finding Australian Government services and information.
-
-      .links-group
-        %h2 Popular now
-        %ul
-          %li
-            = link_to 'Public holiday dates', '/times-and-dates/australian-public-holidays'
-          %li
-            = link_to 'School holiday dates', '/times-and-dates/school-holidays-and-term-dates'
-          %li
-            %span.placeholder-link
-              Lodge your tax return
-          %li
-            %span.placeholder-link
-              Working in Australia
-          %li
-            %span.placeholder-link
-              Visiting Australia
-          %li
-            %span.placeholder-link
-              Elections
-          %li
-            %span.placeholder-link
-              Citizenship
-          %li
-            %span.placeholder-link
-              Government jobs
-
-
-  - if node.short_summary
-    = content_for :meta_description do
-      = node.short_summary
 
   = content_for :after_header do
     .brandbar.default{class: sunstate_class}
       .b1
       .b2
-
-    %section.beta-callout#content{tabindex: -1}
-      %article.content-listing
-        %h2 What is GOV.AU Beta?
-        %p.abstract
-          It's an early release of what <strong>simpler</strong>,
-          <strong>clearer</strong> and <strong>faster</strong> Australian
-          Government information and services could look like.
-
-        .content
-          %ul
-            %li
-              This minimal viable product (MVP) — a small piece of the bigger picture
-              — demonstrates our thinking around design, content and technology.
-            %li
-              More links will be activated as new content is added.
-            %li
-              GOV.AU is a
-              %a{href: 'https://www.dto.gov.au/'}Digital Transformation Office
-              product.
-
-          %a{:href => "/about-gov-au/about-gov-au-beta", :class => "read-more"}
-            Learn more about GOV.AU

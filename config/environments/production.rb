@@ -18,6 +18,18 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
+  # We won't rely on the webserver to serve assets but rather let rails serve them.
+  # This only makes sense when we have an aggressive cache time and a CDN but
+  # what it means is that we have full control over etags and cache control headers.
+  # For example, google page speed will look for these tags
+  # etags will be the same as the asset fingerprints under this approach
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=172800'
+  }
+
+  # FIXME: This should probably be a redis instance at some point
+  config.cache_store = :memory_store
+
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
@@ -113,4 +125,18 @@ Rails.application.configure do
 
   #Set use of two-factor auth
   config.use_2fa = !ENV['DISABLE_2FA'].present?
+
+  # use s3 for file uploads
+  config.paperclip_defaults = { storage: :s3,
+                                s3_region: ENV['AWS_REGION'],
+                                s3_credentials: {:bucket => ENV['AWS_ASSET_S3_BUCKET'],
+                                                 :access_key_id => ENV['AWS_S3_ACCESS_KEY_ID'],
+                                                 :secret_access_key => ENV['AWS_S3_SECRET_ACCESS_KEY']},
+                                path: "/assets/:fingerprint-:style.:extension",
+                                # path determines location on S3
+                                # https://github.com/thoughtbot/paperclip/tree/master/lib/paperclip/interpolations.rb#L159
+                                s3_host_alias: ENV['ASSET_DOMAIN'] || "s3-#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ASSET_S3_BUCKET']}",
+                                # The fully-qualified domain name (FQDN) that is the alias to the S3 domain of your bucket.
+                                url: ":s3_alias_url"
+                            }
 end

@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901062337) do
+ActiveRecord::Schema.define(version: 20160921001553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assets", force: :cascade do |t|
+    t.integer  "uploader_id"
+    t.string   "asset_file_file_name"
+    t.string   "asset_file_content_type"
+    t.integer  "asset_file_file_size"
+    t.datetime "asset_file_updated_at"
+    t.string   "asset_file_fingerprint"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "alttext"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -50,6 +62,17 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
+  create_table "invites", force: :cascade do |t|
+    t.string   "code"
+    t.string   "accepted_token"
+    t.datetime "accepted_at"
+    t.string   "email"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["accepted_token"], name: "index_invites_on_accepted_token", unique: true, using: :btree
+    t.index ["code"], name: "index_invites_on_code", unique: true, using: :btree
+  end
+
   create_table "news_distributions", force: :cascade do |t|
     t.string   "distribution_type"
     t.integer  "distribution_id"
@@ -81,6 +104,7 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.index ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
     t.index ["section_id"], name: "index_nodes_on_section_id", using: :btree
     t.index ["token"], name: "index_nodes_on_token", unique: true, using: :btree
+    t.index ["type"], name: "index_nodes_on_type", using: :btree
   end
 
   create_table "requests", force: :cascade do |t|
@@ -141,6 +165,7 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.string   "cms_url"
     t.string   "cms_path"
     t.text     "image_url"
+    t.index ["type"], name: "index_sections_on_type", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -219,6 +244,7 @@ ActiveRecord::Schema.define(version: 20160901062337) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "assets", "users", column: "uploader_id"
   add_foreign_key "news_distributions", "nodes", column: "news_article_id"
   add_foreign_key "nodes", "nodes", column: "parent_id"
   add_foreign_key "requests", "sections"

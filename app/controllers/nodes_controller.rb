@@ -18,17 +18,17 @@ class NodesController < ApplicationController
     @section = @node.section
 
     if @section
-      @news = news_articles(section: @section).limit(3)
+      @news = preload_news_articles(@section.news_articles).limit(3)
     end
 
     set_menu_nodes
-    if bustable_stale?([@node, @section, *@news, *@ministers, *@departments, *@agencies, *@categories])
+    with_caching([@node, @section, *@news, *@ministers, *@departments, *@agencies, *@categories]) do
       render_node node
     end
   end
 
   def home
-    @news = news_articles.limit(8)
+    @news = preload_news_articles.limit(8)
     @ministers = Minister.all
     @departments = Department.all
     @agencies = Agency.all

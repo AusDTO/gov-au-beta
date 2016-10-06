@@ -21,6 +21,7 @@
  @import "content-listing";
  @import "logo-link";
  @import "ie";
+ @import "liquid";
 
  //all of the below sass will need to be removed once it is added to UI Kit
  @import "callout-basic"; // GitHub issue raised for this https://github.com/AusDTO/gov-au-ui-kit/issues/301
@@ -32,8 +33,13 @@
  @import "category-accordions";
  @import "category-page-popular-now";
  @import "phone-numbers"; //GitHub issue raised view more info at https://github.com/AusDTO/gov-au-ui-kit/pull/319
+ @import "news-article-page"; //GitHub issue raised https://github.com/AusDTO/gov-au-ui-kit/issues/358
+ @import "contact-card"; //will wait for outcomes of People an structure work before sending this to UI Kit(it may be iterated)
+ @import "news-listing";
 
  // These have questions raised on ui-kit for whether they want to include it or if it should
  // be our custom stuff
- @import "news-listing"; // https://github.com/AusDTO/gov-au-ui-kit/issues/299
  @import "content"; // https://github.com/AusDTO/gov-au-ui-kit/issues/300
+
+ // Editor back end styles (FIXME: quick and dirty)
+ @import "editor";

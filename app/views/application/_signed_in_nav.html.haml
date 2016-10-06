@@ -1,19 +1,25 @@
-%div.controls--contrast
-  %div.wrapper
+.controls--contrast
+  .wrapper
     %section.left
       %nav.controls
-        %p.inline-links--inverted
-          = link_to('Editorial', editorial_root_path)
-          - if @section
-            %b  /
-            = link_to @section.name, editorial_section_path(@section)
-        = yield :toolbar_actions
+        %header
+          = link_to(editorial_root_path) do
+            = image_tag('icons/editor.png')
+            %h1 Editor
+            %span Dashboard
+    
+        %ul
+          %li.dropdown
+            %a(href="#")
+              = image_tag('icons/human-small.png', alt: 'User Menu')
+            %ul
+              %li
+                = link_to edit_user_registration_path do
+                  = image_tag('icons/cog.png', alt: 'User Settings')
+                  = decorated_current_user.display_name
+              %li.highlight= link_to('Sign out', destroy_user_session_path, method: :delete)
 
     %section.right
-      %ul.inline-links--inverted
-        %li
-          %i.fa-user.fa
-          = decorated_current_user.display_name
-        %li= link_to('Sign out', destroy_user_session_path, method: :delete)
+      = yield :toolbar_actions
 
 

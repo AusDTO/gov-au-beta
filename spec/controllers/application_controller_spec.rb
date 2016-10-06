@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
+  before { ENV['ENABLE_CACHING'] = 'true' }
+  after  { ENV['ENABLE_CACHING'] = 'false' }
 
   controller do
     def initialize(*args)
@@ -9,7 +11,7 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     def show
-      if bustable_stale?(@some_data)
+      with_caching(@some_data) do
         render :text => "Oh hi there!"
       end
     end
@@ -28,7 +30,9 @@ RSpec.describe ApplicationController, type: :controller do
       get :show, :id => "ignored"
       assert_response 200, @response.body
       etag = @response.headers["ETag"]
+      last_modified = @response.headers['Last-Modified']
       @request.env["HTTP_IF_NONE_MATCH"] = etag
+      @request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified
       get :show, :id => "ignored"
       assert_response 304, @response.body
     end
@@ -41,7 +45,9 @@ RSpec.describe ApplicationController, type: :controller do
         get :show, :id => "ignored"
         assert_response 200, @response.body
         etag = @response.headers["ETag"]
+        last_modified = @response.headers['Last-Modified']
         @request.env["HTTP_IF_NONE_MATCH"] = etag
+        @request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified
         get :show, :id => "ignored"
         assert_response 304, @response.body
 

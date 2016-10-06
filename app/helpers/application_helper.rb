@@ -8,6 +8,13 @@ module ApplicationHelper
     Node.find_by(:slug => 'about-gov-au')
   end
 
+
+  def ported_pages
+    Node.where(
+      slug: %w(privacy copyright disclaimer)
+    )
+  end
+
   def sunstate_class()
     if ENV['ENABLE_EASTER_EGG']
       today = Time.now

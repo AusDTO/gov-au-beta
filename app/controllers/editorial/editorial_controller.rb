@@ -18,7 +18,7 @@ module Editorial
         .select{ |section| can? :read, section }
 
       @news_section = Section.find_by(name: 'news')
-      bustable_fresh_when([*@sections, @news_section])
+      with_caching([*@sections, @news_section])
     end
 
     class ClientParamError < StandardError
