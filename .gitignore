@@ -56,3 +56,5 @@ public/sitemaps/*
 
 # Ignore SQL files
 *.sql
+
+.sass-lint.yml
