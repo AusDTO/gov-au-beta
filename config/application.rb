@@ -55,6 +55,7 @@ module GovAuBeta
       app.routes.append{match '*path', :to => 'errors#not_found', :via => :all}
     end
 
-
+    # Compress responses
+    config.middleware.use Rack::Deflater
   end
 end
