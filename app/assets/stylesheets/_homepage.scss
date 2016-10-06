@@ -120,6 +120,7 @@ header .prerelease-govau--header.home {
   }
 }
 
+
 .homeintro {
 
   p {
@@ -338,6 +339,7 @@ header .prerelease-govau--header.home {
 }
 
 
+// =========================== IE Support
 .ie7, .ie8 {
 
   .wrapper,
@@ -358,6 +360,36 @@ header .prerelease-govau--header.home {
   footer figure,
   footer figure img {
     display: table;
+  }
+
+  //Header layout for no-media-queries
+  .home-header-content {
+    display: table;
+    width: 100%;
+    .govau--logo,
+    .homeintro,
+    .feedback{
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+
+  .homeintro {
+      padding:0 48px;
+
+      p {
+        border-left: 1px solid $border-colour;
+        padding-left: 48px;
+      }
+    }
+
+
+
+  //Feedback button sizing issues
+  .button--feedback {
+    height: auto; //box-sizeing not supported
+    width: auto;
   }
 
   .content-listing {
@@ -444,7 +476,6 @@ header .prerelease-govau--header.home {
     .federal-government {
       width: 25%;
       float: left;
-      //margin-right: 10px;
     }
     .state-government {
       width: 70%;
