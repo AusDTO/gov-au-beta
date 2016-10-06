@@ -1,5 +1,5 @@
 -# locals: node
-- if node.short_summary
+- unless node.short_summary.blank?
   %div.abstract
     %p
       = node.short_summary
