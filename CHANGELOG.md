@@ -9,6 +9,11 @@ This file is influenced by http://keepachangelog.com/.
 
 ### Fixed
 
+## [v1.4.1]
+### Changed
+- various bits and pieces on the homepage and sub-pages
+
+
 ## [v1.4.0]
 ### Added
 - Added ability to link to another page by id
