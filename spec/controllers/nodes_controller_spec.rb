@@ -133,7 +133,6 @@ RSpec.describe NodesController, :type => :controller do
     before { get :show, params: { path: path } }
 
     it { expect(response.status).to eq 200}
-
   end
 
 
