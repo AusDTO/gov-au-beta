@@ -33,10 +33,7 @@ RSpec.describe FeedbackController, type: :controller do
       let(:params) do
         {
           url: Faker::Internet.url,
-          email: Faker::Internet.email,
           comment: Faker::ChuckNorris.fact,
-          role: Faker::Company.profession,
-          organisation: Faker::Company.name
         }
       end
 
@@ -49,10 +46,7 @@ RSpec.describe FeedbackController, type: :controller do
         subject { Feedback.last }
 
         its(:url) { is_expected.to eq(params[:url]) }
-        its(:email) { is_expected.to eq(params[:email]) }
         its(:comment) { is_expected.to eq(params[:comment]) }
-        its(:role) { is_expected.to eq(params[:role]) }
-        its(:organisation) { is_expected.to eq(params[:organisation]) }
       end
     end
 
