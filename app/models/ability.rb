@@ -87,6 +87,7 @@ class Ability
   end
 
   private
+  #TODO: FIXME: THIS IS NOT A LONG TERM SOLUTION!!!
   def publicly_viewable(path)
     %w(disclaimer about copyright privacy editorial users)
         .include?(path.split('/').first) || path.blank?
