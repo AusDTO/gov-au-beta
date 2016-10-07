@@ -15,6 +15,7 @@
 //= require menus
 //= require "ui-kit"
 //= require "cable"
+//= require analytics.js
 
 //set breakpoint for accordions to collapse at
 var width = 520;

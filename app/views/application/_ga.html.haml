@@ -1,0 +1,4 @@
+- if ENV['GA_TRACKING_ID']
+  :javascript
+    ga('create', '#{ENV["GA_TRACKING_ID"]}', 'auto');
+    ga('send', 'pageview');
