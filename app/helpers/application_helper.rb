@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def ported_pages
     Node.where(
-      slug: %w(privacy copyright disclaimer)
+      slug: %w(privacy copyright disclaimer about)
     )
   end
 

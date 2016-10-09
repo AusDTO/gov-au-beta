@@ -1,4 +1,9 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
 User-agent: *
+Allow: /$
+Allow: /about
+Allow: /privacy
+Allow: /disclaimer
+Allow: /copyright
 Disallow: /

@@ -29,19 +29,20 @@ RSpec.describe NodesController, :type => :controller do
         end
       end
 
-      context 'given a page with a valid parent' do
-        it 'should return the page successfully' do
-          get :show, params: { path: 'foo/zero/three' }
-          expect(response.status).to eq(200)
-        end
-      end
-
-      context 'given a page nested beneath another page' do
-        it 'should return the page successfully' do
-          get :show, params: { path: 'foo/zero/four/six' }
-          expect(response.status).to eq(200)
-        end
-      end
+      # TODO: re-enable this when subpages are visible
+      # context 'given a page with a valid parent' do
+      #   it 'should return the page successfully' do
+      #     get :show, params: { path: 'foo/zero/three' }
+      #     expect(response.status).to eq(200)
+      #   end
+      # end
+      #
+      # context 'given a page nested beneath another page' do
+      #   it 'should return the page successfully' do
+      #     get :show, params: { path: 'foo/zero/four/six' }
+      #     expect(response.status).to eq(200)
+      #   end
+      # end
 
       context 'given a non-existing page in a valid route' do
         it 'should throw a not found' do
@@ -60,48 +61,49 @@ RSpec.describe NodesController, :type => :controller do
       end
     end
 
-    describe 'layout' do
-      let(:section_home) { Fabricate(:section_home, section: section) }
-      let(:node) { Fabricate(:general_content, parent: section_home) }
-      subject { get :show, params: { path: node.path} }
-
-      context 'with a custom layout' do
-        let(:section) { Fabricate(:section, layout: 'communications')}
-
-        it { is_expected.to render_with_layout 'communications'}
-      end
-
-      context 'without a custom layout' do
-        let(:section) { Fabricate(:section)}
-
-        it { is_expected.not_to render_with_layout 'communications' }
-      end
-    end
-
-    describe 'node state' do
-      let(:node) { Fabricate(:general_content, parent: section_home, state: state) }
-
-      let(:request) {
-        get :show, params: { path: node.path}
-      }
-
-      context 'published node' do
-        let(:state) { 'published' }
-
-        it 'shows the node' do
-          request
-          expect(response.status).to eq(200)
-        end
-      end
-
-      context 'draft node' do
-        let(:state) { 'draft' }
-
-        it 'throws an error' do
-          expect { request }.to raise_error ActiveRecord::RecordNotFound
-        end
-      end
-    end
+    # TODO: re-enable this when subpages are visible
+    # describe 'layout' do
+    #   let(:section_home) { Fabricate(:section_home, section: section) }
+    #   let(:node) { Fabricate(:general_content, parent: section_home) }
+    #   subject { get :show, params: { path: node.path} }
+    #
+    #   context 'with a custom layout' do
+    #     let(:section) { Fabricate(:section, layout: 'communications')}
+    #
+    #     it { is_expected.to render_with_layout 'communications'}
+    #   end
+    #
+    #   context 'without a custom layout' do
+    #     let(:section) { Fabricate(:section)}
+    #
+    #     it { is_expected.not_to render_with_layout 'communications' }
+    #   end
+    # end
+    #
+    # describe 'node state' do
+    #   let(:node) { Fabricate(:general_content, parent: section_home, state: state) }
+    #
+    #   let(:request) {
+    #     get :show, params: { path: node.path}
+    #   }
+    #
+    #   context 'published node' do
+    #     let(:state) { 'published' }
+    #
+    #     it 'shows the node' do
+    #       request
+    #       expect(response.status).to eq(200)
+    #     end
+    #   end
+    #
+    #   context 'draft node' do
+    #     let(:state) { 'draft' }
+    #
+    #     it 'throws an error' do
+    #       expect { request }.to raise_error ActiveRecord::RecordNotFound
+    #     end
+    #   end
+    # end
 
     describe 'previews' do
       shared_examples_for 'node preview' do
@@ -123,6 +125,31 @@ RSpec.describe NodesController, :type => :controller do
       context 'draft node' do
         let(:state) { 'draft' }
         include_examples 'node preview'
+      end
+    end
+  end
+
+  shared_examples 'is visitable' do |path|
+    before { get :show, params: { path: path } }
+
+    it { expect(response.status).to eq 200}
+  end
+
+
+  describe 'GET #show on ported pages' do
+    let!(:root_node) { Fabricate(:root_node) }
+    let!(:privacy_section) { Fabricate(:section, name: 'privacy') }
+    let!(:privacy_node) { Fabricate(:section_home, section: privacy_section) }
+    let!(:disclaimer_section) { Fabricate(:section, name: 'disclaimer') }
+    let!(:disclaimer_node) { Fabricate(:section_home, section: disclaimer_section) }
+    let!(:copyright_section) { Fabricate(:section, name: 'copyright') }
+    let!(:copyright_node) { Fabricate(:section_home, section: copyright_section) }
+    let!(:about_section) { Fabricate(:section, name: 'about') }
+    let!(:about_node) { Fabricate(:section_home, section: about_section) }
+
+    context 'with every ported page' do
+      %w(privacy about disclaimer copyright).each do |path|
+        include_examples 'is visitable', path
       end
     end
   end

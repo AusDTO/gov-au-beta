@@ -42,5 +42,12 @@ RSpec.describe Editorial::EditorialController, type: :controller do
         end
       end
     end
+
+
+    context 'when a user is not logged in' do
+      before { authenticated_request }
+
+      it { expect(response).to redirect_to('/users/sign_in') }
+    end
   end
 end

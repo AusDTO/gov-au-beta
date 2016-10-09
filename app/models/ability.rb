@@ -82,7 +82,14 @@ class Ability
 
     # Everyone (signed in or not) can view published pages.
     can :read_public, Node do |n|
-      n.state == :published && !n.options.placeholder
+      n.state == :published && !n.options.placeholder && publicly_viewable(n.path)
     end
+  end
+
+  private
+  #TODO: FIXME: THIS IS NOT A LONG TERM SOLUTION!!!
+  def publicly_viewable(path)
+    %w(disclaimer about copyright privacy editorial users)
+        .include?(path.split('/').first) || path.blank?
   end
 end

@@ -12,7 +12,7 @@
 <html lang="en-AU" class="no-js"><!--<![endif]-->
 
 = render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
-%body
+%body{data: { 'ga-id' => ENV['GA_TRACKING_ID'] }}
   = render 'application/google_tag_manager'
   %div.skip-to
     %a{href: "#content"}
@@ -72,4 +72,5 @@
             &copy; Commonwealth of Australia
             %br
             %a{href:'http://creativecommons.org/licenses/by/3.0/au/'} This work is licensed under a Creative Commons Attribution 3.0 International License
+
 </html>
