@@ -15,6 +15,15 @@
 //= require menus
 //= require "ui-kit"
 //= require "cable"
+//= require analytics.js
+
+$(document).ready(function() {
+  var ga_id = $('body').data('ga-id');
+  if (ga_id) {
+    ga('create', ga_id, 'auto');
+    ga('send', 'pageview');
+  }
+});
 
 //set breakpoint for accordions to collapse at
 var width = 520;

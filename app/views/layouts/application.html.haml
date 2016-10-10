@@ -12,7 +12,7 @@
 <html lang="en-AU" class="no-js"><!--<![endif]-->
 
 = render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
-%body
+%body{data: { 'ga-id' => ENV['GA_TRACKING_ID'] }}
   = render 'application/google_tag_manager'
   %div.skip-to
     %a{href: "#content"}
@@ -58,6 +58,7 @@
               %ul
                 - ported_pages.each do |page|
                   %li= link_to(page.name, nodes_path(page.slug))
+                %li= link_to('Feedback', '/feedback/new')
           -#- if about_section
           -#  %nav
           -#    %ul
@@ -72,4 +73,5 @@
             &copy; Commonwealth of Australia
             %br
             %a{href:'http://creativecommons.org/licenses/by/3.0/au/'} This work is licensed under a Creative Commons Attribution 3.0 International License
+
 </html>

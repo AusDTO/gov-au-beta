@@ -66,11 +66,11 @@ RSpec.describe 'accessibility:', :js, :truncate, :nodes_helper, type: :feature d
     include_examples 'is accessible', 'new_feedback_path', true
     include_examples 'is accessible', 'news_articles_path', true
     include_examples 'is accessible', 'section_news_articles_path(department.slug)', true
-    include_examples 'is accessible', 'public_node_path(news_article)', true
-    include_examples 'is accessible', 'public_node_path(department.home_node)', true
-    include_examples 'is accessible', 'public_node_path(minister.home_node)', true
-    include_examples 'is accessible', 'public_node_path(topic.home_node)', true
-    include_examples 'is accessible', 'public_node_path(general_content)', true
+    #include_examples 'is accessible', 'public_node_path(news_article)', true
+    #include_examples 'is accessible', 'public_node_path(department.home_node)', true
+    #include_examples 'is accessible', 'public_node_path(minister.home_node)', true
+    #include_examples 'is accessible', 'public_node_path(topic.home_node)', true
+    #include_examples 'is accessible', 'public_node_path(general_content)', true
 
   end
 end
