@@ -3,6 +3,6 @@
   %h1 Your feedback
   Help us improve GOV.AU by telling us what you were trying to do and what happened.
   = simple_form_for(@form, url: feedback_path) do |f|
-    = f.input :comment, as: :text
+    = f.input :comment, as: :text, error: 'Your comment can\'t be blank'
     = f.hidden_field :url
     = f.button :submit, 'Send feedback', role: 'button'
