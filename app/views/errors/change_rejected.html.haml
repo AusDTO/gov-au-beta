@@ -1,7 +1,28 @@
+= content_for :header do
+  %section
+    .wrapper
+      .home-header-content
+        %a.govau--logo.home{href: '/'}
+          = image_tag 'icons/gov-au-white-2x.png', alt: "GOV.AU crest logo"
+
+        .homeintro
+          %h1.is-visuallyhidden
+            GOV.AU homepage
+          %p
+            A listing of websites for governments in&nbsp;Australia
+        = render 'feedback_link'
+
+
+= content_for :after_header do
+  .brandbar.default{class: sunstate_class}
+    .b1
+    .b2
+
+
 = content_for :title do
   The change you wanted was rejected (422)
 
-%article.content-listing.callout--calendar-event
+%article.content-main.callout--calendar-event
   %h1 The change you wanted was rejected (422)
   %p Maybe you tried to change something you didn't have access to.
   %p If you are the application owner check the logs for more information.
