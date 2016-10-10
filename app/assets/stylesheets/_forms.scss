@@ -9,3 +9,20 @@ form {
     }
   }
 }
+
+//Hotfix for errors on feedback form
+.field_with_errors {
+
+  textarea {
+    border: 2px solid $error-colour;
+  }
+
+  .error {
+    border: 2px solid $error-colour;
+    border-bottom: none;
+    background: $light-red;
+    color: $error-colour;
+    display: block;
+    padding: 0.3em 0.7em;
+  }
+}
