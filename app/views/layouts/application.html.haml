@@ -58,6 +58,7 @@
               %ul
                 - ported_pages.each do |page|
                   %li= link_to(page.name, nodes_path(page.slug))
+                %li= link_to('Feedback', '/feedback/new')
           -#- if about_section
           -#  %nav
           -#    %ul
