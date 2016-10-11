@@ -16,6 +16,7 @@
 //= require "ui-kit"
 //= require "cable"
 //= require analytics.js
+//= require semantic.min.js
 
 $(document).ready(function() {
   var ga_id = $('body').data('ga-id');
