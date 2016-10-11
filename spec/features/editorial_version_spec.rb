@@ -4,6 +4,7 @@ RSpec.describe 'editorial version details', type: :feature do
   Warden.test_mode!
 
   let!(:section) { Fabricate(:section) }
+  let!(:section_home) { Fabricate(:section_home, section: section) }
   let!(:author) { Fabricate(:user, author_of: section) }
 
   describe 'editorial#index' do
