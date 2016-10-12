@@ -3,19 +3,21 @@
   <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<%= yield :meta_description %>">
+  <meta property="og:image" content="https://www.gov.au/govau-unfurl.png" /> <!-- Social/unfurl thumbnail: ref https://developers.facebook.com/docs/sharing/webmasters OR https://dev.twitter.com/cards/getting-started-->
+
   <script>
     (function (h) {
     h.className = h.className.replace('no-js', 'js')
     })(document.documentElement)
   </script>
   <!--[if lt IE 9]>
-  <script type="text/javascript"
-          src="//cdnjs.cloudflare.com/ajax/libs/corysimmons-selectivizr2/1.0.8/selectivizr2.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/corysimmons-selectivizr2/1.0.8/selectivizr2.min.js"></script>
   <![endif]-->
   <!--[if lte IE 9]>
   <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js'></script>
   <![endif]-->
 
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <%= favicon_link_tag 'favicon.ico' %>
   <%= csrf_meta_tags %>
   <%= javascript_include_tag 'fonts', 'data-turbolinks-track': 'reload', async: Rails.env.production? %>
