@@ -13,7 +13,6 @@
 
   .button--feedback {
     border: 1px solid $aqua;
-    color: $grey;
     font-size: rem(15);
     white-space: nowrap;
     float: right;
@@ -42,19 +41,13 @@
 
     .govau--logo,
     .homeintro,
-    .feedback{
+    .feedback {
       display: table-cell;
       vertical-align: middle;
       float: none;
     }
   }
 }
-
-//Need to send this to UI-Kit
-form textarea {
-  min-height: 10em;
-}
-
 
 .homeintro {
 
