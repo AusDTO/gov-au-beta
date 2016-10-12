@@ -1,3 +1,19 @@
 #content:focus {
   outline: none;
 }
+
+
+// FIXME hotfix for missing margin on mobile because no .hero
+article.content-main h1:first-of-type {
+  margin-top: $medium-spacing;
+
+  @include media($tablet) {
+    margin-top: 0;
+  }
+}
+
+// TODO Discuss with UI-Kit
+// Link underline and hover wrap inappropriately with long text
+footer[role='contentinfo'] .footer-links a {
+  display: inline;
+}
