@@ -26,7 +26,7 @@ $(document).ready(function() {
   }
 
   var search = $('.search');
-  if (search) {
+  if (search.length > 0) {
     $('.search').search({source: searchData, searchFields: ['title', 'path']});
   }
 });
