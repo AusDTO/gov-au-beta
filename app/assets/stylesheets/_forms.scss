@@ -8,7 +8,14 @@ form {
       font-size: 26px;
     }
   }
-  //Hotfix for errors on feedback form
+
+  // TODO Discuss with UI-Kit
+  // change to textarea height to look more like a textarea.
+  textarea {
+    min-height: 10em;
+  }
+
+  // Hotfix for errors on feedback form
   .error {
     border-bottom: none;
     background: $light-red;
@@ -27,5 +34,3 @@ form {
     }
   }
 }
-
-
