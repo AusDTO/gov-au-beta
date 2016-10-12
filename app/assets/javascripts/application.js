@@ -24,6 +24,11 @@ $(document).ready(function() {
     ga('create', ga_id, 'auto');
     ga('send', 'pageview');
   }
+
+  var search = $('.search');
+  if (search) {
+    $('.search').search({source: searchData, searchFields: ['title', 'path']});
+  }
 });
 
 //set breakpoint for accordions to collapse at
