@@ -2,8 +2,20 @@
   <meta name="google-site-verification" content="ElWu_73bfZc6KNBz9zMj5KnNA8U7kj9r3hPoojmIZqc" />
   <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta name="description" content="<%= yield :meta_description %>">
-  <meta property="og:image" content="<%= image_url("govau-unfurl.png") %>" /> <!-- Social/unfurl image -->
+  <!-- Social/unfurl  http://ogp.me/ , https://dev.twitter.com/cards/types/summary-->
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="<%= title %>" />
+  <meta property="og:type" content="Website" />
+  <meta property="og:image" content="<%= image_url("govau-unfurl.png") %>" />
+  <meta property="og:url" content="<%= url_for(only_path: false) %>" />
+  <meta property="og:description" content="<%= yield :meta_description %>" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="<%= yield :meta_description %>" />
+  <meta name="twitter:title" content="<%= title %>" />
+  <meta name="twitter:site" content="@DTO" />
+  <meta name="twitter:image" content="<%= image_url("govau-unfurl.png") %>" />
 
   <script>
     (function (h) {
