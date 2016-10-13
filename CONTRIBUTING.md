@@ -2,13 +2,13 @@
 
 We're so glad you're thinking about contributing to the GOV.AU Beta. The GOV.AU is an evolving project and relies on help and feedback to improve.
 
-**Found a bug while using the framework or guide?**
-Let us know by [raising an issue](#submitting-an-issue).
+**Found a bug while using GOV.AU?**
+Let us know by raising an issue.
 
 **Have a suggestion for a new feature?**
-If you can reach us on Slack, visit us in #govau and let us know. If you're not on Slack, that's fine, just [open an issue](#submitting-an-issue)
+If you can reach us on Slack, visit us in #govau and let us know. If you're not on Slack, that's fine, just open an issue
 
-If your suggestion is not already in our roadmap, we'll probably suggest that you make a fork of our repo and then [open a pull request](submitting-a-pr) so that we can review your changes or additions and hopefully merge them in.
+If your suggestion is not already in our roadmap, we'll probably suggest that you make a fork of our repo and then open a pull request so that we can review your changes or additions and hopefully merge them in.
 
 We encourage you to read our [Contributor Code of Conduct](https://github.com/AusDTO/gov-au-beta/blob/master/code_of_conduct.md). By ensuring that all staff and contributors follow this guide we can maintain an inclusive and friendly environment.
 
@@ -18,10 +18,6 @@ which explains our code style and linting.
 Finally, if you're unsure about anything, just ask — or submit your issue or pull request anyway. The worst that can happen is we'll politely ask you to change something. We appreciate all friendly contributions.
 
 ## Guidelines
-
-### <a name="submitting-an-issue">Submitting an issue</a>
-
-### <a name="submitting-a-pr">Submitting a pull request</a>
 
 ### Submitting a pull request
 
