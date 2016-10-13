@@ -23,8 +23,6 @@ Finally, if you're unsure about anything, just ask — or submit your issue or p
 
 ### <a name="submitting-a-pr">Submitting a pull request</a>
 
-To help us get a better understanding of the issue you're submitting, follow our [ISSUE TEMPLATE](https://github.com/AusDTO/gov-au-beta/blob/develop/.github/ISSUE_TEMPLATE.md) and the guidelines it describes.
-
 ### Submitting a pull request
 
 Here are a few guidelines to follow when submitting a pull request:
