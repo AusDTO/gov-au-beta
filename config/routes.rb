@@ -112,11 +112,11 @@ Rails.application.routes.draw do
   get 'categories/:slug' => 'categories#show', as: :category
 
   get root 'nodes#home'
-  get '/preview/:token' => 'nodes#preview', as: :previews
+  #get '/preview/:token' => 'nodes#preview', as: :previews
 
-  get '/news' => 'news#index', as: :news_articles
-  get '/:section/news' => 'news#index', as: :section_news_articles
-  get '/:section/news/:slug' => 'news#show', as: :news_article
+  #get '/news' => 'news#index', as: :news_articles
+  #get '/:section/news' => 'news#index', as: :section_news_articles
+  #get '/:section/news/:slug' => 'news#show', as: :news_article
 
   get '/*path' => 'nodes#show', as: :nodes
 
