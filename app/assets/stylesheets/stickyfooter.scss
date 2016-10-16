@@ -1,0 +1,38 @@
+
+// Sticky footer using flex was causing major layout bugs on some iphones
+// this method has been tested down to IE8 http://codepen.io/anon/pen/GjGJYr
+
+
+@include media($tablet) {
+  //Sticky footer is not necessary for mobile or older browsers
+
+  html,
+  body {
+    //fill viewport
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    //FIXME Overrides:
+    display: table;
+    min-height: 0;
+  }
+
+  main {
+    //FIXME Overrides:
+    flex: none;
+  }
+
+  //Using classes to separate design from semantics and aria landmarks
+  .govau-header-row,
+  .govau-content-row,
+  .govau-footer-row {
+    display: table-row;
+  }
+
+  //this row expands to fit
+  .govau-content-row {
+    height: 100%;
+  }
+}

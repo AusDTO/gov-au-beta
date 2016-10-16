@@ -1,10 +1,9 @@
+
+// Editorial widget:
+// Parent for content preview.
+
 .content-block {
-  border-color: black;
+  border-color: $grey;
   border-style: solid;
   border-width: 1px;
-}
-
-//Fix for sticky footer
-div[role='main'] {
-  //flex: 1 100%;
 }
