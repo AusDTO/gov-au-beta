@@ -16,12 +16,18 @@
 //= require "ui-kit"
 //= require "cable"
 //= require analytics.js
+//= require search.js
 
 $(document).ready(function() {
   var ga_id = $('body').data('ga-id');
   if (ga_id) {
     ga('create', ga_id, 'auto');
     ga('send', 'pageview');
+  }
+
+  var search = $('.search');
+  if (search.length > 0) {
+    $('.search').search({source: searchData, searchFields: ['title', 'path']});
   }
 });
 

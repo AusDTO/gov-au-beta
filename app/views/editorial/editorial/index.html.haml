@@ -1,11 +1,18 @@
 - breadcrumb :editorial_root
 
 %h1 Editorial
+%p
+  = link_to('News', editorial_news_index_path)
+  = link_to('Assets', editorial_assets_path)
+  - if can? :create, :user
+    = link_to('Create new user', new_editorial_user_path)
 
-= link_to('News', editorial_news_index_path)
-= link_to('Assets', editorial_assets_path)
-- if can? :create, :user
-  = link_to('Create new user', new_editorial_user_path)
+.ui.search
+  %form
+    %label{for: 'search'} Search
+    %input#search.prompt{type: 'text', style: 'border-radius: 0'}
+  .results
+
 
 %h2 Sections
 - if @sections.count == 0
@@ -19,3 +26,12 @@
         - if can? :create_in, section
           = link_to('Create new page', prepare_editorial_section_nodes_path(section))
 
+%script{type: 'text/javascript', id: 'search_json'}
+  var searchData = [
+  - @sections.each do |section|
+    {
+    "title": "#{section.home_node.name}",
+    "path": "#{section.home_node.path}",
+    "url": "#{editorial_section_path(section)}"
+    },
+  ];

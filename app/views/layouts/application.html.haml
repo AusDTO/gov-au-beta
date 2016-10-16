@@ -14,10 +14,12 @@
 = render 'application/head',  title: (content_for?(:title) ? "#{yield(:title)} | GOV.AU" : 'GOV.AU' )
 %body{data: { 'ga-id' => ENV['GA_TRACKING_ID'] }}
   = render 'application/google_tag_manager'
+
   %div.skip-to
     %a{href: "#content"}
       Skip to main content
-  %header{role: 'banner'}
+
+  %header.govau-header-row{role: 'banner'}
 
     = render 'application/signed_in_nav' if user_signed_in?
     - if content_for?(:header)
@@ -39,7 +41,7 @@
 
   -# TODO: Move this aria role to %main and move the hero into the correct aria landmark once ui-kit resolves
   -# https://github.com/AusDTO/gov-au-ui-kit/issues/313
-  %div{role: 'main'}
+  %div.govau-content-row{role: 'main'}
     = yield(:after_header)
 
     %main
@@ -47,31 +49,33 @@
         = yield :navbar
       = render 'application/alerts'
       = yield
-  %footer{role: "contentinfo"}
-    .wrapper
-      %section
-        .footer-logo
-          = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
-        .footer-links
-          - unless ported_pages.blank?
-            %nav
-              %ul
-                - ported_pages.each do |page|
-                  %li= link_to(page.name, nodes_path(page.slug))
-                %li= link_to('Feedback', '/feedback/new')
-          -#- if about_section
-          -#  %nav
-          -#    %ul
-          -#      %li
-          -#        =link_to(about_section.name, nodes_path(about_section.slug))
-          -#      - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
-          -#        %li
-          -#          %a{ href: public_node_path(node)}
-          -#            = node.name
 
-          %p
-            &copy; Commonwealth of Australia
-            %br
-            %a{href:'http://creativecommons.org/licenses/by/3.0/au/'} This work is licensed under a Creative Commons Attribution 3.0 International License
+  %div.govau-footer-row
+    %footer{role: "contentinfo"}
+      .wrapper
+        %section
+          .footer-logo
+            = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
+          .footer-links
+            - unless ported_pages.blank?
+              %nav
+                %ul
+                  - ported_pages.each do |page|
+                    %li= link_to(page.name, nodes_path(page.slug))
+                  %li= link_to('Feedback', '/feedback/new')
+            -#- if about_section
+            -#  %nav
+            -#    %ul
+            -#      %li
+            -#        =link_to(about_section.name, nodes_path(about_section.slug))
+            -#      - about_section.children.published.reject{|n| n.options.suppress_in_nav}.each do |node|
+            -#        %li
+            -#          %a{ href: public_node_path(node)}
+            -#            = node.name
+
+            %p
+              &copy; Commonwealth of Australia
+              %br
+              %a{href:'http://creativecommons.org/licenses/by/3.0/au/'} This work is licensed under a Creative Commons Attribution 3.0 International License
 
 </html>
