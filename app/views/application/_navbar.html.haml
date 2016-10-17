@@ -3,8 +3,8 @@
 - active_chain = menu_active_chain(active)
 
 %aside.sidebar
-  %nav.local-nav{'aria-label' => 'main navigation'}
-    - if menu_nodes.present? && ((unsuppressed_nodes = menu_nodes.reject { |n| n.options.suppress_in_nav }).present?)
+  - if menu_nodes.present? && ((unsuppressed_nodes = menu_nodes.reject { |n| n.options.suppress_in_nav }).present?)
+    %nav.local-nav{'aria-label' => 'main navigation'}
       %h1.is-visuallyhidden
         Menu
       %ul
