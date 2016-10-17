@@ -4,11 +4,11 @@
 
 %aside.sidebar
   %nav.local-nav{'aria-label' => 'main navigation'}
-    %h1.is-visuallyhidden
-      Menu
-    -if menu_nodes.present?
+    - if menu_nodes.present? && ((unsuppressed_nodes = menu_nodes.reject { |n| n.options.suppress_in_nav }).present?)
+      %h1.is-visuallyhidden
+        Menu
       %ul
         %li
           = link_to @section.name, public_node_path(@section.home_node), class: menu_node_class(@section.home_node, active_chain)
           %ul
-            = render partial: 'navbar_part', locals: { nodes: menu_nodes, depth: 3, active_chain: active_chain }
+            = render partial: 'navbar_part', locals: { nodes: unsuppressed_nodes, depth: 3, active_chain: active_chain }
