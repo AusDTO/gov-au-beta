@@ -1,0 +1,14 @@
+
+// Incorrect font-size on content in tables (cascading Ems)
+// https://github.com/AusDTO/gov-au-ui-kit/issues/417
+
+.content-table {
+  ul,
+  ol,
+  dl,
+  p,
+  dt,
+  dd {
+    font-size: 1em;
+  }
+}
