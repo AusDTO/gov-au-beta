@@ -72,4 +72,6 @@ Rails.application.configure do
 
   #Set use of two-factor auth
   config.use_2fa = ENV['FORCE_2FA'].present?
+
+  config.editorial_base_url = "http://localhost:#{port}"
 end

@@ -144,4 +144,6 @@ Rails.application.configure do
                                 # The fully-qualified domain name (FQDN) that is the alias to the S3 domain of your bucket.
                                 url: ":s3_alias_url"
                             }
+
+  config.editorial_base_url = "https://#{ENV['EDITORIAL_BASE_URL']}" || "https://#{ENV['APP_DOMAIN']}"
 end

@@ -61,5 +61,5 @@ Rails.application.configure do
   config.use_2fa = true
 
   config.require_invite = false
-
+  config.editorial_base_url = 'http://localhost:3000'
 end
