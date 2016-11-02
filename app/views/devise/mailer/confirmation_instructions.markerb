@@ -4,7 +4,7 @@ Welcome to GOV.AU Beta.
 
 To get started as a content author or reviewer please confirm your email address and follow the instructions.
 
-[Click here to confirm your email address.](<%= confirmation_url(@resource, confirmation_token: @token) %>)
+[Click here to confirm your email address.](<%= editorial_url_for(confirmation_path(@resource, confirmation_token: @token)) %>)
 
 Thank you
 

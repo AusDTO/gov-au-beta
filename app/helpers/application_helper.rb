@@ -32,4 +32,9 @@ module ApplicationHelper
       end
     end
   end
+
+
+  def editorial_url_for(path)
+    "#{Rails.configuration.editorial_base_url}#{path}"
+  end
 end
