@@ -1,0 +1,29 @@
+
+-# govau-masthead
+
+-# %header.govau-masthead.govau-masthead--type-search
+%header.govau-masthead
+  .banner
+    .brand
+      %h1
+        %a{href:'/'}
+          = image_tag 'icons/logo-gov-au-2x.png', alt:'Gov.au crest logo'
+    / masthead-brand
+    .main-cta
+      -# %a.search-toggle{href:'#',title:'show search'} show search
+      %a.button--cta{href:'#'}
+        About
+        %span.visuallyhidden GOV.AU
+    / main-cta
+  / banner
+
+  -# TODO Search feature
+  -# .search-toggle-box
+  -#   .site-search
+  -#     %form#search{action:'#', role:'search'}
+  -#       %label{for:'site-search-text'} Search GOV.AU
+  -#       .site-search-border
+  -#         %input#site-search-text.search-input{name:'q', title:'Search', type:'search'}
+  -#         %input.submit{type:'submit', value:'Search'}
+    / site-search
+/ govau-masthead

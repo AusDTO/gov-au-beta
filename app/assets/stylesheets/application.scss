@@ -23,6 +23,8 @@
  @import "ie";
  @import "liquid";
  @import "search";
+ @import "feedback-bar"; //CSS for feedback bar used in the footer
+ @import "govau-header"; //Custom header
 
  //all of the below sass will need to be removed once it is added to UI Kit
  @import "callout-basic"; // GitHub issue raised for this https://github.com/AusDTO/gov-au-ui-kit/issues/301
@@ -37,6 +39,9 @@
  @import "news-article-page"; //GitHub issue raised https://github.com/AusDTO/gov-au-ui-kit/issues/358
  @import "contact-card"; //will wait for outcomes of People an structure work before sending this to UI Kit(it may be iterated)
  @import "news-listing";
+ @import "site-search.scss"; //https://github.com/AusDTO/gov-au-ui-kit/pull/432
+ @import "media-query"; // https://github.com/AusDTO/gov-au-ui-kit/pull/435
+
 
  // These have questions raised on ui-kit for whether they want to include it or if it should
  // be our custom stuff

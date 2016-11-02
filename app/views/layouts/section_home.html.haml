@@ -3,19 +3,7 @@
     = yield
 
   = content_for :header do
-    %section
-      //.prerelease-govau--header.home
-      .wrapper
-        .home-header-content
-          %a.govau--logo.home{href: '/'}
-            = image_tag 'icons/gov-au-white-2x.png', alt: "GOV.AU crest logo"
-
-          .homeintro
-            %h1.is-visuallyhidden
-              GOV.AU homepage
-            %p
-              Government websites in&nbsp;Australia
-          = render 'feedback_link'
+    = render 'header_group_page'
 
   = content_for :after_header do
     .brandbar.default{class: sunstate_class}

@@ -1,0 +1,251 @@
+
+//Header row
+//=======================
+//Main container used to apply colour to the header-row which can contain many UI elements such as navs
+.govau-header-row {
+  //note no padding here because elements inside can be against the edge of the row, eg. breadcrumbs
+
+  background-color: $header-bg-colour;
+  background-image: image-url('header-bg.jpg');
+  background-position: top right;
+  background-repeat: no-repeat;
+
+  //CSS gradient not used because of 'dazzle' issues on monitors with low refresh rate.
+  // background: $header-bg-colour; /* Old browsers */
+  // background: linear-gradient(45deg, $header-bg-colour 0%, $header-bg-colour-2 30%, $header-bg-colour-3 80%, $header-bg-colour-3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#043751', endColorstr='#1c809d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  /* Note: do not use variables in above IE filter. */
+
+  color: $non-white;
+  padding: 1px 0; // See: 'Parent and first/last child' -- https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing
+
+  a {
+    color: white;
+  }
+} //govau-header-row
+
+
+//masthead
+//=======================
+//Grouping of <header> elements, some of which may fall outside of .banner
+
+.govau-masthead {
+  @include clearfix;
+
+  @include media($tablet) {
+    margin: $large-spacing 0;
+  }
+
+  margin: $base-spacing 0;
+
+  .banner {
+    display: table; //display table for fluid layout of unknown widths and vertical-align;
+    width: 100%;
+  }//.banner
+
+  //The space for the logo/branding
+  .brand {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: $base-spacing;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+      max-width: 19em;
+      vertical-align: middle;
+    }
+
+    a {
+      display: inline-block;
+      border-bottom: none;
+
+      &:hover,
+      &:focus {
+        background: none;
+      }
+    }
+  }//.brand
+
+  //Room for a call-to-action in the banner
+  .main-cta {
+    display: table-cell;
+    vertical-align: middle;
+    width: 1%; //Im a table-cell so you can squish me to make my siblings fill the gap
+  }//.main-cta
+
+}//govau-masthead
+
+.button--cta {
+  display: inline-block;
+  border: solid 1px;
+  line-height: 1em;
+  padding: 1em 1.3em;
+  text-decoration: none;
+}
+
+// GovAU specifics
+// ===============================
+.govau-masthead--type-search {
+  @include omega;
+
+  .banner {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+    @include media($desktop) {
+        @include span-columns(8 of 12);
+    }
+  }
+
+  .search-toggle-box {
+    margin-top: 1em;
+
+    @include media($tablet) {
+      margin-top: 0;
+      @include span-columns(6 of 12);
+    }
+    @include media($desktop) {
+      @include span-columns(4 of 12);
+    }
+  }//search-toggle-box
+
+
+  a {
+    &:focus {
+      outline: solid 3px $light-aqua;
+    }
+  }
+
+}//govau-masthead
+
+
+// //IE?
+// // ======================
+// .govau-masthead--type-search:after {
+//   content: '';
+//   display: table;
+//   clear: both;
+//   height: 0;
+// }
+
+
+// JavaScript things
+// ======================
+.js {
+  .search-toggle-box {
+    display: none; //Hide because a button will show this
+    @include media($tablet) {
+      display: block; //show because we have room now
+    }
+  }
+
+  a.search-toggle {
+    display: block;
+    @include media($tablet) {
+      display: none; //hide because above
+    }
+  }
+}
+
+
+// Links for promo
+// ======================
+.links-group {
+  @include media($tablet) {
+    margin: $base-spacing 0;
+  }
+  ul {
+    @include clearfix;
+  }
+  margin: $small-spacing 0;
+}
+
+
+// Button used to show search bar on mobile
+.search-toggle {
+  float: right;
+  display: none;
+  overflow: hidden;
+  text-indent: -99em;
+  width: 3em;
+  //height: 3em;
+  padding: 1em 0;
+  line-height: 1;
+  color: $non-white;
+  background-color: $navy; //fallback for no rgba
+  background-color: rgba($navy,0.5);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px auto;
+  @include inline-background-image('search--white');
+
+  &:hover {
+    background-color: $navy;
+  }
+
+  &.search-close {
+    @include inline-background-image('close');
+  }
+}
+
+
+// Jumbogov
+// ======================
+.jumbogov {
+  @include outer-container;
+
+  margin: $base-spacing 0;
+
+  @include media($tablet) {
+    margin: $large-spacing 0;
+  }
+
+  .text-area {
+    @include media($tablet) {
+      @include span-columns(9 of 12);
+    }
+
+    @include media($desktop) {
+      @include span-columns(8 of 12);
+    }
+
+    h1 {
+      font-weight: normal;
+      margin-bottom: 0.2em;
+    }
+  }
+}
+
+
+// Edits
+// ======================
+.govau-header-row {
+  .links-group {
+    ul {
+      margin-bottom: 0;
+      @include clearfix;
+    }
+    @include link-colours($link-inverted-colour, $link-colour--hover, $link-colour);
+    margin: ($base-spacing * 1.5) 0;
+
+    @include ie-lte(8) {
+      margin-bottom: 0;
+      padding-bottom: $base-spacing * 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-size: rem(17);
+      font-weight: $bold-font-weight;
+      margin-top: 0;
+      padding: 0;
+    }
+  }
+}

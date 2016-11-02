@@ -17,6 +17,7 @@
 //= require "cable"
 //= require analytics.js
 //= require search.js
+//= require header.js
 
 $(document).ready(function() {
   var ga_id = $('body').data('ga-id');
@@ -425,5 +426,3 @@ if (objCtr.defineProperty) {
 }
 
 }
-
-

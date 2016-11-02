@@ -1,5 +1,32 @@
 - breadcrumb :public_node, node
 
+= content_for :after_header do
+
+  %section.beta-callout#content{tabindex: -1}
+    %article.wrapper
+      %h2 What is GOV.AU Beta?
+      %p.leftblurb.abstract
+        It's an early release of what <strong>simpler</strong>,
+        <strong>clearer</strong> and <strong>faster</strong> Australian
+        Government information and services could look like.
+
+      .content
+        %ul
+          %li
+            This minimal viable product (MVP) — a small piece of the bigger picture
+            — demonstrates our thinking around design, content and technology.
+          %li
+            A public release is scheduled for late 2017.
+          %li
+            More links will be activated as new content is added.
+          %li
+            GOV.AU is a
+            %a{href: 'https://www.dto.gov.au/'}Digital Transformation Office
+            product.
+
+        %a{:href => "/about-gov-au/about-gov-au-beta", :class => "read-more"}
+          Learn more about GOV.AU
+
 %article.content-listing#content{tabindex: -1}
 
   -#%section.home-category-list
@@ -15,31 +42,130 @@
   -#            %p
   -#              = category.short_summary
 
+  %h2.home-heading.small Information and Services
+
+  %section.home-category-list
+    %ul.list-vertical--thirds
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Benefits and Payments
+          %p Aged care, carers, crisis, disability, family, indigenous, jobseekers, veterans, youth payments and services
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Business and Industry
+          %p ABN, grants, non-profit and small business, primary industry, import and export, science and technology, tenders
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Culture and Arts
+          %p Indigenous heritage and history, arts grants, cultural institutions, heritage, history, honours and awards, family history
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Education and Training
+          %p Early childhood, school, higher education, international students, skills recognition, scholarships, VET
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Environment
+          %p Energy efficiency, environmental management and protection, biodiversity, grants, natural resources
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              Family and Community
+          %p Births, deaths and marriages, child care, housing and property, relationships, social issues
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+      %li
+        %article
+          %h3
+            %a{href: '#'}
+              About Australia
+          %p Currency, national archives, Australian honours, the constitution.
+
+
   %section.government-links
+
     .federal-government
       %h2.home-heading.small Australian Government
-      %ul.list-horizontal
-        %li.ausgov
-          %article
-            %h3
-              %a{href: 'http://www.australia.gov.au/'}
-                %span.image
-                australia.gov.au
-            %p Entry point for people to find Australian Government information. Also includes links to popular state, territory and local government information.
-        %li.busgov
-          %article
-            %h3
-              %a{href: 'https://www.business.gov.au/'}
-                %span.image
-                business.gov.au
-            %p Helps businesses to find all the information and tools they need from government to start, run and grow a business.
-        %li.mygov
-          %article
-            %h3
-              %a{href: 'https://my.gov.au/'}
-                %span.image
-                my.gov.au
-            %p A secure myGov account lets you link a range of Australian Government services with one username and password, all in one place.
+      %ul
+        %li
+          %a{href:'#'}
+            %span
+              X
+            Departments
+        %li
+          %a{href:'#'}
+            %span
+              X
+            Agencies
+        %li
+          %a{href:'#'}
+            %span
+              X
+            Ministers
+
+
     .state-government
       %h2.home-heading.small State and territory governments
       %ul.list-vertical
@@ -91,36 +217,39 @@
             %a{href: 'http://www.act.gov.au/'}
               %span.image
               act.gov.au
+
   %section.local-government
     %h2.home-heading.small Local government
-    %p
-      The 6 states and the Northern Territory have established 1 further
-      level of government. Local governments (also known as city, shire, town or
-      municipal councils) handle community needs like waste collection, public
-      recreation facilities and town planning.
-    %p
-      The
-      %strong
-        %a{href: 'http://alga.asn.au/'}Australian Local Government Association
-      is the national voice of local government, representing 560 councils
-      across the country. State local government directories provide links to
-      local council sites:
+    %div.description
+      %p
+        The 6 states and the Northern Territory have established 1 further
+        level of government. Local governments (also known as city, shire, town or
+        municipal councils) handle community needs like waste collection, public
+        recreation facilities and town planning.
+      %p
+        The
+        %strong
+          %a{href: 'http://alga.asn.au/'}Australian Local Government Association
+        is the national voice of local government, representing 560 councils
+        across the country. State local government directories provide links to
+        local council sites:
 
-    %ul
-      %li
-        %a{href: 'https://www.olg.nsw.gov.au/local-government-directory'} New South Wales local government directory
-      %li
-        %a{href: 'https://dlgcs.nt.gov.au/'} Northern Territory local government directory
-      %li
-        %a{href: 'http://www.dilgp.qld.gov.au/local-government-directory/'} Queensland local government directory
-      %li
-        %a{href: 'http://www.lga.sa.gov.au/councils'} South Australia local government directory
-      %li
-        %a{href: 'http://www.dpac.tas.gov.au/divisions/local_government/local_government_directory'} Tasmania local government directory
-      %li
-        %a{href: 'http://www.dtpli.vic.gov.au/local-government'} Victoria local government directory
-      %li
-        %a{href: 'http://walga.asn.au/About-Local-Government/LG-Directory.aspx'} Western Australia local government directory
+    %div.listing
+      %ul
+        %li
+          %a{href: 'https://www.olg.nsw.gov.au/local-government-directory'} New South Wales local government directory
+        %li
+          %a{href: 'https://dlgcs.nt.gov.au/'} Northern Territory local government directory
+        %li
+          %a{href: 'http://www.dilgp.qld.gov.au/local-government-directory/'} Queensland local government directory
+        %li
+          %a{href: 'http://www.lga.sa.gov.au/councils'} South Australia local government directory
+        %li
+          %a{href: 'http://www.dpac.tas.gov.au/divisions/local_government/local_government_directory'} Tasmania local government directory
+        %li
+          %a{href: 'http://www.dtpli.vic.gov.au/local-government'} Victoria local government directory
+        %li
+          %a{href: 'http://walga.asn.au/About-Local-Government/LG-Directory.aspx'} Western Australia local government directory
 
   -#%section.home-news-list
   -#  %h2 News

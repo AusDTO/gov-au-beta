@@ -1,0 +1,15 @@
+-# Row currently used in the footer to introduce feedback mechanism
+-# Could become it's own callout row above the footer at some time.
+
+-# TODO should not be static
+
+%section.footer-top.feedback-bar
+
+  %div.description
+    %h3 This is an early release of GOV.AU
+    %p
+      %a{href:'#'}
+        Learn more about the GOV.AU beta
+
+  %div.action
+    = link_to "Give feedback", new_feedback_path, class: 'button', role: 'button'

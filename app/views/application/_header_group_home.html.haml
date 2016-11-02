@@ -1,0 +1,37 @@
+
+-# Homepage header
+-# Collection of elements which is used for the header on the home page
+
+
+-# Normal masthead used globally
+= render 'header_part_masthead'
+
+-# A large intro element
+-# TODO should not be static
+%section.jumbogov
+  .text-area
+    %h1 Helping you find government information and services
+/ govau-promo
+
+-# Popular now links
+-# TODO should not be static
+.links-group
+  %h2 Popular links
+  %ul
+    %li
+      %a{href:'#'} Public holidays
+    %li
+      %a{href:'#'} business.gov.au
+    %li
+      %a{href:'#'} Student Visas
+    %li
+      %a{href:'#'} myGov
+    %li
+      %a{href:'#'} Broadband
+    %li
+      %a{href:'#'} Media Releases
+    %li
+      %a{href:'#'} Tax returns
+    %li
+      %a{href:'#'} Dates and times
+  / popular links

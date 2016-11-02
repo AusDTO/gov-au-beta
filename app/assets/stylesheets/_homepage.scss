@@ -1,57 +1,4 @@
 
-main {
-  padding-top: 2em;
-}
-
-.home-header-content {
-  padding: $base-spacing 0;
-
-  @include media($tablet) {
-    padding: $large-spacing 0;
-  }
-
-  .feedback {
-    display: inline-block;;
-  }
-
-  .button--feedback {
-    border: 1px solid $aqua;
-    font-size: rem(15);
-    white-space: nowrap;
-    float: right;
-    color: $aqua;
-
-    &:hover,
-    &:focus {
-      background-color: $aqua;
-      color: $white;
-    }
-  }
-
-  .govau--logo {
-    max-width: 200px;
-
-    img {
-      display: block;
-      width: 100%;
-      min-width: 190px;
-    }
-  }
-
-  @include media($tablet) {
-    display: table;
-    width: 100%;
-
-    .govau--logo,
-    .homeintro,
-    .feedback {
-      display: table-cell;
-      vertical-align: middle;
-      float: none;
-    }
-  }
-}
-
 .homeintro {
 
   p {
@@ -100,6 +47,8 @@ main {
   }
 }
 
+//
+// ====================================
 .government-links {
   @include outer-container;
 
@@ -111,13 +60,13 @@ main {
   }
 
   .federal-government {
-    @include media($desktop) {
+    @include media($tablet) {
       @include span-columns(4 of 12);
     }
   }
 
   .state-government {
-    @include media($desktop) {
+    @include media($tablet) {
       @include span-columns(8 of 12);
     }
   }
@@ -170,8 +119,8 @@ main {
   }
 }
 
-.local-government {
 
+.local-government {
   ul {
     font-weight: $heading-font-weight;
     padding-left: $medium-spacing;
@@ -188,7 +137,20 @@ main {
   p {
     max-width: 770px;
   }
+
+  .description {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+  }
+  .listing {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+  }
+
 }
+
 
 .state-government {
 
@@ -268,6 +230,53 @@ main {
     padding-left: 0;
   }
 }
+
+
+.beta-callout {
+  background-color: $lighter-aqua;
+  padding: $base-spacing 0;
+
+  @include media($tablet) {
+    padding: $large-spacing 0;
+  }
+
+  .abstract {
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+  }
+  .content {
+    @include media($tablet) {
+        border-left: 1px solid $border-colour;
+        padding-left: $base-spacing;
+      @include span-columns(8 of 12);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .read-more {
+      font-size: rem(19);
+      font-weight: $heading-font-weight;
+
+      @include media($tablet) {
+        font-size: rem(21);
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: $small-spacing;
+    margin-top: 0;
+  }
+}
+
 
 
 // =========================== IE Support

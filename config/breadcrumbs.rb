@@ -129,3 +129,7 @@ crumb :section_news_articles do |section|
   parent :public_node, section.home_node
 end
 
+crumb :feedback_page do
+  link 'Home', root_path
+  link 'Feedback', new_feedback_path
+end

@@ -19,25 +19,17 @@
     %a{href: "#content"}
       Skip to main content
 
-  %header.govau-header-row{role: 'banner'}
+  = render 'application/signed_in_nav' if user_signed_in?
 
-    = render 'application/signed_in_nav' if user_signed_in?
-    - if content_for?(:header)
-      = yield(:header)
-    - else
-      %section.prerelease-govau--header
-        .wrapper
-          %a.govau--logo{href: "/"}
-            = image_tag 'icons/logo-govau-full-2x.png', width: '270'
-            .brandbar.default
-              .b1
-              .b2
-
-          = render 'feedback_link'
-
-        %nav.breadcrumbs--inverted{'aria-label' => 'breadcrumb'}
-          .wrapper
-            = breadcrumbs style: :ul, class: nil
+  %div.govau-header-row
+    %div.wrapper
+      - if content_for?(:header)
+        = yield(:header)
+      - else
+        / no header set
+  .brandbar.default
+    .b1
+    .b2
 
   -# TODO: Move this aria role to %main and move the hero into the correct aria landmark once ui-kit resolves
   -# https://github.com/AusDTO/gov-au-ui-kit/issues/313
@@ -53,6 +45,10 @@
   %div.govau-footer-row
     %footer{role: "contentinfo"}
       .wrapper
+        -# Feedback section
+        = render 'feedback_bar'
+
+        -#Normal footer section
         %section
           .footer-logo
             = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'

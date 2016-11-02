@@ -1,0 +1,47 @@
+
+//Row currently used in the footer to introduce feedback mechanism
+
+.feedback-bar {
+  @include outer-container;
+
+  h1, h2, h3, h4 {
+    font-size: 1em; //One size fits all.
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .description {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .action {
+    margin-top: $small-spacing;
+
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+      margin-top: 0;
+    }
+
+    .button {
+      margin-right: 0;
+      font-weight: normal;
+      color: $navy;
+      max-width: 25em;
+      display: block;
+      text-align: center;
+      background-color: transparent;
+
+      @include media($tablet) {
+        float: right;
+        width: 10em;
+      }
+    }
+  }
+
+}

@@ -1,6 +1,6 @@
 class FeedbackController < ApplicationController
 
-  layout 'root'
+  layout 'feedback'
 
   def new
     @feedback = Feedback.new(url: request.referrer)
