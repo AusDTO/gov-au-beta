@@ -2,12 +2,13 @@
 //Row currently used in the footer to introduce feedback mechanism
 
 .feedback-bar {
-  @include outer-container;
+  @include clearfix;
 
   h1, h2, h3, h4 {
     font-size: 1em; //One size fits all.
     margin-top: 0;
     margin-bottom: 0;
+    font-weight: $bold-font-weight;
   }
 
   .description {
@@ -44,4 +45,13 @@
     }
   }
 
+}
+
+.ie8 .feedback-bar .button {
+  height:auto;
+}
+
+.ie8 .wrapper section.feedback-bar {
+  // FIXME ui-ki:
+  display: block;
 }

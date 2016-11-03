@@ -81,14 +81,35 @@
     width: 1%; //Im a table-cell so you can squish me to make my siblings fill the gap
   }//.main-cta
 
+  //Focus style for masthead links
+  a {
+    &:focus {
+      outline: solid 3px $light-aqua;
+    }
+  }
+
 }//govau-masthead
 
 .button--cta {
   display: inline-block;
-  border: solid 1px;
-  line-height: 1em;
-  padding: 1em 1.3em;
   text-decoration: none;
+  float: right;
+  line-height: 1;
+  color: $non-white;
+  background-color: $navy; //fallback for no rgba
+  background-color: rgba($navy,0.5);
+
+  font-size: $small-font-size;
+  padding: 1em 0.7em;
+
+  @include media($tablet) {
+    font-size: 100%;
+    padding: 1em;
+  }
+
+  &:hover {
+    background-color: $navy;
+  }
 }
 
 // GovAU specifics
@@ -116,14 +137,6 @@
       @include span-columns(4 of 12);
     }
   }//search-toggle-box
-
-
-  a {
-    &:focus {
-      outline: solid 3px $light-aqua;
-    }
-  }
-
 }//govau-masthead
 
 
@@ -229,6 +242,8 @@
 // ======================
 .govau-header-row {
   .links-group {
+
+
     ul {
       margin-bottom: 0;
       @include clearfix;

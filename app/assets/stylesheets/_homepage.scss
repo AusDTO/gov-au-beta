@@ -72,6 +72,8 @@
   }
 }
 
+//
+// ====================================
 .federal-government ul {
 
   list-style-type: none;
@@ -119,7 +121,8 @@
   }
 }
 
-
+//
+// ====================================
 .local-government {
   ul {
     font-weight: $heading-font-weight;
@@ -151,7 +154,8 @@
 
 }
 
-
+//
+// ====================================
 .state-government {
 
   article {
@@ -231,8 +235,10 @@
   }
 }
 
-
+//
+// ====================================
 .beta-callout {
+  @include link-colours($link-colour, $link-colour--hover, $link-colour);
   background-color: $lighter-aqua;
   padding: $base-spacing 0;
 
@@ -249,6 +255,7 @@
       @include span-columns(4 of 12);
     }
   }
+
   .content {
     @include media($tablet) {
         border-left: 1px solid $border-colour;
