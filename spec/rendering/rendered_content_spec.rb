@@ -66,13 +66,6 @@ RSpec.describe RenderedContent, type: :helper do
       it { is_expected.not_to have_css('iframe') }
     end
 
-    # context 'changes # links to placeholder span' do
-    #   let(:raw) { '[a placeholder link](#)' }
-    #   it { is_expected.not_to have_link('a placeholder link', href: '#') }
-    #   it { is_expected.to have_css('span.placeholder-link') }
-    #   it { is_expected.to match('a placeholder link') }
-    # end
-
     context 'strips script tags' do
       let(:raw) { 'Stuff<script>alert()</script>' }
       it { is_expected.to match('Stuff') }
