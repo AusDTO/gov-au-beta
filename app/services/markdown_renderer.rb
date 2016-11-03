@@ -1,4 +1,7 @@
 class MarkdownRenderer
+  # http://kramdown.gettalong.org/converter/html.html#toc
+  TOC_HEADER = "* TOC\n{:toc}\n\n"
+
   def initialize(nesting_level)
     @content_renderer = Kramdown::Document
     @toc_depth = nesting_level || 1
@@ -24,10 +27,7 @@ class MarkdownRenderer
       # it at the top of the document. We should always inject this, as the
       # @toc_depth indicates the range  of the TOC which defaults to rendering
       # nothing.
-      # http://kramdown.gettalong.org/converter/html.html#toc
-      toc_header = "* TOC\n{:toc}\n\n"
-
-      raw = renderer.new(toc_header + markdown_content, {
+      raw = renderer.new(TOC_HEADER + markdown_content, {
         input: 'kramdown',
         toc_levels: "1..#{@toc_depth + 1}",
         smart_quotes: ["apos", "apos", "quot", "quot"]
