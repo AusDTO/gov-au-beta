@@ -1,3 +1,5 @@
+-# DEPRECATED - TOC is generated as part of content
+
 -# locals: node
 - depth = node.options.toc
 - if depth > 0
@@ -5,4 +7,5 @@
     %h2 On this page
     -# Add one to depth because nesting_level refers to the markdown heading level
     -# and content should start at h2
+
     != node.rendered[:content_body].toc(depth + 1)

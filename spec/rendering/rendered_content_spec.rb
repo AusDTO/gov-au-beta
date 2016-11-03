@@ -3,10 +3,11 @@ require 'rails_helper'
 # set type to helper to include capybara matchers
 RSpec.describe RenderedContent, type: :helper do
 
-  let(:node) { Fabricate(:general_content) }
+  let(:node) { Fabricate(:general_content, options: {toc: 2}) }
   let(:h) { ViewHelpers.instance }
 
   before do
+    #node.options.toc = 2
     node.content_body = raw
   end
 
@@ -65,12 +66,12 @@ RSpec.describe RenderedContent, type: :helper do
       it { is_expected.not_to have_css('iframe') }
     end
 
-    context 'changes # links to placeholder span' do
-      let(:raw) { '[a placeholder link](#)' }
-      it { is_expected.not_to have_link('a placeholder link', href: '#') }
-      it { is_expected.to have_css('span.placeholder-link') }
-      it { is_expected.to match('a placeholder link') }
-    end
+    # context 'changes # links to placeholder span' do
+    #   let(:raw) { '[a placeholder link](#)' }
+    #   it { is_expected.not_to have_link('a placeholder link', href: '#') }
+    #   it { is_expected.to have_css('span.placeholder-link') }
+    #   it { is_expected.to match('a placeholder link') }
+    # end
 
     context 'strips script tags' do
       let(:raw) { 'Stuff<script>alert()</script>' }
@@ -90,7 +91,7 @@ RSpec.describe RenderedContent, type: :helper do
     end
 
     context 'creates toc data' do
-      let(:raw) { "## heading one\n## heading two" }
+      let(:raw) { "## heading one\n\n## heading two" }
       it { is_expected.to have_css('#heading-one') }
       it { is_expected.to have_css('#heading-two') }
     end
@@ -132,25 +133,18 @@ RSpec.describe RenderedContent, type: :helper do
   end
 
   describe '#toc' do
-    subject { node.decorate.rendered[:content_body].toc }
+    subject { node.decorate.rendered[:content_body].content }
 
     context 'creates an html list of headings' do
-      let(:raw) { "## heading one\n## heading two" }
+      let(:raw) { "## heading one\n\n## heading two" }
       it { is_expected.to have_css('ul') }
       it { is_expected.to have_link('heading one', href: '#heading-one') }
       it { is_expected.to have_link('heading two', href: '#heading-two') }
     end
 
-    context 'stops at h2 by default' do
-      let(:raw) { "## heading one\n### heading two" }
-      it { is_expected.to have_css('ul') }
-      it { is_expected.to have_link('heading one', href: '#heading-one') }
-      it { is_expected.not_to have_link('heading two') }
-    end
-
     context 'sets nesting level' do
-      let(:raw) { "## heading one\n### heading two" }
-      subject { node.decorate.rendered[:content_body].toc(3) }
+      before { node.options.toc = 3 }
+      let(:raw) { "## heading one\n\n### heading two" }
       it { is_expected.to have_css('ul') }
       it { is_expected.to have_link('heading one', href: '#heading-one') }
       it { is_expected.to have_link('heading two', href: '#heading-two') }
