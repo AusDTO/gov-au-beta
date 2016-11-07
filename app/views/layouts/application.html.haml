@@ -21,7 +21,7 @@
 
   = render 'application/signed_in_nav' if user_signed_in?
 
-  %div.govau-header-row
+  %div.govau-header-row{role: 'banner'}
     %div.wrapper
       - if content_for?(:header)
         = yield(:header)
@@ -49,7 +49,7 @@
         = render 'feedback_bar'
 
         -#Normal footer section
-        %section
+        %div
           .footer-logo
             = image_tag 'coat-of-arms.png', alt: 'Australian Government Coat of Arms'
           .footer-links

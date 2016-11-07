@@ -46,7 +46,7 @@
  // These have questions raised on ui-kit for whether they want to include it or if it should
  // be our custom stuff
  @import "content"; // https://github.com/AusDTO/gov-au-ui-kit/issues/300
- @import "stickyfooter"; //replacement for flexbox bug
+ //@import "stickyfooter"; //replacement for flexbox bug
  @import "table-text-size"; // cascading font-size bug in tables
 
  // Editor back end styles (FIXME: quick and dirty)
