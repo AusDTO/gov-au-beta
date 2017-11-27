@@ -21,7 +21,7 @@ deployment:
     owner: AusDTO
     commands:
       - cf api https://api.system.y.cld.gov.au
-      - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
+      - cf auth $CF_USER_STAGING $CF_PASSWORD_STAGING
       - cf target -o dta -s govau
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
