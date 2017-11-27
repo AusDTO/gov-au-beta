@@ -1,12 +1,13 @@
 ---
 machine:
   ruby:
-    version: 2.3.1
+    version: 2.3.5
 
 dependencies:
   pre:
     - curl -v -L -f -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
     - sudo dpkg -i cf-cli_amd64.deb
+    - cf install-plugin https://github.com/govau/autopilot/releases/download/0.0.5-venapp/autopilot-linux -f
     - cf -v
     - cp .env.sample .env
 
@@ -15,6 +16,17 @@ test:
     - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
 
 deployment:
+  cloud-migration:
+    branch: cloud-migration
+    owner: AusDTO
+    commands:
+      - cf api https://api.system.y.cld.gov.au
+      - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
+      - cf target -o dta -s govau
+      - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
+          -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
+          -F local_username=`whoami`
+      - cf zero-downtime-push gov-au-beta -f manifest.yml
   staging:
     branch: develop
     owner: AusDTO
