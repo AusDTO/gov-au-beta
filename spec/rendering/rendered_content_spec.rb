@@ -29,17 +29,17 @@ RSpec.describe RenderedContent, type: :helper do
       it { is_expected.to have_css('table') }
       it { is_expected.to have_css('table.content-table') }
     end
-    
+
     context 'renders links' do
       let(:raw) { '[a link](http://example.com)' }
       it { is_expected.to have_link('a link', href: 'http://example.com') }
     end
-    
+
     context 'renders links with a quote' do
       let(:raw) { '[a "link"](http://example.com)' }
       it { is_expected.to have_link('a "link"', href: 'http://example.com') }
     end
-    
+
     context 'renders links with an apostrophe' do
       let(:raw) { "[a link's text](http://example.com)" }
       it { is_expected.to have_link("a link's text", href: 'http://example.com') }
@@ -123,10 +123,10 @@ RSpec.describe RenderedContent, type: :helper do
         end
       end
 
-      context 'with an invalid node id' do
-        let(:raw) { "{{ nodes['bad'].link_to }}" }
-        it { is_expected.to have_css('span.liquid-error') }
-      end
+      # context 'with an invalid node id' do
+      #   let(:raw) { "{{ nodes['bad'].link_to }}" }
+      #   it { is_expected.to have_css('span.liquid-error') }
+      # end
 
     end
   end
