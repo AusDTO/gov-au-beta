@@ -1,4 +1,4 @@
-ruby '2.3.1'
+ruby '2.3.5'
 
 # Primary source
 source 'https://rubygems.org'
