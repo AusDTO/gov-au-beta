@@ -1,4 +1,4 @@
-ruby '2.3.1'
+ruby '2.3.5'
 
 # Primary source
 source 'https://rubygems.org'
@@ -46,7 +46,7 @@ gem 'redcarpet', '~> 3.3'
 gem 'andand', '~> 1.3'
 gem 'diff-lcs', '~> 1.2.5'
 gem 'gretel', '~> 3.0'
-gem 'prometheus-client', '~> 0.6'
+gem 'prometheus-client', '~> 0.7.1'
 gem 'html2haml', '~> 2.0'
 gem 'rubyzip', '>= 1.0.0'
 gem 'ruby-sun-times', '~> 0.1', require: 'sun_times'
