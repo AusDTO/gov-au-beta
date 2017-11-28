@@ -26,6 +26,7 @@ deployment:
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
+      - bundle exec rake assets:precompile
       - cf zero-downtime-push gov-au-beta -f manifest.yml
   staging:
     branch: develop
