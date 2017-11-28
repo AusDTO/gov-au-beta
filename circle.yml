@@ -32,22 +32,23 @@ deployment:
     branch: develop
     owner: AusDTO
     commands:
-      - cf api https://api.system.staging.digital.gov.au
-      - cf auth $CF_STAGING_USER $CF_STAGING_PASSWORD
-      - cf target -o govau -s platform
+      - cf api https://api.system.y.cld.gov.au
+      - cf auth $CF_USER_STAGING $CF_PASSWORD_STAGING
+      - cf target -o dta -s govau
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
-      - ./bin/deploy-staging.sh
+      - bundle exec rake assets:precompile
+      - cf zero-downtime-push gov-au-beta -f manifest.yml
   production:
     tag: /v.*/
     owner: AusDTO
     commands:
-      - cf api $CF_API_PROD
+      - cf api https://api.system.b.cld.gov.au
       - cf auth $CF_USER_PROD $CF_PASSWORD_PROD
-      - cf target -o $CF_ORG_PROD
-      - cf target -s $CF_SPACE_PROD
+      - cf target -o dta -s govau
       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$ROLLBAR_PROD_ACCESS_TOKEN
           -F environment=production -F revision=`git log -n 1 --pretty=format:"%H"`
           -F local_username=`whoami`
-      - ./bin/deploy-prod.sh
+      - bundle exec rake assets:precompile
+      - cf zero-downtime-push gov-au-beta -f manifest.yml
