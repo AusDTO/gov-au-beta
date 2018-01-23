@@ -29,7 +29,7 @@ class NodeDecorator < Draper::Decorator
     unless @rendered
       @rendered = {}
       renderable_fields.each do |field|
-        @rendered[field] = RenderedContent.new(object, object.send(field))
+        @rendered[field] = RenderedContent.new(object, object.send(field), object.options.toc)
       end
     end
     @rendered

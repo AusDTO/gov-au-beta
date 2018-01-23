@@ -14,7 +14,7 @@ module GovAuBeta
 
     # Allow additional data through the sanitizer
     config.after_initialize do
-      ActionView::Base.sanitized_allowed_tags.merge(%w{table th tr td thead tbody})
+      ActionView::Base.sanitized_allowed_tags.merge(%w{nav table th tr td thead tbody})
       ActionView::Base.sanitized_allowed_attributes.merge(%w{id})
       Loofah::HTML5::WhiteList::ALLOWED_PROTOCOLS.add('tel')
     end

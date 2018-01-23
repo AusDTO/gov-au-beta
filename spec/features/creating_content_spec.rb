@@ -37,7 +37,7 @@ RSpec.describe 'creating content:', type: :feature do
     context 'can set table of contents' do
       def set_toc(value)
         fill_in('Name', with: name)
-        fill_in('Body', with: "## heading 1\nGood Content\n### heading 2\n## heading 3")
+        fill_in('Body', with: "## heading 1\n\nGood Content\n\n### heading 2\n\n## heading 3")
         fill_in('Short summary', with: 'good summary')
         select(I18n.t("options.toc.x#{value}"), from: 'Table of contents')
         click_button('Create')

@@ -20,11 +20,11 @@
 
     %dt Summary
     %dd
-      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:summary])
+      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:summary], node.options.toc)
 
     %dt Body
     %dd
-      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:content_body])
+      = render partial: 'rendered_content', object: RenderedContent.new(node, content[:content_body], node.options.toc)
 
     - content.optional_keys_in_order.each do |key|
       %dt= key.to_s.titleize
